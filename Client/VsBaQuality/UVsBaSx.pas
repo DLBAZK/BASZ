@@ -175,7 +175,9 @@ begin
                 except
                   on ex:Exception do
                   begin
-                  
+                    EndWaitWindow;
+                    EnableControls;
+                    Exit;
                   end;
                 end;
               end;
@@ -186,6 +188,7 @@ begin
         finally
           clientdtDest.EnableControls;
         end;
+        ShowMsgSure('±£´æ³É¹¦!');
       end;
     end;
   finally
