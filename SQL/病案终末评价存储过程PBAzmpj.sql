@@ -9,8 +9,9 @@ IF EXISTS (
    DROP PROCEDURE dbo.PBAzmpj
 GO
 
-CREATE PROCEDURE dbo.PBAzmpj
-	@CH0A00 varchar(20)
+create PROCEDURE dbo.PBAzmpj
+	@CH0A00 varchar(20),
+	@Zklb varchar(10)
 WITH RECOMPILE	 
 AS
 BEGIN
@@ -34,7 +35,7 @@ BEGIN
   )
   
   DECLARE cur_level cursor LOCAL FOR
-    SELECT code,codename,uppercode,xmfz from Vszmzlpf where isTy =0 order by uppercode
+    SELECT code,codename,uppercode,xmfz from Vszmzlpf where isTy =0 and zklb=@Zklb order by uppercode
   Open cur_level 
   FETCH NEXT FROM cur_level INTO @code,@codename,@uppercode,@FZ
   WHILE @@FETCH_STATUS = 0

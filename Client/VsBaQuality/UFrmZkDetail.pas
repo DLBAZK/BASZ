@@ -1,3 +1,9 @@
+ /// <summary>
+ /// 病案质控扣分详细项目
+ /// </summary>
+ /// <author>JDL</author>
+/// <date> 2016-05-16 </date>
+
 unit UFrmZkDetail;
 
 interface

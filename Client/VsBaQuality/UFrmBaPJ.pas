@@ -1,11 +1,9 @@
-{*******************************************************}
-{                                                       }
-{       病案终末评价                                    }
-{                                                       }
-{       版权所有 (C) 2016 武汉雕龙软件医疗数据服务      }
-{                                                       }
-{*******************************************************}
 
+ /// <summary>
+ /// 病案终末评价功能
+ /// </summary>
+ /// <author>JDL</author>
+/// <date> 2016-05-22 </date>
 unit UFrmBaPJ;
 
 interface
@@ -16,15 +14,14 @@ uses
   AdvPanel, AdvAppStyler, AdvToolBar, AdvToolBarStylers, AdvOfficeStatusBar,
   AdvOfficeStatusBarStylers, ExtCtrls, AdvSplitter, StdCtrls, SUIEdit,
   EllipsLabel, TFlatGroupBoxUnit, AdvGlowButton, DBGridEhGrouping, GridsEh,
-  DBGridEh, TFlatPanelUnit;
+  DBGridEh, TFlatPanelUnit, DBCtrls, SUIDBCtrls, ComCtrls, AdvDateTimePicker,
+  AdvOfficeButtons, UDLAdvCheckBox;
 
 type
   TFrmBaPJ = class(TFrmSuiDBForm)
     AdvPanel2: TAdvPanel;
     AdvSplitter1: TAdvSplitter;
     FlatGroupBox1: TFlatGroupBox;
-    EllipsLabel1: TEllipsLabel;
-    suiedtZYH: TsuiEdit;
     AdvbtnActLocate: TAdvGlowButton;
     dbgrdhBaList: TDBGridEh;
     FlatPanel1: TFlatPanel;
@@ -34,6 +31,13 @@ type
     clientdtPJDetail: TClientDataSet;
     dsPJDetail: TDataSource;
     AdvbtnClose: TAdvGlowButton;
+    EllipsLabel2: TEllipsLabel;
+    suicbcbbLB: TsuiDBLookupComboBox;
+    clientdtLB: TClientDataSet;
+    dsLB: TDataSource;
+    dladvChkCH0A27: TDLAdvCheckBox;
+    advDtpks: TAdvDateTimePicker;
+    advDtpjs: TAdvDateTimePicker;
     procedure ActLocateExecute(Sender: TObject);
     procedure suiedtZYHKeyPress(Sender: TObject; var Key: Char);
     procedure suiedtZYHKeyDown(Sender: TObject; var Key: Word;
@@ -61,17 +65,69 @@ implementation
 { TFrmBaPJ }
 
 procedure TFrmBaPJ.ActLocateExecute(Sender: TObject);
+const
+  fsql = 'insert into VsPJBA0A(CH0A00,CH0A01,CH0A02,CH0A03,CH0A27,zklb) select CH0A00,CH0A01,CH0A02,CH0A03,CH0A27,^%s^'
+       +'from VsCH0A where %s and not exists(select * from VsPJBA0A a left join VsCH0A b on a.CH0A00=b.CH0A01 where zklb=^%0:s^)';
 var
- StrCH0A00:string; //住院号
+ selsql:string;
+ dm:string;
+ IsAll:Boolean;
 begin
   inherited;
-  if suiedtZYH.Text = '' then Exit;
-  if not DLCDS.Active then Exit;
-  if DLCDS.IsEmpty then Exit;
-  StrCH0A00 := suiedtZYH.Text;
-  if not DLCDS.Locate('CH0A00',StrCH0A00,[loCaseInsensitive]) then
+  if (not clientdtLB.Active) or (clientdtLB.IsEmpty) then
   begin
-    ShowMsgSure('这条记录不存在!');
+    ShowMsgSure('类别数据为空！');
+    exit;
+  end;
+  if VarIsEmpty(suicbcbbLB.KeyValue) then
+  begin
+    ShowMsgSure('请选择类别!');
+    Exit;
+  end;
+  dm := suicbcbbLB.KeyValue;
+  IsAll := clientdtLB.FieldByName('isChoice').AsInteger =1;
+
+  if IsAll then  //查询新的病历
+  begin
+    if not dladvChkCH0A27.Checked then
+    begin
+      ShowMsgSure('请选择出院日期!');
+      Exit;
+    end;
+    if advDtpks.Date > advDtpjs.Date then
+       selsql := format('CH0A27 >= %s and CH0A27 <= %s',[QuotedStr(DateToStr(advDtpjs.Date)),QuotedStr(DateToStr(advDtpks.Date))])
+    else
+      selsql := format('CH0A27 >= %s and CH0A27 <= %s',[QuotedStr(DateToStr(advDtpks.Date)),QuotedStr(DateToStr(advDtpjs.Date))]) ;
+    try
+      //抽取选择出院日期范围的病历到筛选表
+      TMidProxy.SqlExecute(Format(fsql,[dm,selsql]));
+      DLCDS.Mid_Open(Format('select * from VsPJBA0A where %s and zklb=%s',[selsql,QuotedStr(dm)]));
+      if DLCDS.IsEmpty then
+      begin
+        ShowMsgSure('数据为空!');
+        Exit;
+      end;
+    finally
+
+    end;
+
+  end
+  else //病历筛选表中查询数据
+  begin
+    selsql :=Format( 'select * from VsPJBA0A where zklb=%s',[QuotedStr(dm)]);
+    try
+      DLCDS.Mid_Open(selsql);
+      if DLCDS.IsEmpty then
+      begin
+        ShowMsgSure('需要筛选此类别病历!');
+        Exit;
+      end;
+    except
+      on ex:Exception do
+      begin
+        WriteErrorLog(Format('查询筛选的病历数据出现异常；%s',[ex.Message]));
+      end;
+    end;
   end;
 
 end;
@@ -91,11 +147,11 @@ begin
   if clientdtPJDetail.IsEmpty then Exit;
   if not DLCDS.Active then Exit;
   if DLCDS.IsEmpty then Exit;
-  if clientdtPJDetail.ChangeCount <1 then 
-  begin
-    ShowMsgSure('数据没有被修改，不用保存!');
-    Exit;
-  end;
+//  if clientdtPJDetail.ChangeCount <1 then
+//  begin
+//    ShowMsgSure('数据没有被修改，不用保存!');
+//    Exit;
+//  end;
    //获取住院号
   CH0A00:=DLCDS.FieldByName('CH0A00').AsString;
   sql := Format('delete from VsBAZmPj where CH0A00=%s',[CH0A00]);
@@ -143,37 +199,31 @@ end;
 
 constructor TFrmBaPJ.Create(Aower: TComponent);
 const
-  sql = 'select * from VSPJBA0A';
-
+  sql = 'select * from VSPJBA0A where 1 <> 1';
+  lbSql = ' select * from Vszklb where isTy = 0';
 begin
   inherited Create(Aower,EuVsBaZmPj,sql);
-  if DLCDS.Active then
-  begin
-    if DLCDS.IsEmpty then
-    begin
-      ShowMsgSure('尚未筛选病历,无法评价质量!');
-      Exit;
-    end
-    else
-      SetSbSimpleText(Format('共计：%d条数据',[DLCDS.RecordCount]));
-  end;
+
+  TMidProxy.SqlOpen(lbSql,clientdtLB);
+  dladvChkCH0A27.AddStateControls([advDtpks,advDtpjs]);
 end;
 
 procedure TFrmBaPJ.dbgrdhBaListCellClick(Column: TColumnEh);
 const
-  execSql ='exec PBAzmpj ^%s^' ;
+  execSql ='exec PBAzmpj ^%s^,^%s^' ;
 var
  sql:string;
-
+ dm:string;
 begin
   inherited;
   try
     if not DLCDS.Active then Exit;
     if DLCDS.IsEmpty then Exit;
     CH0A00 := DLCDS.FieldByName('CH0A00').AsString;
+    dm := DLCDS.FieldByName('zklb').AsString;
     if clientdtPJDetail.Active then
       clientdtPJDetail.EmptyDataSet;
-    sql := Format(execSql,[CH0A00]);
+    sql := Format(execSql,[CH0A00,dm]);
     TMidProxy.SqlOpen(sql,clientdtPJDetail);
     WriteDeBug(Format('获取%s病历质量评价信息',[CH0A00]));
   finally

@@ -1,23 +1,11 @@
-
-
-/*if not exists(select * from VsMidOper where MidOperCode ='405')
-  insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
-     VALUES  (405,'TVsSjpf','200003','EuVsSjpf','病案数据评分设置中间层')
-     
-  
-if not exists(select * from VsMenu where MenuCode ='99851')
-  insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
-     values('99851','51','998','&E.病案数据评分设置','1','TfrmSjpf','100003','1','1',null)
-     */
-     
-     
-
-
 	
 ---------------------------------病案菜单栏----------------------------------------------	
 if not exists (select * from VsLib where LibCode ='100025')
 	insert into VsLib(LibCode,LibName,LibDesc) values('100025','BaQuality.dll','病案质控&评价')
 	
+ 
+ if not exists (select * from VsLib where LibCode ='100026')
+	insert into VsLib(LibCode,LibName,LibDesc) values('100026','BaQualityCfg.dll','病案质控&评价设置')
 	
 if  exists (select * from VsMenu where MenuCode = '108')
 begin
@@ -69,13 +57,25 @@ end
 else
 	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
 	values('1080202','02','10802','&2.病案首页质量评价','1','TFrmBaPJ','100025','1','1',null)
-
+	
+if not exists(select * from VsMenu where MenupCode ='10803')
+  insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+     values('10803','03','108','&3.病案数据评分设置','1','TfrmSjpf','100026','1','1',null)
+     
+if not exists(select * from VsMenu where MenuCode ='10804')
+  insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+     values('10804','04','108','&4.病历终末质量等级设置','1','TFrmZmzlpf','100026','1','1',null)
+	 
+if not exists(select * from VsMenu where MenuCode ='10805')
+  insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+     values('10805','05','108','&5.病历类别设置','1','TfrmLBSet','100026','1','1',null)
+	 
 
 select * from VsMenu where left(MenuCode,3)=108
 
 ---------------------------病案质控中间业务表----------------------------
 
-if Not exists (select * from VsLib where LibCode ='200025')
+if  exists (select * from VsLib where LibCode ='200025')
 begin
 	delete from VsLib where LibCode='200025'
 	insert into VsLib(LibCode,LibName,LibDesc) values('200025','M_BaQuality.dll','病案质控&评价')
@@ -83,6 +83,13 @@ end
 else
 	insert into VsLib(LibCode,LibName,LibDesc) values('200025','M_BaQuality.dll','病案质控&评价')
 	
+if  exists (select * from VsLib where LibCode ='200026')
+begin
+	delete from VsLib where LibCode='200026'
+	insert into VsLib(LibCode,LibName,LibDesc) values('200026','M_BaQualityCfg.dll','病案质控&评价')
+end
+else
+	insert into VsLib(LibCode,LibName,LibDesc) values('200026','M_BaQualityCfg.dll','病案质控&评价')
 	
 	
 if  exists(select * from VsMidOper where MidOperCode ='402')
@@ -115,7 +122,15 @@ end
 else
   insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
      VALUES  (404,'TVsBaSx','200025','EuVsBaSx','病案筛选中间层')	    
-     
+ 
+if not exists(select * from VsMidOper where MidOperCode ='405')
+  insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
+     VALUES  (405,'TVsSjpf','200026','EuVsSjpf','病案数据评分设置中间层')
+
+if not exists(select * from VsMidOper where MidOperCode ='406')
+  insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
+     VALUES  (406,'TVsZmzlpf','200026','EuVsZmzlpf','病历终末质量等级设置中间层')
+	 
  if  exists(select * from VsMidOper where MidOperCode ='407')
 begin
 	delete from VsMidOper where MidOperCode = '407'
@@ -124,7 +139,11 @@ begin
 end
 else
   insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
-     VALUES  (407,'TVsBaZmPj','200025','EuVsBaZmPj','病案终末评价中间层')	    
+     VALUES  (407,'TVsBaZmPj','200025','EuVsBaZmPj','病案终末评价中间层')
+	 
+if not exists(select * from VsMidOper where MidOperCode ='408')
+  insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
+     VALUES  (408,'TVsBaLbSet','200026','EuVsBaLbSz','病历类别设置中间层')
      
 select * from VsMidOper where MidOperLib=200025
      

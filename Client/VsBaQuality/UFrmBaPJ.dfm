@@ -29,7 +29,7 @@ inherited FrmBaPJ: TFrmBaPJ
     ExplicitHeight = 608
     FullHeight = 200
     object AdvSplitter1: TAdvSplitter
-      Left = 300
+      Left = 425
       Top = 0
       Height = 608
       Appearance.BorderColor = clNone
@@ -46,7 +46,7 @@ inherited FrmBaPJ: TFrmBaPJ
     object AdvPanel2: TAdvPanel
       Left = 0
       Top = 0
-      Width = 300
+      Width = 425
       Height = 608
       Align = alLeft
       Color = 16640730
@@ -76,10 +76,10 @@ inherited FrmBaPJ: TFrmBaPJ
       object FlatGroupBox1: TFlatGroupBox
         Left = 1
         Top = 1
-        Width = 298
-        Height = 50
+        Width = 423
+        Height = 88
         Align = alTop
-        Caption = #23450#20301
+        Caption = #26597#35810
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -87,12 +87,12 @@ inherited FrmBaPJ: TFrmBaPJ
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        object EllipsLabel1: TEllipsLabel
-          Left = 3
+        object EllipsLabel2: TEllipsLabel
+          Left = 21
           Top = 25
-          Width = 42
+          Width = 28
           Height = 20
-          Caption = #20303#38498#21495
+          Caption = #31867#21035
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -14
@@ -103,24 +103,14 @@ inherited FrmBaPJ: TFrmBaPJ
           EllipsType = etNone
           Version = '1.0.0.0'
         end
-        object suiedtZYH: TsuiEdit
-          Left = 57
-          Top = 23
-          Width = 121
-          Height = 19
-          UIStyle = DeepBlue
-          BorderColor = clBlack
-          TabOrder = 0
-          OnKeyDown = suiedtZYHKeyDown
-          OnKeyPress = suiedtZYHKeyPress
-        end
         object AdvbtnActLocate: TAdvGlowButton
-          Left = 184
-          Top = 13
-          Width = 109
-          Height = 32
+          Left = 342
+          Top = 18
+          Width = 74
+          Height = 69
           Action = ActLocate
           AutoSize = True
+          Caption = '    '#26597#25214
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -14
@@ -152,13 +142,103 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorCheckedTo = 16768988
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
+          Layout = blGlyphTop
+        end
+        object suicbcbbLB: TsuiDBLookupComboBox
+          Left = 79
+          Top = 17
+          Width = 106
+          Height = 28
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          KeyField = 'dm'
+          ListField = 'dmmc'
+          ListSource = dsLB
+          ParentFont = False
+          TabOrder = 0
+          UIStyle = WinXP
+          BorderColor = 6842472
+          ArrowColor = clBlack
+          ButtonColor = 14609391
+        end
+        object dladvChkCH0A27: TDLAdvCheckBox
+          Left = 2
+          Top = 50
+          Width = 208
+          Height = 31
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -14
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+          Alignment = taLeftJustify
+          Caption = #20986#38498#26085#26399'                             '#21040
+          ReturnIsTab = False
+          Version = '1.3.4.1'
+        end
+        object advDtpks: TAdvDateTimePicker
+          Left = 79
+          Top = 50
+          Width = 106
+          Height = 25
+          Date = 42507.468182870370000000
+          Time = 42507.468182870370000000
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          Kind = dkDate
+          ParentFont = False
+          TabOrder = 3
+          BorderStyle = bsSingle
+          Ctl3D = True
+          DateTime = 42507.468182870370000000
+          Version = '1.2.0.1'
+          LabelFont.Charset = DEFAULT_CHARSET
+          LabelFont.Color = clWindowText
+          LabelFont.Height = -11
+          LabelFont.Name = 'Tahoma'
+          LabelFont.Style = []
+        end
+        object advDtpjs: TAdvDateTimePicker
+          Left = 222
+          Top = 50
+          Width = 121
+          Height = 25
+          Date = 42507.468182870370000000
+          Time = 42507.468182870370000000
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          Kind = dkDate
+          ParentFont = False
+          TabOrder = 4
+          BorderStyle = bsSingle
+          Ctl3D = True
+          DateTime = 42507.468182870370000000
+          Version = '1.2.0.1'
+          LabelFont.Charset = DEFAULT_CHARSET
+          LabelFont.Color = clWindowText
+          LabelFont.Height = -11
+          LabelFont.Name = 'Tahoma'
+          LabelFont.Style = []
         end
       end
       object dbgrdhBaList: TDBGridEh
         Left = 1
-        Top = 51
-        Width = 298
-        Height = 556
+        Top = 89
+        Width = 423
+        Height = 518
         Align = alClient
         AutoFitColWidths = True
         DataGrouping.GroupLevels = <>
@@ -225,9 +305,9 @@ inherited FrmBaPJ: TFrmBaPJ
       end
     end
     object FlatPanel1: TFlatPanel
-      Left = 303
+      Left = 428
       Top = 0
-      Width = 935
+      Width = 810
       Height = 608
       ParentColor = True
       Align = alClient
@@ -235,7 +315,7 @@ inherited FrmBaPJ: TFrmBaPJ
       object FlatPanel2: TFlatPanel
         Left = 1
         Top = 560
-        Width = 933
+        Width = 808
         Height = 47
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -244,9 +324,9 @@ inherited FrmBaPJ: TFrmBaPJ
         Font.Style = []
         ParentColor = True
         Align = alBottom
-        TabOrder = 0
+        TabOrder = 1
         object AdvbtnacSave: TAdvGlowButton
-          Left = 842
+          Left = 717
           Top = 1
           Width = 90
           Height = 45
@@ -267,7 +347,7 @@ inherited FrmBaPJ: TFrmBaPJ
           NotesFont.Name = 'Tahoma'
           NotesFont.Style = []
           ParentFont = False
-          TabOrder = 0
+          TabOrder = 1
           OnClick = AdvbtnacSaveClick
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
@@ -287,7 +367,7 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object AdvbtnClose: TAdvGlowButton
-          Left = 752
+          Left = 627
           Top = 1
           Width = 90
           Height = 45
@@ -305,7 +385,7 @@ inherited FrmBaPJ: TFrmBaPJ
           NotesFont.Name = 'Tahoma'
           NotesFont.Style = []
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 0
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
           Appearance.ColorDisabled = 15921906
@@ -327,7 +407,7 @@ inherited FrmBaPJ: TFrmBaPJ
       object dbgrdhPJDetail: TDBGridEh
         Left = 1
         Top = 1
-        Width = 933
+        Width = 808
         Height = 559
         Align = alClient
         AutoFitColWidths = True
@@ -354,7 +434,7 @@ inherited FrmBaPJ: TFrmBaPJ
         RowLines = 3
         SumList.Active = True
         SumList.VirtualRecords = True
-        TabOrder = 1
+        TabOrder = 0
         TitleFont.Charset = ANSI_CHARSET
         TitleFont.Color = clWindowText
         TitleFont.Height = -14
@@ -501,5 +581,16 @@ inherited FrmBaPJ: TFrmBaPJ
     DataSet = clientdtPJDetail
     Left = 480
     Top = 576
+  end
+  object clientdtLB: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 320
+    Top = 344
+  end
+  object dsLB: TDataSource
+    DataSet = clientdtLB
+    Left = 288
+    Top = 336
   end
 end

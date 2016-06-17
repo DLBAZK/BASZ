@@ -17,7 +17,10 @@ uses
   UVsMidClassList in '..\BaseClass\UVsMidClassList.pas',
   UVsMidStand in '..\BaseClass\UVsMidStand.pas',
   UVsMidPersistent in '..\BaseClass\UVsMidPersistent.pas',
-  UVsRankSet in 'UVsRankSet.pas';
+  UVsRankSet in 'UVsRankSet.pas',
+  UVsSjpf in 'UVsSjpf.pas',
+  UVsZmzlpf in 'UVsZmzlpf.pas',
+  UVsBaLbSet in 'UVsBaLbSet.pas';
 
 {$R *.res}
 

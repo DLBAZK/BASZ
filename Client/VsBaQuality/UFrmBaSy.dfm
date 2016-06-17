@@ -413,7 +413,7 @@ inherited FrmBaSy: TFrmBaSy
       object AdvbtnOK: TAdvGlowButton
         Left = 368
         Top = 13
-        Width = 100
+        Width = 90
         Height = 32
         AutoSize = True
         Caption = #20998#26512

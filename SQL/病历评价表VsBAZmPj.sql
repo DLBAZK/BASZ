@@ -1,7 +1,7 @@
 USE [batj2005]
 GO
 
-/****** Object:  Table [dbo].[VsPJBA0A]    Script Date: 06/04/2016 10:29:53 ******/
+/****** Object:  Table [dbo].[VsBAZmPj]    Script Date: 05/25/2016 16:24:24 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,17 +11,18 @@ GO
 SET ANSI_PADDING ON
 GO
 
-CREATE TABLE [dbo].[VsPJBA0A](
+CREATE TABLE [dbo].[VsBAZmPj](
 	[CH0A00] [varchar](50) NOT NULL,
-	[CH0A01] [varchar](50) NOT NULL,
-	[CH0A02] [varchar](50) NULL,
-	[CH0A03] [nchar](1) NULL,
- CONSTRAINT [PK_VsPJBA0A] PRIMARY KEY CLUSTERED 
+	[Code] [varchar](50) NOT NULL,
+	[Score] [numeric](5, 2) NULL,
+	[Remark] [varchar](1000) NULL,
+ CONSTRAINT [PK_VsBAZmPj] PRIMARY KEY CLUSTERED 
 (
 	[CH0A00] ASC,
-	[CH0A01] ASC
+	[Code] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
 
 GO
 

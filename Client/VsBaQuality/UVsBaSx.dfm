@@ -92,6 +92,16 @@ inherited FrmBaSx: TFrmBaSx
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        object Label1: TLabel
+          Left = 343
+          Top = 53
+          Width = 60
+          Height = 20
+          Caption = #36136#25511#31867#21035
+          Color = 16640730
+          ParentColor = False
+          Transparent = True
+        end
         object dladvChkZyts: TDLAdvCheckBox
           Left = 9
           Top = 53
@@ -103,7 +113,7 @@ inherited FrmBaSx: TFrmBaSx
           Font.Name = #24494#36719#38597#40657
           Font.Style = []
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 8
           Alignment = taLeftJustify
           Caption = #20303#38498#22825#25968'                             '#21040
           ReturnIsTab = False
@@ -120,7 +130,7 @@ inherited FrmBaSx: TFrmBaSx
           Font.Name = #24494#36719#38597#40657
           Font.Style = []
           ParentFont = False
-          TabOrder = 6
+          TabOrder = 1
           Alignment = taLeftJustify
           Caption = #20986#38498#26085#26399'                             '#21040
           ReturnIsTab = False
@@ -141,7 +151,7 @@ inherited FrmBaSx: TFrmBaSx
           Font.Style = []
           Kind = dkDate
           ParentFont = False
-          TabOrder = 0
+          TabOrder = 2
           BorderStyle = bsSingle
           Ctl3D = True
           DateTime = 42507.468182870370000000
@@ -167,7 +177,7 @@ inherited FrmBaSx: TFrmBaSx
           Font.Style = []
           Kind = dkDate
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 3
           BorderStyle = bsSingle
           Ctl3D = True
           DateTime = 42507.468182870370000000
@@ -186,7 +196,7 @@ inherited FrmBaSx: TFrmBaSx
           UIStyle = WinXP
           BorderColor = 6842472
           Enabled = False
-          TabOrder = 2
+          TabOrder = 12
           OnExit = suiedtstartExit
           OnKeyPress = suiedtstartKeyPress
         end
@@ -198,13 +208,13 @@ inherited FrmBaSx: TFrmBaSx
           UIStyle = WinXP
           BorderColor = 6842472
           Enabled = False
-          TabOrder = 3
+          TabOrder = 11
           OnExit = suiedtstartExit
           OnKeyPress = suiedtstartKeyPress
         end
         object AdvGlowButton1: TAdvGlowButton
-          Left = 542
-          Top = 52
+          Left = 593
+          Top = 16
           Width = 100
           Height = 31
           Caption = #31579#36873
@@ -221,7 +231,7 @@ inherited FrmBaSx: TFrmBaSx
           NotesFont.Name = 'Tahoma'
           NotesFont.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 0
           OnClick = AdvGlowButton1Click
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
@@ -251,15 +261,15 @@ inherited FrmBaSx: TFrmBaSx
           Font.Name = #24494#36719#38597#40657
           Font.Style = []
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 4
           Alignment = taLeftJustify
           Caption = #20986#38498#31185#23460
           ReturnIsTab = False
           Version = '1.3.4.1'
         end
         object advckbDeath: TAdvOfficeCheckBox
-          Left = 330
-          Top = 53
+          Left = 542
+          Top = 20
           Width = 55
           Height = 31
           Font.Charset = ANSI_CHARSET
@@ -268,14 +278,14 @@ inherited FrmBaSx: TFrmBaSx
           Font.Name = #24494#36719#38597#40657
           Font.Style = []
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 5
           Alignment = taLeftJustify
           Caption = #27515#20129
           ReturnIsTab = False
           Version = '1.3.4.1'
         end
         object advckbOPS: TAdvOfficeCheckBox
-          Left = 401
+          Left = 542
           Top = 53
           Width = 55
           Height = 30
@@ -285,15 +295,15 @@ inherited FrmBaSx: TFrmBaSx
           Font.Name = #24494#36719#38597#40657
           Font.Style = []
           ParentFont = False
-          TabOrder = 9
+          TabOrder = 10
           Alignment = taLeftJustify
           Caption = #25163#26415
           ReturnIsTab = False
           Version = '1.3.4.1'
         end
         object AdvbtnClose: TAdvGlowButton
-          Left = 661
-          Top = 52
+          Left = 593
+          Top = 51
           Width = 100
           Height = 32
           Action = acClose
@@ -309,7 +319,7 @@ inherited FrmBaSx: TFrmBaSx
           NotesFont.Name = 'Tahoma'
           NotesFont.Style = []
           ParentFont = False
-          TabOrder = 10
+          TabOrder = 7
           Appearance.BorderColor = 12631218
           Appearance.BorderColorHot = 10079963
           Appearance.BorderColorDown = 4548219
@@ -355,7 +365,7 @@ inherited FrmBaSx: TFrmBaSx
           Color = clWindow
           Enabled = False
           ReadOnly = False
-          TabOrder = 11
+          TabOrder = 6
           Visible = True
           OnEnter = AdvedtCH0A23Enter
           OnExit = AdvedtCH0A23Exit
@@ -366,6 +376,26 @@ inherited FrmBaSx: TFrmBaSx
           ButtonWidth = 16
           Etched = False
           OnClickBtn = AdvedtCH0A23ClickBtn
+        end
+        object suicbcbbLB: TsuiDBLookupComboBox
+          Left = 407
+          Top = 53
+          Width = 129
+          Height = 26
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          KeyField = 'dm'
+          ListField = 'dmmc'
+          ListSource = dsLB
+          ParentFont = False
+          TabOrder = 9
+          UIStyle = WinXP
+          BorderColor = 6842472
+          ArrowColor = clBlack
+          ButtonColor = 14609391
         end
       end
     end
@@ -382,7 +412,7 @@ inherited FrmBaSx: TFrmBaSx
       Font.Style = []
       ParentColor = True
       Align = alClient
-      TabOrder = 1
+      TabOrder = 3
       object FlatPanel2: TFlatPanel
         Left = 1
         Top = 1
@@ -414,7 +444,7 @@ inherited FrmBaSx: TFrmBaSx
         end
         object suichkinverseAll: TsuiCheckBox
           Tag = 202
-          Left = 64
+          Left = 68
           Top = 5
           Width = 49
           Height = 26
@@ -433,21 +463,26 @@ inherited FrmBaSx: TFrmBaSx
           Transparent = False
           OnClick = suichkAllClick
         end
-        object FlatbtnAllCancle: TFlatButton
+        object suichkAllCancle: TsuiCheckBox
           Tag = 203
-          Left = 115
+          Left = 127
           Top = 5
-          Width = 65
-          Height = 25
-          Caption = #20840#21462#28040
+          Width = 49
+          Height = 26
+          UIStyle = DeepBlue
+          ParentFont = False
+          AutoSize = True
+          Checked = False
+          Caption = #21462#28040
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -14
           Font.Name = #24494#36719#38597#40657
           Font.Style = []
-          ParentFont = False
           TabOrder = 2
-          OnClick = FlatbtnAllCancleClick
+          State = cbUnchecked
+          Transparent = False
+          OnClick = suichkAllClick
         end
       end
       object dbgrdhDest: TDBGridEh
@@ -768,7 +803,7 @@ inherited FrmBaSx: TFrmBaSx
       Font.Style = []
       ParentColor = True
       Align = alLeft
-      TabOrder = 2
+      TabOrder = 1
       object FlatPanel4: TFlatPanel
         Left = 1
         Top = 1
@@ -800,7 +835,7 @@ inherited FrmBaSx: TFrmBaSx
         end
         object suichkinverse: TsuiCheckBox
           Tag = 102
-          Left = 64
+          Left = 72
           Top = 5
           Width = 49
           Height = 26
@@ -819,21 +854,26 @@ inherited FrmBaSx: TFrmBaSx
           Transparent = False
           OnClick = suichkAllClick
         end
-        object FlatbtnCancle: TFlatButton
+        object suichkCancle: TsuiCheckBox
           Tag = 103
-          Left = 115
+          Left = 131
           Top = 5
-          Width = 65
-          Height = 25
-          Caption = #20840#21462#28040
+          Width = 49
+          Height = 26
+          UIStyle = DeepBlue
+          ParentFont = False
+          AutoSize = True
+          Checked = False
+          Caption = #21462#28040
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -14
           Font.Name = #24494#36719#38597#40657
           Font.Style = []
-          ParentFont = False
           TabOrder = 2
-          OnClick = FlatbtnCancleClick
+          State = cbUnchecked
+          Transparent = False
+          OnClick = suichkAllClick
         end
       end
       object dbgrdhSource: TDBGridEh
@@ -977,7 +1017,7 @@ inherited FrmBaSx: TFrmBaSx
       Height = 429
       ParentColor = True
       Align = alLeft
-      TabOrder = 3
+      TabOrder = 2
       object FlatbtnAllRight: TFlatButton
         Left = 24
         Top = 122
@@ -1146,5 +1186,16 @@ inherited FrmBaSx: TFrmBaSx
     object clientdtSourceChYear: TStringField
       FieldName = 'ChYear'
     end
+  end
+  object dsLB: TDataSource
+    DataSet = clientdtLB
+    Left = 288
+    Top = 336
+  end
+  object clientdtLB: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 320
+    Top = 344
   end
 end

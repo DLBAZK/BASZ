@@ -22,7 +22,10 @@ uses
   UFrmSuiDBListForm in '..\BaseForm\UFrmSuiDBListForm.pas' {FrmSuiDBListForm},
   UGFun in '..\..\Public\UGFun.pas',
   UGVar in '..\..\Public\UGVar.pas',
-  UFrmRankSet in 'UFrmRankSet.pas' {FrmRankSet};
+  UFrmRankSet in 'UFrmRankSet.pas' {FrmRankSet},
+  UFrmSjpf in 'UFrmSjpf.pas' {frmSjpf},
+  UFrmZmzlpf in 'UFrmZmzlpf.pas' {FrmZmzlpf},
+  UFrmLBSet in 'UFrmLBSet.pas' {frmLBSet};
 
 {$R *.res}
 Function DllObjFactory(MainInfo:TMainInfo;FormClass:String):TFormClass;

@@ -1,11 +1,8 @@
-{*******************************************************}
-{                                                       }
-{       病案筛选                                        }
-{                                                       }
-{       版权所有 (C) 2016 武汉雕龙软件医疗数据服务      }
-{                                                       }
-{*******************************************************}
-
+ /// <summary>
+ /// 病案筛选功能
+ /// </summary>
+ /// <author>JDL</author>
+/// <date> 2016-05-20 </date>
 unit UVsBaSx;
 
 interface
@@ -17,7 +14,8 @@ uses
   DBClient, UDlClientDataset, DosMove, AdvPanel, AdvAppStyler, AdvToolBar,
   AdvToolBarStylers, AdvOfficeStatusBar, AdvOfficeStatusBarStylers, ExtCtrls,
   DBGridEhGrouping, AdvSplitter, GridsEh, DBGridEh, TFlatButtonUnit,
-  TFlatPanelUnit, AdvEdit, AdvOfficeButtons, UDLAdvCheckBox, AdvEdBtn;
+  TFlatPanelUnit, AdvEdit, AdvOfficeButtons, UDLAdvCheckBox, AdvEdBtn, DBCtrls,
+  SUIDBCtrls;
 
 type
   TFrmBaSx = class(TFrmSuiDBForm)
@@ -32,13 +30,11 @@ type
     FlatPanel2: TFlatPanel;
     suichkCheckAll: TsuiCheckBox;
     suichkinverseAll: TsuiCheckBox;
-    FlatbtnAllCancle: TFlatButton;
     dbgrdhDest: TDBGridEh;
     FlatPanel3: TFlatPanel;
     FlatPanel4: TFlatPanel;
     suichkAll: TsuiCheckBox;
     suichkinverse: TsuiCheckBox;
-    FlatbtnCancle: TFlatButton;
     dbgrdhSource: TDBGridEh;
     FlatPanel5: TFlatPanel;
     FlatPanel6: TFlatPanel;
@@ -82,11 +78,15 @@ type
     AdvSplitter1: TAdvSplitter;
     AdvbtnClose: TAdvGlowButton;
     AdvedtCH0A23: TAdvEditBtn;
+    suichkCancle: TsuiCheckBox;
+    suichkAllCancle: TsuiCheckBox;
+    suicbcbbLB: TsuiDBLookupComboBox;
+    dsLB: TDataSource;
+    clientdtLB: TClientDataSet;
+    Label1: TLabel;
     procedure suiedtstartKeyPress(Sender: TObject; var Key: Char);
     procedure FlatbtnAllRightClick(Sender: TObject);
     procedure suichkAllClick(Sender: TObject);
-    procedure FlatbtnCancleClick(Sender: TObject);
-    procedure FlatbtnAllCancleClick(Sender: TObject);
     procedure AdvGlowButton1Click(Sender: TObject);
     procedure suiedtstartExit(Sender: TObject);
     procedure AdvbtnSaveClick(Sender: TObject);
@@ -121,7 +121,7 @@ type
     /// </summary>
     /// <param name="BAH">病案号</param>
     /// <returns></returns>
-    function IsExist(BAH:string):Boolean;
+    function IsExist(BAH:string;zklb:string):Boolean;
 
     procedure  InitControl;override;
   public
@@ -144,9 +144,17 @@ var
   CH0A00:string; //住院号
   CH0A02:string; //姓名
   CH0A03:string; //性别
-  
+  CH0A27:string;  //出院日期
+  zklb:string;
 begin
   inherited;
+  if VarIsNull(suicbcbbLB.KeyValue) then
+  begin
+    ShowMsgSure('请选择评价类别!');
+    Exit;
+  end;
+  //评价类别代码
+  zklb := suicbcbbLB.KeyValue;
   StartWaitWindow('正在保存...');
   try
     //DBGridEhSave(dbgrdhDest);
@@ -166,9 +174,11 @@ begin
               CH0A01 := FieldByName('CH0A01').AsString;
               CH0A02 := FieldByName('CH0A02').AsString;
               CH0A03 := FieldByName('CH0A03').AsString;
-              if not IsExist(CH0A00) then            
+              CH0A27 := FieldByName('CH0A27').AsString;
+              if not IsExist(CH0A00,zklb) then            
               begin
-                sql := Format('insert into VsPJBA0A values(%s,%s,%s,%s)',[Quotedstr(CH0A00),Quotedstr(CH0A01),Quotedstr(CH0A02),Quotedstr(CH0A03)]);
+                sql := Format('insert into VsPJBA0A values(%s,%s,%s,%s,%s,%s)',[Quotedstr(CH0A00),Quotedstr(CH0A01),Quotedstr(CH0A02),Quotedstr(CH0A03),Quotedstr
+                (zklb),QuotedStr(CH0A27)]);
                 Application.ProcessMessages;
                 try
                   TMidProxy.SqlExecute(sql);
@@ -321,6 +331,8 @@ begin
 end;
 
 constructor TFrmBaSx.Create(Aower: TComponent);
+const
+  lbSql = ' select * from Vszklb where isTy = 0';
 begin
   inherited Create(Aower,EuVsBaSx,'select getdate()');
   clientdtSource.CreateDataSet;
@@ -328,14 +340,7 @@ begin
   dbgrdhSource.DataSource :=nil;
   dbgrdhDest.DataSource :=nil;
   InitControl;
-end;
-
-procedure TFrmBaSx.FlatbtnAllCancleClick(Sender: TObject);
-begin
-  inherited;
-  suichkCheckAll.Checked :=False;
-  suichkinverseAll.Checked :=False;
-  SetDataCheck(clientdtDest,False,True);
+  TMidProxy.SqlOpen(lbSql,clientdtLB);
 end;
 
 procedure TFrmBaSx.FlatbtnAllRightClick(Sender: TObject);
@@ -458,14 +463,6 @@ end;
 
 
 
-procedure TFrmBaSx.FlatbtnCancleClick(Sender: TObject);
-begin
-  inherited;
-  suichkAll.Checked :=False;
-  suichkinverse.Checked := False;
-  SetDataCheck(clientdtSource,False,True);
-end;
-
 procedure TFrmBaSx.InitControl;
 begin
   inherited;
@@ -477,7 +474,7 @@ begin
   dladvChkCH0A23.checked := False;
 end;
 
-function TFrmBaSx.IsExist(BAH: string): Boolean;
+function TFrmBaSx.IsExist(BAH: string;zklb:string): Boolean;
 var
  Sql:string;
  clientTmp:TClientDataSet;
@@ -485,7 +482,7 @@ begin
   Result :=False;
   if BAH = '' then Exit;
   clientTmp := TClientDataSet.Create(nil);
-  Sql := Format('select count(*) as result from VSPJBA0A where CH0A00=%s',[BAH]);
+  Sql := Format('select count(*) as result from VSPJBA0A where CH0A00=^%s^ and zklb=^%s^',[BAH,zklb]);
   try
     TMidProxy.SqlOpen(Sql,clientTmp);
     if not clientTmp.IsEmpty then
@@ -580,6 +577,7 @@ begin
            begin
              SetDataCheck(clientdtSource,True,True);
              suichkinverse.Checked :=False;
+             suichkCancle.Checked :=False;
            end
            else
            begin
@@ -594,6 +592,7 @@ begin
            begin
              SetDataCheck(clientdtSource,True,False);
              suichkAll.Checked :=False;
+             suichkCancle.Checked :=False;
            end
            else
            begin
@@ -601,12 +600,19 @@ begin
            end;
 
          end;
+         103:
+         begin
+            suichkAll.Checked :=False;
+            suichkinverse.Checked := False;
+            SetDataCheck(clientdtSource,False,True);
+         end;
          201:  //右边全选
          begin
            if Checked then
            begin
              SetDataCheck(clientdtDest,True,True);
              suichkinverseAll.Checked :=false;
+             suichkAllCancle.Checked :=False;
            end
            else
            begin
@@ -623,11 +629,18 @@ begin
            begin
              SetDataCheck(clientdtDest,True,False);
              suichkCheckAll.Checked :=False;
+             suichkAllCancle.Checked :=False;
            end
            else
            begin
              SetDataCheck(clientdtDest,False,False);
            end;
+         end;
+         203:
+         begin
+            suichkCheckAll.Checked :=False;
+            suichkinverseAll.Checked :=False;
+            SetDataCheck(clientdtDest,False,True);
          end;
       end;
     end;

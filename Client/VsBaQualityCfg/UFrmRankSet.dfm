@@ -1,41 +1,39 @@
 inherited FrmRankSet: TFrmRankSet
   BorderStyle = bsNone
   Caption = ''
-  ClientHeight = 312
-  ClientWidth = 280
-  ExplicitWidth = 280
-  ExplicitHeight = 312
+  ClientHeight = 308
+  ClientWidth = 265
+  ExplicitWidth = 265
+  ExplicitHeight = 308
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
-    Top = 293
-    Width = 280
-    ExplicitTop = 260
+    Top = 289
+    Width = 265
+    ExplicitTop = 293
     ExplicitWidth = 280
   end
   inherited advtlbrpgr1: TAdvToolBarPager
-    Width = 280
+    Width = 265
     Margins.Left = 0
     ActivePage = AdvPage2
     Caption.Caption = #35780#20998#31561#32423#35774#32622
     ExplicitWidth = 280
     inherited AdvPage1: TAdvPage
-      Width = 272
-      Height = -33
-      ExplicitWidth = 272
-      ExplicitHeight = -33
+      Width = 257
+      ExplicitWidth = 257
     end
     object AdvPage2: TAdvPage
       Left = 4
       Top = 53
-      Width = 272
-      Height = -33
+      Width = 257
+      Height = 0
       Caption = 'AdvPage2'
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Width = 280
-    Height = 268
+    Width = 265
+    Height = 264
     ExplicitWidth = 280
     ExplicitHeight = 268
     FullHeight = 200
