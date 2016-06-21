@@ -69,7 +69,10 @@ if not exists(select * from VsMenu where MenuCode ='10804')
 if not exists(select * from VsMenu where MenuCode ='10805')
   insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
      values('10805','05','108','&5.病历类别设置','1','TfrmLBSet','100026','1','1',null)
-	 
+
+if not exists(select * from VsMenu where MenuCode ='10806')
+  insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+     values('10806','06','108','&6.病历等级设置','1','TFrmRankSet','100026','1','1',null)		 
 
 select * from VsMenu where left(MenuCode,3)=108
 
@@ -145,6 +148,18 @@ if not exists(select * from VsMidOper where MidOperCode ='408')
   insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
      VALUES  (408,'TVsBaLbSet','200026','EuVsBaLbSz','病历类别设置中间层')
      
+	 
+if  exists(select * from VsMidOper where MidOperCode ='401')
+begin
+	delete from VsMidOper where MidOperCode = '401'
+	insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
+     VALUES  (401,'TVsRankSet','200026','EuVsRank','病案评价等级中间层')	
+end
+else
+  insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
+     VALUES  (401,'TVsRankSet','200026','EuVsRank','病案评价等级中间层')
+	 
+	 
 select * from VsMidOper where MidOperLib=200025
      
 Select * from VsLib

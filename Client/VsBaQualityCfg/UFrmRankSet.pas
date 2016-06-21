@@ -7,7 +7,7 @@ uses
   Dialogs, UFrmSuiDBForm, DB, ActnList, DBClient, UDlClientDataset, DosMove,
   AdvPanel, AdvAppStyler, AdvToolBar, AdvToolBarStylers, AdvOfficeStatusBar,
   AdvOfficeStatusBarStylers, ExtCtrls, StdCtrls, AdvEdit, DBAdvEd, EllipsLabel,
-  AdvGlowButton,UVsMidClassList, GradientLabel;
+  AdvGlowButton,UVsMidClassList, GradientLabel, SUIComboBox, SUIColorBox;
 
 type
   TFrmRankSet = class(TFrmSuiDBForm)
@@ -32,6 +32,13 @@ type
     GradientLabel1: TGradientLabel;
     GradientLabel2: TGradientLabel;
     GradientLabel3: TGradientLabel;
+    EllipsLabel10: TEllipsLabel;
+    EllipsLabel11: TEllipsLabel;
+    EllipsLabel12: TEllipsLabel;
+    suiclbjia: TsuiColorBox;
+    suiclbyi: TsuiColorBox;
+    suiclbbing: TsuiColorBox;
+    GradientLabel4: TGradientLabel;
     procedure acSaveExecute(Sender: TObject);
     procedure AdvedtjiaLowKeyPress(Sender: TObject; var Key: Char);
     procedure AdvedtjiaLowExit(Sender: TObject);
@@ -112,6 +119,7 @@ constructor TFrmRankSet.Create(Aowner: TComponent);
 var
   levID:Integer;    //等级编号
   lowScore,HighScore:string;  //最低分数、最高分数
+  rankcolor:Integer;  //等级颜色
 begin
   inherited Create(Aowner,EuVsRank,'select *  from vszkrank ');
   //存在数据
@@ -124,34 +132,40 @@ begin
       levID := DLCDS.FieldByName('ID').AsInteger;
       lowScore :=DLCDS.FieldByName('lowscore').AsString;
       HighScore := DLCDS.FieldByName('HighScore').AsString;
+      rankcolor := DLCDS.FieldByName('rankcolor').AsInteger;
+
       case levID of
         101:      //甲
           begin
             AdvedtjiaLow.Text := lowScore;
             Advedtjiahigh.Text := HighScore;
+            suiclbjia.Selected := rankcolor;
           end;
         102:     //乙
           begin
             Advedtyilow.Text := lowScore;
             Advedtyihigh.Text := HighScore;
+            suiclbyi.Selected := rankcolor;
           end;
         103:   // 丙
           begin
             Advedtbinglow.Text := lowScore;
             Advedtbinghigh.Text := HighScore;
+            suiclbbing.Selected := rankcolor;
           end;
       end;
       DLCDS.Next;
     end;
   end;
 
-
+  acSave.Enabled := True;
 end;
 
 
 procedure TFrmRankSet.acSaveExecute(Sender: TObject);
 var
   LevID:Integer;
+  colorjia,coloryi,colorbing:Integer;
 begin
   //判断是否录入数据
   if AdvedtjiaLow.Text = '' then
@@ -184,34 +198,50 @@ begin
     ShowMsgSure('丙级最大范围不能为空!');
     exit;
   end;
+  //等级颜色
+  colorjia := ColorToRGB(suiclbjia.Selected);
+  coloryi := ColorToRGB(suiclbyi.Selected);
+  colorbing := ColorToRGB(suiclbbing.Selected);
 
-  DLCDS.Edit;
-  DLCDS.DisableControls;
-  DLCDS.First;
-  while not DLCDS.Eof do
+  with DLCDS do
   begin
-    LevID := DLCDS.FieldByName('ID').AsInteger;
-    case LevID of
-       101:
-        begin
-          dlcds.FieldByName('lowScore').AsInteger := StrToInt(AdvedtjiaLow.Text);
-          DLCDS.FieldByName('HighScore').AsInteger := StrToInt(Advedtjiahigh.Text);
-        end;
-        102:
-        begin
-          dlcds.FieldByName('lowScore').AsInteger := StrToInt(Advedtyilow.Text);
-          DLCDS.FieldByName('HighScore').AsInteger := StrToInt(Advedtyihigh.Text);
-        end;
-        103:
-        begin
-          dlcds.FieldByName('lowScore').AsInteger := StrToInt(Advedtbinglow.Text);
-          DLCDS.FieldByName('HighScore').AsInteger := StrToInt(Advedtbinghigh.Text);
-        end;
+    DisableControls;
+    First;
+    while not Eof do
+    begin
+
+      LevID := FieldByName('ID').AsInteger;
+      case LevID of
+         101:
+          begin
+            Edit;
+            FieldByName('lowScore').AsInteger := StrToInt(AdvedtjiaLow.Text);
+            FieldByName('HighScore').AsInteger := StrToInt(Advedtjiahigh.Text);
+            FieldByName('rankcolor').AsInteger := colorjia;
+          end;
+          102:
+          begin
+            Edit;
+            FieldByName('lowScore').AsInteger := StrToInt(Advedtyilow.Text);
+            FieldByName('HighScore').AsInteger := StrToInt(Advedtyihigh.Text);
+            FieldByName('rankcolor').AsInteger := coloryi;
+          end;
+          103:
+          begin
+            Edit;
+            FieldByName('lowScore').AsInteger := StrToInt(Advedtbinglow.Text);
+            FieldByName('HighScore').AsInteger := StrToInt(Advedtbinghigh.Text);
+            FieldByName('rankcolor').AsInteger := colorbing;
+          end;
+      end;
+      Post;
+      next;
     end;
-    dlcds.next;
+    EnableControls;
+    if ChangeCount>0 then
+      ApplyUpdates(-1)
   end;
-  DLCDS.EnableControls;
-  DLCDS.Post;
+
   inherited;
 end;
 

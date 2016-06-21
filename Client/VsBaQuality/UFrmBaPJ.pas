@@ -15,8 +15,13 @@ uses
   AdvOfficeStatusBarStylers, ExtCtrls, AdvSplitter, StdCtrls, SUIEdit,
   EllipsLabel, TFlatGroupBoxUnit, AdvGlowButton, DBGridEhGrouping, GridsEh,
   DBGridEh, TFlatPanelUnit, DBCtrls, SUIDBCtrls, ComCtrls, AdvDateTimePicker,
-  AdvOfficeButtons, UDLAdvCheckBox;
+  AdvOfficeButtons, UDLAdvCheckBox, AdvGroupBox;
 
+  const
+     BASQL='select A.CH0A00,CH0A01,CH0A02,CH0A03,zklb,CH0A27,CH0ABarcode,rankcolor='+
+          'isnull((select rankcolor from VsZkRank where 100-isnull(b.score,0) >= LowScore and 100-isnull(b.score,0) < HighScore ),0)'+
+          'from VsPJBA0A  A left join (select CH0A00 ,cast(sum(score) as numeric(5,2))score from VsBAZmPj '+
+          'group by CH0A00) b on  b.CH0A00 = a.CH0A00 where %s and zklb=%s';
 type
   TFrmBaPJ = class(TFrmSuiDBForm)
     AdvPanel2: TAdvPanel;
@@ -38,6 +43,14 @@ type
     dladvChkCH0A27: TDLAdvCheckBox;
     advDtpks: TAdvDateTimePicker;
     advDtpjs: TAdvDateTimePicker;
+    AdvGroupBox2: TAdvGroupBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    suiedtCH0A00: TsuiEdit;
+    suiedtBarCode: TsuiEdit;
+    suiedtCH0A02: TsuiEdit;
+    btnLocate: TAdvGlowButton;
     procedure ActLocateExecute(Sender: TObject);
     procedure suiedtZYHKeyPress(Sender: TObject; var Key: Char);
     procedure suiedtZYHKeyDown(Sender: TObject; var Key: Word;
@@ -45,6 +58,11 @@ type
     procedure AdvbtnacSaveClick(Sender: TObject);
 
     procedure dbgrdhBaListCellClick(Column: TColumnEh);
+    procedure btnLocateClick(Sender: TObject);
+    procedure dbgrdhBaListDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+    procedure dbgrdhPJDetailColumns3UpdateData(Sender: TObject;
+      var Text: string; var Value: Variant; var UseText, Handled: Boolean);
   private
     { Private declarations }
     CH0A00:string;    //住院号
@@ -59,14 +77,14 @@ var
 
 implementation
   uses
-    UGFun,UVsMidClassList,UVsBaSx,UMidProxy;
+    UGFun,UGVar,UVsMidClassList,UVsBaSx,UMidProxy;
 {$R *.dfm}
 
 { TFrmBaPJ }
 
 procedure TFrmBaPJ.ActLocateExecute(Sender: TObject);
 const
-  fsql = 'insert into VsPJBA0A(CH0A00,CH0A01,CH0A02,CH0A03,CH0A27,zklb) select CH0A00,CH0A01,CH0A02,CH0A03,CH0A27,^%s^'
+  fsql = 'insert into VsPJBA0A(CH0A00,CH0A01,CH0A02,CH0A03,CH0A27,zklb,CH0ABarcode) select CH0A00,CH0A01,CH0A02,CH0A03,CH0A27,^%s^,CH0ABarcode'
        +'from VsCH0A where %s and not exists(select * from VsPJBA0A a left join VsCH0A b on a.CH0A00=b.CH0A01 where zklb=^%0:s^)';
 var
  selsql:string;
@@ -101,7 +119,7 @@ begin
     try
       //抽取选择出院日期范围的病历到筛选表
       TMidProxy.SqlExecute(Format(fsql,[dm,selsql]));
-      DLCDS.Mid_Open(Format('select * from VsPJBA0A where %s and zklb=%s',[selsql,QuotedStr(dm)]));
+      DLCDS.Mid_Open(Format(BASQL,[selsql,QuotedStr(dm)]));
       if DLCDS.IsEmpty then
       begin
         ShowMsgSure('数据为空!');
@@ -114,7 +132,7 @@ begin
   end
   else //病历筛选表中查询数据
   begin
-    selsql :=Format( 'select * from VsPJBA0A where zklb=%s',[QuotedStr(dm)]);
+    selsql :=Format( BASQL,[' 1=1',QuotedStr(dm)]);
     try
       DLCDS.Mid_Open(selsql);
       if DLCDS.IsEmpty then
@@ -139,7 +157,7 @@ var
   FCode,SCode,TCode,Code:string;
   Score:Double;
   Remark:string;
-  mark:Pointer;
+  mark,dlcdsmark:Pointer;
 begin
   inherited;
   //判断师傅存在数据
@@ -181,7 +199,8 @@ begin
           else
             Code := TCode;
 
-          sql := Format('insert into VsBAZmPj(CH0A00,Code,Score,Remark) values(^%s^,^%s^,%f,^%s^)',[CH0A00,Code,Score,Remark]) ;
+          sql := Format('insert into VsBAZmPj(CH0A00,Code,Score,Remark,PFR,PFSJ) values(^%s^,^%s^,%f,^%s^,^%s^,^%s^)',
+              [CH0A00,Code,Score,Remark,G_MainInfo.MainSysInfo.LogonUserName, FormatDateTime('yyyy-mm-dd HH:MM:ss',Now)]) ;
           TMidProxy.SqlExecute(sql);
           Next;
         end;
@@ -190,6 +209,10 @@ begin
       end;
     end;
     ShowMsgSure('保存完成');
+    dlcdsmark := DLCDS.GetBookmark;
+    ActLocateExecute(nil);
+    DLCDS.GotoBookmark(dlcdsmark);
+    DLCDS.FreeBookmark(dlcdsmark);
   finally
     clientdtPJDetail.GotoBookmark(mark);
     clientdtPJDetail.FreeBookmark(mark);
@@ -197,13 +220,69 @@ begin
 
 end;
 
+procedure TFrmBaPJ.btnLocateClick(Sender: TObject);
+var
+ strCH0A00,strCH0A02,strBarcode:string;
+begin
+  inherited;
+  if not DLCDS.Active  then
+     Exit;
+  if DLCDS.IsEmpty then Exit;
+
+  if suiedtCH0A00.Text <> '' then
+  begin
+    strCH0A00 := suiedtCH0A00.Text;
+  end;
+  if suiedtCH0A02.Text <>'' then
+  begin
+    strCH0A02 := suiedtCH0A02.Text;
+  end;
+  if suiedtBarCode.Text <> '' then
+  begin
+    strBarcode := suiedtBarCode.Text;
+  end;
+  if (strCH0A00 <> '') and (strCH0A02 ='') and (strBarcode ='')  then
+  begin
+     DLCDS.Locate('CH0A00',strCH0A00,[loCaseInsensitive]);
+
+  end
+  else if (strCH0A00 = '') and (strCH0A02 <>'') and (strBarcode ='')   then
+  begin
+    DLCDS.Locate('CH0A02',strCH0A02,[loCaseInsensitive]);
+
+  end
+  else if (strCH0A00 = '') and (strCH0A02 ='') and (strBarcode <>'')   then
+  begin
+    DLCDS.Locate('CH0ABarcode',strBarcode,[loCaseInsensitive]);
+
+  end
+  else if (strCH0A00 <> '') and (strCH0A02 <> '') and (strBarcode ='')   then
+  begin
+    DLCDS.Locate('CH0A00;CH0A02',VarArrayOf([strCH0A00,strCH0A02]),[loCaseInsensitive]);
+
+  end
+   else if (strCH0A00 <> '') and (strCH0A02 = '') and (strBarcode <>'')   then
+  begin
+    DLCDS.Locate('CH0A00;CH0ABarcode',VarArrayOf([strCH0A00,strBarcode]),[loCaseInsensitive]);
+
+  end
+  else if (strCH0A00 = '') and (strCH0A02 <> '') and (strBarcode <>'')   then
+  begin
+    DLCDS.Locate('CH0A02;CH0ABarcode',VarArrayOf([strCH0A02,strBarcode]),[loCaseInsensitive]);
+
+  end
+  else if (strCH0A00 <> '') and (strCH0A02 <> '') and (strBarcode <>'')   then
+  begin
+    DLCDS.Locate('CH0A00;CH0A02;CH0ABarcode',VarArrayOf([strCH0A00,strCH0A02,strBarcode]),[loCaseInsensitive]);
+
+  end
+end;
+
 constructor TFrmBaPJ.Create(Aower: TComponent);
 const
-  sql = 'select * from VSPJBA0A where 1 <> 1';
   lbSql = ' select * from Vszklb where isTy = 0';
 begin
-  inherited Create(Aower,EuVsBaZmPj,sql);
-
+  inherited Create(Aower,EuVsBaZmPj,Format(BASQL,[' 1<>1','0']));
   TMidProxy.SqlOpen(lbSql,clientdtLB);
   dladvChkCH0A27.AddStateControls([advDtpks,advDtpjs]);
 end;
@@ -232,6 +311,43 @@ begin
 
 end;
 
+
+procedure TFrmBaPJ.dbgrdhBaListDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumnEh;
+  State: TGridDrawState);
+var
+  colorrgb:Integer;
+begin
+  inherited;
+  if not DLCDS.Active then Exit;
+  if DLCDS.IsEmpty then Exit;
+
+  colorrgb := DLCDS.FieldByName('rankcolor').AsInteger;
+  if colorrgb <> 0 then
+  begin
+    with dbgrdhBaList do
+    begin
+      Canvas.Brush.Color := colorrgb;
+      DefaultDrawColumnCell(Rect,DataCol,Column,State);
+    end;
+  end;
+  
+end;
+
+procedure TFrmBaPJ.dbgrdhPJDetailColumns3UpdateData(Sender: TObject;
+  var Text: string; var Value: Variant; var UseText, Handled: Boolean);
+var
+  tscore:Integer;
+begin
+  inherited;
+  tscore := clientdtPJDetail.FieldByName('txmfz').AsInteger;
+  if Value >tscore then
+  begin
+    ShowMsgSure('不能大于当前项目分值！');
+    Handled :=True;
+  end;
+
+end;
 
 procedure TFrmBaPJ.suiedtZYHKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);

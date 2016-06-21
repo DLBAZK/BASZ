@@ -1,41 +1,42 @@
 inherited FrmRankSet: TFrmRankSet
   BorderStyle = bsNone
   Caption = ''
-  ClientHeight = 308
-  ClientWidth = 265
-  ExplicitWidth = 265
-  ExplicitHeight = 308
+  ClientHeight = 373
+  ClientWidth = 458
+  ExplicitWidth = 458
+  ExplicitHeight = 373
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
-    Top = 289
-    Width = 265
-    ExplicitTop = 293
-    ExplicitWidth = 280
+    Top = 354
+    Width = 458
+    ExplicitTop = 289
+    ExplicitWidth = 458
   end
   inherited advtlbrpgr1: TAdvToolBarPager
-    Width = 265
+    Width = 458
     Margins.Left = 0
     ActivePage = AdvPage2
     Caption.Caption = #35780#20998#31561#32423#35774#32622
-    ExplicitWidth = 280
+    ExplicitWidth = 458
     inherited AdvPage1: TAdvPage
-      Width = 257
-      ExplicitWidth = 257
+      Width = 450
+      ExplicitWidth = 450
     end
     object AdvPage2: TAdvPage
       Left = 4
       Top = 53
-      Width = 257
+      Width = 450
       Height = 0
       Caption = 'AdvPage2'
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Width = 265
-    Height = 264
-    ExplicitWidth = 280
-    ExplicitHeight = 268
+    Width = 458
+    Height = 329
+    ExplicitTop = 19
+    ExplicitWidth = 458
+    ExplicitHeight = 329
     FullHeight = 200
     object EllipsLabel1: TEllipsLabel
       Left = 133
@@ -223,6 +224,56 @@ inherited FrmRankSet: TFrmRankSet
       VAlignment = vaTop
       Version = '1.2.0.0'
     end
+    object EllipsLabel10: TEllipsLabel
+      Left = 241
+      Top = 28
+      Width = 24
+      Height = 13
+      Caption = #39068#33394
+      EllipsType = etNone
+      Version = '1.0.0.0'
+    end
+    object EllipsLabel11: TEllipsLabel
+      Left = 241
+      Top = 68
+      Width = 24
+      Height = 13
+      Caption = #39068#33394
+      EllipsType = etNone
+      Version = '1.0.0.0'
+    end
+    object EllipsLabel12: TEllipsLabel
+      Left = 241
+      Top = 108
+      Width = 24
+      Height = 13
+      Caption = #39068#33394
+      EllipsType = etNone
+      Version = '1.0.0.0'
+    end
+    object GradientLabel4: TGradientLabel
+      Left = 34
+      Top = 206
+      Width = 246
+      Height = 25
+      AutoSize = False
+      Caption = #13#10'3'#12289#35774#32622#31561#32423#39068#33394#65292#26041#20415#30149#21382#31561#32423#37266#30446#26174#31034#12290
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -12
+      Font.Name = #24494#36719#38597#40657
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+      EllipsType = etPathEllips
+      GradientType = gtFullHorizontal
+      GradientDirection = gdLeftToRight
+      Indent = 0
+      Orientation = goHorizontal
+      TransparentText = False
+      VAlignment = vaTop
+      Version = '1.2.0.0'
+    end
     object AdvedtjiaLow: TDBAdvEdit
       Left = 54
       Top = 25
@@ -258,7 +309,7 @@ inherited FrmRankSet: TFrmRankSet
       Lookup.Separator = ';'
       Color = clWindow
       MaxLength = 3
-      TabOrder = 2
+      TabOrder = 3
       Visible = True
       OnKeyPress = AdvedtjiaLowKeyPress
       Version = '2.9.4.1'
@@ -278,7 +329,7 @@ inherited FrmRankSet: TFrmRankSet
       Lookup.Separator = ';'
       Color = clWindow
       MaxLength = 3
-      TabOrder = 4
+      TabOrder = 6
       Text = '0'
       Visible = True
       OnKeyPress = AdvedtjiaLowKeyPress
@@ -318,7 +369,7 @@ inherited FrmRankSet: TFrmRankSet
       Lookup.Separator = ';'
       Color = clWindow
       MaxLength = 3
-      TabOrder = 3
+      TabOrder = 4
       Visible = True
       OnKeyPress = AdvedtjiaLowKeyPress
       Version = '2.9.4.1'
@@ -337,14 +388,14 @@ inherited FrmRankSet: TFrmRankSet
       Lookup.Separator = ';'
       Color = clWindow
       MaxLength = 3
-      TabOrder = 5
+      TabOrder = 7
       Visible = True
       OnKeyPress = AdvedtjiaLowKeyPress
       Version = '2.9.4.1'
     end
     object AdvGlowButton1: TAdvGlowButton
-      Left = 30
-      Top = 221
+      Left = 86
+      Top = 273
       Width = 100
       Height = 41
       Action = acSave
@@ -360,7 +411,7 @@ inherited FrmRankSet: TFrmRankSet
       NotesFont.Name = 'Tahoma'
       NotesFont.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 9
       Appearance.ColorChecked = 16111818
       Appearance.ColorCheckedTo = 16367008
       Appearance.ColorDisabled = 15921906
@@ -379,8 +430,8 @@ inherited FrmRankSet: TFrmRankSet
       Appearance.ColorMirrorDisabledTo = 15921906
     end
     object AdvGlowButton2: TAdvGlowButton
-      Left = 153
-      Top = 221
+      Left = 209
+      Top = 273
       Width = 100
       Height = 41
       Action = acClose
@@ -390,7 +441,7 @@ inherited FrmRankSet: TFrmRankSet
       NotesFont.Height = -11
       NotesFont.Name = 'Tahoma'
       NotesFont.Style = []
-      TabOrder = 7
+      TabOrder = 10
       Appearance.ColorChecked = 16111818
       Appearance.ColorCheckedTo = 16367008
       Appearance.ColorDisabled = 15921906
@@ -408,40 +459,76 @@ inherited FrmRankSet: TFrmRankSet
       Appearance.ColorMirrorDisabled = 11974326
       Appearance.ColorMirrorDisabledTo = 15921906
     end
+    object suiclbjia: TsuiColorBox
+      Left = 271
+      Top = 25
+      Width = 90
+      Height = 21
+      UIStyle = WinXP
+      BorderColor = 6842472
+      ArrowColor = clBlack
+      ButtonColor = 14609391
+      ItemHeight = 15
+      TabOrder = 2
+    end
+    object suiclbyi: TsuiColorBox
+      Left = 271
+      Top = 68
+      Width = 90
+      Height = 21
+      UIStyle = WinXP
+      BorderColor = 6842472
+      ArrowColor = clBlack
+      ButtonColor = 14609391
+      ItemHeight = 15
+      TabOrder = 5
+    end
+    object suiclbbing: TsuiColorBox
+      Left = 271
+      Top = 105
+      Width = 90
+      Height = 21
+      UIStyle = WinXP
+      BorderColor = 6842472
+      ArrowColor = clBlack
+      ButtonColor = 14609391
+      ItemHeight = 15
+      TabOrder = 8
+    end
   end
   inherited AdvOfficeStatusBarOfficeStyler1: TAdvOfficeStatusBarOfficeStyler
-    Left = 288
-    Top = 120
+    Left = 616
+    Top = 224
   end
   inherited AdvToolBarOfficeStyler1: TAdvToolBarOfficeStyler
     Font.Charset = ANSI_CHARSET
     Font.Height = -12
     Font.Name = #24494#36719#38597#40657
-    Left = 320
-    Top = 120
+    Left = 648
+    Top = 224
   end
   inherited advfrmstylr1: TAdvFormStyler
-    Left = 416
-    Top = 120
+    Left = 744
+    Top = 224
   end
   inherited AdvPanelStyler1: TAdvPanelStyler
-    Left = 384
-    Top = 120
+    Left = 712
+    Top = 224
   end
   inherited dosm1: TDosMove
-    Left = 352
-    Top = 120
+    Left = 680
+    Top = 224
   end
   inherited DLCDS: TDlClientDataset
-    Left = 312
-    Top = 157
+    Left = 640
+    Top = 261
   end
   inherited al1: TActionList
-    Left = 376
-    Top = 157
+    Left = 704
+    Top = 261
   end
   inherited ds1: TDataSource
-    Left = 344
-    Top = 157
+    Left = 672
+    Top = 261
   end
 end

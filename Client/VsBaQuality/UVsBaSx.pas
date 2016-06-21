@@ -84,6 +84,16 @@ type
     dsLB: TDataSource;
     clientdtLB: TClientDataSet;
     Label1: TLabel;
+    AdvGroupBox2: TAdvGroupBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    suiedtCH0A00: TsuiEdit;
+    suiedtBarCode: TsuiEdit;
+    suiedtCH0A02: TsuiEdit;
+    btnLocate: TAdvGlowButton;
+    clientdtSourceCH0ABarcode: TStringField;
+    clientdtDestCH0ABarcode: TStringField;
     procedure suiedtstartKeyPress(Sender: TObject; var Key: Char);
     procedure FlatbtnAllRightClick(Sender: TObject);
     procedure suichkAllClick(Sender: TObject);
@@ -96,6 +106,7 @@ type
     procedure AdvedtCH0A23Enter(Sender: TObject);
     procedure AdvedtCH0A23Exit(Sender: TObject);
     procedure AdvedtCH0A23ClickBtn(Sender: TObject);
+    procedure btnLocateClick(Sender: TObject);
   private
     { Private declarations }
     /// <summary>
@@ -209,7 +220,7 @@ end;
 procedure TFrmBaSx.AdvGlowButton1Click(Sender: TObject);
   const
     ssql='select CH0A29,CH0A23=(Select SoMc From VsSoffice Where Sodm=Ch0A23),CH0A33,'
-       +'CH0A27,(case when CH0A03=''1'' then ''男'' else ''女'' end)CH0A03,CH0A02,CH0A00,CH0A01,CHYear from vsCH0A as A where 1=1';
+       +'CH0A27,(case when CH0A03=''1'' then ''男'' else ''女'' end)CH0A03,CH0A02,CH0A00,CH0A01,CHYear,CH0ABarcode from vsCH0A as A where 1=1';
     function WhereSql:string;
       var
         sday,eday:Integer;
@@ -327,6 +338,91 @@ begin
     end;
   finally
     EndWaitWindow;
+  end;
+end;
+
+procedure TFrmBaSx.btnLocateClick(Sender: TObject);
+var
+ strCH0A00,strCH0A02,strBarcode:string;
+ strlocate:string; //定位语句
+ result:boolean;
+begin
+  inherited;
+  if not clientdtSource.Active and not clientdtDest.Active then Exit;
+  if clientdtSource.IsEmpty and clientdtDest.IsEmpty then Exit;
+
+  //取值
+  if suiedtCH0A00.Text <> '' then
+  begin
+    strCH0A00 := suiedtCH0A00.Text;
+  end;
+  if suiedtCH0A02.Text <>'' then
+  begin
+    strCH0A02 := suiedtCH0A02.Text;
+  end;
+  if suiedtBarCode.Text <> '' then
+  begin
+    strBarcode := suiedtBarCode.Text;
+  end;
+
+  if not clientdtSource.IsEmpty then
+  begin
+    if (strCH0A00 <> '') and (strCH0A02 ='') and (strBarcode ='')  then
+    begin
+      result := clientdtSource.Locate('CH0A00',strCH0A00,[loCaseInsensitive]);
+      if not clientdtDest.IsEmpty then
+      begin
+        result := clientdtDest.Locate('CH0A00',strCH0A00,[loCaseInsensitive]);
+      end;
+    end
+    else if (strCH0A00 = '') and (strCH0A02 <>'') and (strBarcode ='')   then
+    begin
+      clientdtSource.Locate('CH0A02',strCH0A02,[loCaseInsensitive]);
+      if not clientdtDest.IsEmpty then
+      begin
+        clientdtDest.Locate('CH0A02',strCH0A02,[loCaseInsensitive]);
+      end;
+    end
+    else if (strCH0A00 = '') and (strCH0A02 ='') and (strBarcode <>'')   then
+    begin
+      clientdtSource.Locate('CH0ABarcode',strBarcode,[loCaseInsensitive]);
+      if not clientdtDest.IsEmpty then
+      begin
+        clientdtDest.Locate('CH0ABarcode',strBarcode,[loCaseInsensitive]);
+      end;
+    end
+    else if (strCH0A00 <> '') and (strCH0A02 <> '') and (strBarcode ='')   then
+    begin
+      clientdtSource.Locate('CH0A00;CH0A02',VarArrayOf([strCH0A00,strCH0A02]),[loCaseInsensitive]);
+      if not clientdtDest.IsEmpty then
+      begin
+        clientdtDest.Locate('CH0A00;CH0A02',VarArrayOf([strCH0A00,strCH0A02]),[loCaseInsensitive]);
+      end;
+    end
+     else if (strCH0A00 <> '') and (strCH0A02 = '') and (strBarcode <>'')   then
+    begin
+      clientdtSource.Locate('CH0A00;CH0ABarcode',VarArrayOf([strCH0A00,strBarcode]),[loCaseInsensitive]);
+      if not clientdtDest.IsEmpty then
+      begin
+        clientdtDest.Locate('CH0A00;CH0ABarcode',VarArrayOf([strCH0A00,strBarcode]),[loCaseInsensitive]);
+      end;
+    end
+    else if (strCH0A00 = '') and (strCH0A02 <> '') and (strBarcode <>'')   then
+    begin
+      clientdtSource.Locate('CH0A02;CH0ABarcode',VarArrayOf([strCH0A02,strBarcode]),[loCaseInsensitive]);
+      if not clientdtDest.IsEmpty then
+      begin
+        clientdtDest.Locate('CH0A02;CH0ABarcode',VarArrayOf([strCH0A02,strBarcode]),[loCaseInsensitive]);
+      end;
+    end
+    else if (strCH0A00 <> '') and (strCH0A02 <> '') and (strBarcode <>'')   then
+    begin
+      clientdtSource.Locate('CH0A00;CH0A02;CH0ABarcode',VarArrayOf([strCH0A00,strCH0A02,strBarcode]),[loCaseInsensitive]);
+      if not clientdtDest.IsEmpty then
+      begin
+        clientdtDest.Locate('CH0A00;CH0A02;CH0ABarcode',VarArrayOf([strCH0A00,strCH0A02,strBarcode]),[loCaseInsensitive]);
+      end;
+    end
   end;
 end;
 
@@ -522,6 +618,7 @@ begin
       //CdsD.FieldByName('CH0A29').AsInteger := FieldByName('CH0A29').AsInteger; //住院天数
       CdsD.FieldByName('CH0A27').AsString := FieldByName('CH0A27').AsString;  //出院日期
       CdsD.FieldByName('CH0A33').AsString := FieldByName('CH0A33').AsString;  //主管医师
+      CdsD.FieldByName('CH0ABarcode').AsString := FieldByName('CH0ABarcode').AsString; //条形码
       CdsD.Post;
       delete;
     end;

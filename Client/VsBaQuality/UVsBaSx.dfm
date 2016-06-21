@@ -1,40 +1,40 @@
 inherited FrmBaSx: TFrmBaSx
   Caption = #30149#20363#31579#36873
-  ClientHeight = 562
-  ClientWidth = 1008
+  ClientHeight = 526
+  ClientWidth = 1023
   Font.Charset = ANSI_CHARSET
   Font.Height = -12
   Font.Name = #24494#36719#38597#40657
-  ExplicitWidth = 1024
-  ExplicitHeight = 600
+  ExplicitWidth = 1039
+  ExplicitHeight = 564
   PixelsPerInch = 96
   TextHeight = 17
   inherited advfcstsbr: TAdvOfficeStatusBar
-    Top = 543
-    Width = 1008
+    Top = 507
+    Width = 1023
     ExplicitTop = 543
     ExplicitWidth = 1008
   end
   inherited advtlbrpgr1: TAdvToolBarPager
-    Width = 1008
+    Width = 1023
     ExplicitWidth = 1008
     inherited AdvPage1: TAdvPage
-      Width = 1000
+      Width = 1015
       Height = 0
-      ExplicitWidth = 1000
+      ExplicitWidth = 1015
       ExplicitHeight = 0
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Width = 1008
-    Height = 518
+    Width = 1023
+    Height = 482
     ExplicitWidth = 1008
     ExplicitHeight = 518
     FullHeight = 200
     object AdvSplitter1: TAdvSplitter
       Left = 456
       Top = 89
-      Height = 429
+      Height = 393
       Beveled = True
       Appearance.BorderColor = clNone
       Appearance.BorderColorHot = clNone
@@ -50,7 +50,7 @@ inherited FrmBaSx: TFrmBaSx
     object AdvPanel2: TAdvPanel
       Left = 0
       Top = 0
-      Width = 1008
+      Width = 1023
       Height = 89
       Align = alTop
       BevelOuter = bvNone
@@ -77,13 +77,14 @@ inherited FrmBaSx: TFrmBaSx
       StatusBar.Font.Height = -11
       StatusBar.Font.Name = 'Tahoma'
       StatusBar.Font.Style = []
+      ExplicitWidth = 1008
       FullHeight = 200
       object AdvGroupBox1: TAdvGroupBox
         Left = 0
         Top = 0
-        Width = 1008
+        Width = 699
         Height = 89
-        Align = alClient
+        Align = alLeft
         Caption = #30149#20363#31579#36873#26465#20214
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -398,12 +399,118 @@ inherited FrmBaSx: TFrmBaSx
           ButtonColor = 14609391
         end
       end
+      object AdvGroupBox2: TAdvGroupBox
+        Left = 699
+        Top = 0
+        Width = 324
+        Height = 89
+        Align = alClient
+        Caption = #23450#20301
+        TabOrder = 1
+        ExplicitLeft = 705
+        ExplicitWidth = 415
+        object Label2: TLabel
+          Left = 6
+          Top = 34
+          Width = 36
+          Height = 13
+          Caption = #20303#38498#21495
+          Color = 16640730
+          ParentColor = False
+          Transparent = True
+        end
+        object Label3: TLabel
+          Left = 169
+          Top = 34
+          Width = 24
+          Height = 13
+          Caption = #22995#21517
+          Color = 16640730
+          ParentColor = False
+          Transparent = True
+        end
+        object Label4: TLabel
+          Left = 6
+          Top = 58
+          Width = 24
+          Height = 13
+          Caption = #26465#30721
+          Color = 16640730
+          ParentColor = False
+          Transparent = True
+        end
+        object suiedtCH0A00: TsuiEdit
+          Left = 47
+          Top = 28
+          Width = 114
+          Height = 19
+          UIStyle = WinXP
+          BorderColor = 6842472
+          TabOrder = 0
+        end
+        object suiedtBarCode: TsuiEdit
+          Left = 47
+          Top = 56
+          Width = 114
+          Height = 19
+          UIStyle = WinXP
+          BorderColor = 6842472
+          TabOrder = 3
+        end
+        object suiedtCH0A02: TsuiEdit
+          Left = 200
+          Top = 28
+          Width = 114
+          Height = 19
+          UIStyle = WinXP
+          BorderColor = 6842472
+          TabOrder = 1
+        end
+        object btnLocate: TAdvGlowButton
+          Left = 203
+          Top = 52
+          Width = 100
+          Height = 31
+          Caption = #23450#20301
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -14
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ImageIndex = 11
+          Images = DM_Img.ilButton
+          NotesFont.Charset = DEFAULT_CHARSET
+          NotesFont.Color = clWindowText
+          NotesFont.Height = -11
+          NotesFont.Name = 'Tahoma'
+          NotesFont.Style = []
+          ParentFont = False
+          TabOrder = 2
+          OnClick = btnLocateClick
+          Appearance.ColorChecked = 16111818
+          Appearance.ColorCheckedTo = 16367008
+          Appearance.ColorDisabled = 15921906
+          Appearance.ColorDisabledTo = 15921906
+          Appearance.ColorDown = 16111818
+          Appearance.ColorDownTo = 16367008
+          Appearance.ColorHot = 16117985
+          Appearance.ColorHotTo = 16372402
+          Appearance.ColorMirrorHot = 16107693
+          Appearance.ColorMirrorHotTo = 16775412
+          Appearance.ColorMirrorDown = 16102556
+          Appearance.ColorMirrorDownTo = 16768988
+          Appearance.ColorMirrorChecked = 16102556
+          Appearance.ColorMirrorCheckedTo = 16768988
+          Appearance.ColorMirrorDisabled = 11974326
+          Appearance.ColorMirrorDisabledTo = 15921906
+        end
+      end
     end
     object FlatPanel1: TFlatPanel
       Left = 522
       Top = 89
-      Width = 486
-      Height = 429
+      Width = 501
+      Height = 393
       Transparent = True
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -413,14 +520,17 @@ inherited FrmBaSx: TFrmBaSx
       ParentColor = True
       Align = alClient
       TabOrder = 3
+      ExplicitWidth = 486
+      ExplicitHeight = 429
       object FlatPanel2: TFlatPanel
         Left = 1
         Top = 1
-        Width = 484
+        Width = 499
         Height = 32
         ParentColor = True
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 484
         object suichkCheckAll: TsuiCheckBox
           Tag = 201
           Left = 9
@@ -488,8 +598,8 @@ inherited FrmBaSx: TFrmBaSx
       object dbgrdhDest: TDBGridEh
         Left = 1
         Top = 33
-        Width = 484
-        Height = 355
+        Width = 499
+        Height = 319
         Align = alClient
         AutoFitColWidths = True
         DataGrouping.GroupLevels = <>
@@ -742,14 +852,16 @@ inherited FrmBaSx: TFrmBaSx
       end
       object FlatPanel8: TFlatPanel
         Left = 1
-        Top = 388
-        Width = 484
+        Top = 352
+        Width = 499
         Height = 40
         ParentColor = True
         Align = alBottom
         TabOrder = 2
+        ExplicitTop = 388
+        ExplicitWidth = 484
         object AdvbtnSave: TAdvGlowButton
-          Left = 383
+          Left = 398
           Top = 1
           Width = 100
           Height = 38
@@ -787,6 +899,7 @@ inherited FrmBaSx: TFrmBaSx
           Appearance.ColorMirrorCheckedTo = 16768988
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
+          ExplicitLeft = 383
         end
       end
     end
@@ -794,7 +907,7 @@ inherited FrmBaSx: TFrmBaSx
       Left = 0
       Top = 89
       Width = 456
-      Height = 429
+      Height = 393
       Transparent = True
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -804,6 +917,7 @@ inherited FrmBaSx: TFrmBaSx
       ParentColor = True
       Align = alLeft
       TabOrder = 1
+      ExplicitHeight = 429
       object FlatPanel4: TFlatPanel
         Left = 1
         Top = 1
@@ -880,7 +994,7 @@ inherited FrmBaSx: TFrmBaSx
         Left = 1
         Top = 33
         Width = 454
-        Height = 395
+        Height = 359
         Align = alClient
         AutoFitColWidths = True
         DataGrouping.GroupLevels = <>
@@ -1014,10 +1128,11 @@ inherited FrmBaSx: TFrmBaSx
       Left = 459
       Top = 89
       Width = 63
-      Height = 429
+      Height = 393
       ParentColor = True
       Align = alLeft
       TabOrder = 2
+      ExplicitHeight = 429
       object FlatbtnAllRight: TFlatButton
         Left = 24
         Top = 122
@@ -1118,14 +1233,14 @@ inherited FrmBaSx: TFrmBaSx
   end
   object dsDest: TDataSource
     DataSet = clientdtDest
-    Left = 1016
-    Top = 480
+    Left = 560
+    Top = 192
   end
   object clientdtDest: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 1048
-    Top = 480
+    Left = 592
+    Top = 192
     object clientdtDestchk: TBooleanField
       FieldName = 'chk'
     end
@@ -1152,6 +1267,9 @@ inherited FrmBaSx: TFrmBaSx
     end
     object clientdtDestChYear: TStringField
       FieldName = 'ChYear'
+    end
+    object clientdtDestCH0ABarcode: TStringField
+      FieldName = 'CH0ABarcode'
     end
   end
   object clientdtSource: TClientDataSet
@@ -1185,6 +1303,9 @@ inherited FrmBaSx: TFrmBaSx
     end
     object clientdtSourceChYear: TStringField
       FieldName = 'ChYear'
+    end
+    object clientdtSourceCH0ABarcode: TStringField
+      FieldName = 'CH0ABarcode'
     end
   end
   object dsLB: TDataSource

@@ -77,7 +77,7 @@ inherited FrmBaPJ: TFrmBaPJ
         Left = 1
         Top = 1
         Width = 423
-        Height = 88
+        Height = 80
         Align = alTop
         Caption = #26597#35810
         Font.Charset = ANSI_CHARSET
@@ -104,10 +104,10 @@ inherited FrmBaPJ: TFrmBaPJ
           Version = '1.0.0.0'
         end
         object AdvbtnActLocate: TAdvGlowButton
-          Left = 342
-          Top = 18
-          Width = 74
-          Height = 69
+          Left = 339
+          Top = 19
+          Width = 83
+          Height = 55
           Action = ActLocate
           AutoSize = True
           Caption = '    '#26597#25214
@@ -236,9 +236,9 @@ inherited FrmBaPJ: TFrmBaPJ
       end
       object dbgrdhBaList: TDBGridEh
         Left = 1
-        Top = 89
+        Top = 169
         Width = 423
-        Height = 518
+        Height = 438
         Align = alClient
         AutoFitColWidths = True
         DataGrouping.GroupLevels = <>
@@ -259,13 +259,14 @@ inherited FrmBaPJ: TFrmBaPJ
         OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghExtendVertLines]
         ParentFont = False
         RowDetailPanel.Color = clBtnFace
-        TabOrder = 1
+        TabOrder = 2
         TitleFont.Charset = ANSI_CHARSET
         TitleFont.Color = clWindowText
         TitleFont.Height = -14
         TitleFont.Name = #24494#36719#38597#40657
         TitleFont.Style = []
         OnCellClick = dbgrdhBaListCellClick
+        OnDrawColumnCell = dbgrdhBaListDrawColumnCell
         Columns = <
           item
             EditButtons = <>
@@ -299,8 +300,143 @@ inherited FrmBaPJ: TFrmBaPJ
             Font.Style = []
             Footers = <>
             Title.Caption = #24615#21035
+          end
+          item
+            EditButtons = <>
+            Footers = <>
+            Title.Alignment = taCenter
+            Title.Caption = #31561#32423
+            Visible = False
           end>
         object RowDetailData: TRowDetailPanelControlEh
+        end
+      end
+      object AdvGroupBox2: TAdvGroupBox
+        Left = 1
+        Top = 81
+        Width = 423
+        Height = 88
+        Align = alTop
+        Caption = #23450#20301
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = #24494#36719#38597#40657
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        object Label2: TLabel
+          Left = 6
+          Top = 30
+          Width = 45
+          Height = 20
+          Caption = #20303#38498#21495
+          Color = 16640730
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+          Transparent = True
+        end
+        object Label3: TLabel
+          Left = 175
+          Top = 30
+          Width = 30
+          Height = 20
+          Caption = #22995#21517
+          Color = 16640730
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+          Transparent = True
+        end
+        object Label4: TLabel
+          Left = 6
+          Top = 58
+          Width = 30
+          Height = 20
+          Caption = #26465#30721
+          Color = 16640730
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+          Transparent = True
+        end
+        object suiedtCH0A00: TsuiEdit
+          Left = 55
+          Top = 28
+          Width = 114
+          Height = 19
+          UIStyle = WinXP
+          BorderColor = 6842472
+          TabOrder = 0
+        end
+        object suiedtBarCode: TsuiEdit
+          Left = 55
+          Top = 56
+          Width = 114
+          Height = 19
+          UIStyle = WinXP
+          BorderColor = 6842472
+          TabOrder = 3
+        end
+        object suiedtCH0A02: TsuiEdit
+          Left = 208
+          Top = 28
+          Width = 114
+          Height = 19
+          UIStyle = WinXP
+          BorderColor = 6842472
+          TabOrder = 1
+        end
+        object btnLocate: TAdvGlowButton
+          Left = 318
+          Top = 53
+          Width = 100
+          Height = 31
+          Caption = #23450#20301
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -14
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ImageIndex = 11
+          Images = DM_Img.ilButton
+          NotesFont.Charset = DEFAULT_CHARSET
+          NotesFont.Color = clWindowText
+          NotesFont.Height = -11
+          NotesFont.Name = 'Tahoma'
+          NotesFont.Style = []
+          ParentFont = False
+          TabOrder = 2
+          OnClick = btnLocateClick
+          Appearance.ColorChecked = 16111818
+          Appearance.ColorCheckedTo = 16367008
+          Appearance.ColorDisabled = 15921906
+          Appearance.ColorDisabledTo = 15921906
+          Appearance.ColorDown = 16111818
+          Appearance.ColorDownTo = 16367008
+          Appearance.ColorHot = 16117985
+          Appearance.ColorHotTo = 16372402
+          Appearance.ColorMirrorHot = 16107693
+          Appearance.ColorMirrorHotTo = 16775412
+          Appearance.ColorMirrorDown = 16102556
+          Appearance.ColorMirrorDownTo = 16768988
+          Appearance.ColorMirrorChecked = 16102556
+          Appearance.ColorMirrorCheckedTo = 16768988
+          Appearance.ColorMirrorDisabled = 11974326
+          Appearance.ColorMirrorDisabledTo = 15921906
         end
       end
     end
@@ -520,6 +656,7 @@ inherited FrmBaPJ: TFrmBaPJ
                 ValueType = fvtFieldValue
               end>
             Title.Caption = #25187#20998
+            OnUpdateData = dbgrdhPJDetailColumns3UpdateData
           end
           item
             EditButtons = <>
@@ -560,16 +697,16 @@ inherited FrmBaPJ: TFrmBaPJ
     Top = 528
   end
   inherited DLCDS: TDlClientDataset
-    Left = 328
-    Top = 573
+    Left = 272
+    Top = 557
   end
   inherited al1: TActionList
-    Left = 392
+    Left = 304
     Top = 573
   end
   inherited ds1: TDataSource
-    Left = 360
-    Top = 573
+    Left = 272
+    Top = 589
   end
   object clientdtPJDetail: TClientDataSet
     Aggregates = <>
