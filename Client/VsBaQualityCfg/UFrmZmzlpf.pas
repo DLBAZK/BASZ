@@ -251,12 +251,12 @@ end;
 procedure TFrmZmzlpf.CheckData;
 begin
   inherited;
-//  IF DlCds.FieldByName('itemCode').AsString='' Then
-//     Raise Exception.Create('项目代码不能为空！');
-//  if Length(DlCds.FieldByName('itemCode').AsString) <> 5 then
-//     Raise Exception.Create('项目代码必须为5位！');
-//  IF DlCds.FieldByName('codeName').AsString='' Then
-//     Raise Exception.Create('项目名称不能为空！');
+  IF DlCds.FieldByName('itemCode').AsString='' Then
+     Raise Exception.Create('项目代码不能为空！');
+  if Length(DlCds.FieldByName('itemCode').AsString) <> 5 then
+     Raise Exception.Create('项目代码必须为5位！');
+  IF DlCds.FieldByName('codeName').AsString='' Then
+     Raise Exception.Create('项目名称不能为空！');
 end;
 
 initialization

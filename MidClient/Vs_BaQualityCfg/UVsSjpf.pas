@@ -43,12 +43,20 @@ end;
 
 procedure TVsSjpf.MyAfterUpdate(Sender: TObject; SourceDS: TDataSet; DeltaDS: TCustomClientDataSet;
   UpdateKind: TUpdateKind);
+  var
+    newdm,olddm:string;
 begin
   inherited;
   if UpdateKind=ukModify then
   begin
-    ExecuteBy(Format('update VsBAsyzk Set Subject=^%s^ Where Subject=^%s^',
-                     [DeltaDs.FieldByName('dm').NewValue,DeltaDs.FieldByName('dm').OldValue]));
+    newdm :=DeltaDs.FieldByName('dm').NewValue;
+    olddm := DeltaDs.FieldByName('dm').OldValue;
+    if newdm <> olddm then
+    begin
+      ExecuteBy(Format('update VsBAsyzk Set Subject=^%s^ Where Subject=^%s^',
+                     [newdm,olddm]));
+    end;
+
   End;
 end;
 

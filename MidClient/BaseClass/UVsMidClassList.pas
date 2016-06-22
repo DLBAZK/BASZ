@@ -224,6 +224,7 @@ Type
     EuVsZmzlpf = 406,
     EuVsBaZmPj=407,          //病案终末评价
     EuVsBaLbSz=408,         //病案类别设置
+    EuVsXmLx=409,           //项目类型
     EuVSGenPym=999         //生成拼音码功能[此功能不发布]
     );
 

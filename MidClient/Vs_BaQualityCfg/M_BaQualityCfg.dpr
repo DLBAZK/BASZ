@@ -20,7 +20,8 @@ uses
   UVsRankSet in 'UVsRankSet.pas',
   UVsSjpf in 'UVsSjpf.pas',
   UVsZmzlpf in 'UVsZmzlpf.pas',
-  UVsBaLbSet in 'UVsBaLbSet.pas';
+  UVsBaLbSet in 'UVsBaLbSet.pas',
+  UVsXmLx in 'UVsXmLx.pas';
 
 {$R *.res}
 
