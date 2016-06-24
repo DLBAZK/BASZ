@@ -106,7 +106,7 @@ inherited FrmBaPJ: TFrmBaPJ
         object AdvbtnActLocate: TAdvGlowButton
           Left = 339
           Top = 19
-          Width = 83
+          Width = 80
           Height = 55
           Action = ActLocate
           AutoSize = True

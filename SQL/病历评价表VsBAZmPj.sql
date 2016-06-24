@@ -16,6 +16,8 @@ CREATE TABLE [dbo].[VsBAZmPj](
 	[Code] [varchar](50) NOT NULL,
 	[Score] [numeric](5, 2) NULL,
 	[Remark] [varchar](1000) NULL,
+	[PFR] [varchar](10) NULL,
+	[PFSJ] [datetime] NULL,
  CONSTRAINT [PK_VsBAZmPj] PRIMARY KEY CLUSTERED 
 (
 	[CH0A00] ASC,

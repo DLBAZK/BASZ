@@ -1,6 +1,6 @@
 inherited FrmRankSet: TFrmRankSet
   BorderStyle = bsNone
-  Caption = ''
+  Caption = #35780#20998#31561#32423#35774#32622
   ClientHeight = 373
   ClientWidth = 458
   ExplicitWidth = 458
@@ -10,7 +10,7 @@ inherited FrmRankSet: TFrmRankSet
   inherited advfcstsbr: TAdvOfficeStatusBar
     Top = 354
     Width = 458
-    ExplicitTop = 289
+    ExplicitTop = 354
     ExplicitWidth = 458
   end
   inherited advtlbrpgr1: TAdvToolBarPager
@@ -21,14 +21,17 @@ inherited FrmRankSet: TFrmRankSet
     ExplicitWidth = 458
     inherited AdvPage1: TAdvPage
       Width = 450
+      Height = 0
+      Caption = #35780#20998#31561#32423#35774#32622
       ExplicitWidth = 450
+      ExplicitHeight = 0
     end
     object AdvPage2: TAdvPage
       Left = 4
       Top = 53
       Width = 450
       Height = 0
-      Caption = 'AdvPage2'
+      Caption = #35780#20998#31561#32423#35774#32622
     end
   end
   inherited AdvPanel1: TAdvPanel
@@ -38,123 +41,6 @@ inherited FrmRankSet: TFrmRankSet
     ExplicitWidth = 458
     ExplicitHeight = 329
     FullHeight = 200
-    object EllipsLabel1: TEllipsLabel
-      Left = 133
-      Top = 28
-      Width = 12
-      Height = 13
-      Caption = #30002
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
-    object EllipsLabel2: TEllipsLabel
-      Left = 133
-      Top = 68
-      Width = 12
-      Height = 13
-      Caption = #20057
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
-    object EllipsLabel3: TEllipsLabel
-      Left = 133
-      Top = 108
-      Width = 12
-      Height = 13
-      Caption = #19993
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
-    object EllipsLabel4: TEllipsLabel
-      Left = 112
-      Top = 25
-      Width = 17
-      Height = 19
-      Caption = #8804' '
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
-    object EllipsLabel5: TEllipsLabel
-      Left = 112
-      Top = 63
-      Width = 17
-      Height = 19
-      Caption = #8804' '
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
-    object EllipsLabel6: TEllipsLabel
-      Left = 112
-      Top = 103
-      Width = 17
-      Height = 19
-      Caption = #8804' '
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
-    object EllipsLabel7: TEllipsLabel
-      Left = 161
-      Top = 23
-      Width = 12
-      Height = 19
-      Caption = '<'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
-    object EllipsLabel8: TEllipsLabel
-      Left = 161
-      Top = 63
-      Width = 12
-      Height = 19
-      Caption = '<'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
-    object EllipsLabel9: TEllipsLabel
-      Left = 161
-      Top = 103
-      Width = 12
-      Height = 19
-      Caption = '<'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      EllipsType = etNone
-      Version = '1.0.0.0'
-    end
     object GradientLabel1: TGradientLabel
       Left = 9
       Top = 144
@@ -230,6 +116,8 @@ inherited FrmRankSet: TFrmRankSet
       Width = 24
       Height = 13
       Caption = #39068#33394
+      Color = 16640730
+      ParentColor = False
       EllipsType = etNone
       Version = '1.0.0.0'
     end
@@ -273,6 +161,101 @@ inherited FrmRankSet: TFrmRankSet
       TransparentText = False
       VAlignment = vaTop
       Version = '1.2.0.0'
+    end
+    object lbl1: TLabel
+      Left = 135
+      Top = 32
+      Width = 12
+      Height = 13
+      Caption = #30002
+      Color = 16640730
+      ParentColor = False
+    end
+    object lbl2: TLabel
+      Left = 135
+      Top = 68
+      Width = 12
+      Height = 13
+      Caption = #20057
+      Color = 16640730
+      ParentColor = False
+    end
+    object lbl3: TLabel
+      Left = 135
+      Top = 108
+      Width = 12
+      Height = 13
+      Caption = #19993
+      Color = 16640730
+      ParentColor = False
+    end
+    object lbl4: TLabel
+      Left = 113
+      Top = 27
+      Width = 11
+      Height = 20
+      Caption = #8804
+      Color = 16640730
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = #24494#36719#38597#40657
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+      Transparent = True
+    end
+    object lbl5: TLabel
+      Left = 111
+      Top = 62
+      Width = 12
+      Height = 21
+      Caption = #8804
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = #24494#36719#38597#40657
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+    end
+    object lbl6: TLabel
+      Left = 111
+      Top = 102
+      Width = 12
+      Height = 21
+      Caption = #8804
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = #24494#36719#38597#40657
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+    end
+    object lbl7: TLabel
+      Left = 156
+      Top = 34
+      Width = 12
+      Height = 13
+      Caption = #65308
+      Transparent = True
+    end
+    object lbl8: TLabel
+      Left = 156
+      Top = 68
+      Width = 12
+      Height = 13
+      Caption = #65308
+      Transparent = True
+    end
+    object lbl9: TLabel
+      Left = 158
+      Top = 108
+      Width = 12
+      Height = 13
+      Caption = #65308
+      Transparent = True
     end
     object AdvedtjiaLow: TDBAdvEdit
       Left = 54

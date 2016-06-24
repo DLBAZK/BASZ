@@ -59,7 +59,7 @@ type
 
 implementation
 
-Uses UGVar,UGFun,UCommon,UMidProxy;
+Uses UGVar,UGFun,UCommon,UMidProxy,UGShare;
 ResourceString
   SZmzlCode='病历终末质量等级';
 
@@ -77,8 +77,12 @@ begin
   FillDBGridEHCombobox(sql,dbgrdh_DLCDS,'zklb','dm','dmmc');
 
   TMidProxy.SqlOpen(sql,clientdtlb);
-  suicbcbblb.KeyValue :=clientdtlb.FieldByName('dm').AsVariant;
-  ReLoadZLPJ(suicbcbblb.KeyValue);
+  if not VarIsNull(clientdtlb.FieldByName('dm').AsVariant) then
+  begin
+    suicbcbblb.KeyValue :=clientdtlb.FieldByName('dm').AsVariant;
+    ReLoadZLPJ(suicbcbblb.KeyValue);
+  end;
+
 end;
 
 procedure TFrmZmzlpf.CreateTree;
@@ -132,6 +136,7 @@ begin
   DlCds.FieldByName('isBj').AsInteger:=CRepFalse;
   DlCds.FieldByName('upperCode').AsString:=ZmzlpfTreeData.ZmzlpfTreeNodeCode;
   DLCDS.FieldByName('zklb').AsString := suicbcbblb.KeyValue;
+
 end;
 
 procedure TFrmZmzlpf.DLCDSBeforeInsert(DataSet: TDataSet);
@@ -171,12 +176,16 @@ end;
 /// <param name="dm">类别代码</param>
 procedure TFrmZmzlpf.ReLoadZLPJ(dm: string);
 begin
+  if not DLCDS.Active then Exit;
+  if DLCDS.IsEmpty then Exit;
+  
   tvZmzlpf.Items.Clear;
   SetFilter(Format('zklb=^%s^',[dm]),DLCDS);
   CreateTree;
   tvZmzlpf.TopItem.Expand(False);
   tvZmzlpf.TopItem.Selected:=True;
   tvZmzlpf.OnChange(tvZmzlpf,tvZmzlpf.TopItem);
+
 end;
 
 procedure TFrmZmzlpf.suicbcbblbCloseUp(Sender: TObject);
@@ -184,9 +193,10 @@ var
  dm:string;
 begin
   inherited;
-  dm :=suicbcbblb.KeyValue;
-  if not VarIsEmpty(dm) then
+
+  if not VarIsNull(suicbcbblb.KeyValue) then
   begin
+    dm :=suicbcbblb.KeyValue;
     //加载显示选择类别的评价标准
     ReLoadZLPJ(dm);
   end;
@@ -196,10 +206,7 @@ procedure TFrmZmzlpf.tvZmzlpfChange(Sender: TObject; Node: TTreeNode);
 begin
   inherited;
   IF Node=Nil Then Exit;
-  if Node.Level <2 then
-    dbgrdh_DLCDS.FieldColumns['xmfz'].Visible := false
-  else
-    dbgrdh_DLCDS.FieldColumns['xmfz'].Visible :=true;
+
   ZmzlpfTreeData:=Node.Data;
   SetSbSimpleText(ZmzlpfTreeData.ZmzlpfTreeNodeCode+'  :  '+ZmzlpfTreeData.ZmzlpfTreeNodeName);
   SetFilter(Format('upperCode=^%s^ and zklb = ^%s^',[ZmzlpfTreeData.ZmzlpfTreeNodeCode,suicbcbblb.KeyValue]),DlCds);
@@ -227,9 +234,60 @@ begin
 end;
 
 procedure TFrmZmzlpf.acSaveExecute(Sender: TObject);
+var
+ dm:string;
+ treenode:TTreeNode;
+ zmzldata:PZmzlpfData;
+ code:string;
+ clientdttmp:TClientDataSet;
 begin
+  if DLCDS.State in [dsInsert,dsEdit] then
+  begin
+    DLCDS.Post;
+    code :=DLCDS.FieldByName('code').AsString;
+    if code='' then
+    begin
+      code := DLCDS.FieldByName('itemcode').AsString+dlcds.FieldByName('uppercode').AsString;
+    end;
+    if Length(code)<15 then
+    begin
+      clientdttmp := TClientDataSet.Create(nil);
+      AutoFree(clientdttmp);
+      TMidProxy.SqlOpen(Format('select top 1 1 from Vszmzlpf where  uppercode=^%s^',[code]),clientdttmp);
+      if clientdttmp.RecordCount  <>1  then
+      begin
+        if DLCDS.FieldByName('xmfz').AsInteger=0 then
+        begin
+            if ShowMsg('未包含子标准，确定不设置分值吗？','',33)=IDCancel then
+           Exit;
+        end;
+
+      end;
+    end;
+
+  end;
+
   inherited;
- // RefreshTree;
+
+  if not VarIsNull(suicbcbblb.KeyValue) then
+  begin
+    dm :=suicbcbblb.KeyValue;
+
+    zmzldata := tvZmzlpf.Selected.Data;
+
+
+    DLCDS.Mid_Open('Select * From Vszmzlpf Order By code');
+    //加载显示选择类别的评价标准
+    ReLoadZLPJ(dm);
+    //自动定位上次选择记录
+    treenode := BindTreeNode(zmzldata.ZmzlpfTreeNodeCode);
+    if Assigned(treenode) then
+    begin
+      treenode.Selected :=True;
+      treenode.Expand(False);
+    end;
+  end;
+
 end;
 
 function TFrmZmzlpf.BindTreeNode(Code: String): TTreeNode;
@@ -249,6 +307,9 @@ begin
 end;
 
 procedure TFrmZmzlpf.CheckData;
+var
+  uppercode:string;
+  fz:Integer;
 begin
   inherited;
   IF DlCds.FieldByName('itemCode').AsString='' Then
@@ -257,6 +318,16 @@ begin
      Raise Exception.Create('项目代码必须为5位！');
   IF DlCds.FieldByName('codeName').AsString='' Then
      Raise Exception.Create('项目名称不能为空！');
+
+  uppercode :=DLCDS.FieldByName('uppercode').AsString;
+  fz :=DLCDS.FieldByName('xmfz').AsInteger;
+  if Length(uppercode) = 10 then
+  begin
+    if fz=0 then
+    begin
+      Raise Exception.Create('末级标准必须设置分值！');
+    end;
+  end;
 end;
 
 initialization

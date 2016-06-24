@@ -64,6 +64,9 @@ end;
 procedure TVsZmzlpf.MyBefoUpdate(Sender: TObject; SourceDS: TDataSet;
   DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind;
   var Applied: Boolean);
+var
+ code:string;
+ sql:string;
 begin
   inherited;
   DeltaDs.Edit;
@@ -71,12 +74,23 @@ begin
                                          GetFieldValue(DeltaDs.FieldByName('itemCode'));
   DeltaDs.Post;
   if UpdateKind=ukDelete then
-     begin
-       Applied:=true;
-       If CheckExistsRecord(Format('Select Top 1 1 From VsBAZmPj Where code=^%s^',[GetFieldValue(DeltaDs.FieldByName('code'))])) then
-          raise Exception.Create('医技项目：'+GetFieldValue(DeltaDs.FieldByName('codename'))+'中已经有数据，您不能删除该项目！');
-       ExecuteBy(Format('Delete Vszmzlpf Where code=^%s^',[GetFieldValue(DeltaDs.FieldByName('code'))]));
-     end;
+  begin
+   Applied:=true;
+   If CheckExistsRecord(Format('Select Top 1 1 From VsBAZmPj Where code=^%s^',[GetFieldValue(DeltaDs.FieldByName('code'))])) then
+      raise Exception.Create('医技项目：'+GetFieldValue(DeltaDs.FieldByName('codename'))+'中已经有数据，您不能删除该项目！');
+   ExecuteBy(Format('Delete Vszmzlpf Where code=^%s^',[GetFieldValue(DeltaDs.FieldByName('code'))]));
+  end
+  else if UpdateKind=ukModify then
+  begin
+    //除却三级之外，有下级的标准不能修改分值
+    code := GetFieldValue(DeltaDs.FieldByName('upperCode'))+deltads.FieldByName('itemcode').OldValue;
+    sql := Format('select top 1 1 from Vszmzlpf where  uppercode=^%s^',[code]) ;
+    if CheckExistsRecord(sql) then
+      raise Exception.Create('标准包含子标准，修改子标准分值即可自动计算！')
+    
+  end;
+
+
 end;
 
 initialization

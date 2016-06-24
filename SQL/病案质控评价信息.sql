@@ -24,8 +24,11 @@ CREATE TABLE [dbo].[VsBAsyzk](
 	[PFSJ] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+go
 
+SET ANSI_PADDING OFF
 GO
+----------------------------病案首页质控项目表----------------------
 if not exists (select 1 from sysobjects where id = object_id('Vssjpf') and type = 'U')
 Begin
 create table Vssjpf(
@@ -39,7 +42,7 @@ create table Vssjpf(
 )
 End
 go
-
+--------------------评价项目类型表---------------------
 if not exists (select 1 from sysobjects where id = object_id('Vsxmlx') and type = 'U')
 Begin
 create table Vsxmlx(
@@ -55,7 +58,7 @@ INSERT INTO Vsxmlx VALUES('2','医疗质量','0')
 INSERT INTO Vsxmlx VALUES('3','患者负担','0')
 INSERT INTO Vsxmlx VALUES('4','患者安全','0')
 go
-
+-----------------------------------终末质量项目表-----------------------------------
 if not exists (select 1 from sysobjects where id = object_id('Vszmzlpf') and type = 'U')
 Begin
 create table Vszmzlpf(
@@ -71,7 +74,7 @@ create table Vszmzlpf(
 )
 End
 GO
-
+--------------------------------质控类别表--------------------------------------------------
 if not exists (select 1 from sysobjects where id = object_id('Vszklb') and type = 'U')
 Begin
 create table Vszklb(
@@ -81,11 +84,81 @@ create table Vszklb(
   isTy int  --停用标志
 )
 End
-go 
---------------------------首页质控存储过程--------------------
+
+go
+-------------------------------创建病案等级表---------------
+CREATE TABLE [dbo].[VsZkRank](
+	[ID] [int] NOT NULL,
+	[LowScore] [varchar](10) NOT NULL,
+	[HighScore] [varchar](10) NOT NULL,
+	[rankcolor] [int] NULL,
+ CONSTRAINT [PK_VsZkRank] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+------------------病案终末质量评价记录表
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[VsBAZmPj](
+	[CH0A00] [varchar](50) NOT NULL,
+	[Code] [varchar](50) NOT NULL,
+	[Score] [numeric](5, 2) NULL,
+	[Remark] [varchar](1000) NULL,
+	[PFR] [varchar](10) NULL,
+	[PFSJ] [datetime] NULL,
+ CONSTRAINT [PK_VsBAZmPj] PRIMARY KEY CLUSTERED 
+(
+	[CH0A00] ASC,
+	[Code] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+GO
+
 SET ANSI_PADDING OFF
+GO
 
+---------------------	 病案筛选表-----------------
+SET ANSI_NULLS ON
+GO
 
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[VsPJBA0A](
+	[CH0A00] [varchar](50) NOT NULL,
+	[CH0A01] [varchar](50) NOT NULL,
+	[CH0A02] [varchar](50) NULL,
+	[CH0A03] [nchar](1) NULL,
+	[zklb] [varchar](4) NOT NULL,
+	[CH0A27] [datetime] NULL,
+	[CH0ABarcode] [varchar](50) NULL,
+ CONSTRAINT [PK_VsPJBA0A] PRIMARY KEY CLUSTERED 
+(
+	[CH0A00] ASC,
+	[CH0A01] ASC,
+	[zklb] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+-----------------------------------------病案首页质控存储过程------------------------
 GO
 /****** Object:  StoredProcedure [dbo].[PBaSyZk]    Script Date: 06/02/2016 09:59:10 ******/
 SET ANSI_NULLS ON
@@ -184,25 +257,105 @@ BEGIN
   
 END 
 
-
-go
--------------------------------创建病案等级表---------------
-CREATE TABLE [dbo].[VsZkRank](
-	[ID] [int] NOT NULL,
-	[LowScore] [varchar](10) NOT NULL,
-	[HighScore] [varchar](10) NOT NULL,
- CONSTRAINT [PK_VsZkRank] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-insert into VsZkRank values(101,'90','100')
-insert into VsZkRank values(102,'70','90')
-insert into VsZkRank values(103,'0','70')
 GO
 	
+--------------------------更新病案终末质量项目分数存储过程--
+GO
+IF EXISTS (
+  SELECT * 
+    FROM INFORMATION_SCHEMA.ROUTINES 
+   WHERE SPECIFIC_SCHEMA = N'dbo'
+     AND SPECIFIC_NAME = N'Updatezmzlpj' 
+)
+   DROP PROCEDURE dbo.Updatezmzlpj
+GO
+
+create PROCEDURE dbo.Updatezmzlpj
+@upperCode varchar(50)
+as
+begin
+  declare @parentcode varchar(50)
+ ---------更新上级分数
+  update  a set a.xmfz =(select SUM(isnull(b.xmfz,0)) from Vszmzlpf b where b.upperCode=@upperCode ) from Vszmzlpf a where a.code=@upperCode
+  
+  select @parentcode=isnull(uppercode,'') from Vszmzlpf where code=@upperCode
+  if @parentcode<>''
+  begin
+    update  a set a.xmfz =(select SUM(isnull(b.xmfz,0)) from Vszmzlpf b where b.upperCode=@parentcode ) from Vszmzlpf a where a.code=@parentcode 
+  end
+end
+	 
+	
+------------------------病案终末质量评价存储过程-------------
+GO
+IF EXISTS (
+  SELECT * 
+    FROM INFORMATION_SCHEMA.ROUTINES 
+   WHERE SPECIFIC_SCHEMA = N'dbo'
+     AND SPECIFIC_NAME = N'PBAzmpj' 
+)
+   DROP PROCEDURE dbo.PBAzmpj
+GO
+
+create PROCEDURE dbo.PBAzmpj
+	@CH0A00 varchar(20),
+	@Zklb varchar(10)
+WITH RECOMPILE	 
+AS
+BEGIN
+  DECLARE @code varchar(15)      ---项目序号
+  DECLARE @codename varchar(100)  ---项目内容
+  DECLARE @uppercode varchar(15)  ---上级项目序号 
+  DECLARE @num int                ---数据集行数
+  DECLARE @FZ int                  ---项目分值
+  DECLARE @xmfz varchar(10)  
+  DECLARE @isbj int               ---丙级标志      
+  
+ -- ----评价项目整合表
+  CREATE TABLE #ZLPJTmp(
+	FcodeName varchar(100),
+	ScodeName varchar(100),
+	TcodeName varchar(100),
+	Fcode varchar(15),
+	Scode varchar(15),
+	Tcode varchar(15),
+	fxmfz int,
+	sxmfz int,
+	txmfz int,
+	Score numeric(5,2) default 0,
+	Remark varchar(100),
+	isbj int default 0
+  )
+ -----查询转换评价项目 临时表--------------------------
+   insert  into #ZLPJTmp(fcodename,Scodename,tcodename,fcode,scode,tcode,fxmfz,sxmfz,txmfz,Remark)
+   select fcodename,Scodename,tcodename,fcode,scode,tcode,fxmfz,sxmfz,txmfz,'' from 
+   (select a.code fcode,(case when a.isBj =1 then '*'+a.codeName+'('+CONVERT(varchar(4),a.xmfz)+'分)' else a.codeName+'('+CONVERT(varchar(4),a.xmfz)+'分)' end) fcodename, fxmfz=a.xmfz,
+   b.code scode,(case when b.isBj=1 then '*'+b.codeName+'('+CONVERT(varchar(4),ISNULL(b.xmfz,0))+'分)' else b.codeName+'('+CONVERT(varchar(4),ISNULL(b.xmfz,0))+'分)' end) Scodename,
+  sxmfz=b.xmfz,c.code tcode,
+ (case when c.isBj=1 then '*'+ c.codeName+'('+CONVERT(varchar(4),ISNULL(c.xmfz,0))+'分)' else  c.codeName+'('+CONVERT(varchar(4),ISNULL(c.xmfz,0))+'分)' end) tcodename,
+ isnull(c.xmfz,0) as txmfz from Vszmzlpf a 
+ left join Vszmzlpf b on a.code=b.upperCode
+ left join Vszmzlpf c on b.code =c.upperCode 
+ where a.upperCode ='' and a.isTy =0 and a.zklb=@Zklb ) c
+ 
+ 
+  -----------------------判断是否做过评价
+  if not exists(select 1 from VsBAZmPj where CH0A00 =@CH0A00)
+  begin
+    select a.FcodeName,a.ScodeName,a.TcodeName,FCode,SCode,TCode, fxmfz,sxmfz,txmfz,Score,remark='' 
+    from #ZLPJTmp a order by Scode,Tcode 
+    
+  end
+  else
+  ----------------做过评价 查询分数---------------
+    select a.FcodeName,a.ScodeName,a.TcodeName,FCode,SCode,TCode , fxmfz,sxmfz,txmfz,ISNULL(b.score,0.0) Score,b.remark 
+  from #ZLPJTmp a left join VsBAZmPj b on a.Fcode = b.code or a.Scode=b.code or a.Tcode=b.code  
+  where b.CH0A00 =@CH0A00  order by Scode,Tcode 
+	
+	
+END	
+GO	 
+
 ---------------------------------病案菜单栏----------------------------------------------	
 if not exists (select * from VsLib where LibCode ='100025')
 	insert into VsLib(LibCode,LibName,LibDesc) values('100025','BaQuality.dll','病案质控&评价')
@@ -374,172 +527,146 @@ end
 else
   insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
      VALUES  (409,'TVsXmLx','200026','EuVsXmLx','病案项目类型中间层')
-	 
-------------------病案终末质量评价记录表
 
-SET ANSI_NULLS ON
+
+insert into Vssjpf values('1','100','姓名不能为空','1',10,0,'Isnull(CH0A02,'''')=''''')
+insert into Vssjpf values('2','101','性别不能为空','1',5,0,'Isnull(CH0A03,'''')=''''')
+insert into Vssjpf values('3','102','缺记录或超过患者入院后24小时','1',15,0,'Isnull(CH0A14,'''')=''''')
+insert into Vssjpf values('4','103','不规范','1',10,0,'Isnull(CH0ANB,'''')=''''')
+insert into Vssjpf values('5','104','婚姻生育史不规范','1',10,0,'Isnull(CH0A07,'''')=''''')
+insert into Vssjpf values('6','105','无出院时间','1',10,0,'Isnull(CH0A27,'''')=''''')
+insert into Vssjpf values('7','106','死亡记录无记录死亡原因','1',10,0,'Isnull(CH0ANC,'''')=''''')
+insert into Vssjpf values('8','107','诊断填写不规范','1',5,0,'Isnull(CH0A37,'''')=''''')
+
+insert into VsZkRank values(101,'90','100',32768)
+insert into VsZkRank values(102,'70','90',15780518)
+insert into VsZkRank values(103,'0','70',65535)
+
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'10000', N'10000', N'1.病案首页', N'1', 1, 0, N'', 0, N'1001')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1000000001', N'00001', N'1.1缺首页或首页空白.', N'1', 1, 0, N'10000', 0, N'1001')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'10001', N'10001', N'2.出院/死亡记录', N'1', 3, 0, N'', 0, N'1001')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1000100001', N'00001', N'2.1出院/死亡记录', N'1', 1, 0, N'10001', 0, N'1001')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1000100002', N'00002', N'2.2死亡病例讨论记录', N'1', 1, 0, N'10001', 0, N'1001')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1000100003', N'00003', N'23.332232', N'2', 1, 0, N'10001', 0, N'1001')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'11700', N'11700', N'1.病案首页', N'1', 4, 0, N'', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170000001', N'00001', N'1.1缺首页或首页空白.', N'1', 1, 0, N'11700', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170000002', N'00002', N'1.2填写缺项或不规范、错误。', N'1', 1, 0, N'11700', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170000003', N'00003', N'1.3诊断填写完整、规范.', N'1', 1, 0, N'11700', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170000004', N'00004', N'1.4签名不清.', N'1', 1, 0, N'11700', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'11701', N'11701', N'2.出院/死亡记录', N'1', 8, 0, N'', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170100001', N'00001', N'2.1出院/死亡记录', N'1', 6, 0, N'11701', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117010000100001', N'00001', N'2.1.1缺记录或未在患者出院（或死亡）后24小时内完成', N'1', 2, 0, N'1170100001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117010000100002', N'00002', N'2.1.2缺项或记录有缺陷。', N'1', 1, 0, N'1170100001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117010000100003', N'00003', N'2.1.3缺医师签名。', N'1', 2, 0, N'1170100001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117010000100004', N'00004', N'2.1.4死亡记录无死亡原因、死亡时间。', N'1', 1, 0, N'1170100001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170100002', N'00002', N'2.2死亡病例讨论记录', N'1', 2, 0, N'11701', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117010000200001', N'00001', N'2.2.1缺记录。', N'1', 1, 0, N'1170100002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117010000200002', N'00002', N'2.2.2记录不规范。', N'1', 1, 0, N'1170100002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'11702', N'11702', N'3.入院记录/再次入院记录', N'1', 30, 0, N'', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200001', N'00001', N'3.1基本要求', N'1', 3, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000100001', N'00001', N'3.1.1缺记录或超过患者入院后24小时。', N'1', 1, 0, N'1170200001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000100002', N'00002', N'3.1.2无执业医师资质人员书写的病历未在72h内经本院医师审签;', N'1', 2, 0, N'1170200001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200002', N'00002', N'3.2一般项目', N'1', 1, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000200001', N'00001', N'3.2.1缺项或错误或不规范', N'1', 1, 0, N'1170200002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200003', N'00003', N'3.3主诉', N'1', 3, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000300001', N'00001', N'3.3.1超过20个字、未导出第一诊断。', N'1', 2, 0, N'1170200003', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000300002', N'00002', N'3.3.2不规范或用诊断名称代替。', N'1', 1, 0, N'1170200003', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200004', N'00004', N'3.4现病史', N'1', 5, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000400001', N'00001', N'3.4.1与主诉不相关、不相符。', N'1', 2, 0, N'1170200004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000400002', N'00002', N'3.4.2起病时间描述不准确或未写有无原因或诱因。', N'1', 1, 0, N'1170200004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000400003', N'00003', N'3.4.3部位、时间、性质、程度及伴随症状描述不清楚。', N'1', 1, 0, N'1170200004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000400004', N'00004', N'3.4.4缺有鉴别诊断意义的重要阴性症状与体征。', N'1', 1, 0, N'1170200004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000400005', N'00005', N'3.4.5一般情况未描述或描述不全。', N'1', 1, 0, N'1170200004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000400006', N'00006', N'3.4.6入院前的检查及诊治经过未描述或描述有缺陷。', N'1', 1, 0, N'1170200004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200005', N'00005', N'3.5既往史', N'1', 3, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000500001', N'00001', N'3.5.1缺重要脏器尤其与鉴别诊断相关的疾病史。', N'1', 1, 0, N'1170200005', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000500002', N'00002', N'3.5.2缺传染病史、预防接种史、手术外伤史、输血史。', N'1', 1, 0, N'1170200005', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000500003', N'00003', N'3.5.3缺药物、食物等过敏史或描述有缺陷、或与首页不符', N'1', 1, 0, N'1170200005', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200006', N'00006', N'3.6个人史', N'1', 2, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000600001', N'00001', N'3.6.1缺个人史、或遗漏诊治相关的个人史', N'1', 1, 0, N'1170200006', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000600002', N'00002', N'3.6.2婚姻、月经、生育史缺项或不规范。', N'1', 1, 0, N'1170200006', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200007', N'00007', N'3.7家族史', N'1', 2, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000700001', N'00001', N'3.7.1缺遗传史。', N'1', 1, 0, N'1170200007', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000700002', N'00002', N'3.7.2家族中有死亡者，死因未描述；或未记录父母情况', N'1', 1, 0, N'1170200007', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200008', N'00008', N'3.8陈述者签名', N'1', 3, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000800001', N'00001', N'3.8.1缺陈述者签名或不一致。', N'1', 2, 0, N'1170200008', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000800002', N'00002', N'3.8.2未注明签名时间。', N'1', 1, 0, N'1170200008', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200009', N'00009', N'3.9体格检查', N'1', 5, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000900001', N'00001', N'3.9.1不齐全，填写不完整、不规范。', N'1', 1, 0, N'1170200009', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020000900002', N'00002', N'3.9.2专科检查不全面；应有的鉴别诊断体征未记录或记录不全。', N'1', 2, 0, N'1170200009', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200010', N'00010', N'3.10辅助检查', N'1', 1, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020001000001', N'00001', N'3.10.1结果未记录或记录有缺陷，缺外院检查医院名称及检查编号。', N'1', 1, 0, N'1170200010', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200011', N'00011', N'3.11病史小结', N'1', 1, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020001100001', N'00001', N'3.11.1缺病史小结。', N'1', 1, 0, N'1170200011', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170200012', N'00012', N'3.12初步诊断', N'1', 1, 0, N'11702', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117020001200001', N'00001', N'3.12.1缺初步诊断。', N'1', 1, 0, N'1170200012', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'11703', N'11703', N'4.病程记录', N'1', 35, 0, N'', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170300001', N'00001', N'4.1首次病程记录', N'1', 7, 0, N'11703', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000100001', N'00001', N'4.1.1缺记录或未在患者入院后8小时内完成', N'1', 1, 0, N'1170300001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000100002', N'00002', N'4.1.2未归纳提炼，条理不清，照搬入院病史、体检及辅助检查。', N'1', 2, 0, N'1170300001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000100003', N'00003', N'4.1.3缺分析讨论、无必需鉴别诊断。', N'1', 2, 0, N'1170300001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000100004', N'00004', N'4.1.4诊疗计划用套话、无针对性或具体内容', N'1', 2, 0, N'1170300001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170300002', N'00002', N'4.2上级医师首次查房记录', N'1', 5, 0, N'11703', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000200001', N'00001', N'4.2.1缺记录或超过患者入院后48小时。', N'1', 10, 0, N'1170300002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000200002', N'00002', N'4.2.2缺分析讨论、缺鉴别诊断。', N'1', 2, 0, N'1170300002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000200003', N'00003', N'4.2.3分析讨论不够，或与首次病程记录中的内容雷同。', N'1', 2, 0, N'1170300002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170300003', N'00003', N'4.3上级医师日常查房记录', N'1', 8, 0, N'11703', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000300001', N'00001', N'4.3.1主治医师日常查房无内容、无分析、无处理意见或其他缺陷。', N'1', 3, 0, N'1170300003', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000300002', N'00002', N'4.3.2副主任以上医师查房无分析及指导诊疗意见', N'1', 3, 0, N'1170300003', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000300003', N'00003', N'4.3.3缺上级医师查房。', N'1', 1, 0, N'1170300003', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170300004', N'00004', N'4.4日常病程记录', N'1', 15, 0, N'11703', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400001', N'00001', N'4.4.1未及时记录患者病情变化、观察记录无针对性、对新发现的阳性无分析及处理措施等。', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400002', N'00002', N'4.4.2未按规定记录病程记录（病危随时记至少每天1次，病重至少每2天1次，病情稳定至少每3天1次）。', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400003', N'00003', N'4.4.3未记录影响诊治的异常检查结果，或无分析、判断、处理记录', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400004', N'00004', N'4.4.4未记录重要诊疗措施；未对更改的药物、治疗方案进行说明', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400005', N'00005', N'4.4.5对病情危重患者，病程中未记录向患者近亲属告知的相关情况', N'1', 2, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400006', N'00006', N'4.4.6缺会诊意见或在申请后48h内未完成，急会诊未在10min内完成。', N'1', 2, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400007', N'00007', N'4.4.7会诊记录单缺会诊申请理由及目的、会诊意见或会诊记录有缺陷', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400008', N'00008', N'4.4.8病程记录中缺会诊意见及执行情况。', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400009', N'00009', N'4.4.9缺有创诊疗操作记录或未在操作结束后即刻书写。', N'1', 10, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400010', N'00010', N'4.4.10有创诊疗操作记录缺操作过程、不良反应、注意事项及操作者。', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400011', N'00011', N'4.4.11输血或使用血液制品当天病程中无记录或记录有缺陷', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400012', N'00012', N'4.4.12缺抢救记录或抢救医嘱未在抢救结束后6h内完成', N'1', 3, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400013', N'00013', N'4.4.13抢救记录内容有缺陷。', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400014', N'00014', N'4.4.14抢救医嘱与抢救记录内容不一致。', N'1', 2, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400015', N'00015', N'4.4.15缺交、接班记录，转科记录，阶段小结。', N'1', 3, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400016', N'00016', N'4.4.16未在规定时间内完成交、接班记录，转科记录，阶段小结', N'1', 2, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400017', N'00017', N'4.4.17交班与接班记录，转出与转入记录雷同。', N'1', 2, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400018', N'00018', N'4.4.18缺出院病程记录。', N'1', 2, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117030000400019', N'00019', N'4.4.19病程书写有其它缺陷、缺项、漏项。', N'1', 1, 0, N'1170300004', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'11704', N'11704', N'5.知情同意及授权委托', N'1', 23, 0, N'', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170400001', N'00001', N'5.1手术或特殊检查、治疗无患者/代理人签名的知情同意书。', N'1', 5, 0, N'11704', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170400002', N'00002', N'5.2知情同意书缺项、错误或不规范。', N'1', 5, 0, N'11704', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170400003', N'00003', N'5.3使用自费项目缺患者签名的知情同意书', N'1', 1, 0, N'11704', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170400004', N'00004', N'5.4放弃抢救时，缺患者近亲属签署意见并签名的医疗文书', N'1', 1, 0, N'11704', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170400005', N'00005', N'5.5非患者签名缺授权委托书', N'1', 5, 0, N'11704', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170400006', N'00006', N'5.6非授权委托人代理人签署的知情同意书', N'1', 5, 0, N'11704', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170400007', N'00007', N'5.7授权委托书填写内容及人数与代理人签名内容及数量不符', N'1', 1, 0, N'11704', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'11705', N'11705', N'6.医嘱单及辅助检查', N'1', 8, 0, N'', 0, N'1000')
 GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[VsBAZmPj](
-	[CH0A00] [varchar](50) NOT NULL,
-	[Code] [varchar](50) NOT NULL,
-	[Score] [numeric](5, 2) NULL,
-	[Remark] [varchar](1000) NULL,
- CONSTRAINT [PK_VsBAZmPj] PRIMARY KEY CLUSTERED 
-(
-	[CH0A00] ASC,
-	[Code] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-
-GO
-
-SET ANSI_PADDING OFF
-GO
----------------------病案类别表---
-if not exists (select 1 from sysobjects where id = object_id('Vszklb') and type = 'U')
-Begin
-create table Vszklb(
-  dm varchar(4) not null primary key(dm),  --质控类别代码
-  dmmc varchar(100),  --质控类别名称
-  isChoice INT, --是否选择全部病历
-  isTy int  --停用标志
-)
-End
-go 
-
----------------------	 病案筛选表-----------------
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[VsPJBA0A](
-	[CH0A00] [varchar](50) NOT NULL,
-	[CH0A01] [varchar](50) NOT NULL,
-	[CH0A02] [varchar](50) NULL,
-	[CH0A03] [nchar](1) NULL,
-	[zklb] [varchar](4) NOT NULL,
-	[CH0A27] [datetime] NULL,
- CONSTRAINT [PK_VsPJBA0A] PRIMARY KEY CLUSTERED 
-(
-	[CH0A00] ASC,
-	[CH0A01] ASC,
-	[zklb] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
---------------------------更新病案终末质量项目分数存储过程--
-GO
-IF EXISTS (
-  SELECT * 
-    FROM INFORMATION_SCHEMA.ROUTINES 
-   WHERE SPECIFIC_SCHEMA = N'dbo'
-     AND SPECIFIC_NAME = N'Updatezmzlpj' 
-)
-   DROP PROCEDURE dbo.Updatezmzlpj
-GO
-
-create PROCEDURE dbo.Updatezmzlpj
-@upperCode varchar(50)
-as
-begin
-  declare @parentcode varchar(50)
- ---------更新上级分数
-  update  a set a.xmfz =(select SUM(isnull(b.xmfz,0)) from Vszmzlpf b where b.upperCode=@upperCode ) from Vszmzlpf a where a.code=@upperCode
-  
-  select @parentcode=isnull(uppercode,'') from Vszmzlpf where code=@upperCode
-  if @parentcode<>''
-  begin
-    update  a set a.xmfz =(select SUM(isnull(b.xmfz,0)) from Vszmzlpf b where b.upperCode=@parentcode ) from Vszmzlpf a where a.code=@parentcode 
-  end
-end
-	 
-	
-------------------------病案终末质量评价存储过程-------------
-GO
-IF EXISTS (
-  SELECT * 
-    FROM INFORMATION_SCHEMA.ROUTINES 
-   WHERE SPECIFIC_SCHEMA = N'dbo'
-     AND SPECIFIC_NAME = N'PBAzmpj' 
-)
-   DROP PROCEDURE dbo.PBAzmpj
-GO
-
-create PROCEDURE dbo.PBAzmpj
-	@CH0A00 varchar(20),
-	@Zklb varchar(10)
-WITH RECOMPILE	 
-AS
-BEGIN
-  DECLARE @code varchar(15)      ---项目序号
-  DECLARE @codename varchar(100)  ---项目内容
-  DECLARE @uppercode varchar(15)  ---上级项目序号 
-  DECLARE @num int                ---数据集行数
-  DECLARE @FZ int                  ---项目分值
-  DECLARE @xmfz varchar(10)  
-  DECLARE @isbj int               ---丙级标志      
-  
- -- ----评价项目整合表
-  CREATE TABLE #ZLPJTmp(
-	FcodeName varchar(100),
-	ScodeName varchar(100),
-	TcodeName varchar(100),
-	Fcode varchar(15),
-	Scode varchar(15),
-	Tcode varchar(15),
-	fxmfz int,
-	sxmfz int,
-	txmfz int,
-	Score numeric(5,2) default 0,
-	Remark varchar(100),
-	isbj int default 0
-  )
- -----查询转换评价项目 临时表--------------------------
-   insert  into #ZLPJTmp(fcodename,Scodename,tcodename,fcode,scode,tcode,fxmfz,sxmfz,txmfz,Remark)
-   select fcodename,Scodename,tcodename,fcode,scode,tcode,fxmfz,sxmfz,txmfz,'' from 
-   (select a.code fcode,(case when a.isBj =1 then '*'+a.codeName+'('+CONVERT(varchar(4),a.xmfz)+'分)' else a.codeName+'('+CONVERT(varchar(4),a.xmfz)+'分)' end) fcodename, fxmfz=a.xmfz,
-   b.code scode,(case when b.isBj=1 then '*'+b.codeName+'('+CONVERT(varchar(4),ISNULL(b.xmfz,0))+'分)' else b.codeName+'('+CONVERT(varchar(4),ISNULL(b.xmfz,0))+'分)' end) Scodename,
-  sxmfz=b.xmfz,c.code tcode,
- (case when c.isBj=1 then '*'+ c.codeName+'('+CONVERT(varchar(4),ISNULL(c.xmfz,0))+'分)' else  c.codeName+'('+CONVERT(varchar(4),ISNULL(c.xmfz,0))+'分)' end) tcodename,
- isnull(c.xmfz,0) as txmfz from Vszmzlpf a 
- left join Vszmzlpf b on a.code=b.upperCode
- left join Vszmzlpf c on b.code =c.upperCode 
- where a.upperCode ='' and a.isTy =0 and a.zklb=@Zklb ) c
- 
- 
-  -----------------------判断是否做过评价
-  if not exists(select 1 from VsBAZmPj where CH0A00 =@CH0A00)
-  begin
-    select a.FcodeName,a.ScodeName,a.TcodeName,FCode,SCode,TCode, fxmfz,sxmfz,txmfz,Score,remark='' 
-    from #ZLPJTmp a order by Scode,Tcode 
-    
-  end
-  else
-  ----------------做过评价 查询分数---------------
-    select a.FcodeName,a.ScodeName,a.TcodeName,FCode,SCode,TCode , fxmfz,sxmfz,txmfz,ISNULL(b.score,0.0) Score,b.remark 
-  from #ZLPJTmp a left join VsBAZmPj b on a.Fcode = b.code or a.Scode=b.code or a.Tcode=b.code  
-  where b.CH0A00 =@CH0A00  order by Scode,Tcode 
-	
-	
-END	
-GO	 
-
-
-
-
+print 'Processed 100 total records'
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170500001', N'00001', N'6.1医嘱单', N'1', 3, 0, N'11705', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117050000100001', N'00001', N'6.1.1医嘱开具、停止、取消不规范。', N'1', 1, 0, N'1170500001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117050000100002', N'00002', N'6.1.2医嘱内容不规范或有非医嘱内容。', N'1', 1, 0, N'1170500001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117050000100003', N'00003', N'6.1.3医嘱无执业注册医师签名或冠签。', N'1', 1, 0, N'1170500001', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170500002', N'00002', N'6.2辅助检查', N'1', 5, 0, N'11705', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117050000200001', N'00001', N'6.2.1住院48h以上缺血尿常规化验结果，也未转抄门诊化验结果', N'1', 1, 0, N'1170500002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117050000200002', N'00002', N'6.2.2缺输血前9项检验报告单或化验结果记录，或缺拒绝时患者或委托人签字。', N'1', 2, 0, N'1170500002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117050000200003', N'00003', N'6.2.3未完成术前常规检查。', N'1', 1, 0, N'1170500002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'117050000200004', N'00004', N'6.2.4辅助检查报告单不全或丢失。', N'1', 1, 0, N'1170500002', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'11706', N'11706', N'7.书写基本原则', N'1', 20, 0, N'', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170600001', N'00001', N'7.1有涂改或伪造病历等行为。', N'1', 1, 0, N'11706', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170600002', N'00002', N'7.2修改不规范。', N'1', 1, 0, N'11706', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170600003', N'00003', N'7.3日期和时间未使用阿拉伯数字和24小时制记录。', N'1', 1, 0, N'11706', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170600004', N'00004', N'7.4缺记录医师的电子签名或手写签名。', N'1', 1, 0, N'11706', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170600005', N'00005', N'7.5医师签名代签', N'1', 3, 0, N'11706', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170600006', N'00006', N'7.6各项记录单楣栏填写不完整或信息记录有误。', N'1', 1, 0, N'11706', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170600007', N'00007', N'7.7病历中记录内容相互矛盾。', N'1', 2, 0, N'11706', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170600008', N'00008', N'7.8系拷贝行为导致的严重错误。', N'1', 10, 0, N'11706', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'11707', N'11707', N'医技科室', N'1', 8, 0, N'', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170700001', N'00001', N'1.1辅助检查报告单（检验科报告单除外）未使用A4纸张打印。', N'1', 1, 0, N'11707', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170700002', N'00002', N'1.2辅助检查报告单修改不规范。', N'1', 1, 0, N'11707', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170700003', N'00003', N'1.3检验报告单、输血交叉配血单未双签（值班时间除外）。', N'1', 1, 0, N'11707', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170700004', N'00004', N'1.4缺麻醉、特殊检查治疗知情同意书或缺项，或缺少授权。', N'1', 2, 0, N'11707', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170700005', N'00005', N'1.5手术安全核查表麻醉部分缺项，手术风险评估表麻醉分级记录缺项', N'1', 2, 0, N'11707', 0, N'1000')
+INSERT [dbo].[Vszmzlpf] ([code], [itemCode], [codeName], [xmlx], [xmfz], [isBj], [upperCode], [isTy], [zklb]) VALUES (N'1170700006', N'00006', N'1.6其他问题例如手术风险评估表中手术持续时间缺项。', N'1', 1, 0, N'11707', 0, N'1000')

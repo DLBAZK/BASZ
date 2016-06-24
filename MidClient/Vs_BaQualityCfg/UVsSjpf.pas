@@ -69,9 +69,9 @@ begin
   if UpdateKind=ukDelete then
      begin
        Applied:=true;
-       If CheckExistsRecord(Format('Select Top 1 1 From VsBAsyzk Where Subject=^%s^',[GetFieldValue(DeltaDs.FieldByName('dm'))])) then
+       If CheckExistsRecord(Format('Select Top 1 1 From VsBAsyzk Where Subject=^%s^',[DeltaDs.FieldByName('dm').OldValue])) then
           raise Exception.Create('数据评分：'+GetFieldValue(DeltaDs.FieldByName('dmmc'))+'中已经有数据，您不能删除该项目！');
-       ExecuteBy(Format('Delete Vssjpf Where dm=^%s^',[GetFieldValue(DeltaDs.FieldByName('dm'))]));
+       ExecuteBy(Format('Delete Vssjpf Where dm=^%s^',[DeltaDs.FieldByName('dm').OldValue]));
      end;
 end;
 

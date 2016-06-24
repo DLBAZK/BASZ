@@ -1,10 +1,12 @@
-USE [batj2005]
+USE [Batj2005]
 GO
+
 
 CREATE TABLE [dbo].[VsZkRank](
 	[ID] [int] NOT NULL,
 	[LowScore] [varchar](10) NOT NULL,
 	[HighScore] [varchar](10) NOT NULL,
+	[rankcolor] [int] NULL,
  CONSTRAINT [PK_VsZkRank] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -17,4 +19,4 @@ insert into VsZkRank values(102,'70','90')
 insert into VsZkRank values(103,'0','70')
 GO
 
-select * from VsZkRank
+

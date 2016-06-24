@@ -12,12 +12,12 @@ inherited FrmBaSx: TFrmBaSx
   inherited advfcstsbr: TAdvOfficeStatusBar
     Top = 507
     Width = 1023
-    ExplicitTop = 543
-    ExplicitWidth = 1008
+    ExplicitTop = 507
+    ExplicitWidth = 1023
   end
   inherited advtlbrpgr1: TAdvToolBarPager
     Width = 1023
-    ExplicitWidth = 1008
+    ExplicitWidth = 1023
     inherited AdvPage1: TAdvPage
       Width = 1015
       Height = 0
@@ -28,8 +28,8 @@ inherited FrmBaSx: TFrmBaSx
   inherited AdvPanel1: TAdvPanel
     Width = 1023
     Height = 482
-    ExplicitWidth = 1008
-    ExplicitHeight = 518
+    ExplicitWidth = 1023
+    ExplicitHeight = 482
     FullHeight = 200
     object AdvSplitter1: TAdvSplitter
       Left = 456
@@ -77,7 +77,6 @@ inherited FrmBaSx: TFrmBaSx
       StatusBar.Font.Height = -11
       StatusBar.Font.Name = 'Tahoma'
       StatusBar.Font.Style = []
-      ExplicitWidth = 1008
       FullHeight = 200
       object AdvGroupBox1: TAdvGroupBox
         Left = 0
@@ -407,8 +406,6 @@ inherited FrmBaSx: TFrmBaSx
         Align = alClient
         Caption = #23450#20301
         TabOrder = 1
-        ExplicitLeft = 705
-        ExplicitWidth = 415
         object Label2: TLabel
           Left = 6
           Top = 34
@@ -520,8 +517,6 @@ inherited FrmBaSx: TFrmBaSx
       ParentColor = True
       Align = alClient
       TabOrder = 3
-      ExplicitWidth = 486
-      ExplicitHeight = 429
       object FlatPanel2: TFlatPanel
         Left = 1
         Top = 1
@@ -530,7 +525,6 @@ inherited FrmBaSx: TFrmBaSx
         ParentColor = True
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 484
         object suichkCheckAll: TsuiCheckBox
           Tag = 201
           Left = 9
@@ -858,8 +852,6 @@ inherited FrmBaSx: TFrmBaSx
         ParentColor = True
         Align = alBottom
         TabOrder = 2
-        ExplicitTop = 388
-        ExplicitWidth = 484
         object AdvbtnSave: TAdvGlowButton
           Left = 398
           Top = 1
@@ -899,7 +891,6 @@ inherited FrmBaSx: TFrmBaSx
           Appearance.ColorMirrorCheckedTo = 16768988
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
-          ExplicitLeft = 383
         end
       end
     end
@@ -917,7 +908,6 @@ inherited FrmBaSx: TFrmBaSx
       ParentColor = True
       Align = alLeft
       TabOrder = 1
-      ExplicitHeight = 429
       object FlatPanel4: TFlatPanel
         Left = 1
         Top = 1
@@ -1132,7 +1122,6 @@ inherited FrmBaSx: TFrmBaSx
       ParentColor = True
       Align = alLeft
       TabOrder = 2
-      ExplicitHeight = 429
       object FlatbtnAllRight: TFlatButton
         Left = 24
         Top = 122

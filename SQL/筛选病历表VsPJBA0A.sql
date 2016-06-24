@@ -1,8 +1,7 @@
-
 USE [Batj2005]
 GO
 
-/****** Object:  Table [dbo].[VsPJBA0A]    Script Date: 06/17/2016 02:00:25 ******/
+/****** Object:  Table [dbo].[VsPJBA0A]    Script Date: 06/22/2016 14:47:53 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -19,6 +18,7 @@ CREATE TABLE [dbo].[VsPJBA0A](
 	[CH0A03] [nchar](1) NULL,
 	[zklb] [varchar](4) NOT NULL,
 	[CH0A27] [datetime] NULL,
+	[CH0ABarcode] [varchar](50) NULL,
  CONSTRAINT [PK_VsPJBA0A] PRIMARY KEY CLUSTERED 
 (
 	[CH0A00] ASC,

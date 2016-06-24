@@ -11,21 +11,12 @@ uses
 
 type
   TFrmRankSet = class(TFrmSuiDBForm)
-    EllipsLabel1: TEllipsLabel;
-    EllipsLabel2: TEllipsLabel;
-    EllipsLabel3: TEllipsLabel;
     AdvedtjiaLow: TDBAdvEdit;
     Advedtyilow: TDBAdvEdit;
     Advedtbinglow: TDBAdvEdit;
     Advedtjiahigh: TDBAdvEdit;
     Advedtyihigh: TDBAdvEdit;
     Advedtbinghigh: TDBAdvEdit;
-    EllipsLabel4: TEllipsLabel;
-    EllipsLabel5: TEllipsLabel;
-    EllipsLabel6: TEllipsLabel;
-    EllipsLabel7: TEllipsLabel;
-    EllipsLabel8: TEllipsLabel;
-    EllipsLabel9: TEllipsLabel;
     AdvGlowButton1: TAdvGlowButton;
     AdvPage2: TAdvPage;
     AdvGlowButton2: TAdvGlowButton;
@@ -39,6 +30,15 @@ type
     suiclbyi: TsuiColorBox;
     suiclbbing: TsuiColorBox;
     GradientLabel4: TGradientLabel;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    lbl3: TLabel;
+    lbl4: TLabel;
+    lbl5: TLabel;
+    lbl6: TLabel;
+    lbl7: TLabel;
+    lbl8: TLabel;
+    lbl9: TLabel;
     procedure acSaveExecute(Sender: TObject);
     procedure AdvedtjiaLowKeyPress(Sender: TObject; var Key: Char);
     procedure AdvedtjiaLowExit(Sender: TObject);
@@ -47,13 +47,14 @@ type
   public
     { Public declarations }
     constructor Create(Aowner:TComponent);override;
+    Procedure InitControl;override;
   end;
 
 var
   FrmRankSet: TFrmRankSet;
 
 implementation
-uses UGFun;
+uses UGFun,UGVar;
 
 {$R *.dfm}
 
@@ -161,6 +162,12 @@ begin
   acSave.Enabled := True;
 end;
 
+
+procedure TFrmRankSet.InitControl;
+begin
+  inherited;
+  ShowMode := EuShowModel;
+end;
 
 procedure TFrmRankSet.acSaveExecute(Sender: TObject);
 var

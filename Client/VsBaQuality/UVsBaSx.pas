@@ -156,6 +156,7 @@ var
   CH0A02:string; //姓名
   CH0A03:string; //性别
   CH0A27:string;  //出院日期
+  barcode:string; //条形码
   zklb:string;
 begin
   inherited;
@@ -186,10 +187,10 @@ begin
               CH0A02 := FieldByName('CH0A02').AsString;
               CH0A03 := FieldByName('CH0A03').AsString;
               CH0A27 := FieldByName('CH0A27').AsString;
+              barcode := FieldByName('CH0ABarcode').AsString;
               if not IsExist(CH0A00,zklb) then            
               begin
-                sql := Format('insert into VsPJBA0A values(%s,%s,%s,%s,%s,%s)',[Quotedstr(CH0A00),Quotedstr(CH0A01),Quotedstr(CH0A02),Quotedstr(CH0A03),Quotedstr
-                (zklb),QuotedStr(CH0A27)]);
+                sql := Format('insert into VsPJBA0A values(^%s^,^%s^,^%s^,^%s^,^%s^,^%s^,^%s^)',[CH0A00,CH0A01,CH0A02,CH0A03,zklb,CH0A27,barcode]);
                 Application.ProcessMessages;
                 try
                   TMidProxy.SqlExecute(sql);

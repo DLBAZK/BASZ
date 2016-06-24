@@ -97,7 +97,7 @@ begin
     ShowMsgSure('类别数据为空！');
     exit;
   end;
-  if VarIsEmpty(suicbcbbLB.KeyValue) then
+  if VarIsNull(suicbcbbLB.KeyValue) then
   begin
     ShowMsgSure('请选择类别!');
     Exit;
@@ -337,11 +337,27 @@ end;
 procedure TFrmBaPJ.dbgrdhPJDetailColumns3UpdateData(Sender: TObject;
   var Text: string; var Value: Variant; var UseText, Handled: Boolean);
 var
-  tscore:Integer;
+  tscore,Sscore,FScore:Integer;
+  bz:Boolean;
 begin
   inherited;
+  bz := False;
   tscore := clientdtPJDetail.FieldByName('txmfz').AsInteger;
-  if Value >tscore then
+  Sscore :=clientdtPJDetail.FieldByName('sxmfz').AsInteger;
+  FScore :=clientdtPJDetail.FieldByName('fxmfz').AsInteger;
+  if tscore<>0 then
+  begin
+    bz :=  Value >tscore;
+  end
+  else if Sscore <> 0 then
+  begin
+    bz := Value > Sscore;
+  end
+  else if FScore <>0 then
+  begin
+    bz := Value > FScore;
+  end;
+  if bz then
   begin
     ShowMsgSure('不能大于当前项目分值！');
     Handled :=True;
