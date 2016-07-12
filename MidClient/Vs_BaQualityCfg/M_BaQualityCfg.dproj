@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{9b05b233-db5e-4bcd-a8e2-2bbe52a2e6b3}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
     <DCC_DependencyCheckOutputName>C:\Batj2005\AppServer\M_BaQualityCfg.dll</DCC_DependencyCheckOutputName>
@@ -14,6 +14,11 @@
     <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
     <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
     <DCC_Define>RELEASE</DCC_Define>
+    <DCC_ExeOutput>C:\Batj2005\AppServer</DCC_ExeOutput>
+    <DCC_UnitSearchPath>E:\Batj2012\Source\MidClient\BaseClass;E:\Batj2012\Source\BatjInterface;E:\Batj2012\Source\Share;E:\Batj2012\Source\Client\BaseForm</DCC_UnitSearchPath>
+    <DCC_ResourcePath>E:\Batj2012\Source\MidClient\BaseClass;E:\Batj2012\Source\BatjInterface;E:\Batj2012\Source\Share;E:\Batj2012\Source\Client\BaseForm</DCC_ResourcePath>
+    <DCC_ObjPath>E:\Batj2012\Source\MidClient\BaseClass;E:\Batj2012\Source\BatjInterface;E:\Batj2012\Source\Share;E:\Batj2012\Source\Client\BaseForm</DCC_ObjPath>
+    <DCC_IncludePath>E:\Batj2012\Source\MidClient\BaseClass;E:\Batj2012\Source\BatjInterface;E:\Batj2012\Source\Share;E:\Batj2012\Source\Client\BaseForm</DCC_IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Version>7.0</Version>
@@ -39,8 +44,11 @@
     <DCCReference Include="..\BaseClass\UVsMidPersistent.pas" />
     <DCCReference Include="..\BaseClass\UVsMidStand.pas" />
     <DCCReference Include="UVsBaLbSet.pas" />
+    <DCCReference Include="UVsCHTYWt47.pas" />
     <DCCReference Include="UVsRankSet.pas" />
     <DCCReference Include="UVsSjpf.pas" />
+    <DCCReference Include="UVsTYCH0E.pas" />
+    <DCCReference Include="UVsTYCH0R.pas" />
     <DCCReference Include="UVsXmLx.pas" />
     <DCCReference Include="UVsZmzlpf.pas" />
   </ItemGroup>

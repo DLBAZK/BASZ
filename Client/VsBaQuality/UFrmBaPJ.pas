@@ -85,7 +85,7 @@ implementation
 procedure TFrmBaPJ.ActLocateExecute(Sender: TObject);
 const
   fsql = 'insert into VsPJBA0A(CH0A00,CH0A01,CH0A02,CH0A03,CH0A27,zklb,CH0ABarcode) select CH0A00,CH0A01,CH0A02,CH0A03,CH0A27,^%s^,CH0ABarcode'
-       +'from VsCH0A where %s and not exists(select * from VsPJBA0A a left join VsCH0A b on a.CH0A00=b.CH0A01 where zklb=^%0:s^)';
+       +' from VsCH0A where %s and not exists(select * from VsPJBA0A a left join VsCH0A b on a.CH0A00=b.CH0A01 where zklb=^%0:s^)';
 var
  selsql:string;
  dm:string;
@@ -113,9 +113,9 @@ begin
       Exit;
     end;
     if advDtpks.Date > advDtpjs.Date then
-       selsql := format('CH0A27 >= %s and CH0A27 <= %s',[QuotedStr(DateToStr(advDtpjs.Date)),QuotedStr(DateToStr(advDtpks.Date))])
+       selsql := format(' CH0A27 >= %s and CH0A27 <= %s',[QuotedStr(DateToStr(advDtpjs.Date)),QuotedStr(DateToStr(advDtpks.Date))])
     else
-      selsql := format('CH0A27 >= %s and CH0A27 <= %s',[QuotedStr(DateToStr(advDtpks.Date)),QuotedStr(DateToStr(advDtpjs.Date))]) ;
+      selsql := format(' CH0A27 >= %s and CH0A27 <= %s',[QuotedStr(DateToStr(advDtpks.Date)),QuotedStr(DateToStr(advDtpjs.Date))]) ;
     try
       //抽取选择出院日期范围的病历到筛选表
       TMidProxy.SqlExecute(Format(fsql,[dm,selsql]));

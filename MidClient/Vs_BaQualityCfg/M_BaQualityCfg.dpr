@@ -21,7 +21,10 @@ uses
   UVsSjpf in 'UVsSjpf.pas',
   UVsZmzlpf in 'UVsZmzlpf.pas',
   UVsBaLbSet in 'UVsBaLbSet.pas',
-  UVsXmLx in 'UVsXmLx.pas';
+  UVsXmLx in 'UVsXmLx.pas',
+  UVsTYCH0E in 'UVsTYCH0E.pas',
+  UVsTYCH0R in 'UVsTYCH0R.pas',
+  UVsCHTYWt47 in 'UVsCHTYWt47.pas';
 
 {$R *.res}
 
