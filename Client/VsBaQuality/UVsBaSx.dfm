@@ -892,6 +892,15 @@ inherited FrmBaSx: TFrmBaSx
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
         end
+        object btn1: TButton
+          Left = 224
+          Top = 10
+          Width = 75
+          Height = 25
+          Caption = 'btn1'
+          TabOrder = 1
+          OnClick = btn1Click
+        end
       end
     end
     object FlatPanel3: TFlatPanel

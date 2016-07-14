@@ -17,6 +17,16 @@ uses
   TFlatPanelUnit, AdvEdit, AdvOfficeButtons, UDLAdvCheckBox, AdvEdBtn, DBCtrls,
   SUIDBCtrls;
 
+  const
+      SQLCH0E='Select *,QkYh=(Select Qkmc From VsZhdm Where Dm=CH0E12)+^/^+'+
+                              '              (Select YhQk From VsZhdm Where Dm=CH0E13),'+
+                              '       Mzmc,SsMc,VSZD_SSBW.DMMC CH0EE4_MC,VsSJZD.Dmmc CH0ESC10_MC '+
+                              '  From VsCh0E '+
+                              '       Left Join VsNarcosis On CH0E10=VsNarcosis.Dm'+
+                              '       Left Join VsUseIccm On Ch0E08=VsUseIccm.SSm '+
+                              '       Left Join VSZD_SSBW On CH0EE4=VSZD_SSBW.DM '+
+                              '       Left Join VsSJZD On DMKind=^SSBF^ And CH0ESC10=VsSJZD.Dm '+
+                              ' Where ChYear=^%1:s^ And Ch0E01=^%0:s^';
 type
   TFrmBaSx = class(TFrmSuiDBForm)
     AdvPanel2: TAdvPanel;
@@ -94,6 +104,7 @@ type
     btnLocate: TAdvGlowButton;
     clientdtSourceCH0ABarcode: TStringField;
     clientdtDestCH0ABarcode: TStringField;
+    btn1: TButton;
     procedure suiedtstartKeyPress(Sender: TObject; var Key: Char);
     procedure FlatbtnAllRightClick(Sender: TObject);
     procedure suichkAllClick(Sender: TObject);
@@ -107,12 +118,15 @@ type
     procedure AdvedtCH0A23Exit(Sender: TObject);
     procedure AdvedtCH0A23ClickBtn(Sender: TObject);
     procedure btnLocateClick(Sender: TObject);
+    procedure btn1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     /// <summary>
     /// 出院科别代码
     /// </summary>
     FCh0A23:string;
+    dlCH0A,dlCH0E,dlCH0R,dlWT47:TDlClientDataset;
     constructor Create(Aower:TComponent);override;
     /// <summary>
     /// 移动数据
@@ -144,7 +158,7 @@ var
 
 implementation
   uses
-    UGFun,UGVar,UMidProxy,UVsMidClassList;
+    UGFun,UGVar,UMidProxy,UVsMidClassList,UFrmTYFY,UCommon,Unit1;
 
 {$R *.dfm}
 
@@ -342,6 +356,39 @@ begin
   end;
 end;
 
+
+procedure TFrmBaSx.btn1Click(Sender: TObject);
+ var
+//   frmty:TFrmTYFY;
+//   Chyear,Ch0A01,Ch0A00:string;
+//
+//   showsimptext:TSetSbSimpleText;
+   frmtest:TForm1;
+begin
+
+  if not clientdtDest.Active or (clientdtDest.IsEmpty) then
+    Exit;
+  frmtest := TForm1.Create(nil);
+  AutoFree(frmtest);
+  frmtest.Chyear := clientdtDest.FieldByName('chYear').AsString;
+  frmtest.Ch0A01 := clientdtDest.FieldByName('Ch0A01').AsString;
+  frmtest.Ch0A00 := clientdtDest.FieldByName('Ch0A00').AsString;
+  frmtest.ShowModal;
+
+  {dlCH0A.Mid_Open(Format('select * from vsch0a where ch0a01=^%s^ and chyear=^%s^',[Ch0A01,Chyear]));
+//  dlCH0E.Mid_Open(Format(SQLCH0E,[Ch0A01,Chyear]));
+//  dlCH0R.Mid_Open(Format('select * from VsCh0R where Ch0R01=^%s^ and CHYear=^%s^',[Ch0A01,Chyear]));
+//  dlWT47.Mid_Open(Format('select * from %0:s where CHYear=^%1:s^ and WT4701 =^%2:s^',['VsWt47_1',Chyear,Ch0A01]));
+
+  showsimptext := SetSbSimpleText;
+  frmty := TFrmTYFY.Create(nil);
+  autofree(frmty);
+  frmty.GetValueByCh0P01(Chyear,Ch0A01,Ch0A00,showsimptext,True,dlCH0A,dlCH0E,dlCH0R,dlWT47);
+  frmty.Parent := frmtest.ScrollBox1;
+//  frmty.SetBaSetInfo();
+  frmtest.ShowModal;  }
+end;
+
 procedure TFrmBaSx.btnLocateClick(Sender: TObject);
 var
  strCH0A00,strCH0A02,strBarcode:string;
@@ -430,6 +477,7 @@ end;
 constructor TFrmBaSx.Create(Aower: TComponent);
 const
   lbSql = ' select * from Vszklb where isTy = 0';
+
 begin
   inherited Create(Aower,EuVsBaSx,'select getdate()');
   clientdtSource.CreateDataSet;
@@ -438,6 +486,21 @@ begin
   dbgrdhDest.DataSource :=nil;
   InitControl;
   TMidProxy.SqlOpen(lbSql,clientdtLB);
+  dlCH0A := TDlClientDataset.Create(nil);
+  dlCH0A.MidClassName := EuVsCh0A;
+
+
+  dlCH0E := TDlClientDataset.Create(nil);
+  dlCH0E.MidClassName := EuVsCh0E;
+
+
+  dlCH0R := TDlClientDataset.Create(nil);
+  dlCH0R.MidClassName := EuVsCH0R;
+
+
+  dlWT47 := TDlClientDataset.Create(nil);
+  dlWT47.MidClassName := EuVsWt47;
+
 end;
 
 procedure TFrmBaSx.FlatbtnAllRightClick(Sender: TObject);
@@ -559,6 +622,19 @@ begin
 end;
 
 
+
+procedure TFrmBaSx.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  if Assigned(dlCH0A) then
+    FreeAndNil(dlCH0A);
+  if Assigned(dlCH0E) then   
+    FreeAndNil(dlCH0E);
+  if Assigned(dlCH0R) then
+    FreeAndNil(dlCH0R);
+  if Assigned(dlWT47) then
+    FreeAndNil(dlWT47);
+end;
 
 procedure TFrmBaSx.InitControl;
 begin
@@ -811,5 +887,6 @@ initialization
   Classes.RegisterClass(TFrmBaSx);
 finalization
   Classes.UnRegisterClass(TFrmBaSx);
+
 
 end.

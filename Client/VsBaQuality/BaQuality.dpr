@@ -25,7 +25,9 @@ uses
   UGVar in '..\..\Public\UGVar.pas',
   UVsBaSx in 'UVsBaSx.pas' {FrmBaSx},
   UFrmBaPJ in 'UFrmBaPJ.pas' {FrmBaPJ},
-  UFrmZkDetail in 'UFrmZkDetail.pas' {FrmZkDetail};
+  UFrmZkDetail in 'UFrmZkDetail.pas' {FrmZkDetail},
+  UFrmTYFY in '..\VsBaFY\UFrmTYFY.pas' {FrmTYFY: TFrame},
+  Unit1 in 'Unit1.pas' {Form1};
 
 {$R *.res}
 Function DllObjFactory(MainInfo:TMainInfo;FormClass:String):TFormClass;

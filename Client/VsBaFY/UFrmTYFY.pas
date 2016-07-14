@@ -205,7 +205,6 @@ type
     edtCH0ATY14: TEdit;
     lbl115: TLabel;
     AdvGroupBox10: TAdvGroupBox;
-    dbgrdhXSE: TDBGridEh;
     dsss: TDataSource;
     clientdtDLCDS: TClientDataSet;
     dsICU: TDataSource;
@@ -213,8 +212,8 @@ type
     dldtXSER: TDlClientDataset;
     dsXSER: TDataSource;
     dldtSS: TDlClientDataset;
-    dldtICU: TDlClientDataset;
     clientdtXSER: TClientDataSet;
+    dbgrdhXSE: TDBGridEh;
     procedure dbgrdhICUKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgrdhSSKeyDown(Sender: TObject; var Key: Word;
@@ -226,19 +225,20 @@ type
     procedure edtCH0AYNA9KeyPress(Sender: TObject; var Key: Char);
     procedure edtCH0AYNB1KeyPress(Sender: TObject; var Key: Char);
     procedure edtCH0ATY18KeyPress(Sender: TObject; var Key: Char);
+    procedure dsICUStateChange(Sender: TObject);
   private
     { Private declarations }
     FBaSetInfo: TBaSetInfo;
     FChYear,FCh0A01,FCh0A00:String;
     FIsAppend:Boolean;
     FSetControlHint:TSetSbSimpleText;
-    FCDSCh0A:TDlClientDataset;
+    FCDSCh0A,FCDSCh0E,FCDSCh0R,FCDSChWT47:TDlClientDataset;
   public
     { Public declarations }
     Constructor Create(Aowner:TComponent);Override;
     procedure SetBaSetInfo(aBaSetInfo:TBaSetInfo);
-    procedure GetValueByCh0P01(Chyear,Ch0A01,Ch0A00:string;SetControlHint: TSetSbSimpleText;IsAppend:Boolean;CDSCh0A,DLCH0E:TDlClientDataset);
-    Procedure SaveValue(Chyear,Ch0A01:string);
+    procedure GetValueByCh0P01(Chyear,Ch0A01,Ch0A00:string;SetControlHint: TSetSbSimpleText;IsAppend:Boolean;CDSCh0A,DLCH0E,DLCH0R,DLWT47:TDlClientDataset);
+    Procedure SaveValue;
     Property SetControlHint:TSetSbSimpleText Read FSetControlHint Write FSetControlHint;
   end;
 
@@ -259,7 +259,7 @@ begin
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhSS,'CH0EE6','id','sf');
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhSS,'CH0EZ13','id','sf');
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhSS,'CH0ESC00','id','sf');
-
+  FillDBGridEHCombobox('Select id,NNIS From VsZhdm_12 Where IsNull(NNIS,^^)<>^^',dbgrdhSS,'CH0EE5','id','NNIS'); //手术NNIS分级
   FillDBGridEHCombobox('Select id,yw From VsZhdm_12 Where IsNull(yw,^^)<>^^',dbgrdhSS,'CH0EZ02','id','yw');  //麻醉并发症
   FillDBGridEHCombobox('Select id,yw From VsZhdm_12 Where IsNull(yw,^^)<>^^',dbgrdhSS,'CH0EZ03','id','yw');  //术中遗留物
   FillDBGridEHCombobox('Select id,yw From VsZhdm_12 Where IsNull(yw,^^)<>^^',dbgrdhSS,'CH0EZ04','id','yw');  // 术中并发症
@@ -283,32 +283,32 @@ begin
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhICU,'CH0R17','id','sf');      //是否发生与呼吸机相关肺炎感染
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhICU,'CH0R19','id','sf');      //是否发生与留置导尿管相关泌尿系统感染
 
-  FillDBGridEHCombobox('Select dm,xbmc From VsZhdm where IsNull(xbmc,^^)<>^^',dbgrdhXSE,'xb','dm','xbmc');     //新生儿性别
+  FillDBGridEHCombobox('Select dm,xbmc From VsZhdm where IsNull(xbmc,^^)<>^^',dbgrdhXSE,'XB','dm','xbmc');     //新生儿性别
   FillDBGridEHCombobox('Select dm,ckmc From VsZhdm where IsNull(ckmc,^^)<>^^',dbgrdhXSE,'CCQK','dm','ckmc');     //产出情况
+  FillDBGridEHCombobox('Select id,CYQK From VsZhdm_12 where IsNull(CYQK,^^)<>^^',dbgrdhXSE,'CYQK','id','CYQK');     //出院情况
   FillDBGridEHCombobox('select BmICD,BmMc from VsUseICD',dbgrdhXSE,'JB','BmICD','BmMc');     //疾病
+  FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhXSE,'YYGR','id','sf');     //是否发生医院感染
 
-  dldtSS.MidClassName := EuTYVsCH0E;
-  dldtICU.MidClassName :=EuTYVsCH0R ;
-  dldtXSER.MidClassName :=EuTYVsWt47;
 end;
 
 procedure TFrmTYFY.dbgrdhICUKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if not dldtICU.Active then
-    Exit;
   //添加新行
   if Key = VK_INSERT then
   begin
-    dldtICU.Append;
-    dldtICU.FieldByName('CH0R01').AsString := FCh0A01;
-    dldtICU.FieldByName('CHYear').AsString := FChYear;
-    
+    if FCDSCh0R.State in [dsInsert,dsEdit] then
+      FCDSCh0R.Post;
+      
+    FCDSCh0R.Append;
+    FCDSCh0R.FieldByName('CH0R01').AsString := FCh0A01;
+    FCDSCh0R.FieldByName('CHYear').AsString := FChYear;
+
   end
   else if Key=VK_DELETE then  //删除
   begin
-    if dldtICU.IsEmpty then Exit;
-    dldtICU.Delete;
+    if FCDSCh0R.IsEmpty then Exit;
+    FCDSCh0R.Delete;
   end;
 
 
@@ -317,20 +317,25 @@ end;
 procedure TFrmTYFY.dbgrdhSSKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if not dldtSS.Active then
-   Exit;
+
   if Key=VK_INSERT then
   begin
-    dldtSS.Append;
-    dldtSS.FieldByName('CH0E01').AsString:=FCh0A01;
-    dldtSS.FieldByName('CHYear').AsString := FChYear;
+    if FCDSCh0E.IsEmpty then
+    begin
+      FCDSCh0E.Insert;
+    end
+    else
+      FCDSCh0E.Append;
+
+    FCDSCh0E.FieldByName('CH0E01').AsString:=FCh0A01;
+    FCDSCh0E.FieldByName('CHYear').AsString := FChYear;
     
   end
   else if Key=VK_DELETE then
   begin
-    if dldtSS.IsEmpty then
+    if FCDSCh0E.IsEmpty then
       Exit;
-    dldtSS.Delete;
+    FCDSCh0E.Delete;
   end;
 end;
 
@@ -340,9 +345,6 @@ procedure TFrmTYFY.dbgrdhXSEKeyDown(Sender: TObject; var Key: Word;
    i,xh:Integer;
    xhtotal,xhhas,xhs:set of 1..4;
 begin
-  if not clientdtXSER.Active then
-    Exit;
-
   xhtotal := [1..4];
   xhhas := [];
 
@@ -362,7 +364,7 @@ begin
         end;
       end;
       xhs := xhtotal-xhhas;
-      for I := 1 to 5 do
+      for I := 1 to 4 do
       begin
         if i in xhs then
         begin
@@ -371,7 +373,6 @@ begin
         end;
       end;
     end;
-
     clientdtXSER.Append;
     clientdtXSER.FieldByName('xh').AsString :=IntToStr(xh);
 
@@ -382,10 +383,16 @@ begin
   end;
 end;
 
+procedure TFrmTYFY.dsICUStateChange(Sender: TObject);
+begin
+  if FCDSCh0R.State in [dsInsert,dsEdit] then
+     FCDSCh0R.FieldByName('CH0R02').AsInteger := FCDSCh0R.RecordCount;
+end;
+
 procedure TFrmTYFY.edtCH0A43KeyPress(Sender: TObject; var Key: Char);
 begin
   if not (Key in ['1'..'4']) then
-    Key := #0  
+    Key := #0
 end;
 
 procedure TFrmTYFY.edtCH0ATY18KeyPress(Sender: TObject; var Key: Char);
@@ -414,7 +421,17 @@ end;
 
 procedure TFrmTYFY.GetValueByCh0P01(Chyear, Ch0A01, Ch0A00: string;
   SetControlHint: TSetSbSimpleText; IsAppend: Boolean; CDSCh0A,
-  DLCH0E: TDlClientDataset);
+  DLCH0E,DLCH0R,DLWT47: TDlClientDataset);
+  const
+    SQLCH0E='Select *,QkYh=(Select Qkmc From VsZhdm Where Dm=CH0E12)+^/^+'+
+                              '              (Select YhQk From VsZhdm Where Dm=CH0E13),'+
+                              '       Mzmc,SsMc,VSZD_SSBW.DMMC CH0EE4_MC,VsSJZD.Dmmc CH0ESC10_MC '+
+                              '  From VsCh0E '+
+                              '       Left Join VsNarcosis On CH0E10=VsNarcosis.Dm'+
+                              '       Left Join VsUseIccm On Ch0E08=VsUseIccm.SSm '+
+                              '       Left Join VSZD_SSBW On CH0EE4=VSZD_SSBW.DM '+
+                              '       Left Join VsSJZD On DMKind=^SSBF^ And CH0ESC10=VsSJZD.Dm '+
+                              ' Where ChYear=^%1:s^ And Ch0E01=^%0:s^';
 var
   clientdtTemp,cdttemp:TClientDataSet;
   xm,xb,kb:string;
@@ -464,6 +481,13 @@ begin
   FIsAppend:=IsAppend;
   FSetControlHint:=SetControlHint;
   FCDSCh0A := CDSCh0A;
+  FCDSCh0E := DLCH0E;
+  FCDSChWT47 := DLWT47;
+  FCDSCh0R := DLCH0R;
+
+  dsss.DataSet := FCDSCh0E;
+  dsICU.DataSet := FCDSCh0R;
+  dsXSER.DataSet := FCDSChWT47;
 
   clientdtTemp :=TClientDataSet.Create(nil);
   autofree(clientdtTemp);
@@ -484,22 +508,22 @@ begin
   end;
 
   //查询手术信息
-  sqltext :='select *,Ssmc from VsCH0E a inner join VsUseICCM b on a.CH0E08=b.Ssm where Ch0E01 = ^%s^ and chyear=^%s^';
-  dldtSS.Mid_Open(Format(sqltext,[Ch0A01,Chyear]));
-  _GetMidData(dldtSS,_GetMidDataSQL('VSCH_CH0E','CH0E01'));
-  if not dldtSS.IsEmpty then
+
+  FCDSCh0E.Mid_Open(Format(SQLCH0E,[Ch0A01,Chyear]));
+  _GetMidData(FCDSCh0E,_GetMidDataSQL('VSCH_CH0E','CH0E01'));
+  if not FCDSCh0E.IsEmpty then
   begin
-    edtCH0EZ13.Text :=IntToStr(dldtSS.FieldByName('CH0EZ13').AsInteger);
-    edtCH0EZ14.Text :=IntToStr(dldtSS.FieldByName('CH0EZ14').AsInteger);
-    edtCH0ESC00.Text :=IntToStr(dldtSS.FieldByName('CH0ESC00').AsInteger);
-    edtCH0EZ19.Text :=IntToStr(dldtSS.FieldByName('CH0EZ19').AsInteger);
-    edtCH0EZ15.Text :=IntToStr(dldtSS.FieldByName('CH0EZ15').AsInteger);
-    edtCh0EZ03.Text := IIF(dldtSS.FieldByName('CH0EZ03').AsInteger=0,'1',dldtSS.FieldByName('CH0EZ03').AsString);
+    edtCH0EZ13.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ13').AsInteger);
+    edtCH0EZ14.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ14').AsInteger);
+    edtCH0ESC00.Text :=IntToStr(FCDSCh0E.FieldByName('CH0ESC00').AsInteger);
+    edtCH0EZ19.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ19').AsInteger);
+    edtCH0EZ15.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ15').AsInteger);
+    edtCh0EZ03.Text := IIF(FCDSCh0E.FieldByName('CH0EZ03').AsInteger=0,'1',FCDSCh0E.FieldByName('CH0EZ03').AsString);
 
   end;
     //查询ICU信息
-  dldtICU.Mid_Open(Format('select * from VsCh0R where Ch0R01=^%s^ and CHYear=^%s^',[Ch0A01,Chyear]));
-  _GetMidData(dldtICU,_GetMidDataSQL('VSCH_CH0R','Ch0R01'));
+  DLCH0R.Mid_Open(Format('select * from VsCh0R where Ch0R01=^%s^ and CHYear=^%s^',[Ch0A01,Chyear]));
+  _GetMidData(DLCH0R,_GetMidDataSQL('VSCH_CH0R','Ch0R01'));
 
   if not FCDSCh0A.IsEmpty then
   begin
@@ -530,19 +554,6 @@ begin
     edtCH0A58.Text    :=   FCDSCh0A.FieldByName('CH0A58').AsString;
     edtCH0P11.Text := FCDSCh0A.FieldByName('CH0ATY20').AsString;
     edtCH0P13.Text :=FCDSCh0A.FieldByName('CH0ATY21').AsString;
-    
-//    TMidProxy.SqlOpen(Format('select CH0P11,isnull(CH0P12,1),isnull(CH0P13,1) from VsCH0P where CH0P01 =^%s^ and CHYear=^%s^',[Ch0A01,Chyear]),clientdtTemp);
-//    _GetMidData(clientdtTemp,_GetMidDataSQL('VsCH0P_FY','CHFY01'));
-//    if not clientdtTemp.IsEmpty then
-//    begin
-//      edtCH0P11.Text := clientdtTemp.FieldByName('CH0P11').AsString;
-//      if (clientdtTemp.FieldByName('CH0P12').AsString='1' ) or (clientdtTemp.FieldByName('CH0P13').AsString='1') then
-//      begin
-//        edtCH0P13.Text :='1';
-//      end
-//      else
-//        edtCH0P13.Text := '2';
-//    end;
 
     //医院感染
     edtCH0A54.Text    :=   FCDSCh0A.FieldByName('ch0A54').AsString;
@@ -588,46 +599,54 @@ begin
 
 
   //新生儿
-  sqltext := 'select * from ^%0:s^ where CHYear=^%1:s^ and WT4701 =^%2:s^';
-  dldtXSER.Mid_Open(Format(sqltext,['VsWt47_1',Chyear,Ch0A01]));
-  if dldtXSER.IsEmpty then
+  sqltext := 'select * from %0:s where CHYear=^%1:s^ and WT4701 =^%2:s^';
+  DLWT47.Mid_Open(Format(sqltext,['VsWt47_1',Chyear,Ch0A01]));
+  if DLWT47.IsEmpty then
   begin
+    cdttemp := TClientDataSet.Create(nil);
+    AutoFree(cdttemp);
     TMidProxy.SqlOpen(Format(sqltext,['VsCH_Wt47_1',Chyear,Ch0A01]),cdttemp);
     if not cdttemp.IsEmpty then
     begin
-      for I := 0 to dldtXSER.Fields.Count - 1 do
+      for I := 0 to DLWT47.Fields.Count - 1 do
       begin
-        dldtXSER.Edit;
-         if dldtXSER.FieldDefList[i].Name = 'WT4701' then
-          dldtXSER.FieldByName(dldtXSER.FieldDefList[i].Name).AsString := Ch0A01
+        DLWT47.Edit;
+         if DLWT47.FieldDefList[i].Name = 'WT4701' then
+          DLWT47.FieldByName(DLWT47.FieldDefList[i].Name).AsString := Ch0A01
         else
-          dldtXSER.FieldByName(dldtXSER.FieldDefList[i].Name).AsString := cdttemp.FieldByName(dldtXSER.FieldDefList[i].Name).AsString;
-        dldtXSER.Post;
+          DLWT47.FieldByName(DLWT47.FieldDefList[i].Name).AsString := cdttemp.FieldByName(DLWT47.FieldDefList[i].Name).AsString;
+        DLWT47.Post;
       end;
 
     end;
-  end;
-  //查询显示 
-  sqltext :='select 1 xh,FM_XB1 XB,FM_PF1 PF,FM_SC1 SC,FM_Weight1 TZ,FM_RSJJ1 CCQK,FM_CYQK1 CYQK,CYRQ,FM_JB1 JB,'
-           +'FM_SWRQ1 SWSJ,FM_SWYY1 SWYY,FM_YYGR1 YYGR from %2:s where CHYear=^%0:s^ and WT4701 =^%1:s^'
-           +'union select 2 xh,FM_XB2 XB,FM_PF2 PF,FM_SC2 SC,FM_Weight2 TZ,FM_RSJJ2 CCQK,FM_CYQK2 CYQK,CYRQ,FM_JB2 JB,'
-           +'FM_SWRQ2 SWSJ,FM_SWYY2 SWYY,FM_YYGR2 YYGR from %2:s where CHYear=^%0:s^ and WT4701 =^%1:s^'
-           +'union select 3 xh,FM_XB3 XB,FM_PF3 PF,FM_SC3 SC,FM_Weight3 TZ,FM_RSJJ3 CCQK,FM_CYQK3 CYQK,CYRQ,FM_JB3 JB,'
-           +'FM_SWRQ3 SWSJ,FM_SWYY3 SWYY,FM_YYGR3 YYGR from %2:s where CHYear=^%0:s^ and WT4701 =^%1:s^'
-           +'union select 4 xh,FM_XB2 XB,FM_PF4 PF,FM_SC4 SC,FM_Weight4 TZ,FM_RSJJ4 CCQK,FM_CYQK4 CYQK,CYRQ,FM_JB4 JB,'
-           +'FM_SWRQ4 SWSJ,FM_SWYY4 SWYY,FM_YYGR4 YYGR from %2:s where CHYear=^%0:s^ and WT4701 =^%1:s^' ;
-  TMidProxy.SqlOpen(Format(sqltext,[Chyear,Ch0A01,'VsWt47_1']),clientdtXSER);
-  if dldtXSER.RecordCount <=0 then
+  end;   {FROM %s WHERE CHYEAR=^%s^ AND WT4701=^%s^ ,'VsWt47_1',Chyear,Ch0A01}
+  sqltext := '';
+  for I := 1 to 4 do
   begin
-    TMidProxy.SqlOpen(Format(sqltext,[Chyear,Ch0A01,'VsCH_Wt47_1']),clientdtXSER);
+    if FCDSChWT47.IsEmpty then
+    begin
+      sqltext := sqltext+format('select %d xh,3 XB,0 PF,0 SC,0 TZ,0 CCQK,0 CYQK,CONVERT(DATETIME,^^,120) CSSJ,CONVERT(varchar(20),^^) JB,CONVERT(DATETIME,^^,120) SWSJ,CONVERT(varchar(50),^^) SWYY,^^ YYGR',[i]);
+
+    end
+    else
+    begin
+       sqltext := sqltext+format('select %d xh,^%s^ XB,^%s^ PF,%d SC,%d TZ,^%s^ CCQK,IsNull(^%s^,0) CYQK,CONVERT(DATETIME,IsNull(^%s^,^2015-01-01^),120) CSSJ,CONVERT(varchar(20),^%s^) JB,CONVERT(DATETIME,^%s^,120) SWSJ,CONVERT(varchar(50),^%s^) SWYY,^%s^ YYGR'
+       ,[i,FCDSChWT47.FieldByName('FM_XB'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_PF'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_SC'+inttostr(i)).AsInteger,
+       FCDSChWT47.FieldByName('FM_Weight'+inttostr(i)).AsInteger,FCDSChWT47.FieldByName('FM_RSJJ'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_CYQK'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_CSRQ'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_JB'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_SWRQ'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_SWYY'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_YYGR'+inttostr(i)).AsString]);
+    end;
+
+    if i<4 then
+     sqltext := sqltext +' union ';
   end;
-
-
+  TMidProxy.SqlOpen(sqltext,clientdtXSER);
+  dsXSER.DataSet := clientdtXSER;
 end;
 
-procedure TFrmTYFY.SaveValue(Chyear, Ch0A01: string);
+procedure TFrmTYFY.SaveValue;
 
-  procedure aSaveCDS(CDS: TClientDataSet);
+  procedure aSaveCDS(CDS: TDLClientDataSet);
   begin
     inherited;
     //修改记录时Modified标志没有自动记为true,必须改变状态才能post
@@ -639,18 +658,23 @@ procedure TFrmTYFY.SaveValue(Chyear, Ch0A01: string);
 var
   xh:string;
 begin
-  //更新手术信息
-  dldtSS.Edit;
-  dldtSS.FieldByName('CH0EZ13').AsString  :=   edtCH0EZ13.Text;
-  dldtSS.FieldByName('CH0EZ14').AsString  :=  edtCH0EZ14.Text;
-  dldtSS.FieldByName('CH0ESC00').AsString  :=  edtCH0ESC00.Text;
-  dldtSS.FieldByName('CH0EZ19').AsString   :=  edtCH0EZ19.Text;
-  dldtSS.FieldByName('CH0EZ15').AsString  := edtCH0EZ15.Text;
-  dldtSS.FieldByName('CH0EZ03').AsString  :=  edtCh0EZ03.Text;
-  dldtSS.Post;
+  if FCDSCh0E.Active then
+  begin
+     //更新手术信息
+    FCDSCh0E.Edit;
+    FCDSCh0E.FieldByName('CH0EZ13').AsString  :=   edtCH0EZ13.Text;
+    FCDSCh0E.FieldByName('CH0EZ14').AsString  :=  edtCH0EZ14.Text;
+    FCDSCh0E.FieldByName('CH0ESC00').AsString  :=  edtCH0ESC00.Text;
+    FCDSCh0E.FieldByName('CH0EZ19').AsString   :=  edtCH0EZ19.Text;
+    FCDSCh0E.FieldByName('CH0EZ15').AsString  := edtCH0EZ15.Text;
+    FCDSCh0E.FieldByName('CH0EZ03').AsString  :=  edtCh0EZ03.Text;
+    FCDSCh0E.Post;
+  end;
+
 
   //病案首页
    //合理用药
+  FCDSCh0A.Edit;
   FCDSCh0A.FieldByName('CH0ATY18').AsString :=edtCH0ATY18.Text ;
   FCDSCh0A.FieldByName('CH0ATY19').AsString :=edtCH0ATY19.Text ;
   FCDSCh0A.FieldByName('CH0AYN04').AsString :=edtCH0AYN04.Text ;
@@ -665,7 +689,7 @@ begin
   FCDSCh0A.FieldByName('CH0ATY05').AsString :=edtCH0ATY05.Text ;
   FCDSCh0A.FieldByName('CH0ATY06').AsString :=edtCH0ATY06.Text ;
   //患者安全
-  FCDSCh0A.Edit;
+
   FCDSCh0A.FieldByName('CH0AYNA7').AsString:=edtCH0AYNA7.Text ;
   FCDSCh0A.FieldByName('CH0AYNA8').AsString:=edtCH0AYNA8.Text ;
   FCDSCh0A.FieldByName('CH0AYNA9').AsString:=edtCH0AYNA9.Text ;
@@ -710,38 +734,51 @@ begin
   FCDSCh0A.FieldByName('CH0ATY21').AsString := edtCH0P13.Text ;
   
   FCDSCh0A.Post;
+
   //新生儿
-  if dldtXSER.RecordCount =0 then
-    dldtXSER.Append
+  if FCDSChWT47.RecordCount =0 then
+    FCDSChWT47.Append
   else
-    dldtXSER.Edit;
-  dldtXSER.FieldByName('CHYear').AsString := FChYear;
-  dldtXSER.FieldByName('WT4701').AsString := FCh0A01;
+    FCDSChWT47.Edit;
+  FCDSChWT47.FieldByName('CHYear').AsString := FChYear;
+  FCDSChWT47.FieldByName('WT4701').AsString := FCh0A01;
   with clientdtXSER do
   begin
     First;
     while not Eof do
-    begin    
+    begin
       xh := clientdtXSER.FieldByName('xh').AsString;
-      dldtXSER.Edit;
-      dldtXSER.FieldByName('FM_XB'+xh).AsString := FieldByName('XB').AsString;
-      dldtXSER.FieldByName('FM_PF'+xh).AsString := FieldByName('PF').AsString;
-      dldtXSER.FieldByName('FM_SC'+xh).AsString := FieldByName('SC').AsString;
-      dldtXSER.FieldByName('FM_Weight'+xh).AsString := FieldByName('TZ').AsString;
-      dldtXSER.FieldByName('FM_RSJJ'+xh).AsString := FieldByName('CCQK').AsString;
-      dldtXSER.FieldByName('FM_CYQK'+xh).AsString := FieldByName('CYQK').AsString;
-      dldtXSER.FieldByName('CYRQ').AsString := FieldByName('CYRQ').AsString;
-      dldtXSER.FieldByName('FM_SWRQ'+xh).AsString := FieldByName('SWSJ').AsString;
-      dldtXSER.FieldByName('FM_SWYY'+xh).AsString := FieldByName('SWYY').AsString;
-      dldtXSER.FieldByName('FM_YYGR'+xh).AsString := FieldByName('YYGR').AsString;
-      dldtXSER.FieldByName('FM_JB'+xh).AsString := FieldByName('JB').AsString;
+      FCDSChWT47.Edit;
+      FCDSChWT47.FieldByName('FM_XB'+xh).AsString := FieldByName('XB').AsString;
+      FCDSChWT47.FieldByName('FM_PF'+xh).AsString := FieldByName('PF').AsString;
+      FCDSChWT47.FieldByName('FM_SC'+xh).AsString := FieldByName('SC').AsString;
+      FCDSChWT47.FieldByName('FM_Weight'+xh).AsString := FieldByName('TZ').AsString;
+      FCDSChWT47.FieldByName('FM_RSJJ'+xh).AsString := FieldByName('CCQK').AsString;
+      FCDSChWT47.FieldByName('FM_CYQK'+xh).AsString := FieldByName('CYQK').AsString;
+      FCDSChWT47.FieldByName('FM_CSRQ'+xh).AsString := FieldByName('CSSJ').AsString;
+      FCDSChWT47.FieldByName('FM_SWRQ'+xh).AsString := FieldByName('SWSJ').AsString;
+      FCDSChWT47.FieldByName('FM_SWYY'+xh).AsString := FieldByName('SWYY').AsString;
+      FCDSChWT47.FieldByName('FM_YYGR'+xh).AsString := FieldByName('YYGR').AsString;
+      FCDSChWT47.FieldByName('FM_JB'+xh).AsString := FieldByName('JB').AsString;
       Next;
     end;
   end;
+  FCDSCh0E.Edit;
+  FCDSCh0E.FieldByName('CHYear').AsString := FChYear;
+  FCDSCh0E.FieldByName('CH0E01').AsString := FCh0A01;
+  FCDSCh0R.Edit;
+  FCDSCh0R.FieldByName('CHYear').AsString := FChYear;
+  FCDSCh0R.FieldByName('CH0R01').AsString := FCh0A01;
 
-  aSaveCDS(dldtSS);
-  aSaveCDS(dldtICU);
-  aSaveCDS(dldtXSER);
+
+  FCDSChWT47.Edit;
+  FCDSChWT47.FieldByName('CHYear').AsString := FChYear;
+  FCDSChWT47.FieldByName('WT4701').AsString := FCh0A01;
+
+  aSaveCDS(FCDSCh0A);
+  aSaveCDS(FCDSCh0E);
+  aSaveCDS(FCDSCh0R);
+  aSaveCDS(FCDSChWT47);
   FIsAppend := False;
 end;
 

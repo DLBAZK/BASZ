@@ -1,8 +1,8 @@
 object FrmTYFY: TFrmTYFY
   Left = 0
   Top = 0
-  Width = 755
-  Height = 1883
+  Width = 920
+  Height = 1909
   TabOrder = 0
   object lbl100: TLabel
     Left = 113
@@ -21,18 +21,17 @@ object FrmTYFY: TFrmTYFY
   object ScrollBox1: TScrollBox
     Left = 0
     Top = 0
-    Width = 755
-    Height = 1883
+    Width = 920
+    Height = 1909
     Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
     BorderStyle = bsNone
     TabOrder = 0
-    ExplicitHeight = 1891
     object AdvGroupBox1: TAdvGroupBox
       Left = 0
       Top = 0
-      Width = 755
+      Width = 903
       Height = 121
       BorderStyle = bsNone
       Align = alTop
@@ -167,8 +166,8 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox2: TAdvGroupBox
       Left = 0
       Top = 121
-      Width = 755
-      Height = 368
+      Width = 903
+      Height = 304
       BorderStyle = bsNone
       Align = alTop
       Caption = #19968#12289#25163#26415#20449#24687
@@ -176,8 +175,8 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhSS: TDBGridEh
         Left = 2
         Top = 16
-        Width = 751
-        Height = 350
+        Width = 899
+        Height = 286
         Align = alClient
         DataGrouping.GroupLevels = <>
         DataSource = dsss
@@ -198,7 +197,7 @@ object FrmTYFY: TFrmTYFY
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -13
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         UseMultiTitle = True
@@ -208,228 +207,150 @@ object FrmTYFY: TFrmTYFY
             EditButtons = <>
             FieldName = 'CH0E05'
             Footers = <>
+            ReadOnly = True
             Title.Caption = #25163#26415#32534#30721
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
             Width = 74
           end
           item
             EditButtons = <>
             FieldName = 'ssmc'
             Footers = <>
+            ReadOnly = True
             Title.Caption = #25163#26415#21517#31216
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 140
           end
           item
             EditButtons = <>
             FieldName = 'CH0ESC00'
             Footers = <>
             Title.Caption = #26159#21542#25321#26399#25163#26415
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EE5'
             Footers = <>
             Title.Caption = #25163#26415#39118#38505'(NNIS)'#20998#32423
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EE6'
             Footers = <>
             Title.Caption = #26159#21542#26415#21069'0.5-2'#23567#26102#20869#39044#38450#29992#25239#33740#33647
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EE7'
             Footers = <>
             Title.Caption = #28165#27905#25163#26415#22260#26415#26399#39044#38450#29992#25239#33740#33647#22825#25968
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ13'
             Footers = <>
             Title.Caption = #26159#21542#20026#37325#36820#25163#26415#23460#20877#25163#26415
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ02'
             Footers = <>
             Title.Caption = #40635#37257#24182#21457#30151
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ03'
             Footers = <>
             Title.Caption = #26415#20013#24322#29289#36951#30041
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ04'
             Footers = <>
             Title.Caption = #25163#26415#24182#21457#30151
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ05'
             Footers = <>
             Title.Caption = #26415#21518#20986#34880#25110#34880#32959
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ06'
             Footers = <>
             Title.Caption = #25163#26415#20260#21475#35010#24320
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ07'
             Footers = <>
             Title.Caption = #26415#21518#28145#38745#33033#34880#26643
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ08'
             Footers = <>
             Title.Caption = #26415#21518#29983#29702'/'#20195#35874#32010#20081
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ09'
             Footers = <>
             Title.Caption = #26415#21518#21628#21560#34928#31469
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ10'
             Footers = <>
             Title.Caption = #26415#21518#32954#37096#26643#22622
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ17'
             Footers = <>
             Title.Caption = #26415#21518#32954#37096#24863#26579
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ11'
             Footers = <>
             Title.Caption = #26415#21518#36133#34880#30151
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ16'
             Footers = <>
             Title.Caption = #26415#21518#39592#25240
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ12'
             Footers = <>
             Title.Caption = #26415#21518#39627#20851#33410#39592#25240
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0EZ18'
             Footers = <>
             Title.Caption = #26415#21518#20154#24037#27668#36947#24847#22806#33073#20986
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -13
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = []
+            Width = 40
           end>
         object RowDetailData: TRowDetailPanelControlEh
         end
@@ -437,8 +358,8 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox3: TAdvGroupBox
       Left = 0
-      Top = 489
-      Width = 755
+      Top = 425
+      Width = 903
       Height = 160
       BorderStyle = bsNone
       Align = alTop
@@ -607,9 +528,9 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox4: TAdvGroupBox
       Left = 0
-      Top = 649
-      Width = 755
-      Height = 185
+      Top = 585
+      Width = 903
+      Height = 299
       BorderStyle = bsNone
       Align = alTop
       Caption = #19977#12289#20837#20303#37325#30149#30417#25252#23460#65288'ICU'#65289#24773#20917'('#21253#25324'CCU'#12289'NICU'#12289'PICU'#12289'SICU'#31561#25152#26377#21333#20803')'
@@ -623,8 +544,8 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhICU: TDBGridEh
         Left = 2
         Top = 19
-        Width = 751
-        Height = 164
+        Width = 899
+        Height = 278
         Align = alClient
         DataGrouping.GroupLevels = <>
         DataSource = dsICU
@@ -650,38 +571,44 @@ object FrmTYFY: TFrmTYFY
             FieldName = 'CH0R03'
             Footers = <>
             Title.Caption = #37325#30151#30417#25252#23460#21517#31216
+            Width = 140
           end
           item
             EditButtons = <>
-            EditMask = '0000-90-90 90:90;1; '
+            EditMask = '0000-90-90 90:90:90;1; '
             FieldName = 'CH0R05'
             Footers = <>
             Title.Caption = #36827#20837#26102#38388
+            Width = 125
           end
           item
             EditButtons = <>
-            EditMask = '0000-90-90 90:90;1; '
+            EditMask = '0000-90-90 90:90:90;1; '
             FieldName = 'CH0R06'
             Footers = <>
             Title.Caption = #31163#24320#26102#38388
+            Width = 125
           end
           item
             EditButtons = <>
             FieldName = 'CH0R10'
             Footers = <>
             Title.Caption = #26159#21542#21457#29983#20154#24037#27668#36947#33073#20986
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0R11'
             Footers = <>
             Title.Caption = #26159#21542#38750#39044#26399#30340#37325#36820#37325#30151#21307#23398#31185
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0R12'
             Footers = <>
             Title.Caption = #37325#36820#38388#38548
+            Width = 40
           end
           item
             EditButtons = <>
@@ -700,30 +627,35 @@ object FrmTYFY: TFrmTYFY
             FieldName = 'CH0R15'
             Footers = <>
             Title.Caption = #26159#21542#21457#29983#19982#20013#24515#38745#33033#32622#31649#30456#20851#34880#28082#24863#26579
+            Width = 50
           end
           item
             EditButtons = <>
             FieldName = 'CH0R16'
             Footers = <>
             Title.Caption = #20351#29992#21628#21560#26426#26085#25968
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0R17'
             Footers = <>
             Title.Caption = #26159#21542#21457#29983#19982#21628#21560#26426#30456#20851#32954#28814#24863#26579
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0R18'
             Footers = <>
             Title.Caption = #20351#29992#30041#32622#23548#23615#31649#26085#25968
+            Width = 40
           end
           item
             EditButtons = <>
             FieldName = 'CH0R19'
             Footers = <>
             Title.Caption = #26159#21542#21457#29983#19982#30041#32622#23548#23615#31649#30456#20851#27852#23615#31995#32479#24863#26579
+            Width = 40
           end>
         object RowDetailData: TRowDetailPanelControlEh
         end
@@ -731,8 +663,8 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox5: TAdvGroupBox
       Left = 0
-      Top = 834
-      Width = 755
+      Top = 884
+      Width = 903
       Height = 184
       BorderStyle = bsNone
       Align = alTop
@@ -991,8 +923,8 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox6: TAdvGroupBox
       Left = 0
-      Top = 1018
-      Width = 755
+      Top = 1068
+      Width = 903
       Height = 239
       BorderStyle = bsNone
       Align = alTop
@@ -1306,8 +1238,8 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox7: TAdvGroupBox
       Left = 0
-      Top = 1257
-      Width = 755
+      Top = 1307
+      Width = 903
       Height = 120
       BorderStyle = bsNone
       Align = alTop
@@ -1475,8 +1407,8 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox8: TAdvGroupBox
       Left = 0
-      Top = 1377
-      Width = 755
+      Top = 1427
+      Width = 903
       Height = 120
       BorderStyle = bsNone
       Align = alTop
@@ -1587,8 +1519,8 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox9: TAdvGroupBox
       Left = 0
-      Top = 1497
-      Width = 755
+      Top = 1547
+      Width = 903
       Height = 216
       BorderStyle = bsNone
       Align = alTop
@@ -1872,9 +1804,9 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox10: TAdvGroupBox
       Left = 0
-      Top = 1713
-      Width = 755
-      Height = 160
+      Top = 1763
+      Width = 903
+      Height = 205
       BorderStyle = bsNone
       Align = alTop
       Caption = #20061#12289#26032#29983#20799
@@ -1888,8 +1820,8 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhXSE: TDBGridEh
         Left = 2
         Top = 19
-        Width = 751
-        Height = 139
+        Width = 899
+        Height = 184
         Align = alClient
         DataGrouping.GroupLevels = <>
         DataSource = dsXSER
@@ -1908,80 +1840,102 @@ object FrmTYFY: TFrmTYFY
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         UseMultiTitle = True
-        OnKeyDown = dbgrdhXSEKeyDown
         Columns = <
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'xh'
             Footers = <>
             Title.Caption = #24207#21495
+            Width = 30
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'XB'
             Footers = <>
             Title.Caption = #24615#21035
+            Width = 55
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'PF'
             Footers = <>
             Title.Caption = #38463#27663#35780#20998
+            Width = 44
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'SC'
             Footers = <>
             Title.Caption = #36523#38271
+            Width = 40
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'TZ'
             Footers = <>
             Title.Caption = #20307#37325
+            Width = 40
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'CCQK'
             Footers = <>
             Title.Caption = #20135#20986#24773#20917
+            Width = 92
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'CYQK'
             Footers = <>
             Title.Caption = #20986#38498#24773#20917
+            Width = 87
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
-            FieldName = 'CYRQ'
+            FieldName = 'CSSJ'
             Footers = <>
             Title.Caption = #20986#29983#26102#38388
+            Width = 86
           end
           item
-            Checkboxes = False
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'JB'
             Footers = <>
             Title.Caption = #30142#30149
+            Width = 143
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'SWSJ'
             Footers = <>
             Title.Caption = #27515#20129#26085#26399
+            Width = 80
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'SWYY'
             Footers = <>
             Title.Caption = #27515#20129#21407#22240
+            Width = 147
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'YYGR'
             Footers = <>
             Title.Caption = #26159#21542#21457#29983#21307#38498#24863#26579
+            Width = 40
           end>
         object RowDetailData: TRowDetailPanelControlEh
         end
@@ -1994,9 +1948,8 @@ object FrmTYFY: TFrmTYFY
     Top = 48
   end
   object dsss: TDataSource
-    DataSet = dldtSS
-    Left = 512
-    Top = 328
+    Left = 632
+    Top = 240
   end
   object clientdtDLCDS: TClientDataSet
     Aggregates = <>
@@ -2005,32 +1958,25 @@ object FrmTYFY: TFrmTYFY
     Top = 48
   end
   object dsICU: TDataSource
-    DataSet = dldtICU
+    OnStateChange = dsICUStateChange
     Left = 560
     Top = 776
   end
   object dldtXSER: TDlClientDataset
     Aggregates = <>
     Params = <>
-    Left = 320
-    Top = 1792
+    Left = 336
+    Top = 1832
   end
   object dsXSER: TDataSource
-    DataSet = clientdtDLCDS
-    Left = 384
-    Top = 1784
+    Left = 392
+    Top = 1832
   end
   object dldtSS: TDlClientDataset
     Aggregates = <>
     Params = <>
-    Left = 376
-    Top = 296
-  end
-  object dldtICU: TDlClientDataset
-    Aggregates = <>
-    Params = <>
-    Left = 448
-    Top = 752
+    Left = 592
+    Top = 240
   end
   object clientdtXSER: TClientDataSet
     Aggregates = <>
