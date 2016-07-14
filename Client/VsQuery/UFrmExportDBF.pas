@@ -203,6 +203,7 @@ procedure TFrmExportDBF.btnOutPutClick(Sender: TObject);
   Function _GenQuerySQL:String;
     const
      leftjoinSQL = ' on VsCh0A.ChYear=%0:s.ChYear And VsCh0A.Ch0A01=%0:s.%s01';
+
   Var
     FieldSql,WhereUnionTable,TableName:String;
      FJTJSQL,JoinSQL,ZDBJoinSQL :string;
@@ -236,9 +237,16 @@ procedure TFrmExportDBF.btnOutPutClick(Sender: TObject);
            begin
              TableName := Format('%s%d',[FieldByName('DBFTable').AsString,FieldByName('DBFByID').AsInteger]) ;
            end;
-           
-           FieldSql := FieldSql + Format(' ,%0:s.%1:s  %2:s',[TableName,
+           if UpperCase(FieldByName('DBFFieldType').AsString) = 'D' then
+           begin
+             FieldSql := FieldSql + Format(' ,Convert(VarChar(8),replace(Convert(varchar(10),%0:s.%1:s, 120),''-'','''')) %2:s',[TableName,
                  FieldByName('DBFField').AsString,FieldByName('DBFCField').AsString]) ;
+           end
+           else
+           begin
+             FieldSql := FieldSql + Format(' ,%0:s.%1:s  %2:s',[TableName,
+                 FieldByName('DBFField').AsString,FieldByName('DBFCField').AsString]) ;
+           end;
 
            FJTJSQL := Format(' and %s.%s %s %s',[TableName,FieldByName('DBFFJTJ').AsString,
                   FieldByName('DBFOperate').AsString,FieldByName('DBFFJValue').AsString]);
@@ -246,8 +254,24 @@ procedure TFrmExportDBF.btnOutPutClick(Sender: TObject);
          end
          else
          begin
-           FieldSql := FieldSql + Format(', %0:s.%1:s  %2:s',[FieldByName('DBFTable').AsString,
+            // 身份证号大写
+           if UpperCase(FieldByName('DBFField').AsString) = 'CH0A05' then
+           begin
+              FieldSql := FieldSql + Format(', Upper(%0:s.%1:s) %2:s',[FieldByName('DBFTable').AsString,
                    FieldByName('DBFField').AsString,FieldByName('DBFCField').AsString]) ;
+           end
+           else
+           begin
+             if UpperCase(FieldByName('DBFFieldType').AsString) = 'D' then
+             begin
+                FieldSql := FieldSql + Format(', Convert(VarChar(8),replace(Convert(varchar(10), %0:s.%1:s, 120),''-'','''')) %2:s',[FieldByName('DBFTable').AsString,
+                     FieldByName('DBFField').AsString,FieldByName('DBFCField').AsString]) ;
+             end
+             else
+               FieldSql := FieldSql + Format(', %0:s.%1:s  %2:s',[FieldByName('DBFTable').AsString,
+                     FieldByName('DBFField').AsString,FieldByName('DBFCField').AsString]) ;
+           end;
+                   
            TableName := FieldByName('DBFTable').AsString;
            FJTJSQL := '';
          end;
@@ -299,7 +323,12 @@ var
  exportSQL,StrDateStart,StrDateEnd,WhereSql:string;
 begin
   inherited;
-  acSaveExecute(nil);
+  if Dlcds.state in [DB.dsEdit,DB.dsInsert] then
+  begin
+    Dlcds.Post;
+    DLCDS.ApplyUpdates(-1);
+  end;
+
   if not DLCDS.Active or (DLCDS.IsEmpty) then
   begin
     ShowMsg('请选择需要导出的数据！','',48);
@@ -320,12 +349,11 @@ begin
 
   WhereSql  := Format(' where CH0A27 >= %s and CH0A27 <= %s',[QuotedStr(StrDateStart),QuotedStr(StrDateEnd)]);
   StartWaitWindow('正在导出相关数据,请稍候......');
-  if Dlcds.state in [DB.dsEdit,DB.dsInsert] then
-     Dlcds.Post;
   exportSQL :=_GenQuerySQL+WhereSql;
   try
     if exportSQL <> '' then
     begin
+      WriteDeBug(exportSQL);
       TMidProxy.SqlOpen(exportSQL,clientdtDBF);
       if not clientdtDBF.IsEmpty then
       begin
@@ -337,7 +365,7 @@ begin
       else
       begin
         EndWaitWindow;
-        ShowMsg('未查询到符合的数据','提示',16);
+        ShowMsg('未查询到符合的数据','提示',48);
       end;
     end;
   finally

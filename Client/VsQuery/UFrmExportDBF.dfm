@@ -650,6 +650,7 @@ inherited FrmExportDBF: TFrmExportDBF
           XMLExport.DataPacketVersion = '2.0'
           OnButtonClick = tsDBGridDBFButtonClick
           DataBound = True
+          ExplicitHeight = 353
           ColProperties = <
             item
               DataCol = 1
