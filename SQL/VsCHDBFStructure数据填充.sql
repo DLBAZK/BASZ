@@ -1,3 +1,20 @@
+IF EXISTS(SELECT 1 FROM sys.objects WHERE name='VsCHDBFStructure' AND type='U')
+  DROP TABLE VsCHDBFStructure
+
+CREATE TABLE VsCHDBFStructure 
+(
+	DBFName VARCHAR(50),      ---------导出DBF字段
+	DBFMC   VARCHAR(100),     ---------DBF字段描述
+	FieldName VARCHAR(50),    ---------来源字段
+	FieldTable VARCHAR(50),   ---------来源表
+	FieldSTName VARCHAR(50),  ---------关联字段
+	FieldSTTable VARCHAR(50),   ----------关联表
+	FieldTJ      VARCHAR(200),  ----------字段条件
+	FieldCus    VARCHAR(200),   -----------自定义字段转换
+	PYM VARCHAR(50),			----------拼音码
+	WBM VARCHAR(50)				----------五笔码
+) 
+
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('USERNAME','机构名称','','',
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('YLFKFS','医疗付款方式','CH0A82','',
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('JKKH','健康卡号','CH0A81','',
