@@ -31,9 +31,9 @@ BEGIN
 	Fcode varchar(15),
 	Scode varchar(15),
 	Tcode varchar(15),
-	fxmfz int,
-	sxmfz int,
-	txmfz int,
+	fxmfz NUMERIC(3,1),
+	sxmfz NUMERIC(3,1),
+	txmfz NUMERIC(3,1),
 	Score numeric(5,2) default 0,
 	Remark varchar(100),
 	isbj int default 0
