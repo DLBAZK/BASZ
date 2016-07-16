@@ -26,8 +26,7 @@ uses
   UVsBaSx in 'UVsBaSx.pas' {FrmBaSx},
   UFrmBaPJ in 'UFrmBaPJ.pas' {FrmBaPJ},
   UFrmZkDetail in 'UFrmZkDetail.pas' {FrmZkDetail},
-  UFrmTYFY in '..\VsBaFY\UFrmTYFY.pas' {FrmTYFY: TFrame},
-  Unit1 in 'Unit1.pas' {Form1};
+  UFrmTYFY in '..\VsBaFY\UFrmTYFY.pas' {FrmTYFY: TFrame};
 
 {$R *.res}
 Function DllObjFactory(MainInfo:TMainInfo;FormClass:String):TFormClass;

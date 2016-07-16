@@ -337,14 +337,14 @@ end;
 procedure TFrmBaPJ.dbgrdhPJDetailColumns3UpdateData(Sender: TObject;
   var Text: string; var Value: Variant; var UseText, Handled: Boolean);
 var
-  tscore,Sscore,FScore:Integer;
+  tscore,Sscore,FScore:Double;
   bz:Boolean;
 begin
   inherited;
   bz := False;
-  tscore := clientdtPJDetail.FieldByName('txmfz').AsInteger;
-  Sscore :=clientdtPJDetail.FieldByName('sxmfz').AsInteger;
-  FScore :=clientdtPJDetail.FieldByName('fxmfz').AsInteger;
+  tscore := clientdtPJDetail.FieldByName('txmfz').AsFloat;
+  Sscore :=clientdtPJDetail.FieldByName('sxmfz').AsFloat;
+  FScore :=clientdtPJDetail.FieldByName('fxmfz').AsFloat;
   if tscore<>0 then
   begin
     bz :=  Value >tscore;

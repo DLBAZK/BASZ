@@ -462,9 +462,9 @@ inherited FrmBaPJ: TFrmBaPJ
         Align = alBottom
         TabOrder = 1
         object AdvbtnacSave: TAdvGlowButton
-          Left = 717
+          Left = 720
           Top = 1
-          Width = 90
+          Width = 87
           Height = 45
           Hint = #20445#23384
           Align = alRight
@@ -503,7 +503,7 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object AdvbtnClose: TAdvGlowButton
-          Left = 627
+          Left = 630
           Top = 1
           Width = 90
           Height = 45
@@ -538,6 +538,7 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorCheckedTo = 16768988
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
+          ExplicitLeft = 627
         end
       end
       object dbgrdhPJDetail: TDBGridEh
