@@ -54,10 +54,13 @@ begin
                     [DeltaDs.FieldByName('code').NewValue,DeltaDs.FieldByName('code').OldValue]));
   End;
   //更新上级分数
-  uppercode := DeltaDS.FieldByName('uppercode').OldValue;
+//  uppercode := DeltaDS.FieldByName('uppercode').OldValue;
+//  if uppercode<> '' then
+//  begin
+//    sql:=Format('exec Updatezmzlpj ^%s^',[uppercode]);
+//    ExecuteBy(sql);
+//  end;
 
-  sql:=Format('exec Updatezmzlpj ^%s^',[uppercode]);
-  ExecuteBy(sql);
 
 end;
 
@@ -75,7 +78,7 @@ begin
   DeltaDs.Post;
   if UpdateKind=ukDelete then
   begin
-   Applied:=true;
+   Applied:=True;
    If CheckExistsRecord(Format('Select Top 1 1 From VsBAZmPj Where code=^%s^',[GetFieldValue(DeltaDs.FieldByName('code'))])) then
       raise Exception.Create('医技项目：'+GetFieldValue(DeltaDs.FieldByName('codename'))+'中已经有数据，您不能删除该项目！');
    ExecuteBy(Format('Delete Vszmzlpf Where code=^%s^',[GetFieldValue(DeltaDs.FieldByName('code'))]));
@@ -83,10 +86,10 @@ begin
   else if UpdateKind=ukModify then
   begin
     //除却三级之外，有下级的标准不能修改分值
-    code := GetFieldValue(DeltaDs.FieldByName('upperCode'))+deltads.FieldByName('itemcode').OldValue;
-    sql := Format('select top 1 1 from Vszmzlpf where  uppercode=^%s^',[code]) ;
-    if CheckExistsRecord(sql) then
-      raise Exception.Create('标准包含子标准，修改子标准分值即可自动计算！')
+//    code := GetFieldValue(DeltaDs.FieldByName('upperCode'))+deltads.FieldByName('itemcode').OldValue;
+//    sql := Format('select top 1 1 from Vszmzlpf where  uppercode=^%s^',[code]) ;
+//    if CheckExistsRecord(sql) then
+//      raise Exception.Create('标准包含子标准，修改子标准分值即可自动计算！')
     
   end;
 
