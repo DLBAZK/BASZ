@@ -49,7 +49,7 @@ INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldST
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('RYTJ','入院途径','CH0A56','',
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('ZLLB','治疗类别','','',
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('RYSJ','入院时间','CH0A24','Convert(VarChar(8),replace(Convert(varchar(10), CH0A24, 120),'-',''))',
-INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('RYSJ_S','时','','',
+INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('RYSJ_S','时','CH0A24_SJ','Left(CH0A24_SJ,charIndex(CH0A24_SJ,':'))',
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('RYKB','入院科别','SoKm','',
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('RYBF','入院病房','CH0ANA','',
 INSERT INTO VsCHDBFStructure(DBFName,DBFMC,FieldName,FieldCus,FieldTable,FieldSTName,FieldSTTable,FieldTJ,PYM,WBM) VALUES('ZKKB','转科科别','SoKm','',
