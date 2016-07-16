@@ -177,7 +177,6 @@ end;
 procedure TFrmZmzlpf.ReLoadZLPJ(dm: string);
 begin
   if not DLCDS.Active then Exit;
-  if DLCDS.IsEmpty then Exit;
   
   tvZmzlpf.Items.Clear;
   SetFilter(Format('zklb=^%s^',[dm]),DLCDS);
