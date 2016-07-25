@@ -386,7 +386,16 @@ end;
 procedure TFrmTYFY.dsICUStateChange(Sender: TObject);
 begin
   if FCDSCh0R.State in [dsInsert,dsEdit] then
-     FCDSCh0R.FieldByName('CH0R02').AsInteger := FCDSCh0R.RecordCount;
+  begin
+    if FCDSCh0R.FieldByName('CH0R02').AsString ='' then
+    begin
+      FCDSCh0R.FieldByName('CH0R02').AsInteger := FCDSCh0R.RecordCount;
+    end;
+    FCDSCh0R.FieldByName('CH0R01').AsString := FCh0A01;
+    FCDSCh0R.FieldByName('CHYear').AsString := FChYear;
+  end;
+
+
 end;
 
 procedure TFrmTYFY.edtCH0A43KeyPress(Sender: TObject; var Key: Char);
@@ -509,8 +518,8 @@ begin
 
   //查询手术信息
 
-  FCDSCh0E.Mid_Open(Format(SQLCH0E,[Ch0A01,Chyear]));
-  _GetMidData(FCDSCh0E,_GetMidDataSQL('VSCH_CH0E','CH0E01'));
+//  FCDSCh0E.Mid_Open(Format(SQLCH0E,[Ch0A01,Chyear]));
+//  _GetMidData(FCDSCh0E,_GetMidDataSQL('VSCH_CH0E','CH0E01'));
   if not FCDSCh0E.IsEmpty then
   begin
     edtCH0EZ13.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ13').AsInteger);
@@ -522,8 +531,8 @@ begin
 
   end;
     //查询ICU信息
-  DLCH0R.Mid_Open(Format('select * from VsCh0R where Ch0R01=^%s^ and CHYear=^%s^',[Ch0A01,Chyear]));
-  _GetMidData(DLCH0R,_GetMidDataSQL('VSCH_CH0R','Ch0R01'));
+//  DLCH0R.Mid_Open(Format('select * from VsCh0R where Ch0R01=^%s^ and CHYear=^%s^',[Ch0A01,Chyear]));
+//  _GetMidData(DLCH0R,_GetMidDataSQL('VSCH_CH0R','Ch0R01'));
 
   if not FCDSCh0A.IsEmpty then
   begin
@@ -599,7 +608,7 @@ begin
 
 
   //新生儿
-  sqltext := 'select * from %0:s where CHYear=^%1:s^ and WT4701 =^%2:s^';
+  {sqltext := 'select * from %0:s where CHYear=^%1:s^ and WT4701 =^%2:s^';
   DLWT47.Mid_Open(Format(sqltext,['VsWt47_1',Chyear,Ch0A01]));
   if DLWT47.IsEmpty then
   begin
@@ -619,7 +628,7 @@ begin
       end;
 
     end;
-  end;   {FROM %s WHERE CHYEAR=^%s^ AND WT4701=^%s^ ,'VsWt47_1',Chyear,Ch0A01}
+  end; }  {FROM %s WHERE CHYEAR=^%s^ AND WT4701=^%s^ ,'VsWt47_1',Chyear,Ch0A01}
   sqltext := '';
   for I := 1 to 4 do
   begin
