@@ -35,7 +35,7 @@ BEGIN
 	sxmfz NUMERIC(3,1),
 	txmfz NUMERIC(3,1),
 	Score numeric(5,2) default 0,
-	Remark varchar(100),
+	Remark varchar(1000),
 	isbj int default 0
   )
  -----查询转换评价项目 临时表--------------------------
@@ -54,7 +54,7 @@ BEGIN
   -----------------------判断是否做过评价
   if not exists(select 1 from VsBAZmPj where CH0A00 =@CH0A00)
   begin
-    select a.FcodeName,a.ScodeName,a.TcodeName,FCode,SCode,TCode, fxmfz,sxmfz,txmfz,Score,remark='' 
+    select a.FcodeName,a.ScodeName,a.TcodeName,FCode,SCode,TCode, fxmfz,sxmfz,txmfz,Score,remark 
     from #ZLPJTmp a order by Scode,Tcode 
     
   end
