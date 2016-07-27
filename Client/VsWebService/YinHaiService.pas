@@ -57,10 +57,10 @@ function GetYinHaiServicePortType(UseWSDL: Boolean; Addr: string; HTTPRIO: THTTP
 const
   //http://172.18.2.8:8080/webservice/services/YinHaiService?wsdl  山西内网地址
   //http://183.203.209.72:8088/webservice/services/YinHaiService?wsdl 调试地址
-  defWSDL = 'http://183.203.209.72:8088/webservice/services/YinHaiService?wsdl';
-  defURL  = 'http://183.203.209.72:8088/webservice/services/YinHaiService';
-//  defWSDL = 'http://172.18.2.8:8080/webservice/services/YinHaiService?wsdl';
-//  defURL  = 'http://172.18.2.8:8080/webservice/services/YinHaiService';
+//  defWSDL = 'http://183.203.209.72:8088/webservice/services/YinHaiService?wsdl';
+//  defURL  = 'http://183.203.209.72:8088/webservice/services/YinHaiService';
+  defWSDL = 'http://172.18.2.8:8080/webservice/services/YinHaiService?wsdl';
+  defURL  = 'http://172.18.2.8:8080/webservice/services/YinHaiService';
   defSvc  = 'YinHaiService';
   defPrt  = 'YinHaiServiceHttpPort';
 var

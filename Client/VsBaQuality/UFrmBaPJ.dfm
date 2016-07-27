@@ -3,7 +3,7 @@ inherited FrmBaPJ: TFrmBaPJ
   ClientHeight = 652
   ClientWidth = 1238
   ExplicitWidth = 1254
-  ExplicitHeight = 690
+  ExplicitHeight = 691
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
@@ -106,7 +106,7 @@ inherited FrmBaPJ: TFrmBaPJ
         object AdvbtnActLocate: TAdvGlowButton
           Left = 339
           Top = 19
-          Width = 83
+          Width = 73
           Height = 55
           Action = ActLocate
           AutoSize = True
@@ -462,9 +462,9 @@ inherited FrmBaPJ: TFrmBaPJ
         Align = alBottom
         TabOrder = 1
         object AdvbtnacSave: TAdvGlowButton
-          Left = 720
+          Left = 724
           Top = 1
-          Width = 87
+          Width = 83
           Height = 45
           Hint = #20445#23384
           Align = alRight
@@ -503,7 +503,7 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object AdvbtnClose: TAdvGlowButton
-          Left = 630
+          Left = 634
           Top = 1
           Width = 90
           Height = 45
@@ -538,7 +538,7 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorCheckedTo = 16768988
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
-          ExplicitLeft = 627
+          ExplicitLeft = 637
         end
       end
       object dbgrdhPJDetail: TDBGridEh
@@ -568,7 +568,8 @@ inherited FrmBaPJ: TFrmBaPJ
         ParentFont = False
         RowDetailPanel.Color = clBtnFace
         RowHeight = 2
-        RowLines = 3
+        RowLines = 2
+        RowSizingAllowed = True
         SumList.Active = True
         SumList.VirtualRecords = True
         TabOrder = 0
@@ -581,6 +582,7 @@ inherited FrmBaPJ: TFrmBaPJ
         Columns = <
           item
             Alignment = taCenter
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'FcodeName'
             Font.Charset = ANSI_CHARSET
@@ -597,8 +599,6 @@ inherited FrmBaPJ: TFrmBaPJ
             WordWrap = True
           end
           item
-            Alignment = taCenter
-            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'ScodeName'
             Font.Charset = ANSI_CHARSET
@@ -660,6 +660,7 @@ inherited FrmBaPJ: TFrmBaPJ
             OnUpdateData = dbgrdhPJDetailColumns3UpdateData
           end
           item
+            AutoFitColWidth = False
             EditButtons = <>
             FieldName = 'Remark'
             Font.Charset = ANSI_CHARSET
@@ -730,5 +731,11 @@ inherited FrmBaPJ: TFrmBaPJ
     DataSet = clientdtLB
     Left = 288
     Top = 336
+  end
+  object mtblhDLCDS: TMemTableEh
+    MasterSource = dsPJDetail
+    Params = <>
+    Left = 616
+    Top = 328
   end
 end

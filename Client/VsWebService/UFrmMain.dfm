@@ -1,8 +1,8 @@
 inherited FrmYinHaiMain: TFrmYinHaiMain
   Caption = #24179#21488#25968#25454#19978#25253
   ClientWidth = 1085
-  ExplicitWidth = 1093
-  ExplicitHeight = 426
+  ExplicitWidth = 1101
+  ExplicitHeight = 434
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
@@ -138,7 +138,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         LabelFont.Style = []
       end
       object btnOK: TAdvGlowButton
-        Left = 760
+        Left = 728
         Top = 10
         Width = 100
         Height = 41
@@ -187,6 +187,78 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         Height = 21
         TabOrder = 4
       end
+      object btnUpload: TAdvGlowButton
+        Left = 848
+        Top = 10
+        Width = 100
+        Height = 41
+        Caption = #37325#26032#19978#25253
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #24494#36719#38597#40657
+        Font.Style = []
+        NotesFont.Charset = DEFAULT_CHARSET
+        NotesFont.Color = clWindowText
+        NotesFont.Height = -11
+        NotesFont.Name = 'Tahoma'
+        NotesFont.Style = []
+        ParentFont = False
+        TabOrder = 5
+        OnClick = btnUploadClick
+        Appearance.ColorChecked = 16111818
+        Appearance.ColorCheckedTo = 16367008
+        Appearance.ColorDisabled = 15921906
+        Appearance.ColorDisabledTo = 15921906
+        Appearance.ColorDown = 16111818
+        Appearance.ColorDownTo = 16367008
+        Appearance.ColorHot = 16117985
+        Appearance.ColorHotTo = 16372402
+        Appearance.ColorMirrorHot = 16107693
+        Appearance.ColorMirrorHotTo = 16775412
+        Appearance.ColorMirrorDown = 16102556
+        Appearance.ColorMirrorDownTo = 16768988
+        Appearance.ColorMirrorChecked = 16102556
+        Appearance.ColorMirrorCheckedTo = 16768988
+        Appearance.ColorMirrorDisabled = 11974326
+        Appearance.ColorMirrorDisabledTo = 15921906
+      end
+      object btnClose: TAdvGlowButton
+        Left = 976
+        Top = 10
+        Width = 100
+        Height = 41
+        Action = acClose
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #24494#36719#38597#40657
+        Font.Style = []
+        ImageIndex = 1
+        NotesFont.Charset = DEFAULT_CHARSET
+        NotesFont.Color = clWindowText
+        NotesFont.Height = -11
+        NotesFont.Name = 'Tahoma'
+        NotesFont.Style = []
+        ParentFont = False
+        TabOrder = 6
+        Appearance.ColorChecked = 16111818
+        Appearance.ColorCheckedTo = 16367008
+        Appearance.ColorDisabled = 15921906
+        Appearance.ColorDisabledTo = 15921906
+        Appearance.ColorDown = 16111818
+        Appearance.ColorDownTo = 16367008
+        Appearance.ColorHot = 16117985
+        Appearance.ColorHotTo = 16372402
+        Appearance.ColorMirrorHot = 16107693
+        Appearance.ColorMirrorHotTo = 16775412
+        Appearance.ColorMirrorDown = 16102556
+        Appearance.ColorMirrorDownTo = 16768988
+        Appearance.ColorMirrorChecked = 16102556
+        Appearance.ColorMirrorCheckedTo = 16768988
+        Appearance.ColorMirrorDisabled = 11974326
+        Appearance.ColorMirrorDisabledTo = 15921906
+      end
     end
     object dbgrdhState: TDBGridEh
       Left = 0
@@ -209,8 +281,10 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
       FooterFont.Height = -11
       FooterFont.Name = 'Tahoma'
       FooterFont.Style = []
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
       OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghExtendVertLines]
       ParentFont = False
+      ReadOnly = True
       RowDetailPanel.Color = clBtnFace
       TabOrder = 1
       TitleFont.Charset = GB2312_CHARSET

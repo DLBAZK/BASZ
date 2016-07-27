@@ -38,7 +38,7 @@
 			<Compiler Name="T">0</Compiler>
 			<Compiler Name="U">0</Compiler>
 			<Compiler Name="V">1</Compiler>
-			<Compiler Name="W">0</Compiler>
+			<Compiler Name="W">1</Compiler>
 			<Compiler Name="X">1</Compiler>
 			<Compiler Name="Y">1</Compiler>
 			<Compiler Name="Z">1</Compiler>
@@ -115,7 +115,7 @@
 			<Compiler Name="CodePage"></Compiler>
 		</Compiler>
 		<Linker>
-			<Linker Name="MapFile">0</Linker>
+			<Linker Name="MapFile">3</Linker>
 			<Linker Name="OutputObjs">0</Linker>
 			<Linker Name="GenerateHpps">False</Linker>
 			<Linker Name="ConsoleApp">1</Linker>
@@ -182,4 +182,18 @@
 		</Excluded_Packages>
 		<buildevents/>
 	</Delphi.Personality>
+<!-- EurekaLog First Line
+[Exception Log]
+EurekaLog Version=7007
+Activate=0
+DeleteMapAfterCompile=0
+Dialog Class=""
+Encrypt Password=""
+loAddBugIDInLogFileName=1
+loAddDateInLogFileName=1
+ProjectID="{12E0BBDF-3BD7-4255-AB59-34B5DE8A6E02}"
+Save Log File=0
+soActCtlsControlClass=1
+soExcModuleName=1
+EurekaLog Last Line -->
 </BorlandProject>

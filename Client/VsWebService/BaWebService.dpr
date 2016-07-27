@@ -15,7 +15,6 @@ uses
   UGVar in '..\..\Public\UGVar.pas',
   UFrmMain in 'UFrmMain.pas' {FrmYinHaiMain},
   UPVar in 'UPVar.pas',
-  uLkJSON in 'uLkJSON.pas',
   YinHaiService in 'YinHaiService.pas';
 
 exports

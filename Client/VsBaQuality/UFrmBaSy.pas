@@ -38,11 +38,13 @@ type
     AdvbtnClose: TAdvGlowButton;
     Label1: TLabel;
     Label2: TLabel;
+    btnQuery: TAdvGlowButton;
     procedure AdvbtnOKClick(Sender: TObject);
     procedure dbgrdhBaHistoryDblClick(Sender: TObject);
     procedure dbgrdhBarecordGetCellParams(Sender: TObject; Column: TColumnEh;
       AFont: TFont; var Background: TColor; State: TGridDrawState);
     procedure dbgrdhBarecordCellClick(Column: TColumnEh);
+    procedure btnQueryClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -114,6 +116,32 @@ begin
 end;
 
 
+procedure TFrmBaSy.btnQueryClick(Sender: TObject);
+  const
+    sql = 'SELECT b.* FROM (SELECT * FROM dbo.VsCH0A  WHERE CH0A27 >=^%0:s^ AND CH0A27 <=^%1:s^) a'
+        + ' RIGHT JOIN(select CH0A01,PFSJ,100-SUM(score) Score, ROW_NUMBER() OVER'
+        + ' (PARTITION BY CH0A01 ORDER BY PFSJ) times  from VsBAsyzk group by CH0A01,PFSJ'
+        + ' ) b ON a.CH0A01=b.CH0A01';
+var
+  kssj,jssj:string;
+begin
+  inherited;
+  kssj := DateToStr(self.advDtpks.Date);
+  jssj := DateToStr(self.advDtpjs.Date);
+  if kssj ='' then
+  begin
+    ShowMsgSure('请选择出院日期!');
+    Exit;
+  end;
+  if jssj ='' then
+  begin
+    ShowMsgSure('请选择出院日期!');
+    Exit;
+  end;
+  DLCDSHistory.Mid_Open(Format(sql,[kssj,jssj]));
+  dbgrdhBaHistory.DataSource := dsHistory;
+end;
+
 constructor TFrmBaSy.Create(Aowner: TComponent);
 begin
   inherited; //Create(Aowner,EuVsBaSy,'select getdate()');
@@ -130,12 +158,9 @@ end;
 /// 双击行内容 弹出显示详细病案评分记录
 /// </summary>
 procedure TFrmBaSy.dbgrdhBaHistoryDblClick(Sender: TObject);
- const
-   sql ='select * from VsBAsyzk A left join Vssjpf B on A.Subject = B.dm where A.CH0A01 =^%s^ and A.PFSJ=^%s^';
 var
   strBah,pfsj:string;  //病案号
   frmZkdetal:TFrmZkDetail;
-  sqltext:string;
 begin
   inherited;
   if not DLCDSHistory.Active then Exit;
@@ -144,12 +169,12 @@ begin
   strBah :=DLCDSHistory.FieldByName('CH0A01').AsString;
   pfsj := DLCDSHistory.FieldByName('PFSJ').AsString;
   if strBah = '' then Exit;
-  sqltext := Format(sql,[strBah,pfsj]);
-    frmZkdetal :=TFrmZkDetail.Create(nil);
-    AutoFree(frmZkdetal);
-    frmZkdetal.bah := strBah;
-    frmZkdetal.PFSJ := pfsj;
-    frmZkdetal.ShowModal;
+
+  frmZkdetal :=TFrmZkDetail.Create(nil);
+  AutoFree(frmZkdetal);
+  frmZkdetal.bah := strBah;
+  frmZkdetal.PFSJ := pfsj;
+  frmZkdetal.ShowModal;
 end;
 
 procedure TFrmBaSy.dbgrdhBarecordCellClick(Column: TColumnEh);

@@ -15,7 +15,7 @@ uses
   AdvOfficeStatusBarStylers, ExtCtrls, AdvSplitter, StdCtrls, SUIEdit,
   EllipsLabel, TFlatGroupBoxUnit, AdvGlowButton, DBGridEhGrouping, GridsEh,
   DBGridEh, TFlatPanelUnit, DBCtrls, SUIDBCtrls, ComCtrls, AdvDateTimePicker,
-  AdvOfficeButtons, UDLAdvCheckBox, AdvGroupBox;
+  AdvOfficeButtons, UDLAdvCheckBox, AdvGroupBox, MemTableDataEh, MemTableEh;
 
   const
      BASQL='select A.CH0A00,CH0A01,CH0A02,CH0A03,zklb,CH0A27,CH0ABarcode,rankcolor='+
@@ -51,6 +51,7 @@ type
     suiedtBarCode: TsuiEdit;
     suiedtCH0A02: TsuiEdit;
     btnLocate: TAdvGlowButton;
+    mtblhDLCDS: TMemTableEh;
     procedure ActLocateExecute(Sender: TObject);
     procedure suiedtZYHKeyPress(Sender: TObject; var Key: Char);
     procedure suiedtZYHKeyDown(Sender: TObject; var Key: Word;
@@ -329,6 +330,7 @@ begin
     begin
       Canvas.Brush.Color := colorrgb;
       DefaultDrawColumnCell(Rect,DataCol,Column,State);
+      Column.CalcRowHeight
     end;
   end;
   
@@ -345,6 +347,8 @@ begin
   tscore := clientdtPJDetail.FieldByName('txmfz').AsFloat;
   Sscore :=clientdtPJDetail.FieldByName('sxmfz').AsFloat;
   FScore :=clientdtPJDetail.FieldByName('fxmfz').AsFloat;
+  if Value='' then
+    Value :=0;
   if tscore<>0 then
   begin
     bz :=  Value >tscore;

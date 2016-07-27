@@ -3,7 +3,7 @@ inherited FrmBaSy: TFrmBaSy
   ClientHeight = 596
   ClientWidth = 967
   ExplicitWidth = 983
-  ExplicitHeight = 634
+  ExplicitHeight = 635
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
@@ -219,6 +219,16 @@ inherited FrmBaSy: TFrmBaSy
           OnDblClick = dbgrdhBaHistoryDblClick
           Columns = <
             item
+              AutoFitColWidth = False
+              EditButtons = <>
+              FieldName = 'CH0A01'
+              Footers = <>
+              ReadOnly = True
+              Title.Alignment = taCenter
+              Title.Caption = #30149#26696#21495
+              Width = 105
+            end
+            item
               Alignment = taCenter
               EditButtons = <>
               FieldName = 'times'
@@ -413,7 +423,7 @@ inherited FrmBaSy: TFrmBaSy
       object AdvbtnOK: TAdvGlowButton
         Left = 368
         Top = 13
-        Width = 90
+        Width = 78
         Height = 32
         AutoSize = True
         Caption = #20998#26512
@@ -450,7 +460,7 @@ inherited FrmBaSy: TFrmBaSy
         Appearance.ColorMirrorDisabledTo = 15921906
       end
       object AdvbtnClose: TAdvGlowButton
-        Left = 496
+        Left = 648
         Top = 12
         Width = 100
         Height = 32
@@ -496,6 +506,38 @@ inherited FrmBaSy: TFrmBaSy
         Appearance.GradientDown = ggVertical
         Appearance.GradientMirrorDown = ggVertical
         Appearance.GradientChecked = ggVertical
+      end
+      object btnQuery: TAdvGlowButton
+        Left = 496
+        Top = 13
+        Width = 78
+        Height = 32
+        Hint = #26597#25214
+        Caption = #26597#25214
+        ImageIndex = 11
+        NotesFont.Charset = DEFAULT_CHARSET
+        NotesFont.Color = clWindowText
+        NotesFont.Height = -11
+        NotesFont.Name = 'Tahoma'
+        NotesFont.Style = []
+        TabOrder = 4
+        OnClick = btnQueryClick
+        Appearance.ColorChecked = 16111818
+        Appearance.ColorCheckedTo = 16367008
+        Appearance.ColorDisabled = 15921906
+        Appearance.ColorDisabledTo = 15921906
+        Appearance.ColorDown = 16111818
+        Appearance.ColorDownTo = 16367008
+        Appearance.ColorHot = 16117985
+        Appearance.ColorHotTo = 16372402
+        Appearance.ColorMirrorHot = 16107693
+        Appearance.ColorMirrorHotTo = 16775412
+        Appearance.ColorMirrorDown = 16102556
+        Appearance.ColorMirrorDownTo = 16768988
+        Appearance.ColorMirrorChecked = 16102556
+        Appearance.ColorMirrorCheckedTo = 16768988
+        Appearance.ColorMirrorDisabled = 11974326
+        Appearance.ColorMirrorDisabledTo = 15921906
       end
     end
   end
