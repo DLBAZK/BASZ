@@ -23,6 +23,7 @@ object FrmTYFY: TFrmTYFY
     Top = 0
     Width = 920
     Height = 1909
+    VertScrollBar.Position = 59
     Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
@@ -30,7 +31,7 @@ object FrmTYFY: TFrmTYFY
     TabOrder = 0
     object AdvGroupBox1: TAdvGroupBox
       Left = 0
-      Top = 0
+      Top = -59
       Width = 903
       Height = 121
       BorderStyle = bsNone
@@ -165,7 +166,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox2: TAdvGroupBox
       Left = 0
-      Top = 121
+      Top = 62
       Width = 903
       Height = 304
       BorderStyle = bsNone
@@ -358,7 +359,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox3: TAdvGroupBox
       Left = 0
-      Top = 425
+      Top = 366
       Width = 903
       Height = 160
       BorderStyle = bsNone
@@ -528,7 +529,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox4: TAdvGroupBox
       Left = 0
-      Top = 585
+      Top = 526
       Width = 903
       Height = 299
       BorderStyle = bsNone
@@ -663,7 +664,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox5: TAdvGroupBox
       Left = 0
-      Top = 884
+      Top = 825
       Width = 903
       Height = 184
       BorderStyle = bsNone
@@ -836,6 +837,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 0
+        OnChange = edtCH0AYN04Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYN01: TEdit
@@ -844,6 +846,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 3
+        OnChange = edtCH0AYN01Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYN06: TEdit
@@ -851,6 +854,7 @@ object FrmTYFY: TFrmTYFY
         Top = 30
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 2
         OnKeyPress = edtCH0AYN04KeyPress
       end
@@ -861,6 +865,7 @@ object FrmTYFY: TFrmTYFY
         Height = 22
         BevelInner = bvNone
         BevelOuter = bvNone
+        Enabled = False
         TabOrder = 1
       end
       object edtCH0AYN02: TEdit
@@ -870,6 +875,7 @@ object FrmTYFY: TFrmTYFY
         Height = 22
         BevelInner = bvNone
         BevelOuter = bvNone
+        Enabled = False
         TabOrder = 4
       end
       object edtCH0AYN03: TEdit
@@ -877,6 +883,7 @@ object FrmTYFY: TFrmTYFY
         Top = 61
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 5
         OnKeyPress = edtCH0AYN04KeyPress
       end
@@ -885,6 +892,7 @@ object FrmTYFY: TFrmTYFY
         Top = 92
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 6
         OnKeyPress = edtCH0AYN04KeyPress
       end
@@ -923,7 +931,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox6: TAdvGroupBox
       Left = 0
-      Top = 1068
+      Top = 1009
       Width = 903
       Height = 239
       BorderStyle = bsNone
@@ -1133,6 +1141,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 2
+        OnChange = edtCH0AYNA8Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYNA9: TEdit
@@ -1140,6 +1149,7 @@ object FrmTYFY: TFrmTYFY
         Top = 53
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 3
         OnKeyPress = edtCH0AYNA9KeyPress
       end
@@ -1149,6 +1159,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 4
+        OnChange = edtCH0AYNB0Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYNB1: TEdit
@@ -1156,6 +1167,7 @@ object FrmTYFY: TFrmTYFY
         Top = 84
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 5
         OnKeyPress = edtCH0AYNB1KeyPress
       end
@@ -1165,6 +1177,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 7
+        OnChange = edtCH0P11Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0P13: TEdit
@@ -1181,6 +1194,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 9
+        OnChange = edtCH0A57Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY15: TEdit
@@ -1188,6 +1202,7 @@ object FrmTYFY: TFrmTYFY
         Top = 177
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 10
         OnKeyPress = edtCH0AYN04KeyPress
       end
@@ -1197,6 +1212,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 11
+        OnChange = edtCH0A58Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY16: TEdit
@@ -1204,6 +1220,7 @@ object FrmTYFY: TFrmTYFY
         Top = 208
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 12
         OnKeyPress = edtCH0AYN04KeyPress
       end
@@ -1212,8 +1229,8 @@ object FrmTYFY: TFrmTYFY
         Top = 116
         Width = 295
         Height = 24
-        Button.Color = 16572875
-        Button.ColorTo = 14722429
+        Button.Color = clWhite
+        Button.ColorTo = clSilver
         Button.ColorHot = 14483455
         Button.ColorHotTo = 6013175
         Button.ColorDown = 557032
@@ -1225,6 +1242,7 @@ object FrmTYFY: TFrmTYFY
         SelectionColor = 14722429
         SelectionTextColor = clWhite
         Version = '1.5.2.1'
+        Enabled = False
         ItemIndex = -1
         ItemHeight = 14
         TabOrder = 6
@@ -1238,7 +1256,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox7: TAdvGroupBox
       Left = 0
-      Top = 1307
+      Top = 1248
       Width = 903
       Height = 120
       BorderStyle = bsNone
@@ -1355,6 +1373,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 0
+        OnChange = edtCH0A54Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AQ1: TEdit
@@ -1362,6 +1381,7 @@ object FrmTYFY: TFrmTYFY
         Top = 27
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 1
       end
       object edtCH0ATY07: TEdit
@@ -1394,6 +1414,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 5
+        OnChange = edtCH0ATY08Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY09: TEdit
@@ -1407,7 +1428,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox8: TAdvGroupBox
       Left = 0
-      Top = 1427
+      Top = 1368
       Width = 903
       Height = 120
       BorderStyle = bsNone
@@ -1482,6 +1503,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 0
+        OnChange = edtCh0ANQChange
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYN07: TEdit
@@ -1489,6 +1511,7 @@ object FrmTYFY: TFrmTYFY
         Top = 23
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 1
         OnKeyPress = edtCH0AYN04KeyPress
       end
@@ -1497,6 +1520,7 @@ object FrmTYFY: TFrmTYFY
         Top = 54
         Width = 433
         Height = 22
+        Enabled = False
         MaxLength = 50
         TabOrder = 2
       end
@@ -1506,6 +1530,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 3
+        OnChange = edtCH0AYN09Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYNAA: TEdit
@@ -1513,13 +1538,14 @@ object FrmTYFY: TFrmTYFY
         Top = 85
         Width = 433
         Height = 22
+        Enabled = False
         MaxLength = 50
         TabOrder = 4
       end
     end
     object AdvGroupBox9: TAdvGroupBox
       Left = 0
-      Top = 1547
+      Top = 1488
       Width = 903
       Height = 216
       BorderStyle = bsNone
@@ -1699,12 +1725,14 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 0
+        OnChange = edtqjChange
       end
       object edttCH0A46: TEdit
         Left = 215
         Top = 19
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 1
       end
       object edttCH0A47: TEdit
@@ -1712,6 +1740,7 @@ object FrmTYFY: TFrmTYFY
         Top = 19
         Width = 29
         Height = 22
+        Enabled = False
         TabOrder = 2
       end
       object edtCH0A43: TEdit
@@ -1776,6 +1805,7 @@ object FrmTYFY: TFrmTYFY
         Width = 29
         Height = 22
         TabOrder = 10
+        OnChange = edtCH0ATY11Change
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY12: TEdit
@@ -1783,6 +1813,7 @@ object FrmTYFY: TFrmTYFY
         Top = 150
         Width = 433
         Height = 22
+        Enabled = False
         TabOrder = 11
       end
       object edtCH0ATY13: TEdit
@@ -1804,7 +1835,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox10: TAdvGroupBox
       Left = 0
-      Top = 1763
+      Top = 1704
       Width = 903
       Height = 205
       BorderStyle = bsNone

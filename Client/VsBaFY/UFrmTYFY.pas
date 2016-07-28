@@ -3,7 +3,7 @@ unit UFrmTYFY;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, AdvGroupBox, DBGridEhGrouping, GridsEh, DBGridEh,
   DB, DBClient, UDlClientDataset,UGFun,UGVar,UVsMidClassList,UCommon,
   AdvFontCombo;
@@ -226,6 +226,19 @@ type
     procedure edtCH0AYNB1KeyPress(Sender: TObject; var Key: Char);
     procedure edtCH0ATY18KeyPress(Sender: TObject; var Key: Char);
     procedure dsICUStateChange(Sender: TObject);
+    procedure edtCH0AYN04Change(Sender: TObject);
+    procedure edtCH0AYN01Change(Sender: TObject);
+    procedure edtCH0AYNA8Change(Sender: TObject);
+    procedure edtCH0AYNB0Change(Sender: TObject);
+    procedure edtCH0P11Change(Sender: TObject);
+    procedure edtCH0A57Change(Sender: TObject);
+    procedure edtCH0A58Change(Sender: TObject);
+    procedure edtCH0A54Change(Sender: TObject);
+    procedure edtCH0ATY08Change(Sender: TObject);
+    procedure edtCh0ANQChange(Sender: TObject);
+    procedure edtCH0AYN09Change(Sender: TObject);
+    procedure edtqjChange(Sender: TObject);
+    procedure edtCH0ATY11Change(Sender: TObject);
   private
     { Private declarations }
     FBaSetInfo: TBaSetInfo;
@@ -237,9 +250,21 @@ type
     { Public declarations }
     Constructor Create(Aowner:TComponent);Override;
     procedure SetBaSetInfo(aBaSetInfo:TBaSetInfo);
-    procedure GetValueByCh0P01(Chyear,Ch0A01,Ch0A00:string;SetControlHint: TSetSbSimpleText;IsAppend:Boolean;CDSCh0A,DLCH0E,DLCH0R,DLWT47:TDlClientDataset);
+    procedure GetValueByCh0P01(Chyear,Ch0A01,Ch0A00:string;SetControlHint: TSetSbSimpleText;IsAppend:Boolean;CDSCh0A,DLCH0E,DLCH0R:TDlClientDataset);
     Procedure SaveValue;
-    Property SetControlHint:TSetSbSimpleText Read FSetControlHint Write FSetControlHint;
+    Property  SetControlHint:TSetSbSimpleText Read FSetControlHint Write FSetControlHint;
+    /// <summary>
+    /// 判断新生儿列表是否操作
+    /// </summary>
+    function SetXSEState:Boolean;
+    /// <summary>
+    /// 截取字符串
+    /// </summary>
+    /// <param name="Str">源字符串</param>
+    /// <param name="Size">截取长度</param>
+    /// <returns>string</returns>
+    function Leftstr(Const Str: String; Size: Word):string;
+
   end;
 
 implementation
@@ -404,10 +429,54 @@ begin
     Key := #0
 end;
 
+procedure TFrmTYFY.edtCH0A54Change(Sender: TObject);
+begin
+  edtCH0AQ1.Enabled := edtCH0A54.Text = '2';
+end;
+
+procedure TFrmTYFY.edtCH0A57Change(Sender: TObject);
+begin
+  edtCH0ATY15.Enabled :=edtCH0A57.Text = '2';
+end;
+
+procedure TFrmTYFY.edtCH0A58Change(Sender: TObject);
+begin
+  edtCH0ATY16.Enabled :=  edtCH0A58.Text ='2';
+end;
+
+procedure TFrmTYFY.edtCh0ANQChange(Sender: TObject);
+begin
+  edtCH0AYN07.Enabled := edtCh0ANQ.Text ='2';
+  edtCH0AYN08.Enabled :=edtCh0ANQ.Text ='2';
+end;
+
+procedure TFrmTYFY.edtCH0ATY08Change(Sender: TObject);
+begin
+  edtCH0ATY09.Enabled := edtCH0ATY08.Text = '2';
+end;
+
+procedure TFrmTYFY.edtCH0ATY11Change(Sender: TObject);
+begin
+  edtCH0ATY12.Enabled := edtCH0ATY11.Text <>'2';
+end;
+
 procedure TFrmTYFY.edtCH0ATY18KeyPress(Sender: TObject; var Key: Char);
 begin
   if not (Key in ['0'..'4']) then
     Key := #0
+end;
+
+procedure TFrmTYFY.edtCH0AYN01Change(Sender: TObject);
+begin
+  edtCH0AYN02.Enabled := edtCH0AYN01.Text ='2';
+  edtCH0AYN03.Enabled := edtCH0AYN01.Text ='2';
+end;
+
+procedure TFrmTYFY.edtCH0AYN04Change(Sender: TObject);
+begin
+  edtCH0AYN05.Enabled := edtCH0AYN04.Text ='2';
+  edtCH0AYN06.Enabled := edtCH0AYN04.Text ='2';
+  edtCH0ATY01.Enabled := edtCH0AYN04.Text ='2';
 end;
 
 procedure TFrmTYFY.edtCH0AYN04KeyPress(Sender: TObject; var Key: Char);
@@ -416,10 +485,26 @@ begin
     Key := #0
 end;
 
+procedure TFrmTYFY.edtCH0AYN09Change(Sender: TObject);
+begin
+  edtCH0AYNAA.Enabled := edtCH0AYN09.Text ='2';
+end;
+
+procedure TFrmTYFY.edtCH0AYNA8Change(Sender: TObject);
+begin
+  edtCH0AYNA9.Enabled := edtCH0AYNA8.Text ='2';
+end;
+
 procedure TFrmTYFY.edtCH0AYNA9KeyPress(Sender: TObject; var Key: Char);
 begin
   if not (Key in ['0'..'5']) then
   Key := #0
+end;
+
+procedure TFrmTYFY.edtCH0AYNB0Change(Sender: TObject);
+begin
+  edtCH0AYNB1.Enabled := edtCH0AYNB0.Text ='2';
+  cbbCH0AYNB2.Enabled :=edtCH0AYNB0.Text ='2';
 end;
 
 procedure TFrmTYFY.edtCH0AYNB1KeyPress(Sender: TObject; var Key: Char);
@@ -428,19 +513,30 @@ begin
     Key := #0
 end;
 
+procedure TFrmTYFY.edtCH0P11Change(Sender: TObject);
+begin
+  edtCH0P13.Enabled := edtCH0P11.Text = '2';
+end;
+
+procedure TFrmTYFY.edtqjChange(Sender: TObject);
+begin
+  edttCH0A46.Enabled := edtqj.Text='2';
+  edttCH0A47.Enabled :=edtqj.Text='2';
+end;
+
 procedure TFrmTYFY.GetValueByCh0P01(Chyear, Ch0A01, Ch0A00: string;
   SetControlHint: TSetSbSimpleText; IsAppend: Boolean; CDSCh0A,
-  DLCH0E,DLCH0R,DLWT47: TDlClientDataset);
-  const
-    SQLCH0E='Select *,QkYh=(Select Qkmc From VsZhdm Where Dm=CH0E12)+^/^+'+
-                              '              (Select YhQk From VsZhdm Where Dm=CH0E13),'+
-                              '       Mzmc,SsMc,VSZD_SSBW.DMMC CH0EE4_MC,VsSJZD.Dmmc CH0ESC10_MC '+
-                              '  From VsCh0E '+
-                              '       Left Join VsNarcosis On CH0E10=VsNarcosis.Dm'+
-                              '       Left Join VsUseIccm On Ch0E08=VsUseIccm.SSm '+
-                              '       Left Join VSZD_SSBW On CH0EE4=VSZD_SSBW.DM '+
-                              '       Left Join VsSJZD On DMKind=^SSBF^ And CH0ESC10=VsSJZD.Dm '+
-                              ' Where ChYear=^%1:s^ And Ch0E01=^%0:s^';
+  DLCH0E,DLCH0R: TDlClientDataset);
+//  const
+//    SQLCH0E='Select *,QkYh=(Select Qkmc From VsZhdm Where Dm=CH0E12)+^/^+'+
+//                              '              (Select YhQk From VsZhdm Where Dm=CH0E13),'+
+//                              '       Mzmc,SsMc,VSZD_SSBW.DMMC CH0EE4_MC,VsSJZD.Dmmc CH0ESC10_MC '+
+//                              '  From VsCh0E '+
+//                              '       Left Join VsNarcosis On CH0E10=VsNarcosis.Dm'+
+//                              '       Left Join VsUseIccm On Ch0E08=VsUseIccm.SSm '+
+//                              '       Left Join VSZD_SSBW On CH0EE4=VSZD_SSBW.DM '+
+//                              '       Left Join VsSJZD On DMKind=^SSBF^ And CH0ESC10=VsSJZD.Dm '+
+//                              ' Where ChYear=^%1:s^ And Ch0E01=^%0:s^';
 var
   clientdtTemp,cdttemp:TClientDataSet;
   xm,xb,kb:string;
@@ -491,7 +587,6 @@ begin
   FSetControlHint:=SetControlHint;
   FCDSCh0A := CDSCh0A;
   FCDSCh0E := DLCH0E;
-  FCDSChWT47 := DLWT47;
   FCDSCh0R := DLCH0R;
 
   dsss.DataSet := FCDSCh0E;
@@ -608,27 +703,30 @@ begin
 
 
   //新生儿
-  {sqltext := 'select * from %0:s where CHYear=^%1:s^ and WT4701 =^%2:s^';
-  DLWT47.Mid_Open(Format(sqltext,['VsWt47_1',Chyear,Ch0A01]));
-  if DLWT47.IsEmpty then
+  if not SetXSEState then Exit;
+  sqltext := 'select * from %0:s where CHYear=^%1:s^ and WT4701 =^%2:s^';
+  FCDSChWT47 :=TDlClientDataset.Create(nil);
+  FCDSChWT47.MidClassName :=EuVsWt47;
+  FCDSChWT47.Mid_Open(Format(sqltext,['VsWt47_1',Chyear,Ch0A01]));
+  if FCDSChWT47.IsEmpty then
   begin
     cdttemp := TClientDataSet.Create(nil);
     AutoFree(cdttemp);
     TMidProxy.SqlOpen(Format(sqltext,['VsCH_Wt47_1',Chyear,Ch0A01]),cdttemp);
     if not cdttemp.IsEmpty then
     begin
-      for I := 0 to DLWT47.Fields.Count - 1 do
+      for I := 0 to FCDSChWT47.Fields.Count - 1 do
       begin
-        DLWT47.Edit;
-         if DLWT47.FieldDefList[i].Name = 'WT4701' then
-          DLWT47.FieldByName(DLWT47.FieldDefList[i].Name).AsString := Ch0A01
+        FCDSChWT47.Edit;
+         if FCDSChWT47.FieldDefList[i].Name = 'WT4701' then
+          FCDSChWT47.FieldByName(FCDSChWT47.FieldDefList[i].Name).AsString := Ch0A01
         else
-          DLWT47.FieldByName(DLWT47.FieldDefList[i].Name).AsString := cdttemp.FieldByName(DLWT47.FieldDefList[i].Name).AsString;
-        DLWT47.Post;
+          FCDSChWT47.FieldByName(FCDSChWT47.FieldDefList[i].Name).AsString := cdttemp.FieldByName(FCDSChWT47.FieldDefList[i].Name).AsString;
+        FCDSChWT47.Post;
       end;
 
     end;
-  end; }  {FROM %s WHERE CHYEAR=^%s^ AND WT4701=^%s^ ,'VsWt47_1',Chyear,Ch0A01}
+  end;   {FROM %s WHERE CHYEAR=^%s^ AND WT4701=^%s^ ,'VsWt47_1',Chyear,Ch0A01}
   sqltext := '';
   for I := 1 to 4 do
   begin
@@ -651,6 +749,14 @@ begin
   end;
   TMidProxy.SqlOpen(sqltext,clientdtXSER);
   dsXSER.DataSet := clientdtXSER;
+end;
+
+function TFrmTYFY.Leftstr(const Str: String; Size: Word): string;
+begin
+  if Str='' then Exit;
+  if Size > Length(Str) then
+    Size := Length(Str);
+  Result := Copy(Str,0,Size);
 end;
 
 procedure TFrmTYFY.SaveValue;
@@ -794,6 +900,31 @@ end;
 procedure TFrmTYFY.SetBaSetInfo(aBaSetInfo: TBaSetInfo);
 begin
   FBaSetInfo := aBaSetInfo;
+end;
+
+function TFrmTYFY.SetXSEState:Boolean;
+var
+ kmdm,kmdm1:string;
+begin
+  Result := False;
+  if not FCdsCh0A.Active or(FCdsCh0A.IsEmpty) then
+    Exit;
+  Kmdm:=DmToMc(FCdsCh0A.FieldByName('Ch0A23').AsString,'Select SoKm From VsSoffice Where SoDm=^%s^');
+  // 以前只判断了出院科室，判断不全，现加入 入院科室的判断
+  Kmdm1:=DmToMc(FCdsCh0A.FieldByName('Ch0A21').AsString,'Select SoKm From VsSoffice Where SoDm=^%s^');
+  IF (FCdsCh0A.FieldByName('Ch0A03').AsString='2') And
+     ((Leftstr(Kmdm,2)='05') Or (Leftstr(Kmdm,2)='06') or (Leftstr(Kmdm1,2)='05') Or (Leftstr(Kmdm1,2)='06')) Then
+  Begin
+    dbgrdhXSE.ReadOnly :=False;
+    Result := True;
+  End
+  Else
+  begin
+    dbgrdhXSE.ReadOnly :=True;
+    ShowMsg('只有女性病人，并且入院科别或出院科别为妇产科的病人才可以录入此项目','',48);
+  end;
+
+
 end;
 
 end.

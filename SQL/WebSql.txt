@@ -242,7 +242,7 @@ insertMedPhOper=SELECT CH0A01+A.CHYear+^_^+Convert(varchar(10),CH0E07) ope_rec_i
     ISNULL(CH0E15,^^)  OPe_two_name,
     Cast(CH0E12 as int)+1  Ope_cut_level,
     Case WHEN CH0E13 =9 then ^4^ else (CASE WHEN ISNULL(ch0E13,^^)=^^ THEN ^1^ ELSE(CASE ch0E13 WHEN ^^ THEN ^1^ ELSE ch0E13 end)end)end  wound_healing_level,
-    ISNULL(N.WTMZM ,^-^)  anesth_way,
+    ISNULL(N.WTMZM ,^9^)  anesth_way,
     ^^ cli_doc_id,
     ISNULL(CH0E16,^^)    cli_doc_name,
     ^0^ secret_level,

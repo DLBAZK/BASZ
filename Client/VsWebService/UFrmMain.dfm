@@ -1,12 +1,15 @@
 inherited FrmYinHaiMain: TFrmYinHaiMain
   Caption = #24179#21488#25968#25454#19978#25253
+  ClientHeight = 596
   ClientWidth = 1085
   ExplicitWidth = 1101
-  ExplicitHeight = 434
+  ExplicitHeight = 635
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
+    Top = 577
     Width = 1085
+    ExplicitTop = 577
     ExplicitWidth = 1085
   end
   inherited advtlbrpgr1: TAdvToolBarPager
@@ -21,13 +24,15 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
   end
   inherited AdvPanel1: TAdvPanel
     Width = 1085
+    Height = 552
     ExplicitWidth = 1085
+    ExplicitHeight = 552
     FullHeight = 200
     object fltpnl1: TFlatPanel
       Left = 0
       Top = 0
       Width = 1085
-      Height = 57
+      Height = 81
       HelpType = htKeyword
       Transparent = True
       ParentColor = True
@@ -47,7 +52,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         ParentFont = False
       end
       object lblDateEnd: TLabel
-        Left = 180
+        Left = 184
         Top = 16
         Width = 13
         Height = 19
@@ -60,8 +65,8 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         ParentFont = False
       end
       object lblID: TLabel
-        Left = 340
-        Top = 16
+        Left = 12
+        Top = 56
         Width = 39
         Height = 19
         Caption = #29992#25143#21517
@@ -73,11 +78,24 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         ParentFont = False
       end
       object Label1: TLabel
-        Left = 527
-        Top = 16
+        Left = 180
+        Top = 56
         Width = 26
         Height = 19
         Caption = #23494#30721
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #24494#36719#38597#40657
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblLB: TLabel
+        Left = 332
+        Top = 16
+        Width = 52
+        Height = 19
+        Caption = #19978#25253#31867#21035
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -138,8 +156,8 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         LabelFont.Style = []
       end
       object btnOK: TAdvGlowButton
-        Left = 728
-        Top = 10
+        Left = 568
+        Top = 34
         Width = 100
         Height = 41
         Caption = #19978#25253
@@ -174,22 +192,22 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         Appearance.ColorMirrorDisabledTo = 15921906
       end
       object edtID: TEdit
-        Left = 391
-        Top = 19
-        Width = 121
+        Left = 74
+        Top = 54
+        Width = 100
         Height = 21
         TabOrder = 3
       end
       object edtPwd: TEdit
-        Left = 580
-        Top = 19
-        Width = 121
+        Left = 213
+        Top = 54
+        Width = 100
         Height = 21
         TabOrder = 4
       end
       object btnUpload: TAdvGlowButton
-        Left = 848
-        Top = 10
+        Left = 688
+        Top = 34
         Width = 100
         Height = 41
         Caption = #37325#26032#19978#25253
@@ -224,8 +242,8 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         Appearance.ColorMirrorDisabledTo = 15921906
       end
       object btnClose: TAdvGlowButton
-        Left = 976
-        Top = 10
+        Left = 816
+        Top = 34
         Width = 100
         Height = 41
         Action = acClose
@@ -259,12 +277,34 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         Appearance.ColorMirrorDisabled = 11974326
         Appearance.ColorMirrorDisabledTo = 15921906
       end
+      object cbbBALB: TComboBoxEx
+        Left = 394
+        Top = 13
+        Width = 100
+        Height = 22
+        ItemsEx = <
+          item
+            Caption = #20840#37096#19978#25253
+          end
+          item
+            Caption = #22522#26412#20449#24687
+          end
+          item
+            Caption = #35786#26029#20449#24687
+          end
+          item
+            Caption = #25163#26415#20449#24687
+          end>
+        Style = csExDropDownList
+        ItemHeight = 16
+        TabOrder = 7
+      end
     end
     object dbgrdhState: TDBGridEh
       Left = 0
-      Top = 57
+      Top = 81
       Width = 1085
-      Height = 294
+      Height = 471
       Align = alClient
       BorderStyle = bsNone
       DataGrouping.GroupLevels = <>
@@ -282,16 +322,17 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
       FooterFont.Name = 'Tahoma'
       FooterFont.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-      OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghExtendVertLines]
+      OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDblClickOptimizeColWidth, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove]
       ParentFont = False
-      ReadOnly = True
       RowDetailPanel.Color = clBtnFace
+      SortLocal = True
       TabOrder = 1
       TitleFont.Charset = GB2312_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -13
       TitleFont.Name = #24494#36719#38597#40657
       TitleFont.Style = []
+      OnSortMarkingChanged = dbgrdhStateSortMarkingChanged
       Columns = <
         item
           EditButtons = <>
@@ -318,15 +359,26 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
           Width = 246
         end
         item
+          ButtonStyle = cbsNone
           EditButtons = <>
           FieldName = 'OperationLB'
           Footers = <>
           Title.Alignment = taCenter
           Title.Caption = #31867#21035
+          Title.SortIndex = 1
+          Title.SortMarker = smUpEh
+          Title.TitleButton = True
           Width = 153
         end>
       object RowDetailData: TRowDetailPanelControlEh
       end
     end
+  end
+  object htprWeb: THTTPRIO
+    HTTPWebNode.UseUTF8InHeader = True
+    HTTPWebNode.InvokeOptions = [soIgnoreInvalidCerts, soAutoCheckAccessPointViaUDDI]
+    Converter.Options = [soSendMultiRefObj, soTryAllSchema, soRootRefNodesToBody, soCacheMimeResponse, soUTF8EncodeXML]
+    Left = 536
+    Top = 200
   end
 end
