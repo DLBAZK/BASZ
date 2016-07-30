@@ -6,7 +6,7 @@ inherited FrmBaSx: TFrmBaSx
   Font.Height = -12
   Font.Name = #24494#36719#38597#40657
   ExplicitWidth = 1039
-  ExplicitHeight = 564
+  ExplicitHeight = 565
   PixelsPerInch = 96
   TextHeight = 17
   inherited advfcstsbr: TAdvOfficeStatusBar
@@ -891,6 +891,15 @@ inherited FrmBaSx: TFrmBaSx
           Appearance.ColorMirrorCheckedTo = 16768988
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
+        end
+        object Button1: TButton
+          Left = 144
+          Top = 10
+          Width = 75
+          Height = 25
+          Caption = 'Button1'
+          TabOrder = 1
+          OnClick = Button1Click
         end
       end
     end

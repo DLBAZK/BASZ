@@ -33,6 +33,9 @@ type
     htprWeb: THTTPRIO;
     lblLB: TLabel;
     cbbBALB: TComboBoxEx;
+    fltpnl2: TFlatPanel;
+    lbl1: TLabel;
+    lbl2: TLabel;
     procedure btnOKClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnUploadClick(Sender: TObject);

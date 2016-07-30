@@ -1,35 +1,35 @@
 inherited FrmBaPJ: TFrmBaPJ
   Caption = #30149#26696#32456#26411#35780#20215
   ClientHeight = 652
-  ClientWidth = 1238
-  ExplicitWidth = 1254
+  ClientWidth = 1020
+  ExplicitWidth = 1036
   ExplicitHeight = 691
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
     Top = 633
-    Width = 1238
+    Width = 1020
     ExplicitTop = 633
-    ExplicitWidth = 1238
+    ExplicitWidth = 1020
   end
   inherited advtlbrpgr1: TAdvToolBarPager
-    Width = 1238
-    ExplicitWidth = 1238
+    Width = 1020
+    ExplicitWidth = 1020
     inherited AdvPage1: TAdvPage
-      Width = 1230
+      Width = 1012
       Height = 0
-      ExplicitWidth = 1230
+      ExplicitWidth = 1012
       ExplicitHeight = 0
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Width = 1238
+    Width = 1020
     Height = 608
-    ExplicitWidth = 1238
+    ExplicitWidth = 1020
     ExplicitHeight = 608
     FullHeight = 200
     object AdvSplitter1: TAdvSplitter
-      Left = 425
+      Left = 409
       Top = 0
       Height = 608
       Appearance.BorderColor = clNone
@@ -46,7 +46,7 @@ inherited FrmBaPJ: TFrmBaPJ
     object AdvPanel2: TAdvPanel
       Left = 0
       Top = 0
-      Width = 425
+      Width = 409
       Height = 608
       Align = alLeft
       Color = 16640730
@@ -76,7 +76,7 @@ inherited FrmBaPJ: TFrmBaPJ
       object FlatGroupBox1: TFlatGroupBox
         Left = 1
         Top = 1
-        Width = 423
+        Width = 407
         Height = 80
         Align = alTop
         Caption = #26597#35810
@@ -104,13 +104,12 @@ inherited FrmBaPJ: TFrmBaPJ
           Version = '1.0.0.0'
         end
         object AdvbtnActLocate: TAdvGlowButton
-          Left = 339
-          Top = 19
-          Width = 73
-          Height = 55
+          Left = 321
+          Top = 43
+          Width = 78
+          Height = 32
           Action = ActLocate
           AutoSize = True
-          Caption = '    '#26597#25214
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -14
@@ -142,7 +141,6 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorCheckedTo = 16768988
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
-          Layout = blGlyphTop
         end
         object suicbcbbLB: TsuiDBLookupComboBox
           Left = 79
@@ -208,9 +206,9 @@ inherited FrmBaPJ: TFrmBaPJ
           LabelFont.Style = []
         end
         object advDtpjs: TAdvDateTimePicker
-          Left = 222
+          Left = 209
           Top = 50
-          Width = 121
+          Width = 106
           Height = 25
           Date = 42507.468182870370000000
           Time = 42507.468182870370000000
@@ -237,7 +235,7 @@ inherited FrmBaPJ: TFrmBaPJ
       object dbgrdhBaList: TDBGridEh
         Left = 1
         Top = 169
-        Width = 423
+        Width = 407
         Height = 438
         Align = alClient
         AutoFitColWidths = True
@@ -314,7 +312,7 @@ inherited FrmBaPJ: TFrmBaPJ
       object AdvGroupBox2: TAdvGroupBox
         Left = 1
         Top = 81
-        Width = 423
+        Width = 407
         Height = 88
         Align = alTop
         Caption = #23450#20301
@@ -401,7 +399,7 @@ inherited FrmBaPJ: TFrmBaPJ
           TabOrder = 1
         end
         object btnLocate: TAdvGlowButton
-          Left = 318
+          Left = 222
           Top = 53
           Width = 100
           Height = 31
@@ -441,9 +439,9 @@ inherited FrmBaPJ: TFrmBaPJ
       end
     end
     object FlatPanel1: TFlatPanel
-      Left = 428
+      Left = 412
       Top = 0
-      Width = 810
+      Width = 608
       Height = 608
       ParentColor = True
       Align = alClient
@@ -451,7 +449,7 @@ inherited FrmBaPJ: TFrmBaPJ
       object FlatPanel2: TFlatPanel
         Left = 1
         Top = 560
-        Width = 808
+        Width = 606
         Height = 47
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -462,9 +460,9 @@ inherited FrmBaPJ: TFrmBaPJ
         Align = alBottom
         TabOrder = 1
         object AdvbtnacSave: TAdvGlowButton
-          Left = 724
+          Left = 527
           Top = 1
-          Width = 83
+          Width = 78
           Height = 45
           Hint = #20445#23384
           Align = alRight
@@ -503,7 +501,7 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object AdvbtnClose: TAdvGlowButton
-          Left = 634
+          Left = 437
           Top = 1
           Width = 90
           Height = 45
@@ -538,19 +536,18 @@ inherited FrmBaPJ: TFrmBaPJ
           Appearance.ColorMirrorCheckedTo = 16768988
           Appearance.ColorMirrorDisabled = 11974326
           Appearance.ColorMirrorDisabledTo = 15921906
-          ExplicitLeft = 637
+          ExplicitLeft = 435
         end
       end
       object dbgrdhPJDetail: TDBGridEh
         Left = 1
         Top = 1
-        Width = 808
+        Width = 606
         Height = 559
         Align = alClient
         AutoFitColWidths = True
         BorderStyle = bsNone
         DataGrouping.GroupLevels = <>
-        DataSource = dsPJDetail
         Flat = True
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -564,11 +561,11 @@ inherited FrmBaPJ: TFrmBaPJ
         FooterFont.Name = #24494#36719#38597#40657
         FooterFont.Style = []
         FooterRowCount = 1
-        OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghFitRowHeightToText, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghAutoFitRowHeight, dghExtendVertLines]
+        OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghAutoFitRowHeight, dghHotTrack, dghExtendVertLines]
         ParentFont = False
         RowDetailPanel.Color = clBtnFace
         RowHeight = 2
-        RowLines = 2
+        RowLines = 1
         RowSizingAllowed = True
         SumList.Active = True
         SumList.VirtualRecords = True
@@ -595,7 +592,7 @@ inherited FrmBaPJ: TFrmBaPJ
             ReadOnly = True
             TextEditing = False
             Title.Caption = #39033#30446
-            Width = 139
+            Width = 55
             WordWrap = True
           end
           item
@@ -611,7 +608,7 @@ inherited FrmBaPJ: TFrmBaPJ
             ReadOnly = True
             TextEditing = False
             Title.Caption = #36136#37327#26631#20934'|'#23376#39033#30446
-            Width = 260
+            Width = 181
             WordWrap = True
           end
           item
@@ -630,7 +627,6 @@ inherited FrmBaPJ: TFrmBaPJ
                 Value = #24635#25187#20998
                 ValueType = fvtStaticText
               end>
-            ReadOnly = True
             TextEditing = False
             Title.Caption = #36136#37327#26631#20934'|'#32454#39033#30446
             Width = 218
@@ -657,6 +653,7 @@ inherited FrmBaPJ: TFrmBaPJ
                 ValueType = fvtFieldValue
               end>
             Title.Caption = #25187#20998
+            Width = 79
             OnUpdateData = dbgrdhPJDetailColumns3UpdateData
           end
           item
@@ -670,7 +667,7 @@ inherited FrmBaPJ: TFrmBaPJ
             Font.Style = []
             Footers = <>
             Title.Caption = #20854#20182#38382#39064
-            Width = 195
+            Width = 100
             WordWrap = True
           end>
         object RowDetailData: TRowDetailPanelControlEh
@@ -713,13 +710,13 @@ inherited FrmBaPJ: TFrmBaPJ
   object clientdtPJDetail: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 440
-    Top = 576
+    Left = 456
+    Top = 408
   end
   object dsPJDetail: TDataSource
-    DataSet = clientdtPJDetail
-    Left = 480
-    Top = 576
+    DataSet = mtblhDLCDS
+    Left = 512
+    Top = 408
   end
   object clientdtLB: TClientDataSet
     Aggregates = <>
@@ -733,9 +730,14 @@ inherited FrmBaPJ: TFrmBaPJ
     Top = 336
   end
   object mtblhDLCDS: TMemTableEh
-    MasterSource = dsPJDetail
     Params = <>
-    Left = 616
-    Top = 328
+    DataDriver = dtstdrvrhDLCDS
+    Left = 512
+    Top = 360
+  end
+  object dtstdrvrhDLCDS: TDataSetDriverEh
+    ProviderDataSet = clientdtPJDetail
+    Left = 456
+    Top = 360
   end
 end

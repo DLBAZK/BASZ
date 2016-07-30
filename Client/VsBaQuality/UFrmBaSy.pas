@@ -75,6 +75,7 @@ var
   Sql:string;
 begin
   inherited;
+  dbgrdhBarecord.FieldColumns['Score'].Visible := true;
   kssj := DateToStr(self.advDtpks.Date);
   jssj := DateToStr(self.advDtpjs.Date);
   if kssj ='' then
@@ -118,10 +119,7 @@ end;
 
 procedure TFrmBaSy.btnQueryClick(Sender: TObject);
   const
-    sql = 'SELECT b.* FROM (SELECT * FROM dbo.VsCH0A  WHERE CH0A27 >=^%0:s^ AND CH0A27 <=^%1:s^) a'
-        + ' RIGHT JOIN(select CH0A01,PFSJ,100-SUM(score) Score, ROW_NUMBER() OVER'
-        + ' (PARTITION BY CH0A01 ORDER BY PFSJ) times  from VsBAsyzk group by CH0A01,PFSJ'
-        + ' ) b ON a.CH0A01=b.CH0A01';
+    sql = 'SELECT * FROM dbo.VsCH0A  WHERE CH0A27 >=^%0:s^ AND CH0A27 <=^%1:s^';
 var
   kssj,jssj:string;
 begin
@@ -138,8 +136,10 @@ begin
     ShowMsgSure('请选择出院日期!');
     Exit;
   end;
-  DLCDSHistory.Mid_Open(Format(sql,[kssj,jssj]));
-  dbgrdhBaHistory.DataSource := dsHistory;
+  dbgrdhBarecord.FieldColumns['Score'].Visible := false;
+  DLCDSLocal.Mid_Open(Format(sql,[kssj,jssj]));
+  dbgrdhBarecord.DataSource := dsLocal;
+  GetBazkHistory;
 end;
 
 constructor TFrmBaSy.Create(Aowner: TComponent);

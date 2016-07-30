@@ -15,7 +15,8 @@ uses
   AdvOfficeStatusBarStylers, ExtCtrls, AdvSplitter, StdCtrls, SUIEdit,
   EllipsLabel, TFlatGroupBoxUnit, AdvGlowButton, DBGridEhGrouping, GridsEh,
   DBGridEh, TFlatPanelUnit, DBCtrls, SUIDBCtrls, ComCtrls, AdvDateTimePicker,
-  AdvOfficeButtons, UDLAdvCheckBox, AdvGroupBox, MemTableDataEh, MemTableEh;
+  AdvOfficeButtons, UDLAdvCheckBox, AdvGroupBox, MemTableDataEh, MemTableEh,
+  DataDriverEh;
 
   const
      BASQL='select A.CH0A00,CH0A01,CH0A02,CH0A03,zklb,CH0A27,CH0ABarcode,rankcolor='+
@@ -52,6 +53,7 @@ type
     suiedtCH0A02: TsuiEdit;
     btnLocate: TAdvGlowButton;
     mtblhDLCDS: TMemTableEh;
+    dtstdrvrhDLCDS: TDataSetDriverEh;
     procedure ActLocateExecute(Sender: TObject);
     procedure suiedtZYHKeyPress(Sender: TObject; var Key: Char);
     procedure suiedtZYHKeyDown(Sender: TObject; var Key: Word;
@@ -67,7 +69,7 @@ type
   private
     { Private declarations }
     CH0A00:string;    //住院号
-
+    procedure BindPJDetail;
   public
     { Public declarations }
      constructor Create(Aower:TComponent);override;
@@ -161,24 +163,20 @@ var
   mark,dlcdsmark:Pointer;
 begin
   inherited;
-  //判断师傅存在数据
-  if not clientdtPJDetail.Active then Exit;
-  if clientdtPJDetail.IsEmpty then Exit;
+  //判断是否存在数据
+  if not mtblhDLCDS.Active then Exit;
+  if mtblhDLCDS.IsEmpty then Exit;
   if not DLCDS.Active then Exit;
   if DLCDS.IsEmpty then Exit;
-//  if clientdtPJDetail.ChangeCount <1 then
-//  begin
-//    ShowMsgSure('数据没有被修改，不用保存!');
-//    Exit;
-//  end;
+  dlcdsmark := DLCDS.GetBookmark;
    //获取住院号
   CH0A00:=DLCDS.FieldByName('CH0A00').AsString;
   sql := Format('delete from VsBAZmPj where CH0A00=%s',[CH0A00]);
   try
     //删除上次评价
     TMidProxy.SqlExecute(sql);
-    mark := clientdtPJDetail.GetBookmark;
-    with clientdtPJDetail do
+    mark := mtblhDLCDS.GetBookmark;
+    with mtblhDLCDS do
     begin
       try
         DisableControls;
@@ -210,15 +208,22 @@ begin
       end;
     end;
     ShowMsgSure('保存完成');
-    dlcdsmark := DLCDS.GetBookmark;
+
     ActLocateExecute(nil);
     DLCDS.GotoBookmark(dlcdsmark);
     DLCDS.FreeBookmark(dlcdsmark);
   finally
-    clientdtPJDetail.GotoBookmark(mark);
-    clientdtPJDetail.FreeBookmark(mark);
+    mtblhDLCDS.GotoBookmark(mark);
+    mtblhDLCDS.FreeBookmark(mark);
   end;
 
+end;
+
+procedure TFrmBaPJ.BindPJDetail;
+begin
+  mtblhDLCDS.Active := True;
+  dsPJDetail.DataSet := mtblhDLCDS;
+  dbgrdhPJDetail.DataSource := dsPJDetail;
 end;
 
 procedure TFrmBaPJ.btnLocateClick(Sender: TObject);
@@ -303,8 +308,12 @@ begin
     dm := DLCDS.FieldByName('zklb').AsString;
     if clientdtPJDetail.Active then
       clientdtPJDetail.EmptyDataSet;
+    if not mtblhDLCDS.IsEmpty then
+      mtblhDLCDS.Close;
     sql := Format(execSql,[CH0A00,dm]);
     TMidProxy.SqlOpen(sql,clientdtPJDetail);
+    mtblhDLCDS.Open;
+    BindPJDetail;
     WriteDeBug(Format('获取%s病历质量评价信息',[CH0A00]));
   finally
 
@@ -333,7 +342,7 @@ begin
       Column.CalcRowHeight
     end;
   end;
-  
+   
 end;
 
 procedure TFrmBaPJ.dbgrdhPJDetailColumns3UpdateData(Sender: TObject;
@@ -344,11 +353,11 @@ var
 begin
   inherited;
   bz := False;
-  tscore := clientdtPJDetail.FieldByName('txmfz').AsFloat;
-  Sscore :=clientdtPJDetail.FieldByName('sxmfz').AsFloat;
-  FScore :=clientdtPJDetail.FieldByName('fxmfz').AsFloat;
+  tscore := mtblhDLCDS.FieldByName('txmfz').AsFloat;
+  Sscore :=mtblhDLCDS.FieldByName('sxmfz').AsFloat;
+  FScore :=mtblhDLCDS.FieldByName('fxmfz').AsFloat;
   if Value='' then
-    Value :=0;
+    Value :=0.0;
   if tscore<>0 then
   begin
     bz :=  Value >tscore;
@@ -364,7 +373,7 @@ begin
   if bz then
   begin
     ShowMsgSure('不能大于当前项目分值！');
-    Handled :=True;
+    Handled :=false;
   end;
 
 end;

@@ -1442,6 +1442,7 @@ IF col_length('VsCH0A','CH0ATY18') Is NULL ALTER TABLE VsCH0A ADD[CH0ATY18]  [In
 IF col_length('VsCH0A','CH0ATY19') Is NULL ALTER TABLE VsCH0A ADD[CH0ATY19]  [Int] NULL              --上一次住本院与本次住院是否因同一疾病(主要诊断) 
 IF col_length('VsCH0A','CH0ATY20') Is NULL ALTER TABLE VsCH0A ADD[CH0ATY20]  [Int] NULL              ---发生医源性气胸
 IF col_length('VsCH0A','CH0ATY21') Is NULL ALTER TABLE VsCH0A ADD[CH0ATY21]  [Int] NULL              ---发生医源性意外穿刺伤或撕裂伤
+IF col_length('VsCH0A','CH0ATY22') Is NULL ALTER TABLE VsCH0A ADD[CH0ATY22]  [Int] NULL              ---手术部位感染
 
 ----------中间表
 IF Col_Length('VsCH_PatientInfo','CH0ATY01') Is Null  Alter Table VsCH_PatientInfo Add [CH0ATY01] [int] NULL --抗菌药物患者病原学检查送检
@@ -1465,6 +1466,8 @@ IF Col_Length('VsCH_PatientInfo','CH0ATY18') Is Null  Alter Table VsCH_PatientIn
 IF Col_Length('VsCH_PatientInfo','CH0ATY19') Is Null  Alter Table VsCH_PatientInfo Add [CH0ATY19] [int] NULL --上一次住本院与本次住院是否因同一疾病(主要诊断) 
 IF Col_Length('VsCH_PatientInfo','CH0ATY20') Is Null  Alter Table VsCH_PatientInfo Add [CH0ATY20] [int] NULL --发生医源性气胸  
 IF Col_Length('VsCH_PatientInfo','CH0ATY21') Is Null  Alter Table VsCH_PatientInfo Add [CH0ATY21] [int] NULL --发生医源性意外穿刺伤或撕裂伤  
+IF Col_Length('VsCH_PatientInfo','CH0ATY22') Is Null  Alter Table VsCH_PatientInfo Add [CH0ATY22] [int] NULL --手术部位感染  
+
 
 
 

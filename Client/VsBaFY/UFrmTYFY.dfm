@@ -1,7 +1,7 @@
 object FrmTYFY: TFrmTYFY
   Left = 0
   Top = 0
-  Width = 920
+  Width = 728
   Height = 1909
   TabOrder = 0
   object lbl100: TLabel
@@ -21,7 +21,7 @@ object FrmTYFY: TFrmTYFY
   object ScrollBox1: TScrollBox
     Left = 0
     Top = 0
-    Width = 920
+    Width = 728
     Height = 1909
     VertScrollBar.Position = 59
     Align = alClient
@@ -32,7 +32,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox1: TAdvGroupBox
       Left = 0
       Top = -59
-      Width = 903
+      Width = 711
       Height = 121
       BorderStyle = bsNone
       Align = alTop
@@ -167,7 +167,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox2: TAdvGroupBox
       Left = 0
       Top = 62
-      Width = 903
+      Width = 711
       Height = 304
       BorderStyle = bsNone
       Align = alTop
@@ -176,7 +176,7 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhSS: TDBGridEh
         Left = 2
         Top = 16
-        Width = 899
+        Width = 707
         Height = 286
         Align = alClient
         DataGrouping.GroupLevels = <>
@@ -360,7 +360,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox3: TAdvGroupBox
       Left = 0
       Top = 366
-      Width = 903
+      Width = 711
       Height = 160
       BorderStyle = bsNone
       Align = alTop
@@ -530,7 +530,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox4: TAdvGroupBox
       Left = 0
       Top = 526
-      Width = 903
+      Width = 711
       Height = 299
       BorderStyle = bsNone
       Align = alTop
@@ -545,7 +545,7 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhICU: TDBGridEh
         Left = 2
         Top = 19
-        Width = 899
+        Width = 707
         Height = 278
         Align = alClient
         DataGrouping.GroupLevels = <>
@@ -665,7 +665,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox5: TAdvGroupBox
       Left = 0
       Top = 825
-      Width = 903
+      Width = 711
       Height = 184
       BorderStyle = bsNone
       Align = alTop
@@ -678,161 +678,161 @@ object FrmTYFY: TFrmTYFY
       ParentFont = False
       TabOrder = 4
       object lbl22: TLabel
-        Left = 9
+        Left = 7
         Top = 36
         Width = 199
         Height = 16
         Caption = #20303#38498#26399#38388#26159#21542#24212#29992#25239#33740#33647#29289' '#65306
       end
       object lbl23: TLabel
-        Left = 277
+        Left = 267
         Top = 36
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl24: TLabel
-        Left = 364
+        Left = 350
         Top = 36
-        Width = 109
+        Width = 95
         Height = 16
-        Caption = #20351#29992#25345#32493#26102#38388' '#65306
+        Caption = #20351#29992#25345#32493#26102#38388':'
       end
       object lbl26: TLabel
-        Left = 9
+        Left = 7
         Top = 67
-        Width = 233
+        Width = 219
         Height = 16
-        Caption = 'I'#31867#25163#26415#20999#21475#39044#38450#24615#24212#29992#25239#33740#33647#29289' '#65306
+        Caption = 'I'#31867#25163#26415#20999#21475#39044#38450#24615#24212#29992#25239#33740#33647#29289':'
       end
       object lbl27: TLabel
-        Left = 277
+        Left = 267
         Top = 67
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl28: TLabel
-        Left = 549
+        Left = 525
         Top = 36
         Width = 65
         Height = 16
         Caption = #32852#21512#29992#33647':'
       end
       object lbl29: TLabel
-        Left = 655
+        Left = 631
         Top = 36
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl25: TLabel
-        Left = 517
+        Left = 491
         Top = 36
         Width = 30
         Height = 16
         Caption = #23567#26102
       end
       object lbl30: TLabel
-        Left = 364
+        Left = 350
         Top = 67
-        Width = 109
+        Width = 95
         Height = 16
-        Caption = #20351#29992#25345#32493#26102#38388' '#65306
+        Caption = #20351#29992#25345#32493#26102#38388':'
       end
       object lbl31: TLabel
-        Left = 517
+        Left = 490
         Top = 67
         Width = 30
         Height = 16
         Caption = #23567#26102
       end
       object lbl32: TLabel
-        Left = 549
+        Left = 525
         Top = 67
         Width = 65
         Height = 16
         Caption = #32852#21512#29992#33647':'
       end
       object lbl33: TLabel
-        Left = 655
+        Left = 631
         Top = 67
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl34: TLabel
-        Left = 9
+        Left = 7
         Top = 98
         Width = 210
         Height = 16
         Caption = #25239#33740#33647#29289#24739#32773#30149#21407#23398#26816#26597#36865#26816#65306
       end
       object lbl35: TLabel
-        Left = 277
+        Left = 267
         Top = 98
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl36: TLabel
-        Left = 364
+        Left = 350
         Top = 98
         Width = 195
         Height = 16
         Caption = #28165#27905#25163#26415#21069'0.5-2'#23567#26102#20869#32473#33647#65306
       end
       object lbl37: TLabel
-        Left = 655
+        Left = 631
         Top = 98
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl38: TLabel
-        Left = 9
+        Left = 7
         Top = 129
         Width = 225
         Height = 16
         Caption = #39627#20851#33410#32622#25442#26415#21069'0.5-2'#23567#26102#20869#32473#33647#65306
       end
       object lbl39: TLabel
-        Left = 277
+        Left = 267
         Top = 129
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl40: TLabel
-        Left = 364
+        Left = 350
         Top = 129
         Width = 240
         Height = 16
         Caption = #23376#23467#32908#30244#20999#38500#26415#21069'0.5-2'#23567#26102#20869#32473#33647#65306
       end
       object lbl41: TLabel
-        Left = 655
+        Left = 631
         Top = 129
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl42: TLabel
-        Left = 9
+        Left = 7
         Top = 160
         Width = 225
         Height = 16
         Caption = #33181#20851#33410#32622#25442#26415#21069'0.5-2'#23567#26102#20869#32473#33647#65306
       end
       object lbl43: TLabel
-        Left = 277
+        Left = 267
         Top = 160
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object edtCH0AYN04: TEdit
-        Left = 238
+        Left = 213
         Top = 30
         Width = 29
         Height = 22
@@ -841,7 +841,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYN01: TEdit
-        Left = 238
+        Left = 228
         Top = 61
         Width = 29
         Height = 22
@@ -850,7 +850,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYN06: TEdit
-        Left = 616
+        Left = 592
         Top = 30
         Width = 29
         Height = 22
@@ -859,7 +859,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYN05: TEdit
-        Left = 474
+        Left = 448
         Top = 30
         Width = 37
         Height = 22
@@ -869,7 +869,7 @@ object FrmTYFY: TFrmTYFY
         TabOrder = 1
       end
       object edtCH0AYN02: TEdit
-        Left = 474
+        Left = 447
         Top = 61
         Width = 37
         Height = 22
@@ -879,7 +879,7 @@ object FrmTYFY: TFrmTYFY
         TabOrder = 4
       end
       object edtCH0AYN03: TEdit
-        Left = 616
+        Left = 592
         Top = 61
         Width = 29
         Height = 22
@@ -888,7 +888,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY01: TEdit
-        Left = 238
+        Left = 228
         Top = 92
         Width = 29
         Height = 22
@@ -897,7 +897,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY02: TEdit
-        Left = 616
+        Left = 592
         Top = 92
         Width = 29
         Height = 22
@@ -905,7 +905,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY04: TEdit
-        Left = 238
+        Left = 228
         Top = 123
         Width = 29
         Height = 22
@@ -913,7 +913,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY06: TEdit
-        Left = 616
+        Left = 592
         Top = 123
         Width = 29
         Height = 22
@@ -921,7 +921,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0ATY05: TEdit
-        Left = 238
+        Left = 228
         Top = 154
         Width = 29
         Height = 22
@@ -932,7 +932,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox6: TAdvGroupBox
       Left = 0
       Top = 1009
-      Width = 903
+      Width = 711
       Height = 239
       BorderStyle = bsNone
       Align = alTop
@@ -959,14 +959,14 @@ object FrmTYFY: TFrmTYFY
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl46: TLabel
-        Left = 306
+        Left = 295
         Top = 28
         Width = 80
         Height = 16
         Caption = #26159#21542#26377#21387#30126':'
       end
       object lbl47: TLabel
-        Left = 435
+        Left = 424
         Top = 28
         Width = 76
         Height = 16
@@ -980,21 +980,21 @@ object FrmTYFY: TFrmTYFY
         Caption = #26159#21542#20303#38498#26399#38388#21457#29983#21387#30126':'
       end
       object lbl49: TLabel
-        Left = 214
+        Left = 201
         Top = 59
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl50: TLabel
-        Left = 321
+        Left = 282
         Top = 59
         Width = 65
         Height = 16
         Caption = #21387#30126#20998#26399':'
       end
       object lbl51: TLabel
-        Left = 435
+        Left = 393
         Top = 59
         Width = 316
         Height = 16
@@ -1022,7 +1022,7 @@ object FrmTYFY: TFrmTYFY
         Caption = #36300#20498'/'#22368#24202#20005#37325#31243#24230':'
       end
       object lbl55: TLabel
-        Left = 435
+        Left = 424
         Top = 90
         Width = 127
         Height = 16
@@ -1128,7 +1128,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYNA7: TEdit
-        Left = 400
+        Left = 389
         Top = 22
         Width = 29
         Height = 22
@@ -1136,7 +1136,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYNA8: TEdit
-        Left = 179
+        Left = 166
         Top = 53
         Width = 29
         Height = 22
@@ -1145,7 +1145,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYNA9: TEdit
-        Left = 400
+        Left = 354
         Top = 53
         Width = 29
         Height = 22
@@ -1163,7 +1163,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYNB1: TEdit
-        Left = 400
+        Left = 389
         Top = 84
         Width = 29
         Height = 22
@@ -1257,7 +1257,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox7: TAdvGroupBox
       Left = 0
       Top = 1248
-      Width = 903
+      Width = 711
       Height = 120
       BorderStyle = bsNone
       Align = alTop
@@ -1400,7 +1400,7 @@ object FrmTYFY: TFrmTYFY
         TabOrder = 4
         OnKeyPress = edtCH0AYN04KeyPress
       end
-      object edtCH0AQ5: TEdit
+      object edtCH0ATY22: TEdit
         Left = 430
         Top = 55
         Width = 29
@@ -1429,7 +1429,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox8: TAdvGroupBox
       Left = 0
       Top = 1368
-      Width = 903
+      Width = 711
       Height = 120
       BorderStyle = bsNone
       Align = alTop
@@ -1484,14 +1484,14 @@ object FrmTYFY: TFrmTYFY
         Caption = #26159#21542#21464#24322':'
       end
       object lbl89: TLabel
-        Left = 130
+        Left = 118
         Top = 91
         Width = 76
         Height = 16
         Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl90: TLabel
-        Left = 232
+        Left = 201
         Top = 91
         Width = 65
         Height = 16
@@ -1534,7 +1534,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYNAA: TEdit
-        Left = 307
+        Left = 276
         Top = 85
         Width = 433
         Height = 22
@@ -1546,7 +1546,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox9: TAdvGroupBox
       Left = 0
       Top = 1488
-      Width = 903
+      Width = 711
       Height = 216
       BorderStyle = bsNone
       Align = alTop
@@ -1608,49 +1608,49 @@ object FrmTYFY: TFrmTYFY
         Caption = #35786#26029#31526#21512#24773#20917':'
       end
       object lbl98: TLabel
-        Left = 127
+        Left = 104
         Top = 56
         Width = 75
         Height = 16
         Caption = #20986#38498#19982#38376#35786
       end
       object lbl99: TLabel
-        Left = 269
-        Top = 60
+        Left = 246
+        Top = 56
         Width = 75
         Height = 16
         Caption = #20837#38498#19982#20986#38498
       end
       object lbl101: TLabel
-        Left = 503
+        Left = 480
         Top = 56
         Width = 75
         Height = 16
         Caption = #20020#24202#19982#30149#29702
       end
       object lbl102: TLabel
-        Left = 619
-        Top = 54
+        Left = 596
+        Top = 56
         Width = 75
         Height = 16
         Caption = #25918#23556#19982#30149#29702
       end
       object lbl104: TLabel
-        Left = 67
+        Left = 44
         Top = 87
         Width = 135
         Height = 16
         Caption = #25163#26415#20912#20923#19982#30707#34593#30149#29702
       end
       object lbl105: TLabel
-        Left = 388
+        Left = 365
         Top = 56
         Width = 75
         Height = 16
         Caption = #26415#21069#19982#26415#21518
       end
       object lbl106: TLabel
-        Left = 269
+        Left = 246
         Top = 82
         Width = 210
         Height = 16
@@ -1744,7 +1744,7 @@ object FrmTYFY: TFrmTYFY
         TabOrder = 2
       end
       object edtCH0A43: TEdit
-        Left = 215
+        Left = 192
         Top = 50
         Width = 29
         Height = 22
@@ -1752,7 +1752,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0A43KeyPress
       end
       object edtCH0A44: TEdit
-        Left = 350
+        Left = 327
         Top = 50
         Width = 29
         Height = 22
@@ -1760,7 +1760,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AC1: TEdit
-        Left = 584
+        Left = 561
         Top = 50
         Width = 29
         Height = 22
@@ -1768,15 +1768,15 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0A43KeyPress
       end
       object edtCH0AC2: TEdit
-        Left = 700
-        Top = 48
+        Left = 677
+        Top = 50
         Width = 29
         Height = 22
         TabOrder = 3
         OnKeyPress = edtCH0A43KeyPress
       end
       object edtCh0AQ6: TEdit
-        Left = 215
+        Left = 192
         Top = 81
         Width = 29
         Height = 22
@@ -1784,7 +1784,7 @@ object FrmTYFY: TFrmTYFY
         OnKeyPress = edtCH0A43KeyPress
       end
       object edtCH0ACD: TEdit
-        Left = 467
+        Left = 444
         Top = 50
         Width = 29
         Height = 22
@@ -1836,7 +1836,7 @@ object FrmTYFY: TFrmTYFY
     object AdvGroupBox10: TAdvGroupBox
       Left = 0
       Top = 1704
-      Width = 903
+      Width = 711
       Height = 205
       BorderStyle = bsNone
       Align = alTop
@@ -1851,11 +1851,10 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhXSE: TDBGridEh
         Left = 2
         Top = 19
-        Width = 899
+        Width = 707
         Height = 184
         Align = alClient
         DataGrouping.GroupLevels = <>
-        DataSource = dsXSER
         Flat = True
         FooterColor = clWindow
         FooterFont.Charset = DEFAULT_CHARSET
@@ -1901,7 +1900,7 @@ object FrmTYFY: TFrmTYFY
             EditButtons = <>
             FieldName = 'SC'
             Footers = <>
-            Title.Caption = #36523#38271
+            Title.Caption = #36523#38271'(cm)'
             Width = 40
           end
           item
@@ -1909,7 +1908,7 @@ object FrmTYFY: TFrmTYFY
             EditButtons = <>
             FieldName = 'TZ'
             Footers = <>
-            Title.Caption = #20307#37325
+            Title.Caption = #20307#37325'(g)'
             Width = 40
           end
           item
@@ -1931,10 +1930,12 @@ object FrmTYFY: TFrmTYFY
           item
             AutoFitColWidth = False
             EditButtons = <>
+            EditMask = '0000-90-90 00:00;1; '
             FieldName = 'CSSJ'
             Footers = <>
             Title.Caption = #20986#29983#26102#38388
             Width = 86
+            OnUpdateData = dbgrdhXSEColumns7UpdateData
           end
           item
             AutoFitColWidth = False
@@ -1947,10 +1948,12 @@ object FrmTYFY: TFrmTYFY
           item
             AutoFitColWidth = False
             EditButtons = <>
+            EditMask = '0000-90-90 00:00;1; '
             FieldName = 'SWSJ'
             Footers = <>
             Title.Caption = #27515#20129#26085#26399
             Width = 80
+            OnUpdateData = dbgrdhXSEColumns9UpdateData
           end
           item
             AutoFitColWidth = False
@@ -2012,7 +2015,7 @@ object FrmTYFY: TFrmTYFY
   object clientdtXSER: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 464
-    Top = 1792
+    Left = 440
+    Top = 1800
   end
 end

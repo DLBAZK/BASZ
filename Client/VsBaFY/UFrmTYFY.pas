@@ -143,7 +143,7 @@ type
     lbl76: TLabel;
     lbl77: TLabel;
     lbl78: TLabel;
-    edtCH0AQ5: TEdit;
+    edtCH0ATY22: TEdit;
     lbl79: TLabel;
     edtCH0ATY08: TEdit;
     lbl80: TLabel;
@@ -212,8 +212,8 @@ type
     dldtXSER: TDlClientDataset;
     dsXSER: TDataSource;
     dldtSS: TDlClientDataset;
-    clientdtXSER: TClientDataSet;
     dbgrdhXSE: TDBGridEh;
+    clientdtXSER: TClientDataSet;
     procedure dbgrdhICUKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgrdhSSKeyDown(Sender: TObject; var Key: Word;
@@ -239,6 +239,10 @@ type
     procedure edtCH0AYN09Change(Sender: TObject);
     procedure edtqjChange(Sender: TObject);
     procedure edtCH0ATY11Change(Sender: TObject);
+    procedure dbgrdhXSEColumns7UpdateData(Sender: TObject; var Text: string;
+      var Value: Variant; var UseText, Handled: Boolean);
+    procedure dbgrdhXSEColumns9UpdateData(Sender: TObject; var Text: string;
+      var Value: Variant; var UseText, Handled: Boolean);
   private
     { Private declarations }
     FBaSetInfo: TBaSetInfo;
@@ -246,6 +250,8 @@ type
     FIsAppend:Boolean;
     FSetControlHint:TSetSbSimpleText;
     FCDSCh0A,FCDSCh0E,FCDSCh0R,FCDSChWT47:TDlClientDataset;
+    ///校验时间
+    function CheckSJ(const SJ:TDateTime):Boolean;
   public
     { Public declarations }
     Constructor Create(Aowner:TComponent);Override;
@@ -273,6 +279,21 @@ implementation
 {$R *.dfm}
 
 { TFrmTYFY }
+
+function TFrmTYFY.CheckSJ(const SJ:TDateTime): Boolean;
+var
+  ryrq,cyrq:TDateTime;
+begin
+  Result := False;
+  ryrq := StrToDateTime(Format('%s %s',[FCDSCh0A.FieldByName('CH0A24').AsString,
+            FCDSCh0A.FieldByName('CH0A24_SJ').AsString]));
+  cyrq := StrToDateTime(Format('%s %s',[FCDSCh0A.FieldByName('CH0A27').AsString,
+            FCDSCh0A.FieldByName('CH0A27_SJ').AsString]));
+  if (SJ < ryrq) or (SJ > cyrq) then
+  begin
+    Result :=True;
+  end;
+end;
 
 constructor TFrmTYFY.Create(Aowner: TComponent);
 begin
@@ -361,6 +382,26 @@ begin
     if FCDSCh0E.IsEmpty then
       Exit;
     FCDSCh0E.Delete;
+  end;
+end;
+
+procedure TFrmTYFY.dbgrdhXSEColumns7UpdateData(Sender: TObject;
+  var Text: string; var Value: Variant; var UseText, Handled: Boolean);
+begin
+  if CheckSJ(VarToDateTime(Value)) then
+  begin
+    ShowMsgSure('出生时间只能在入院时间和出院时间之内');
+    Handled :=True;
+  end;
+end;
+
+procedure TFrmTYFY.dbgrdhXSEColumns9UpdateData(Sender: TObject;
+  var Text: string; var Value: Variant; var UseText, Handled: Boolean);
+begin
+  if CheckSJ(VarToDateTime(Value)) then
+  begin
+    ShowMsgSure('死亡时间只能在入院时间和出院时间之内');
+    Handled := True;
   end;
 end;
 
@@ -664,7 +705,7 @@ begin
     edtCH0AQ1.Text     :=   FCDSCh0A.FieldByName('CH0AQ1').AsString;
     edtCH0ATY07.Text   := FCDSCh0A.FieldByName('CH0ATY07').AsString;
     edtCH0ATY17.Text   := FCDSCh0A.FieldByName('CH0ATY17').AsString;
-    edtCH0AQ5.Text    :=   FCDSCh0A.FieldByName('CH0AQ5').AsString;
+    edtCH0ATY22.Text    :=   FCDSCh0A.FieldByName('CH0ATY22').AsString;
     edtCH0ATY08.Text  := FCDSCh0A.FieldByName('CH0ATY08').AsString;
     edtCH0ATY09.Text := FCDSCh0A.FieldByName('CH0ATY09').AsString;
 
@@ -726,29 +767,84 @@ begin
       end;
 
     end;
-  end;   {FROM %s WHERE CHYEAR=^%s^ AND WT4701=^%s^ ,'VsWt47_1',Chyear,Ch0A01}
+  end;   
   sqltext := '';
+
   for I := 1 to 4 do
   begin
-    if FCDSChWT47.IsEmpty then
-    begin
-      sqltext := sqltext+format('select %d xh,3 XB,0 PF,0 SC,0 TZ,0 CCQK,0 CYQK,CONVERT(DATETIME,^^,120) CSSJ,CONVERT(varchar(20),^^) JB,CONVERT(DATETIME,^^,120) SWSJ,CONVERT(varchar(50),^^) SWYY,^^ YYGR',[i]);
-
-    end
-    else
-    begin
-       sqltext := sqltext+format('select %d xh,^%s^ XB,^%s^ PF,%d SC,%d TZ,^%s^ CCQK,IsNull(^%s^,0) CYQK,CONVERT(DATETIME,IsNull(^%s^,^2015-01-01^),120) CSSJ,CONVERT(varchar(20),^%s^) JB,CONVERT(DATETIME,^%s^,120) SWSJ,CONVERT(varchar(50),^%s^) SWYY,^%s^ YYGR'
-       ,[i,FCDSChWT47.FieldByName('FM_XB'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_PF'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_SC'+inttostr(i)).AsInteger,
-       FCDSChWT47.FieldByName('FM_Weight'+inttostr(i)).AsInteger,FCDSChWT47.FieldByName('FM_RSJJ'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_CYQK'+inttostr(i)).AsString,
-       FCDSChWT47.FieldByName('FM_CSRQ'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_JB'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_SWRQ'+inttostr(i)).AsString,
-       FCDSChWT47.FieldByName('FM_SWYY'+inttostr(i)).AsString,FCDSChWT47.FieldByName('FM_YYGR'+inttostr(i)).AsString]);
-    end;
-
+     sqltext := sqltext+format('select %d xh,^%s^ XB,CONVERT(int,IsNull(^%s^,0)) '
+       +'PF,CONVERT(int,IsNull(^%s^,0)) SC,CONVERT(int,IsNull(^%s^,0)) TZ,^%s^ CCQK,'
+       +'CONVERT(int,IsNull(^%s^,0)) CYQK,CONVERT(DATETIME,IsNull(^%s^,^2015-01-01^),120) CSSJ,'
+       +'CONVERT(varchar(20),^%s^) JB,CONVERT(DATETIME,^%s^,120) SWSJ,CONVERT(varchar(50),'
+       +'^%s^) SWYY,^%s^ YYGR'
+       ,[i,FCDSChWT47.FieldByName('FM_XB'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_PF'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_SC'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_Weight'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_RSJJ'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_CYQK'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_CSRQ'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_JB'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_SWRQ'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_SWYY'+inttostr(i)).AsString,
+       FCDSChWT47.FieldByName('FM_YYGR'+inttostr(i)).AsString]);
     if i<4 then
      sqltext := sqltext +' union ';
   end;
   TMidProxy.SqlOpen(sqltext,clientdtXSER);
+  with clientdtXSER do
+  begin
+    First;
+    while not Eof do
+    begin
+      if FieldByName('CSSJ').AsString = '1900-01-01' then
+      begin
+        Edit;
+        FieldByName('CSSJ').AsString := '';
+        Post;
+      end;
+      if FieldByName('SWSJ').AsString = '1900-01-01' then
+      begin
+        Edit;
+        FieldByName('SWSJ').AsString := '';
+        Post;
+      end;
+      if FieldByName('PF').AsString = '0' then
+      begin
+        Edit;
+        FieldByName('PF').AsString := '';
+        Post;
+      end;
+      if FieldByName('TZ').AsString = '0' then
+      begin
+        Edit;
+        FieldByName('TZ').AsString := '';
+        Post;
+      end;
+      if FieldByName('SC').AsString = '0' then
+      begin
+        Edit;
+        FieldByName('SC').AsString := '';
+        Post;
+      end;
+       if FieldByName('CCQK').AsString = '0' then
+      begin
+        Edit;
+        FieldByName('CCQK').AsString := '';
+        Post;
+      end;
+       if FieldByName('CYQK').AsString = '0' then
+      begin
+        Edit;
+        FieldByName('CYQK').AsString := '';
+        Post;
+      end;
+      
+      Next ;
+    end;
+  end;
   dsXSER.DataSet := clientdtXSER;
+  dbgrdhXSE.DataSource := dsXSER;
 end;
 
 function TFrmTYFY.Leftstr(const Str: String; Size: Word): string;
@@ -820,7 +916,7 @@ begin
   FCDSCh0A.FieldByName('CH0AQ1').AsString :=edtCH0AQ1.Text;   
   FCDSCh0A.FieldByName('CH0ATY07').AsString :=edtCH0ATY07.Text ;
   FCDSCh0A.FieldByName('CH0ATY17').AsString :=edtCH0ATY17.Text;
-  FCDSCh0A.FieldByName('CH0AQ5').AsString :=edtCH0AQ5.Text ;
+  FCDSCh0A.FieldByName('CH0ATY22').AsString :=edtCH0ATY22.Text ;
   FCDSCh0A.FieldByName('CH0ATY08').AsString :=edtCH0ATY08.Text ;
   FCDSCh0A.FieldByName('CH0ATY09').AsString :=edtCH0ATY09.Text;
 
@@ -851,30 +947,33 @@ begin
   FCDSCh0A.Post;
 
   //新生儿
-  if FCDSChWT47.RecordCount =0 then
-    FCDSChWT47.Append
-  else
-    FCDSChWT47.Edit;
-  FCDSChWT47.FieldByName('CHYear').AsString := FChYear;
-  FCDSChWT47.FieldByName('WT4701').AsString := FCh0A01;
+
   with clientdtXSER do
   begin
     First;
     while not Eof do
     begin
       xh := clientdtXSER.FieldByName('xh').AsString;
-      FCDSChWT47.Edit;
-      FCDSChWT47.FieldByName('FM_XB'+xh).AsString := FieldByName('XB').AsString;
-      FCDSChWT47.FieldByName('FM_PF'+xh).AsString := FieldByName('PF').AsString;
-      FCDSChWT47.FieldByName('FM_SC'+xh).AsString := FieldByName('SC').AsString;
-      FCDSChWT47.FieldByName('FM_Weight'+xh).AsString := FieldByName('TZ').AsString;
-      FCDSChWT47.FieldByName('FM_RSJJ'+xh).AsString := FieldByName('CCQK').AsString;
-      FCDSChWT47.FieldByName('FM_CYQK'+xh).AsString := FieldByName('CYQK').AsString;
-      FCDSChWT47.FieldByName('FM_CSRQ'+xh).AsString := FieldByName('CSSJ').AsString;
-      FCDSChWT47.FieldByName('FM_SWRQ'+xh).AsString := FieldByName('SWSJ').AsString;
-      FCDSChWT47.FieldByName('FM_SWYY'+xh).AsString := FieldByName('SWYY').AsString;
-      FCDSChWT47.FieldByName('FM_YYGR'+xh).AsString := FieldByName('YYGR').AsString;
-      FCDSChWT47.FieldByName('FM_JB'+xh).AsString := FieldByName('JB').AsString;
+      if (FieldByName('XB').AsString <> '') and (FieldByName('CSSJ').AsString<>'') then
+      begin
+        if FCDSChWT47.RecordCount =0 then
+          FCDSChWT47.Append
+        else
+          FCDSChWT47.Edit;
+        FCDSChWT47.FieldByName('CHYear').AsString := FChYear;
+        FCDSChWT47.FieldByName('WT4701').AsString := FCh0A01;
+        FCDSChWT47.FieldByName('FM_XB'+xh).AsString := FieldByName('XB').AsString;
+        FCDSChWT47.FieldByName('FM_PF'+xh).AsString := FieldByName('PF').AsString;
+        FCDSChWT47.FieldByName('FM_SC'+xh).AsString := FieldByName('SC').AsString;
+        FCDSChWT47.FieldByName('FM_Weight'+xh).AsString := FieldByName('TZ').AsString;
+        FCDSChWT47.FieldByName('FM_RSJJ'+xh).AsString := FieldByName('CCQK').AsString;
+        FCDSChWT47.FieldByName('FM_CYQK'+xh).AsString := FieldByName('CYQK').AsString;
+        FCDSChWT47.FieldByName('FM_CSRQ'+xh).AsString := FieldByName('CSSJ').AsString;
+        FCDSChWT47.FieldByName('FM_SWRQ'+xh).AsString := FieldByName('SWSJ').AsString;
+        FCDSChWT47.FieldByName('FM_SWYY'+xh).AsString := FieldByName('SWYY').AsString;
+        FCDSChWT47.FieldByName('FM_YYGR'+xh).AsString := FieldByName('YYGR').AsString;
+        FCDSChWT47.FieldByName('FM_JB'+xh).AsString := FieldByName('JB').AsString;
+      end;
       Next;
     end;
   end;
@@ -884,11 +983,6 @@ begin
   FCDSCh0R.Edit;
   FCDSCh0R.FieldByName('CHYear').AsString := FChYear;
   FCDSCh0R.FieldByName('CH0R01').AsString := FCh0A01;
-
-
-  FCDSChWT47.Edit;
-  FCDSChWT47.FieldByName('CHYear').AsString := FChYear;
-  FCDSChWT47.FieldByName('WT4701').AsString := FCh0A01;
 
   aSaveCDS(FCDSCh0A);
   aSaveCDS(FCDSCh0E);
@@ -915,13 +1009,13 @@ begin
   IF (FCdsCh0A.FieldByName('Ch0A03').AsString='2') And
      ((Leftstr(Kmdm,2)='05') Or (Leftstr(Kmdm,2)='06') or (Leftstr(Kmdm1,2)='05') Or (Leftstr(Kmdm1,2)='06')) Then
   Begin
-    dbgrdhXSE.ReadOnly :=False;
+    dbgrdhXSE.Enabled :=True;
     Result := True;
   End
   Else
   begin
-    dbgrdhXSE.ReadOnly :=True;
-    ShowMsg('只有女性病人，并且入院科别或出院科别为妇产科的病人才可以录入此项目','',48);
+    dbgrdhXSE.Enabled :=False;
+    
   end;
 
 

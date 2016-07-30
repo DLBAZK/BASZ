@@ -1,13 +1,13 @@
 inherited FrmYinHaiMain: TFrmYinHaiMain
   Caption = #24179#21488#25968#25454#19978#25253
-  ClientHeight = 596
+  ClientHeight = 623
   ClientWidth = 1085
   ExplicitWidth = 1101
-  ExplicitHeight = 635
+  ExplicitHeight = 662
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
-    Top = 577
+    Top = 604
     Width = 1085
     ExplicitTop = 577
     ExplicitWidth = 1085
@@ -24,7 +24,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
   end
   inherited AdvPanel1: TAdvPanel
     Width = 1085
-    Height = 552
+    Height = 579
     ExplicitWidth = 1085
     ExplicitHeight = 552
     FullHeight = 200
@@ -156,7 +156,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         LabelFont.Style = []
       end
       object btnOK: TAdvGlowButton
-        Left = 568
+        Left = 502
         Top = 34
         Width = 100
         Height = 41
@@ -206,11 +206,11 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         TabOrder = 4
       end
       object btnUpload: TAdvGlowButton
-        Left = 688
+        Left = 622
         Top = 34
         Width = 100
         Height = 41
-        Caption = #37325#26032#19978#25253
+        Caption = #32416#38169#34917#25253
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -242,7 +242,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         Appearance.ColorMirrorDisabledTo = 15921906
       end
       object btnClose: TAdvGlowButton
-        Left = 816
+        Left = 750
         Top = 34
         Width = 100
         Height = 41
@@ -304,7 +304,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
       Left = 0
       Top = 81
       Width = 1085
-      Height = 471
+      Height = 399
       Align = alClient
       BorderStyle = bsNone
       DataGrouping.GroupLevels = <>
@@ -339,7 +339,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
           FieldName = 'CH0A01'
           Footers = <>
           Title.Alignment = taCenter
-          Title.Caption = #30149#26696#21495
+          Title.Caption = #19978#25253#30149#26696#21495
           Width = 109
         end
         item
@@ -371,6 +371,53 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
           Width = 153
         end>
       object RowDetailData: TRowDetailPanelControlEh
+      end
+    end
+    object fltpnl2: TFlatPanel
+      Left = 0
+      Top = 480
+      Width = 1085
+      Height = 99
+      ParentColor = True
+      Align = alBottom
+      TabOrder = 2
+      object lbl1: TLabel
+        Left = 537
+        Top = 1
+        Width = 547
+        Height = 97
+        Align = alClient
+        Caption = 
+          #32416#38169#34917#25253':'#13#10'              1'#12289#36873#25321#19978#25253#22833#36133#30149#26696#30340#20986#38498#26085#26399#13#10'              2'#12289#36873#25321#19978#25253#22833#36133#30149#26696#30340#19978 +
+          #25253#31867#21035#13#10'              3'#12289#36755#20837#19978#25253#24179#21488#20998#37197#30340#29992#25143#21517#21644#23494#30721#13#10'              4'#12289#28857#20987#12304#32416#38169#34917#25253#12305#25353#38062 +
+          #65292#31561#24453#19978#25253#23436#25104
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #24494#36719#38597#40657
+        Font.Style = []
+        ParentFont = False
+        WordWrap = True
+        ExplicitLeft = 512
+        ExplicitWidth = 572
+      end
+      object lbl2: TLabel
+        Left = 1
+        Top = 1
+        Width = 536
+        Height = 97
+        Align = alLeft
+        Caption = 
+          #19978#25253#27493#39588#65306#13#10'               1'#12289#36873#25321#20986#38498#26085#26399#13#10'               2'#12289#36873#25321#19978#25253#31867#21035#65288#21253#21547#22522#26412#20449#24687#12289#35786 +
+          #26029#20449#24687#12289#25163#26415#20449#24687#65292#40664#35748#19978#25253#20840#37096#20449#24687#65289#13#10'               3'#12289#36755#20837#19978#25253#24179#21488#20998#37197#30340#29992#25143#21517#21644#23494#30721#13#10'          ' +
+          '     4'#12289#28857#20987#12304#19978#25253#12305#25353#38062#65292#31561#24453#19978#25253#23436#25104
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #24494#36719#38597#40657
+        Font.Style = []
+        ParentFont = False
+        WordWrap = True
       end
     end
   end

@@ -226,6 +226,7 @@ inherited FrmBaSy: TFrmBaSy
               ReadOnly = True
               Title.Alignment = taCenter
               Title.Caption = #30149#26696#21495
+              Visible = False
               Width = 105
             end
             item
@@ -423,7 +424,7 @@ inherited FrmBaSy: TFrmBaSy
       object AdvbtnOK: TAdvGlowButton
         Left = 368
         Top = 13
-        Width = 78
+        Width = 83
         Height = 32
         AutoSize = True
         Caption = #20998#26512
