@@ -1600,7 +1600,27 @@ begin
  Exec('update  VsZhdm_12 set CYQK=''其他'' where  id=6')
 end
 
+IF Col_Length('VsZhdm_12','zysftyjb') Is Null    
+begin
+  Alter Table VsZhdm_12 Add [zysftyjb] [varchar](20) NULL    
+  
+ Exec('update  VsZhdm_12 set zysftyjb=''第一次住院'' where  id=0')
+ Exec('update  VsZhdm_12 set zysftyjb=''否'' where  id=1')
+ Exec('update  VsZhdm_12 set zysftyjb=''是'' where  id=2')
 
+END
+
+IF Col_Length('VsZhdm_12','ycfq') Is Null    
+begin
+  Alter Table VsZhdm_12 Add [ycfq] [varchar](20) NULL    --压疮分期
+  ----Ⅰ期 2.Ⅱ期 3.Ⅲ期 4.Ⅳ期 5.不可分期的压疮
+  Exec('update  VsZhdm_12 set ycfq=''Ⅰ期'' where  id=1')
+  Exec('update  VsZhdm_12 set ycfq=''Ⅱ期'' where  id=2')
+  Exec('update  VsZhdm_12 set ycfq=''Ⅲ期'' where  id=3')
+  Exec('update  VsZhdm_12 set ycfq=''Ⅳ期'' where  id=4')
+  Exec('update  VsZhdm_12 set ycfq=''不可分期的压疮'' where  id=5')
+
+END
 
 
 -- 中间层增加病历接收动作
