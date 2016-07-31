@@ -2,7 +2,7 @@ object FrmTYFY: TFrmTYFY
   Left = 0
   Top = 0
   Width = 728
-  Height = 1909
+  Height = 1849
   TabOrder = 0
   object lbl100: TLabel
     Left = 113
@@ -22,8 +22,7 @@ object FrmTYFY: TFrmTYFY
     Left = 0
     Top = 0
     Width = 728
-    Height = 1909
-    VertScrollBar.Position = 59
+    Height = 1849
     Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
@@ -31,8 +30,8 @@ object FrmTYFY: TFrmTYFY
     TabOrder = 0
     object AdvGroupBox1: TAdvGroupBox
       Left = 0
-      Top = -59
-      Width = 711
+      Top = 0
+      Width = 728
       Height = 121
       BorderStyle = bsNone
       Align = alTop
@@ -166,8 +165,8 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox2: TAdvGroupBox
       Left = 0
-      Top = 62
-      Width = 711
+      Top = 121
+      Width = 728
       Height = 304
       BorderStyle = bsNone
       Align = alTop
@@ -176,7 +175,7 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhSS: TDBGridEh
         Left = 2
         Top = 16
-        Width = 707
+        Width = 724
         Height = 286
         Align = alClient
         DataGrouping.GroupLevels = <>
@@ -359,9 +358,9 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox3: TAdvGroupBox
       Left = 0
-      Top = 366
-      Width = 711
-      Height = 160
+      Top = 425
+      Width = 728
+      Height = 145
       BorderStyle = bsNone
       Align = alTop
       Caption = #20108#12289#20303#38498#37325#36820
@@ -373,32 +372,18 @@ object FrmTYFY: TFrmTYFY
       ParentFont = False
       TabOrder = 2
       object lbl8: TLabel
-        Left = 9
+        Left = 3
         Top = 32
         Width = 150
         Height = 16
         Caption = #36317#19978#19968#27425#20303#26412#38498#26102#38388#65306
       end
-      object lbl9: TLabel
-        Left = 196
-        Top = 32
-        Width = 318
-        Height = 16
-        Caption = '0.'#31532#19968#27425#20303#26412#38498' 1.'#24403#22825' 2.2-15'#22825' 3.16-31'#22825' 4.>31'#22825
-      end
       object lbl10: TLabel
-        Left = 9
+        Left = 3
         Top = 58
         Width = 359
         Height = 16
         Caption = #19978#19968#27425#20303#26412#38498#19982#26412#27425#20303#38498#26159#21542#22240#21516#19968#30142#30149'('#20027#35201#35786#26029') '#65306
-      end
-      object lbl11: TLabel
-        Left = 416
-        Top = 56
-        Width = 161
-        Height = 16
-        Caption = '0.'#31532#19968#27425#20303#26412#38498' 1.'#21542' 2.'#26159
       end
       object lbl12: TLabel
         Left = 9
@@ -407,130 +392,240 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #37325#36820#25163#26415#23460#20877#25163#26415' '#65306
       end
-      object lbl13: TLabel
-        Left = 196
-        Top = 84
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl14: TLabel
-        Left = 326
+        Left = 230
         Top = 84
         Width = 94
         Height = 16
         Caption = #20877#25163#26415#27515#20129' '#65306
       end
-      object lbl15: TLabel
-        Left = 468
-        Top = 84
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl16: TLabel
         Left = 9
-        Top = 110
+        Top = 115
         Width = 109
         Height = 16
         Caption = #26159#21542#25321#26399#25163#26415' '#65306
       end
-      object lbl17: TLabel
-        Left = 177
-        Top = 110
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl18: TLabel
-        Left = 350
-        Top = 110
+        Left = 455
+        Top = 84
         Width = 68
         Height = 16
         Caption = #36827#34892'PCI '#65306
       end
-      object lbl19: TLabel
-        Left = 468
-        Top = 110
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
       object lbl20: TLabel
-        Left = 9
-        Top = 136
+        Left = 230
+        Top = 115
         Width = 219
         Height = 16
         Caption = #36827#34892'PCI'#21518#21516#19968#22825#36827#34892'CABG'#25163#26415' '#65306
       end
-      object lbl21: TLabel
-        Left = 280
-        Top = 136
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object edtCH0ATY18: TEdit
-        Left = 161
-        Top = 26
-        Width = 29
-        Height = 22
+      object cbbCH0ATY18: TAdvOfficeComboBox
+        Left = 168
+        Top = 24
+        Width = 179
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 0
-        OnKeyPress = edtCH0ATY18KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0ATY19: TEdit
-        Left = 369
-        Top = 52
-        Width = 29
-        Height = 22
+      object cbbCH0ATY19: TAdvOfficeComboBox
+        Left = 365
+        Top = 48
+        Width = 179
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 1
-        OnKeyPress = edtCH0AYN04KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0EZ13: TEdit
-        Left = 147
-        Top = 78
-        Width = 29
-        Height = 22
+      object cbbCH0EZ13: TAdvOfficeComboBox
+        Tag = 9
+        Left = 154
+        Top = 76
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 2
-        OnKeyPress = edtCH0AYN04KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0EZ14: TEdit
-        Left = 419
-        Top = 78
-        Width = 29
-        Height = 22
-        TabOrder = 3
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ESC00: TEdit
-        Left = 128
-        Top = 104
-        Width = 29
-        Height = 22
-        TabOrder = 4
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0EZ19: TEdit
-        Left = 419
-        Top = 104
-        Width = 29
-        Height = 22
+      object cbbCH0ESC00: TAdvOfficeComboBox
+        Tag = 9
+        Left = 154
+        Top = 107
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 5
-        OnKeyPress = edtCH0AYN04KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0EZ15: TEdit
-        Left = 231
-        Top = 130
-        Width = 29
-        Height = 22
+      object cbbCH0EZ14: TAdvOfficeComboBox
+        Tag = 9
+        Left = 358
+        Top = 76
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 3
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0EZ19: TAdvOfficeComboBox
+        Tag = 10
+        Left = 544
+        Top = 76
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 4
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0EZ15: TAdvOfficeComboBox
+        Tag = 10
+        Left = 455
+        Top = 107
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 6
-        OnKeyPress = edtCH0AYN04KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
     end
     object AdvGroupBox4: TAdvGroupBox
       Left = 0
-      Top = 526
-      Width = 711
+      Top = 570
+      Width = 728
       Height = 299
       BorderStyle = bsNone
       Align = alTop
@@ -545,7 +640,7 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhICU: TDBGridEh
         Left = 2
         Top = 19
-        Width = 707
+        Width = 724
         Height = 278
         Align = alClient
         DataGrouping.GroupLevels = <>
@@ -664,8 +759,8 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox5: TAdvGroupBox
       Left = 0
-      Top = 825
-      Width = 711
+      Top = 869
+      Width = 728
       Height = 184
       BorderStyle = bsNone
       Align = alTop
@@ -684,13 +779,6 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #20303#38498#26399#38388#26159#21542#24212#29992#25239#33740#33647#29289' '#65306
       end
-      object lbl23: TLabel
-        Left = 267
-        Top = 36
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl24: TLabel
         Left = 350
         Top = 36
@@ -705,26 +793,12 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = 'I'#31867#25163#26415#20999#21475#39044#38450#24615#24212#29992#25239#33740#33647#29289':'
       end
-      object lbl27: TLabel
-        Left = 267
-        Top = 67
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl28: TLabel
         Left = 525
         Top = 36
         Width = 65
         Height = 16
         Caption = #32852#21512#29992#33647':'
-      end
-      object lbl29: TLabel
-        Left = 631
-        Top = 36
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl25: TLabel
         Left = 491
@@ -754,26 +828,12 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #32852#21512#29992#33647':'
       end
-      object lbl33: TLabel
-        Left = 631
-        Top = 67
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl34: TLabel
         Left = 7
         Top = 98
         Width = 210
         Height = 16
         Caption = #25239#33740#33647#29289#24739#32773#30149#21407#23398#26816#26597#36865#26816#65306
-      end
-      object lbl35: TLabel
-        Left = 267
-        Top = 98
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl36: TLabel
         Left = 350
@@ -782,26 +842,12 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #28165#27905#25163#26415#21069'0.5-2'#23567#26102#20869#32473#33647#65306
       end
-      object lbl37: TLabel
-        Left = 631
-        Top = 98
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl38: TLabel
         Left = 7
         Top = 129
         Width = 225
         Height = 16
         Caption = #39627#20851#33410#32622#25442#26415#21069'0.5-2'#23567#26102#20869#32473#33647#65306
-      end
-      object lbl39: TLabel
-        Left = 267
-        Top = 129
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl40: TLabel
         Left = 350
@@ -810,53 +856,12 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #23376#23467#32908#30244#20999#38500#26415#21069'0.5-2'#23567#26102#20869#32473#33647#65306
       end
-      object lbl41: TLabel
-        Left = 631
-        Top = 129
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl42: TLabel
         Left = 7
         Top = 160
         Width = 225
         Height = 16
         Caption = #33181#20851#33410#32622#25442#26415#21069'0.5-2'#23567#26102#20869#32473#33647#65306
-      end
-      object lbl43: TLabel
-        Left = 267
-        Top = 160
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
-      object edtCH0AYN04: TEdit
-        Left = 213
-        Top = 30
-        Width = 29
-        Height = 22
-        TabOrder = 0
-        OnChange = edtCH0AYN04Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AYN01: TEdit
-        Left = 228
-        Top = 61
-        Width = 29
-        Height = 22
-        TabOrder = 3
-        OnChange = edtCH0AYN01Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AYN06: TEdit
-        Left = 592
-        Top = 30
-        Width = 29
-        Height = 22
-        Enabled = False
-        TabOrder = 2
-        OnKeyPress = edtCH0AYN04KeyPress
       end
       object edtCH0AYN05: TEdit
         Left = 448
@@ -866,7 +871,7 @@ object FrmTYFY: TFrmTYFY
         BevelInner = bvNone
         BevelOuter = bvNone
         Enabled = False
-        TabOrder = 1
+        TabOrder = 2
       end
       object edtCH0AYN02: TEdit
         Left = 447
@@ -878,61 +883,274 @@ object FrmTYFY: TFrmTYFY
         Enabled = False
         TabOrder = 4
       end
-      object edtCH0AYN03: TEdit
-        Left = 592
-        Top = 61
-        Width = 29
-        Height = 22
-        Enabled = False
-        TabOrder = 5
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ATY01: TEdit
-        Left = 228
-        Top = 92
-        Width = 29
-        Height = 22
-        Enabled = False
+      object cbbCH0ATY01: TAdvOfficeComboBox
+        Tag = 9
+        Left = 230
+        Top = 91
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 6
-        OnKeyPress = edtCH0AYN04KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0ATY02: TEdit
-        Left = 592
-        Top = 92
-        Width = 29
-        Height = 22
-        TabOrder = 7
-        OnKeyPress = edtCH0AYN04KeyPress
+      object cbbCH0AYN01: TAdvOfficeComboBox
+        Tag = 9
+        Left = 230
+        Top = 61
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0AYN01Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 3
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0ATY04: TEdit
-        Left = 228
-        Top = 123
-        Width = 29
-        Height = 22
+      object cbbCH0AYN04: TAdvOfficeComboBox
+        Tag = 9
+        Left = 230
+        Top = 28
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0AYN04Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 0
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY04: TAdvOfficeComboBox
+        Tag = 9
+        Left = 230
+        Top = 121
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 8
-        OnKeyPress = edtCH0AYN04KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0ATY06: TEdit
-        Left = 592
-        Top = 123
-        Width = 29
-        Height = 22
-        TabOrder = 9
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ATY05: TEdit
-        Left = 228
+      object cbbCH0ATY05: TAdvOfficeComboBox
+        Tag = 9
+        Left = 230
         Top = 154
-        Width = 29
-        Height = 22
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 10
-        OnKeyPress = edtCH0AYN04KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYN06: TAdvOfficeComboBox
+        Tag = 9
+        Left = 596
+        Top = 28
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYN03: TAdvOfficeComboBox
+        Tag = 9
+        Left = 596
+        Top = 61
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 5
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY02: TAdvOfficeComboBox
+        Tag = 9
+        Left = 596
+        Top = 91
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 7
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY06: TAdvOfficeComboBox
+        Tag = 9
+        Left = 596
+        Top = 121
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 9
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
     end
     object AdvGroupBox6: TAdvGroupBox
       Left = 0
-      Top = 1009
-      Width = 711
+      Top = 1053
+      Width = 728
       Height = 239
       BorderStyle = bsNone
       Align = alTop
@@ -951,26 +1169,12 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #21457#29983#25163#26415#36807#31243#20013#24322#29289#36951#30041':'
       end
-      object lbl45: TLabel
-        Left = 214
-        Top = 28
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl46: TLabel
-        Left = 295
+        Left = 256
         Top = 28
         Width = 80
         Height = 16
         Caption = #26159#21542#26377#21387#30126':'
-      end
-      object lbl47: TLabel
-        Left = 424
-        Top = 28
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl48: TLabel
         Left = 3
@@ -979,26 +1183,12 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #26159#21542#20303#38498#26399#38388#21457#29983#21387#30126':'
       end
-      object lbl49: TLabel
-        Left = 201
-        Top = 59
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl50: TLabel
-        Left = 282
+        Left = 256
         Top = 59
         Width = 65
         Height = 16
         Caption = #21387#30126#20998#26399':'
-      end
-      object lbl51: TLabel
-        Left = 393
-        Top = 59
-        Width = 316
-        Height = 16
-        Caption = '0.- 1.'#8544#26399' 2.'#8545#26399' 3.'#8546#26399' 4.'#8547#26399' 5.'#19981#21487#20998#26399#30340#21387#30126
       end
       object lbl52: TLabel
         Left = 3
@@ -1007,26 +1197,12 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #38498#20869#36300#20498'/'#22368#24202':'
       end
-      object lbl53: TLabel
-        Left = 170
-        Top = 90
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl54: TLabel
         Left = 256
         Top = 90
         Width = 130
         Height = 16
         Caption = #36300#20498'/'#22368#24202#20005#37325#31243#24230':'
-      end
-      object lbl55: TLabel
-        Left = 424
-        Top = 90
-        Width = 127
-        Height = 16
-        Caption = '0.- 1.1'#32423' 2.2'#32423' 3.3'#32423
       end
       object lbl56: TLabel
         Left = 3
@@ -1042,26 +1218,12 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #21457#29983#21307#28304#24615#27668#33016':'
       end
-      object lbl58: TLabel
-        Left = 170
-        Top = 152
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl59: TLabel
-        Left = 258
+        Left = 195
         Top = 152
         Width = 215
         Height = 16
         Caption = #21457#29983#21307#28304#24615#24847#22806#31359#21050#20260#25110#25749#35010#20260':'
-      end
-      object lbl60: TLabel
-        Left = 530
-        Top = 152
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
       end
       object lbl61: TLabel
         Left = 3
@@ -1070,15 +1232,8 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #25509#21463#36755#34880':'
       end
-      object lbl62: TLabel
-        Left = 170
-        Top = 183
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
       object lbl63: TLabel
-        Left = 408
+        Left = 195
         Top = 183
         Width = 65
         Height = 16
@@ -1092,142 +1247,477 @@ object FrmTYFY: TFrmTYFY
         Caption = #25509#21463#36755#28082':'
       end
       object lbl67: TLabel
-        Left = 408
+        Left = 195
         Top = 214
         Width = 65
         Height = 16
         Caption = #36755#28082#21453#24212':'
       end
-      object lbl64: TLabel
-        Left = 170
-        Top = 214
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object lbl66: TLabel
-        Left = 530
-        Top = 183
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object lbl68: TLabel
-        Left = 530
-        Top = 214
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object edtCh0EZ03: TEdit
-        Left = 179
-        Top = 22
-        Width = 29
-        Height = 22
-        TabOrder = 0
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AYNA7: TEdit
-        Left = 389
-        Top = 22
-        Width = 29
-        Height = 22
-        TabOrder = 1
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AYNA8: TEdit
-        Left = 166
-        Top = 53
-        Width = 29
-        Height = 22
-        TabOrder = 2
-        OnChange = edtCH0AYNA8Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AYNA9: TEdit
-        Left = 354
-        Top = 53
-        Width = 29
-        Height = 22
-        Enabled = False
-        TabOrder = 3
-        OnKeyPress = edtCH0AYNA9KeyPress
-      end
-      object edtCH0AYNB0: TEdit
-        Left = 129
-        Top = 84
-        Width = 29
-        Height = 22
-        TabOrder = 4
-        OnChange = edtCH0AYNB0Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AYNB1: TEdit
-        Left = 389
-        Top = 84
-        Width = 29
-        Height = 22
-        Enabled = False
-        TabOrder = 5
-        OnKeyPress = edtCH0AYNB1KeyPress
-      end
-      object edtCH0P11: TEdit
-        Left = 129
-        Top = 146
-        Width = 29
-        Height = 22
-        TabOrder = 7
-        OnChange = edtCH0P11Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0P13: TEdit
-        Left = 495
-        Top = 146
-        Width = 29
-        Height = 22
-        TabOrder = 8
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0A57: TEdit
-        Left = 129
-        Top = 177
-        Width = 29
-        Height = 22
-        TabOrder = 9
-        OnChange = edtCH0A57Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ATY15: TEdit
-        Left = 495
-        Top = 177
-        Width = 29
-        Height = 22
-        Enabled = False
-        TabOrder = 10
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0A58: TEdit
-        Left = 129
-        Top = 208
-        Width = 29
-        Height = 22
-        TabOrder = 11
-        OnChange = edtCH0A58Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ATY16: TEdit
-        Left = 495
-        Top = 208
-        Width = 29
-        Height = 22
-        Enabled = False
-        TabOrder = 12
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
       object cbbCH0AYNB2: TAdvOfficeComboBox
         Left = 134
         Top = 116
         Width = 295
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 6
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCh0EZ03: TAdvOfficeComboBox
+        Tag = 9
+        Left = 177
+        Top = 19
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 0
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYNA8: TAdvOfficeComboBox
+        Tag = 9
+        Left = 177
+        Top = 50
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0AYNA8Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 2
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYNA7: TAdvOfficeComboBox
+        Tag = 9
+        Left = 392
+        Top = 19
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYNB0: TAdvOfficeComboBox
+        Tag = 9
+        Left = 177
+        Top = 81
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0AYNB0Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 4
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY20: TAdvOfficeComboBox
+        Tag = 9
+        Left = 119
+        Top = 146
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 7
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY21: TAdvOfficeComboBox
+        Tag = 9
+        Left = 416
+        Top = 146
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 8
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0A57: TAdvOfficeComboBox
+        Tag = 10
+        Left = 119
+        Top = 174
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0A57Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 9
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY15: TAdvOfficeComboBox
+        Tag = 10
+        Left = 266
+        Top = 174
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 10
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0A58: TAdvOfficeComboBox
+        Tag = 10
+        Left = 119
+        Top = 204
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0A58Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 11
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY16: TAdvOfficeComboBox
+        Tag = 10
+        Left = 266
+        Top = 204
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 12
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYNA9: TAdvOfficeComboBox
+        Tag = 9
+        Left = 392
+        Top = 54
+        Width = 147
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 3
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYNB1: TAdvOfficeComboBox
+        Tag = 9
+        Left = 392
+        Top = 86
+        Width = 147
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 5
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+    end
+    object AdvGroupBox7: TAdvGroupBox
+      Left = 0
+      Top = 1292
+      Width = 728
+      Height = 95
+      BorderStyle = bsNone
+      Align = alTop
+      Caption = #20845#12289#21307#38498#24863#26579
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+      object lbl69: TLabel
+        Left = 3
+        Top = 33
+        Width = 65
+        Height = 16
+        Caption = #21307#38498#24863#26579':'
+      end
+      object lbl71: TLabel
+        Left = 149
+        Top = 33
+        Width = 95
+        Height = 16
+        Caption = #21307#38498#24863#26579#27425#25968':'
+      end
+      object lbl72: TLabel
+        Left = 285
+        Top = 33
+        Width = 15
+        Height = 16
+        Caption = #27425
+      end
+      object lbl73: TLabel
+        Left = 320
+        Top = 33
+        Width = 125
+        Height = 16
+        Caption = #25163#26415#30456#20851#21307#38498#24863#26579':'
+      end
+      object lbl75: TLabel
+        Left = 520
+        Top = 33
+        Width = 125
+        Height = 16
+        Caption = #25163#26415#24739#32773#32954#37096#24863#26579':'
+      end
+      object lbl77: TLabel
+        Left = 4
+        Top = 65
+        Width = 155
+        Height = 16
+        Caption = #25163#26415#24739#32773#25163#26415#37096#20301#24863#26579':'
+      end
+      object lbl79: TLabel
+        Left = 243
+        Top = 65
+        Width = 65
+        Height = 16
+        Caption = #34880#28082#36879#26512':'
+      end
+      object lbl81: TLabel
+        Left = 393
+        Top = 65
+        Width = 140
+        Height = 16
+        Caption = #19982#34880#28082#36879#26512#30456#20851#24863#26579':'
+      end
+      object edtCH0AQ1: TEdit
+        Left = 250
+        Top = 28
+        Width = 29
+        Height = 22
+        Enabled = False
+        TabOrder = 3
+      end
+      object cbbCH0ATY09: TAdvOfficeComboBox
+        Tag = 10
+        Left = 538
+        Top = 55
+        Width = 60
         Height = 24
         Button.Color = clWhite
         Button.ColorTo = clSilver
@@ -1253,184 +1743,159 @@ object FrmTYFY: TFrmTYFY
         Font.Style = []
         Style = csDropDownList
       end
-    end
-    object AdvGroupBox7: TAdvGroupBox
-      Left = 0
-      Top = 1248
-      Width = 711
-      Height = 120
-      BorderStyle = bsNone
-      Align = alTop
-      Caption = #20845#12289#21307#38498#24863#26579
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 6
-      object lbl69: TLabel
-        Left = 3
-        Top = 33
-        Width = 65
-        Height = 16
-        Caption = #21307#38498#24863#26579':'
-      end
-      object lbl70: TLabel
-        Left = 115
-        Top = 29
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object lbl71: TLabel
-        Left = 241
-        Top = 33
-        Width = 95
-        Height = 16
-        Caption = #21307#38498#24863#26579#27425#25968':'
-      end
-      object lbl72: TLabel
-        Left = 386
-        Top = 33
-        Width = 15
-        Height = 16
-        Caption = #27425
-      end
-      object lbl73: TLabel
-        Left = 414
-        Top = 33
-        Width = 125
-        Height = 16
-        Caption = #25163#26415#30456#20851#21307#38498#24863#26579':'
-      end
-      object lbl74: TLabel
-        Left = 592
-        Top = 33
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object lbl75: TLabel
-        Left = 3
-        Top = 64
-        Width = 125
-        Height = 16
-        Caption = #25163#26415#24739#32773#32954#37096#24863#26579':'
-      end
-      object lbl76: TLabel
-        Left = 177
-        Top = 64
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object lbl77: TLabel
-        Left = 269
-        Top = 64
-        Width = 155
-        Height = 16
-        Caption = #25163#26415#24739#32773#25163#26415#37096#20301#24863#26579':'
-      end
-      object lbl78: TLabel
-        Left = 465
-        Top = 61
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object lbl79: TLabel
-        Left = 3
-        Top = 95
-        Width = 65
-        Height = 16
-        Caption = #34880#28082#36879#26512':'
-      end
-      object lbl80: TLabel
-        Left = 115
-        Top = 95
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object lbl81: TLabel
-        Left = 269
-        Top = 95
-        Width = 140
-        Height = 16
-        Caption = #19982#34880#28082#36879#26512#30456#20851#24863#26579':'
-      end
-      object lbl82: TLabel
-        Left = 465
-        Top = 95
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#26080' 2.'#26377
-      end
-      object edtCH0A54: TEdit
-        Left = 74
-        Top = 27
-        Width = 29
-        Height = 22
-        TabOrder = 0
-        OnChange = edtCH0A54Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AQ1: TEdit
-        Left = 351
-        Top = 27
-        Width = 29
-        Height = 22
-        Enabled = False
-        TabOrder = 1
-      end
-      object edtCH0ATY07: TEdit
-        Left = 557
-        Top = 27
-        Width = 29
-        Height = 22
-        TabOrder = 2
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ATY17: TEdit
-        Left = 133
-        Top = 58
-        Width = 29
-        Height = 22
-        TabOrder = 4
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ATY22: TEdit
-        Left = 430
+      object cbbCH0ATY22: TAdvOfficeComboBox
+        Tag = 10
+        Left = 165
         Top = 55
-        Width = 29
-        Height = 22
-        TabOrder = 3
-        OnKeyPress = edtCH0AYN04KeyPress
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 4
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0ATY08: TEdit
-        Left = 74
-        Top = 89
-        Width = 29
-        Height = 22
+      object cbbCH0ATY08: TAdvOfficeComboBox
+        Tag = 10
+        Left = 327
+        Top = 55
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0ATY08Change
+        ItemIndex = -1
+        ItemHeight = 14
         TabOrder = 5
-        OnChange = edtCH0ATY08Change
-        OnKeyPress = edtCH0AYN04KeyPress
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
-      object edtCH0ATY09: TEdit
-        Left = 430
-        Top = 89
-        Width = 29
-        Height = 22
-        TabOrder = 6
-        OnKeyPress = edtCH0AYN04KeyPress
+      object cbbCH0ATY07: TAdvOfficeComboBox
+        Tag = 10
+        Left = 451
+        Top = 26
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY17: TAdvOfficeComboBox
+        Tag = 10
+        Left = 651
+        Top = 26
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 2
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0A54: TAdvOfficeComboBox
+        Tag = 10
+        Left = 74
+        Top = 26
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0A54Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 0
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
     end
     object AdvGroupBox8: TAdvGroupBox
       Left = 0
-      Top = 1368
-      Width = 711
-      Height = 120
+      Top = 1387
+      Width = 728
+      Height = 86
       BorderStyle = bsNone
       Align = alTop
       Caption = #19971#12289#20020#24202#36335#24452
@@ -1444,110 +1909,152 @@ object FrmTYFY: TFrmTYFY
       object lbl83: TLabel
         Left = 5
         Top = 29
-        Width = 155
-        Height = 16
-        Caption = #26159#21542#23454#26045#20020#24202#36335#24452#31649#29702':'
-      end
-      object lbl84: TLabel
-        Left = 206
-        Top = 29
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
-      object lbl85: TLabel
-        Left = 324
-        Top = 29
         Width = 125
         Height = 16
-        Caption = #26159#21542#23436#25104#20020#24202#36335#24452':'
+        Caption = #23454#26045#20020#24202#36335#24452#31649#29702':'
       end
-      object lbl86: TLabel
-        Left = 517
+      object lbl85: TLabel
+        Left = 213
         Top = 29
-        Width = 76
+        Width = 95
         Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
+        Caption = #23436#25104#20020#24202#36335#24452':'
       end
       object lbl87: TLabel
-        Left = 5
-        Top = 60
+        Left = 380
+        Top = 29
         Width = 65
         Height = 16
         Caption = #36864#20986#21407#22240':'
       end
       object lbl88: TLabel
         Left = 5
-        Top = 91
-        Width = 65
+        Top = 59
+        Width = 35
         Height = 16
-        Caption = #26159#21542#21464#24322':'
-      end
-      object lbl89: TLabel
-        Left = 118
-        Top = 91
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
+        Caption = #21464#24322':'
       end
       object lbl90: TLabel
-        Left = 201
-        Top = 91
+        Left = 213
+        Top = 59
         Width = 65
         Height = 16
         Caption = #21464#24322#21407#22240':'
       end
-      object edtCh0ANQ: TEdit
-        Left = 166
-        Top = 23
-        Width = 29
-        Height = 22
-        TabOrder = 0
-        OnChange = edtCh0ANQChange
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AYN07: TEdit
-        Left = 468
-        Top = 23
-        Width = 29
-        Height = 22
-        Enabled = False
-        TabOrder = 1
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
       object edtCH0AYN08: TEdit
-        Left = 78
-        Top = 54
-        Width = 433
+        Left = 451
+        Top = 26
+        Width = 258
         Height = 22
         Enabled = False
         MaxLength = 50
         TabOrder = 2
       end
-      object edtCH0AYN09: TEdit
-        Left = 81
-        Top = 85
-        Width = 29
-        Height = 22
-        TabOrder = 3
-        OnChange = edtCH0AYN09Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
       object edtCH0AYNAA: TEdit
-        Left = 276
-        Top = 85
-        Width = 433
+        Left = 314
+        Top = 53
+        Width = 395
         Height = 22
         Enabled = False
         MaxLength = 50
         TabOrder = 4
       end
+      object cbbCh0ANQ: TAdvOfficeComboBox
+        Tag = 9
+        Left = 136
+        Top = 24
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCh0ANQChange
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 0
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYN07: TAdvOfficeComboBox
+        Tag = 9
+        Left = 314
+        Top = 24
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0AYN07Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AYN09: TAdvOfficeComboBox
+        Tag = 9
+        Left = 46
+        Top = 51
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0AYN09Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 3
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
     end
     object AdvGroupBox9: TAdvGroupBox
       Left = 0
-      Top = 1488
-      Width = 711
-      Height = 216
+      Top = 1473
+      Width = 728
+      Height = 166
       BorderStyle = bsNone
       Align = alTop
       Caption = #20843#12289#20854#20182
@@ -1565,36 +2072,29 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #25250#25937':'
       end
-      object lbl92: TLabel
-        Left = 93
-        Top = 25
-        Width = 56
-        Height = 16
-        Caption = '1.'#26080' 2.'#26377
-      end
       object lbl93: TLabel
-        Left = 167
+        Left = 125
         Top = 25
         Width = 35
         Height = 16
         Caption = #25250#25937':'
       end
       object lbl94: TLabel
-        Left = 253
+        Left = 211
         Top = 25
         Width = 15
         Height = 16
         Caption = #27425
       end
       object lbl95: TLabel
-        Left = 309
+        Left = 235
         Top = 25
         Width = 35
         Height = 16
         Caption = #25104#21151':'
       end
       object lbl96: TLabel
-        Left = 388
+        Left = 314
         Top = 25
         Width = 15
         Height = 16
@@ -1615,120 +2115,77 @@ object FrmTYFY: TFrmTYFY
         Caption = #20986#38498#19982#38376#35786
       end
       object lbl99: TLabel
-        Left = 246
+        Left = 307
         Top = 56
         Width = 75
         Height = 16
         Caption = #20837#38498#19982#20986#38498
       end
       object lbl101: TLabel
-        Left = 480
+        Left = 505
         Top = 56
         Width = 75
         Height = 16
         Caption = #20020#24202#19982#30149#29702
       end
       object lbl102: TLabel
-        Left = 596
-        Top = 56
+        Left = 505
+        Top = 81
         Width = 75
         Height = 16
         Caption = #25918#23556#19982#30149#29702
       end
       object lbl104: TLabel
         Left = 44
-        Top = 87
+        Top = 81
         Width = 135
         Height = 16
         Caption = #25163#26415#20912#20923#19982#30707#34593#30149#29702
       end
       object lbl105: TLabel
-        Left = 365
-        Top = 56
+        Left = 307
+        Top = 81
         Width = 75
         Height = 16
         Caption = #26415#21069#19982#26415#21518
       end
-      object lbl106: TLabel
-        Left = 246
-        Top = 82
-        Width = 210
-        Height = 16
-        Caption = ' 1.'#31526#21512' 2.'#19981#31526#21512' 3.'#19981#32943#23450' 4.'#26410#20570
-      end
       object lbl107: TLabel
-        Left = 5
-        Top = 125
+        Left = 2
+        Top = 113
         Width = 215
         Height = 16
         Caption = #21333#30149#31181#36136#37327#31649#29702#19982#36153#29992#25511#21046#30149#31181':'
       end
-      object lbl108: TLabel
-        Left = 269
-        Top = 125
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl109: TLabel
-        Left = 388
-        Top = 125
+        Left = 307
+        Top = 113
         Width = 65
         Height = 16
         Caption = #32435#20837#36136#25511':'
       end
-      object lbl110: TLabel
-        Left = 503
-        Top = 125
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl111: TLabel
-        Left = 5
-        Top = 156
+        Left = 2
+        Top = 144
         Width = 80
         Height = 16
         Caption = #26410#32435#20837#21407#22240':'
       end
       object lbl112: TLabel
-        Left = 5
-        Top = 189
+        Left = 454
+        Top = 113
         Width = 140
         Height = 16
         Caption = #26159#21542#21457#29983#22260#26415#26399#27515#20129':'
       end
-      object lbl113: TLabel
-        Left = 206
-        Top = 189
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
       object lbl114: TLabel
-        Left = 328
-        Top = 189
+        Left = 305
+        Top = 144
         Width = 125
         Height = 16
         Caption = #26159#21542#21457#29983#26415#21518#29469#27515':'
       end
-      object lbl115: TLabel
-        Left = 503
-        Top = 189
-        Width = 76
-        Height = 16
-        Caption = '0.- 1.'#21542' 2.'#26159
-      end
-      object edtqj: TEdit
-        Left = 58
-        Top = 19
-        Width = 29
-        Height = 22
-        TabOrder = 0
-        OnChange = edtqjChange
-      end
       object edttCH0A46: TEdit
-        Left = 215
+        Left = 176
         Top = 19
         Width = 29
         Height = 22
@@ -1736,107 +2193,347 @@ object FrmTYFY: TFrmTYFY
         TabOrder = 1
       end
       object edttCH0A47: TEdit
-        Left = 350
+        Left = 276
         Top = 19
         Width = 29
         Height = 22
         Enabled = False
         TabOrder = 2
       end
-      object edtCH0A43: TEdit
-        Left = 192
-        Top = 50
-        Width = 29
-        Height = 22
-        TabOrder = 4
-        OnKeyPress = edtCH0A43KeyPress
-      end
-      object edtCH0A44: TEdit
-        Left = 327
-        Top = 50
-        Width = 29
-        Height = 22
-        TabOrder = 5
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0AC1: TEdit
-        Left = 561
-        Top = 50
-        Width = 29
-        Height = 22
-        TabOrder = 7
-        OnKeyPress = edtCH0A43KeyPress
-      end
-      object edtCH0AC2: TEdit
-        Left = 677
-        Top = 50
-        Width = 29
-        Height = 22
-        TabOrder = 3
-        OnKeyPress = edtCH0A43KeyPress
-      end
-      object edtCh0AQ6: TEdit
-        Left = 192
-        Top = 81
-        Width = 29
-        Height = 22
-        TabOrder = 8
-        OnKeyPress = edtCH0A43KeyPress
-      end
-      object edtCH0ACD: TEdit
-        Left = 444
-        Top = 50
-        Width = 29
-        Height = 22
-        TabOrder = 6
-        OnKeyPress = edtCH0A43KeyPress
-      end
-      object edtCH0ATY10: TEdit
-        Left = 215
-        Top = 119
-        Width = 29
-        Height = 22
-        TabOrder = 9
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ATY11: TEdit
-        Left = 467
-        Top = 119
-        Width = 29
-        Height = 22
-        TabOrder = 10
-        OnChange = edtCH0ATY11Change
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
       object edtCH0ATY12: TEdit
-        Left = 93
-        Top = 150
-        Width = 433
+        Left = 90
+        Top = 138
+        Width = 204
         Height = 22
         Enabled = False
-        TabOrder = 11
-      end
-      object edtCH0ATY13: TEdit
-        Left = 152
-        Top = 183
-        Width = 29
-        Height = 22
-        TabOrder = 12
-        OnKeyPress = edtCH0AYN04KeyPress
-      end
-      object edtCH0ATY14: TEdit
-        Left = 467
-        Top = 183
-        Width = 29
-        Height = 22
         TabOrder = 13
-        OnKeyPress = edtCH0AYN04KeyPress
+      end
+      object cbbCH0ATY10: TAdvOfficeComboBox
+        Tag = 9
+        Left = 223
+        Top = 108
+        Width = 71
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 9
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY11: TAdvOfficeComboBox
+        Tag = 9
+        Left = 388
+        Top = 108
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbCH0ATY11Change
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 10
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY13: TAdvOfficeComboBox
+        Tag = 9
+        Left = 600
+        Top = 108
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 11
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ATY14: TAdvOfficeComboBox
+        Tag = 9
+        Left = 447
+        Top = 136
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 12
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0A43: TAdvOfficeComboBox
+        Tag = 9
+        Left = 185
+        Top = 47
+        Width = 109
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 3
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0A44: TAdvOfficeComboBox
+        Tag = 9
+        Left = 388
+        Top = 47
+        Width = 109
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 4
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0ACD: TAdvOfficeComboBox
+        Tag = 9
+        Left = 388
+        Top = 78
+        Width = 109
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 7
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AC1: TAdvOfficeComboBox
+        Tag = 9
+        Left = 586
+        Top = 47
+        Width = 109
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 5
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCH0AC2: TAdvOfficeComboBox
+        Tag = 9
+        Left = 586
+        Top = 78
+        Width = 109
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 8
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbCh0AQ6: TAdvOfficeComboBox
+        Tag = 9
+        Left = 185
+        Top = 78
+        Width = 109
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 6
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
+      end
+      object cbbqj: TAdvOfficeComboBox
+        Tag = 9
+        Left = 46
+        Top = 18
+        Width = 60
+        Height = 24
+        Button.Color = 16572875
+        Button.ColorTo = 14722429
+        Button.ColorHot = 14483455
+        Button.ColorHotTo = 6013175
+        Button.ColorDown = 557032
+        Button.ColorDownTo = 8182519
+        Button.Width = 12
+        DisplayRecentSelection = False
+        BorderColor = clNone
+        BorderHotColor = clBlack
+        SelectionColor = 14722429
+        SelectionTextColor = clWhite
+        Version = '1.5.2.1'
+        OnChange = cbbqjChange
+        ItemIndex = -1
+        ItemHeight = 14
+        TabOrder = 0
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Style = csDropDownList
       end
     end
     object AdvGroupBox10: TAdvGroupBox
       Left = 0
-      Top = 1704
-      Width = 711
+      Top = 1639
+      Width = 728
       Height = 205
       BorderStyle = bsNone
       Align = alTop
@@ -1851,7 +2548,7 @@ object FrmTYFY: TFrmTYFY
       object dbgrdhXSE: TDBGridEh
         Left = 2
         Top = 19
-        Width = 707
+        Width = 724
         Height = 184
         Align = alClient
         DataGrouping.GroupLevels = <>

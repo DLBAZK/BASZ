@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, AdvGroupBox, DBGridEhGrouping, GridsEh, DBGridEh,
   DB, DBClient, UDlClientDataset,UGFun,UGVar,UVsMidClassList,UCommon,
-  AdvFontCombo;
+  AdvFontCombo,UPVar,StrUtils;
 
 type
   TFrmTYFY = class(TFrame)
@@ -34,140 +34,64 @@ type
     ds1: TDataSource;
     AdvGroupBox3: TAdvGroupBox;
     lbl8: TLabel;
-    edtCH0ATY18: TEdit;
-    lbl9: TLabel;
     lbl10: TLabel;
-    edtCH0ATY19: TEdit;
-    lbl11: TLabel;
     lbl12: TLabel;
-    edtCH0EZ13: TEdit;
-    lbl13: TLabel;
     lbl14: TLabel;
-    edtCH0EZ14: TEdit;
-    lbl15: TLabel;
     lbl16: TLabel;
-    edtCH0ESC00: TEdit;
-    lbl17: TLabel;
     lbl18: TLabel;
-    edtCH0EZ19: TEdit;
-    lbl19: TLabel;
     lbl20: TLabel;
-    edtCH0EZ15: TEdit;
-    lbl21: TLabel;
     AdvGroupBox4: TAdvGroupBox;
     dbgrdhICU: TDBGridEh;
     AdvGroupBox5: TAdvGroupBox;
     lbl22: TLabel;
-    edtCH0AYN04: TEdit;
-    lbl23: TLabel;
     lbl24: TLabel;
     lbl26: TLabel;
-    edtCH0AYN01: TEdit;
-    lbl27: TLabel;
     lbl28: TLabel;
-    edtCH0AYN06: TEdit;
-    lbl29: TLabel;
     edtCH0AYN05: TEdit;
     lbl25: TLabel;
     lbl30: TLabel;
     edtCH0AYN02: TEdit;
     lbl31: TLabel;
     lbl32: TLabel;
-    edtCH0AYN03: TEdit;
-    lbl33: TLabel;
     lbl34: TLabel;
-    lbl35: TLabel;
-    edtCH0ATY01: TEdit;
     lbl36: TLabel;
-    lbl37: TLabel;
-    edtCH0ATY02: TEdit;
     lbl38: TLabel;
-    lbl39: TLabel;
-    edtCH0ATY04: TEdit;
     lbl40: TLabel;
-    lbl41: TLabel;
-    edtCH0ATY06: TEdit;
     lbl42: TLabel;
-    lbl43: TLabel;
-    edtCH0ATY05: TEdit;
     AdvGroupBox6: TAdvGroupBox;
     lbl44: TLabel;
-    edtCh0EZ03: TEdit;
-    lbl45: TLabel;
     lbl46: TLabel;
-    edtCH0AYNA7: TEdit;
-    lbl47: TLabel;
     lbl48: TLabel;
-    edtCH0AYNA8: TEdit;
-    lbl49: TLabel;
     lbl50: TLabel;
-    edtCH0AYNA9: TEdit;
-    lbl51: TLabel;
     lbl52: TLabel;
-    edtCH0AYNB0: TEdit;
-    lbl53: TLabel;
     lbl54: TLabel;
-    edtCH0AYNB1: TEdit;
-    lbl55: TLabel;
     lbl56: TLabel;
     lbl57: TLabel;
-    lbl58: TLabel;
-    edtCH0P11: TEdit;
     lbl59: TLabel;
-    edtCH0P13: TEdit;
-    lbl60: TLabel;
     lbl61: TLabel;
-    edtCH0A57: TEdit;
-    lbl62: TLabel;
     lbl63: TLabel;
-    edtCH0ATY15: TEdit;
     lbl65: TLabel;
-    edtCH0A58: TEdit;
     lbl67: TLabel;
-    edtCH0ATY16: TEdit;
-    lbl64: TLabel;
-    lbl66: TLabel;
-    lbl68: TLabel;
     AdvGroupBox7: TAdvGroupBox;
     lbl69: TLabel;
-    edtCH0A54: TEdit;
-    lbl70: TLabel;
     lbl71: TLabel;
     edtCH0AQ1: TEdit;
     lbl72: TLabel;
     lbl73: TLabel;
-    edtCH0ATY07: TEdit;
-    lbl74: TLabel;
     lbl75: TLabel;
-    edtCH0ATY17: TEdit;
-    lbl76: TLabel;
     lbl77: TLabel;
-    lbl78: TLabel;
-    edtCH0ATY22: TEdit;
     lbl79: TLabel;
-    edtCH0ATY08: TEdit;
-    lbl80: TLabel;
     lbl81: TLabel;
-    edtCH0ATY09: TEdit;
-    lbl82: TLabel;
     AdvGroupBox8: TAdvGroupBox;
     lbl83: TLabel;
-    edtCh0ANQ: TEdit;
-    lbl84: TLabel;
     lbl85: TLabel;
-    edtCH0AYN07: TEdit;
-    lbl86: TLabel;
     lbl87: TLabel;
     edtCH0AYN08: TEdit;
     lbl88: TLabel;
-    edtCH0AYN09: TEdit;
-    lbl89: TLabel;
     lbl90: TLabel;
     edtCH0AYNAA: TEdit;
     AdvGroupBox9: TAdvGroupBox;
     lbl91: TLabel;
-    lbl92: TLabel;
-    edtqj: TEdit;
     lbl93: TLabel;
     edttCH0A46: TEdit;
     lbl94: TLabel;
@@ -176,34 +100,19 @@ type
     lbl96: TLabel;
     lbl97: TLabel;
     lbl98: TLabel;
-    edtCH0A43: TEdit;
-    edtCH0A44: TEdit;
     lbl99: TLabel;
     lbl100: TLabel;
-    edtCH0AC1: TEdit;
     lbl101: TLabel;
-    edtCH0AC2: TEdit;
     lbl102: TLabel;
     lbl103: TLabel;
-    edtCh0AQ6: TEdit;
     lbl104: TLabel;
-    edtCH0ACD: TEdit;
     lbl105: TLabel;
-    lbl106: TLabel;
     lbl107: TLabel;
-    lbl108: TLabel;
-    edtCH0ATY10: TEdit;
     lbl109: TLabel;
-    edtCH0ATY11: TEdit;
-    lbl110: TLabel;
     lbl111: TLabel;
     edtCH0ATY12: TEdit;
     lbl112: TLabel;
-    edtCH0ATY13: TEdit;
-    lbl113: TLabel;
     lbl114: TLabel;
-    edtCH0ATY14: TEdit;
-    lbl115: TLabel;
     AdvGroupBox10: TAdvGroupBox;
     dsss: TDataSource;
     clientdtDLCDS: TClientDataSet;
@@ -214,35 +123,78 @@ type
     dldtSS: TDlClientDataset;
     dbgrdhXSE: TDBGridEh;
     clientdtXSER: TClientDataSet;
+    cbbCH0ATY18: TAdvOfficeComboBox;
+    cbbCH0ATY19: TAdvOfficeComboBox;
+    cbbCH0EZ13: TAdvOfficeComboBox;
+    cbbCH0ESC00: TAdvOfficeComboBox;
+    cbbCH0EZ14: TAdvOfficeComboBox;
+    cbbCH0EZ19: TAdvOfficeComboBox;
+    cbbCH0EZ15: TAdvOfficeComboBox;
+    cbbCH0ATY01: TAdvOfficeComboBox;
+    cbbCH0AYN01: TAdvOfficeComboBox;
+    cbbCH0AYN04: TAdvOfficeComboBox;
+    cbbCH0ATY04: TAdvOfficeComboBox;
+    cbbCH0ATY05: TAdvOfficeComboBox;
+    cbbCH0AYN06: TAdvOfficeComboBox;
+    cbbCH0AYN03: TAdvOfficeComboBox;
+    cbbCH0ATY02: TAdvOfficeComboBox;
+    cbbCH0ATY06: TAdvOfficeComboBox;
+    cbbCh0EZ03: TAdvOfficeComboBox;
+    cbbCH0AYNA8: TAdvOfficeComboBox;
+    cbbCH0AYNA7: TAdvOfficeComboBox;
+    cbbCH0AYNB0: TAdvOfficeComboBox;
+    cbbCH0ATY20: TAdvOfficeComboBox;
+    cbbCH0ATY21: TAdvOfficeComboBox;
+    cbbCh0ANQ: TAdvOfficeComboBox;
+    cbbCH0AYN07: TAdvOfficeComboBox;
+    cbbCH0AYN09: TAdvOfficeComboBox;
+    cbbCH0ATY10: TAdvOfficeComboBox;
+    cbbCH0ATY11: TAdvOfficeComboBox;
+    cbbCH0ATY13: TAdvOfficeComboBox;
+    cbbCH0ATY14: TAdvOfficeComboBox;
+    cbbCH0ATY09: TAdvOfficeComboBox;
+    cbbCH0ATY22: TAdvOfficeComboBox;
+    cbbCH0ATY08: TAdvOfficeComboBox;
+    cbbCH0ATY07: TAdvOfficeComboBox;
+    cbbCH0ATY17: TAdvOfficeComboBox;
+    cbbCH0A54: TAdvOfficeComboBox;
+    cbbCH0A57: TAdvOfficeComboBox;
+    cbbCH0ATY15: TAdvOfficeComboBox;
+    cbbCH0A58: TAdvOfficeComboBox;
+    cbbCH0ATY16: TAdvOfficeComboBox;
+    cbbCH0AYNA9: TAdvOfficeComboBox;
+    cbbCH0AYNB1: TAdvOfficeComboBox;
+    cbbCH0A43: TAdvOfficeComboBox;
+    cbbCH0A44: TAdvOfficeComboBox;
+    cbbCH0ACD: TAdvOfficeComboBox;
+    cbbCH0AC1: TAdvOfficeComboBox;
+    cbbCH0AC2: TAdvOfficeComboBox;
+    cbbCh0AQ6: TAdvOfficeComboBox;
+    cbbqj: TAdvOfficeComboBox;
     procedure dbgrdhICUKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgrdhSSKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgrdhXSEKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure edtCH0AYN04KeyPress(Sender: TObject; var Key: Char);
-    procedure edtCH0A43KeyPress(Sender: TObject; var Key: Char);
-    procedure edtCH0AYNA9KeyPress(Sender: TObject; var Key: Char);
-    procedure edtCH0AYNB1KeyPress(Sender: TObject; var Key: Char);
-    procedure edtCH0ATY18KeyPress(Sender: TObject; var Key: Char);
     procedure dsICUStateChange(Sender: TObject);
-    procedure edtCH0AYN04Change(Sender: TObject);
-    procedure edtCH0AYN01Change(Sender: TObject);
-    procedure edtCH0AYNA8Change(Sender: TObject);
-    procedure edtCH0AYNB0Change(Sender: TObject);
-    procedure edtCH0P11Change(Sender: TObject);
-    procedure edtCH0A57Change(Sender: TObject);
-    procedure edtCH0A58Change(Sender: TObject);
-    procedure edtCH0A54Change(Sender: TObject);
-    procedure edtCH0ATY08Change(Sender: TObject);
-    procedure edtCh0ANQChange(Sender: TObject);
-    procedure edtCH0AYN09Change(Sender: TObject);
-    procedure edtqjChange(Sender: TObject);
-    procedure edtCH0ATY11Change(Sender: TObject);
     procedure dbgrdhXSEColumns7UpdateData(Sender: TObject; var Text: string;
       var Value: Variant; var UseText, Handled: Boolean);
     procedure dbgrdhXSEColumns9UpdateData(Sender: TObject; var Text: string;
       var Value: Variant; var UseText, Handled: Boolean);
+    procedure cbbqjChange(Sender: TObject);
+    procedure cbbCH0AYN04Change(Sender: TObject);
+    procedure cbbCH0AYN01Change(Sender: TObject);
+    procedure cbbCH0AYNA8Change(Sender: TObject);
+    procedure cbbCH0AYNB0Change(Sender: TObject);
+    procedure cbbCH0A57Change(Sender: TObject);
+    procedure cbbCH0A58Change(Sender: TObject);
+    procedure cbbCH0A54Change(Sender: TObject);
+    procedure cbbCH0ATY08Change(Sender: TObject);
+    procedure cbbCh0ANQChange(Sender: TObject);
+    procedure cbbCH0AYN07Change(Sender: TObject);
+    procedure cbbCH0AYN09Change(Sender: TObject);
+    procedure cbbCH0ATY11Change(Sender: TObject);
   private
     { Private declarations }
     FBaSetInfo: TBaSetInfo;
@@ -250,8 +202,11 @@ type
     FIsAppend:Boolean;
     FSetControlHint:TSetSbSimpleText;
     FCDSCh0A,FCDSCh0E,FCDSCh0R,FCDSChWT47:TDlClientDataset;
+    OperaXSE:Boolean; //可以操作新生儿
     ///校验时间
     function CheckSJ(const SJ:TDateTime):Boolean;
+    procedure BindCmbItemIndex(const Flag:Integer=0);
+    function SetEnable(compent: TAdvOfficeComboBox):Boolean;
   public
     { Public declarations }
     Constructor Create(Aowner:TComponent);Override;
@@ -263,13 +218,6 @@ type
     /// 判断新生儿列表是否操作
     /// </summary>
     function SetXSEState:Boolean;
-    /// <summary>
-    /// 截取字符串
-    /// </summary>
-    /// <param name="Str">源字符串</param>
-    /// <param name="Size">截取长度</param>
-    /// <returns>string</returns>
-    function Leftstr(Const Str: String; Size: Word):string;
 
   end;
 
@@ -279,6 +227,288 @@ implementation
 {$R *.dfm}
 
 { TFrmTYFY }
+
+procedure TFrmTYFY.BindCmbItemIndex(const Flag:Integer=0);
+   procedure getAndSet(dlclient:TDlClientDataset;cbbtmp:TAdvOfficeComboBox;Flag:Integer=0);
+   var
+     FieldName:string;
+     itemindex:Integer;
+     FieldDM:string;
+     itemValue:string;
+   begin
+     FieldName := Copy(cbbtmp.Name,4,Length(cbbtmp.Name)-3);
+     if dlclient.IsEmpty then
+       Exit;
+     case Flag of
+       0: //赋值
+       begin
+         if not dlclient.Active  then Exit;
+
+         if cbbtmp.Tag =9 then
+         begin
+           if dlclient.FieldByName(FieldName).AsString <>'' then
+           begin
+              if dlclient.FieldByName(FieldName).AsString='2' then
+                FieldDM := '1'
+              else
+                FieldDM := '2';
+             itemindex := GetDmIndexOFCombobox(FieldDM,cbbtmp);
+           end
+           else
+             itemindex := -1;
+         end
+         else
+          itemindex:=GetDmIndexOFCombobox(dlclient.FieldByName(FieldName).AsString,cbbtmp);
+         cbbtmp.ItemIndex := itemindex;
+
+       end;
+       1: //取值
+       begin
+         try
+           if cbbtmp.Tag =9 then  //是否情况
+           begin
+             itemValue := GetDmOFCombobox(cbbtmp);
+             if itemValue ='2' then
+                itemValue := '1'
+             else if itemValue ='1' then
+                itemValue := '2';
+
+           end
+           else
+             itemValue := GetDmOFCombobox(cbbtmp);
+           dlclient.Edit;
+           dlclient.FieldByName(FieldName).AsString := itemValue;
+         except
+           on ex:Exception do
+           begin
+             WriteErrorLog(ex.Message);
+           end;
+
+         end;
+       end;  
+     end;
+
+   end;
+var
+  i,j:Integer;
+  cbbField:TAdvOfficeComboBox;
+  FieldName:string;
+begin
+  for I := 0 to ScrollBox1.ControlCount - 1 do
+  begin
+    if ScrollBox1.Controls[i] is TAdvGroupBox then
+    begin
+      for j := 0 to (ScrollBox1.Controls[i] as TAdvGroupBox).ControlCount - 1 do
+      begin
+        if (ScrollBox1.Controls[i] as TAdvGroupBox).Controls[j] is TAdvOfficeComboBox then
+        begin
+          cbbField := (ScrollBox1.Controls[i] as TAdvGroupBox).Controls[j] as TAdvOfficeComboBox;
+          FieldName := Copy(cbbField.Name,4,Length(cbbField.Name)-3);
+          case Flag of
+             0:  //赋值
+             begin
+                if Assigned(FCDSCh0A.FindField(FieldName)) then
+                begin
+                  getAndSet(FCDSCh0A,cbbField);
+                end
+                else if Assigned(FCDSCh0E.FindField(FieldName)) then
+                begin
+                  getAndSet(FCDSCh0E,cbbField);
+                end
+                else if  Assigned(FCDSCh0R.FindField(FieldName)) then
+                begin
+                  getAndSet(FCDSCh0R,cbbField);
+                end;
+             end;
+             1: //取值
+             begin
+                WriteDeBug(FieldName);
+                if Assigned(FCDSCh0A.FindField(FieldName)) then
+                begin
+                  getAndSet(FCDSCh0A,cbbField,1);
+                end
+                else if Assigned(FCDSCh0E.FindField(FieldName)) then
+                begin
+                  getAndSet(FCDSCh0E,cbbField,1);
+                end
+                else if  Assigned(FCDSCh0R.FindField(FieldName)) then
+                begin
+                  getAndSet(FCDSCh0R,cbbField,1);
+                end;
+             end;  
+          end;
+
+        end;
+
+      end;
+    end;
+  end;
+end;
+
+procedure TFrmTYFY.cbbCH0A54Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0A54) then
+  begin
+    edtCH0AQ1.Text := '';
+    edtCH0AQ1.Enabled := False;
+  end
+  else
+    edtCH0AQ1.Enabled := True;
+end;
+
+procedure TFrmTYFY.cbbCH0A57Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0A57) then
+  begin
+    cbbCH0ATY15.Enabled := False;
+  end
+  else
+    cbbCH0ATY15.Enabled := True;
+end;
+
+procedure TFrmTYFY.cbbCH0A58Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0A58) then
+  begin
+    cbbCH0ATY16.ItemIndex := -1;
+    cbbCH0ATY16.Enabled := False;
+  end
+  else
+    cbbCH0ATY16.Enabled := True;
+end;
+
+procedure TFrmTYFY.cbbCh0ANQChange(Sender: TObject);
+begin
+
+  if not SetEnable(cbbCh0ANQ) then
+  begin
+    cbbCH0AYN07.ItemIndex := -1;
+    cbbCH0AYN07.Enabled := False;
+  end
+  else
+    cbbCH0AYN07.Enabled := True;
+end;
+
+procedure TFrmTYFY.cbbCH0ATY08Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0ATY08) then
+  begin
+     cbbCH0ATY09.ItemIndex := -1;
+     cbbCH0ATY09.Enabled := False;
+  end
+  else
+    cbbCH0ATY09.Enabled := True;
+end;
+
+procedure TFrmTYFY.cbbCH0ATY11Change(Sender: TObject);
+begin
+  if SetEnable(cbbCH0ATY11) then
+  begin
+    edtCH0ATY12.Text:='';
+    edtCH0ATY12.Enabled :=False;
+  end
+  else
+    edtCH0ATY12.Enabled :=True;
+end;
+
+procedure TFrmTYFY.cbbCH0AYN01Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0AYN01) then
+  begin
+    edtCH0AYN02.Text := '';
+    cbbCH0AYN03.ItemIndex := -1;
+    edtCH0AYN02.Enabled := False;
+    cbbCH0AYN03.Enabled := False;
+  end
+  else
+  begin
+    edtCH0AYN02.Enabled := True;
+    cbbCH0AYN03.Enabled := True;
+  end;
+end;
+
+procedure TFrmTYFY.cbbCH0AYN04Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0AYN04) then
+  begin
+    edtCH0AYN05.Text := '';
+    cbbCH0AYN06.ItemIndex := -1;
+    edtCH0AYN05.Enabled := False;
+    cbbCH0AYN06.Enabled := False;
+  end
+  else
+  begin
+    edtCH0AYN05.Enabled := True;
+    cbbCH0AYN06.Enabled := True;
+  end;
+end;
+
+procedure TFrmTYFY.cbbCH0AYN07Change(Sender: TObject);
+begin
+  if SetEnable(cbbCH0AYN07) then
+  begin
+    edtCH0AYN08.Text := '';
+    edtCH0AYN08.Enabled :=False;
+  end
+  else
+    edtCH0AYN08.Enabled :=true;
+end;
+
+procedure TFrmTYFY.cbbCH0AYN09Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0AYN09) then
+  begin
+    edtCH0AYNAA.Text :='';
+    edtCH0AYNAA.Enabled :=False;
+  end
+  else
+    edtCH0AYNAA.Enabled := True;
+end;
+
+procedure TFrmTYFY.cbbCH0AYNA8Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0AYNA8) then
+  begin
+    cbbCH0AYNA9.ItemIndex := -1;
+    cbbCH0AYNA9.Enabled := False;
+  end
+  else
+    cbbCH0AYNA9.Enabled := True;
+end;
+
+procedure TFrmTYFY.cbbCH0AYNB0Change(Sender: TObject);
+begin
+  if not SetEnable(cbbCH0AYNB0) then
+  begin
+    cbbCH0AYNB1.ItemIndex := -1;
+    cbbCH0AYNB1.Enabled := False;
+    cbbCH0AYNB2.Text := '';
+    cbbCH0AYNB2.Enabled := False;
+  end
+  else
+  begin
+    cbbCH0AYNB1.Enabled := True;
+    cbbCH0AYNB2.Enabled := True;
+  end;
+
+end;
+
+procedure TFrmTYFY.cbbqjChange(Sender: TObject);
+begin
+  if cbbqj.ItemIndex =0 then      //无
+  begin
+    edttCH0A46.Text :='';
+    edttCH0A46.Enabled := False;
+    edttCH0A47.Text := '';
+    edttCH0A47.Enabled := False;
+     
+  end
+  else if  cbbqj.ItemIndex =1 then
+  begin
+    edttCH0A46.Enabled := True;
+    edttCH0A47.Enabled := True;
+  end;
+end;
 
 function TFrmTYFY.CheckSJ(const SJ:TDateTime): Boolean;
 var
@@ -294,12 +524,92 @@ begin
     Result :=True;
   end;
 end;
+/// <summary>
+/// 填充有无、是否combobox
+/// </summary>
+/// <param name="Compent">控件</param>
+/// <param name="Flag">字段标识，默认是否</param>
+procedure FillSFCombobox(const Compent:TAdvOfficeComboBox;Flag:Integer=0);
+var
+  field:string;
+begin
+  case Flag of
+     0:     //是否
+     begin
+       field := 'CASE WHEN id=2 THEN 1 ELSE 2 END id,sf';
+     end;
+     1:  //有无
+     begin
+       field := 'id,yw';
+     end;
+  end;
+  FillCombobox(Format('Select %s From VsZhdm_12 Where ISNULL(sf,^^)<>^^ ORDER BY id ',[field]),'ID',Copy(field,Pos(',',field)+1,2),Compent);
+  Compent.ItemIndex := -1;
+end;
 
 constructor TFrmTYFY.Create(Aowner: TComponent);
 begin
   inherited;
-
   FillCombobox('Select id,FallBedReason From VsZhdm_12 Where ISNULL(FallBedReason,^^)<>^^','ID','FallBedReason',cbbCH0AYNB2);
+  FillCombobox('Select id,Jsyczbysj From VsZhdm_12 Where ISNULL(Jsyczbysj,^^)<>^^','ID','Jsyczbysj',cbbCH0ATY18);
+  FillCombobox('Select id,zysftyjb From VsZhdm_12 Where ISNULL(zysftyjb,^^)<>^^','ID','zysftyjb',cbbCH0ATY19);
+  FillCombobox('select id,ycfq from VsZhdm_12 Where ISNULL(ycfq,^^)<>^^','ID','ycfq',cbbCH0AYNA9);     //压疮分期
+  FillCombobox('select id,BedSH from VsZhdm_12 Where ISNULL(BedSH,^^)<>^^ and id >0','id','BedSH',cbbCH0AYNB1);  //跌倒伤害
+  FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCH0A43);
+  FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCH0A44);
+  FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCH0AC1);
+  FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCh0AQ6);
+  FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCH0ACD);
+  FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCH0AC2);
+  cbbCH0AYNB2.ItemIndex :=-1;
+  cbbCH0ATY18.ItemIndex := -1;
+  cbbCH0ATY19.ItemIndex := -1;
+  cbbCH0AYNA9.ItemIndex := -1;
+  cbbCH0AYNB1.ItemIndex := -1;
+  cbbCH0A43.ItemIndex :=-1;
+  cbbCH0A44.ItemIndex := -1;
+  cbbCH0AC1.ItemIndex := -1;
+  cbbCh0AQ6.ItemIndex := -1;
+  cbbCH0ACD.ItemIndex := -1;
+  cbbCH0AC2.ItemIndex := -1;
+  FillSFCombobox(cbbCH0ESC00);
+  FillSFCombobox(cbbCH0EZ14);
+  FillSFCombobox(cbbCH0ATY01);
+  FillSFCombobox(cbbCH0AYN01);
+  FillSFCombobox(cbbCH0ATY04);
+  FillSFCombobox(cbbCH0ATY05);
+  FillSFCombobox(cbbCH0AYN06);
+  FillSFCombobox(cbbCH0AYN03);
+  FillSFCombobox(cbbCH0ATY02);
+  FillSFCombobox(cbbCH0ATY06);
+  FillSFCombobox(cbbCh0EZ03);
+  FillSFCombobox(cbbCH0AYNA8);
+  FillSFCombobox(cbbCH0AYNA7);
+  FillSFCombobox(cbbCH0AYNB0);
+  FillSFCombobox(cbbCH0ATY20);
+  FillSFCombobox(cbbCH0ATY21);
+  FillSFCombobox(cbbCh0ANQ);
+  FillSFCombobox(cbbCH0AYN04);
+  FillSFCombobox(cbbCH0AYN07);
+  FillSFCombobox(cbbCH0AYN09);
+  FillSFCombobox(cbbCH0ATY10);
+  FillSFCombobox(cbbCH0ATY11);
+  FillSFCombobox(cbbCH0ATY13);
+  FillSFCombobox(cbbCH0ATY14);
+  FillSFCombobox(cbbCH0EZ13);
+  FillSFCombobox(cbbCH0EZ19,1);
+  FillSFCombobox(cbbCH0EZ15,1);
+  FillSFCombobox(cbbCH0A57,1);
+  FillSFCombobox(cbbCH0ATY15,1);
+  FillSFCombobox(cbbCH0A58,1);
+  FillSFCombobox(cbbCH0ATY16,1);
+  FillSFCombobox(cbbCH0ATY09,1);
+  FillSFCombobox(cbbCH0ATY22,1);
+  FillSFCombobox(cbbCH0ATY08,1);
+  FillSFCombobox(cbbCH0ATY07,1);
+  FillSFCombobox(cbbCH0ATY17,1);
+  FillSFCombobox(cbbCH0A54,1);
+  FillSFCombobox(cbbqj,1);
 
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhSS,'CH0ESC00','id','sf');
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhSS,'CH0EE6','id','sf');
@@ -464,106 +774,7 @@ begin
 
 end;
 
-procedure TFrmTYFY.edtCH0A43KeyPress(Sender: TObject; var Key: Char);
-begin
-  if not (Key in ['1'..'4']) then
-    Key := #0
-end;
 
-procedure TFrmTYFY.edtCH0A54Change(Sender: TObject);
-begin
-  edtCH0AQ1.Enabled := edtCH0A54.Text = '2';
-end;
-
-procedure TFrmTYFY.edtCH0A57Change(Sender: TObject);
-begin
-  edtCH0ATY15.Enabled :=edtCH0A57.Text = '2';
-end;
-
-procedure TFrmTYFY.edtCH0A58Change(Sender: TObject);
-begin
-  edtCH0ATY16.Enabled :=  edtCH0A58.Text ='2';
-end;
-
-procedure TFrmTYFY.edtCh0ANQChange(Sender: TObject);
-begin
-  edtCH0AYN07.Enabled := edtCh0ANQ.Text ='2';
-  edtCH0AYN08.Enabled :=edtCh0ANQ.Text ='2';
-end;
-
-procedure TFrmTYFY.edtCH0ATY08Change(Sender: TObject);
-begin
-  edtCH0ATY09.Enabled := edtCH0ATY08.Text = '2';
-end;
-
-procedure TFrmTYFY.edtCH0ATY11Change(Sender: TObject);
-begin
-  edtCH0ATY12.Enabled := edtCH0ATY11.Text <>'2';
-end;
-
-procedure TFrmTYFY.edtCH0ATY18KeyPress(Sender: TObject; var Key: Char);
-begin
-  if not (Key in ['0'..'4']) then
-    Key := #0
-end;
-
-procedure TFrmTYFY.edtCH0AYN01Change(Sender: TObject);
-begin
-  edtCH0AYN02.Enabled := edtCH0AYN01.Text ='2';
-  edtCH0AYN03.Enabled := edtCH0AYN01.Text ='2';
-end;
-
-procedure TFrmTYFY.edtCH0AYN04Change(Sender: TObject);
-begin
-  edtCH0AYN05.Enabled := edtCH0AYN04.Text ='2';
-  edtCH0AYN06.Enabled := edtCH0AYN04.Text ='2';
-  edtCH0ATY01.Enabled := edtCH0AYN04.Text ='2';
-end;
-
-procedure TFrmTYFY.edtCH0AYN04KeyPress(Sender: TObject; var Key: Char);
-begin
-  if not (Key in ['0'..'2']) then
-    Key := #0
-end;
-
-procedure TFrmTYFY.edtCH0AYN09Change(Sender: TObject);
-begin
-  edtCH0AYNAA.Enabled := edtCH0AYN09.Text ='2';
-end;
-
-procedure TFrmTYFY.edtCH0AYNA8Change(Sender: TObject);
-begin
-  edtCH0AYNA9.Enabled := edtCH0AYNA8.Text ='2';
-end;
-
-procedure TFrmTYFY.edtCH0AYNA9KeyPress(Sender: TObject; var Key: Char);
-begin
-  if not (Key in ['0'..'5']) then
-  Key := #0
-end;
-
-procedure TFrmTYFY.edtCH0AYNB0Change(Sender: TObject);
-begin
-  edtCH0AYNB1.Enabled := edtCH0AYNB0.Text ='2';
-  cbbCH0AYNB2.Enabled :=edtCH0AYNB0.Text ='2';
-end;
-
-procedure TFrmTYFY.edtCH0AYNB1KeyPress(Sender: TObject; var Key: Char);
-begin
-  if not (Key in ['0'..'3']) then
-    Key := #0
-end;
-
-procedure TFrmTYFY.edtCH0P11Change(Sender: TObject);
-begin
-  edtCH0P13.Enabled := edtCH0P11.Text = '2';
-end;
-
-procedure TFrmTYFY.edtqjChange(Sender: TObject);
-begin
-  edttCH0A46.Enabled := edtqj.Text='2';
-  edttCH0A47.Enabled :=edtqj.Text='2';
-end;
 
 procedure TFrmTYFY.GetValueByCh0P01(Chyear, Ch0A01, Ch0A00: string;
   SetControlHint: TSetSbSimpleText; IsAppend: Boolean; CDSCh0A,
@@ -651,100 +862,54 @@ begin
     lblKB.Caption := kb;
     lblZYH.Caption :=Ch0A00;
   end;
+  BindCmbItemIndex;
 
-  //查询手术信息
-
-//  FCDSCh0E.Mid_Open(Format(SQLCH0E,[Ch0A01,Chyear]));
-//  _GetMidData(FCDSCh0E,_GetMidDataSQL('VSCH_CH0E','CH0E01'));
-  if not FCDSCh0E.IsEmpty then
-  begin
-    edtCH0EZ13.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ13').AsInteger);
-    edtCH0EZ14.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ14').AsInteger);
-    edtCH0ESC00.Text :=IntToStr(FCDSCh0E.FieldByName('CH0ESC00').AsInteger);
-    edtCH0EZ19.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ19').AsInteger);
-    edtCH0EZ15.Text :=IntToStr(FCDSCh0E.FieldByName('CH0EZ15').AsInteger);
-    edtCh0EZ03.Text := IIF(FCDSCh0E.FieldByName('CH0EZ03').AsInteger=0,'1',FCDSCh0E.FieldByName('CH0EZ03').AsString);
-
-  end;
-    //查询ICU信息
-//  DLCH0R.Mid_Open(Format('select * from VsCh0R where Ch0R01=^%s^ and CHYear=^%s^',[Ch0A01,Chyear]));
-//  _GetMidData(DLCH0R,_GetMidDataSQL('VSCH_CH0R','Ch0R01'));
-
+  
   if not FCDSCh0A.IsEmpty then
   begin
   //合理用药
-    edtCH0ATY18.Text := IntToStr(FCDSCh0A.FieldByName('CH0ATY18').AsInteger);
-    edtCH0ATY19.Text := IntToStr(FCDSCh0A.FieldByName('CH0ATY19').AsInteger);
-    edtCH0AYN04.Text := IntToStr(FCDSCh0A.FieldByName('CH0AYN04').AsInteger);
     edtCH0AYN05.Text := IntToStr(FCDSCh0A.FieldByName('CH0AYN05').AsInteger);
-    edtCH0AYN06.Text := IntToStr(FCDSCh0A.FieldByName('CH0AYN06').AsInteger);
-    edtCH0AYN01.Text := IntToStr(FCDSCh0A.FieldByName('CH0AYN01').AsInteger);
     edtCH0AYN02.Text := IntToStr(FCDSCh0A.FieldByName('CH0AYN02').AsInteger);
-    edtCH0AYN03.Text := IntToStr(FCDSCh0A.FieldByName('CH0AYN03').AsInteger);
-    edtCH0ATY01.Text := IntToStr(FCDSCh0A.FieldByName('CH0ATY01').AsInteger);
-    edtCH0ATY02.Text := IntToStr(FCDSCh0A.FieldByName('CH0ATY02').AsInteger);
-    edtCH0ATY04.Text := IntToStr(FCDSCh0A.FieldByName('CH0ATY04').AsInteger);
-    edtCH0ATY05.Text := IntToStr(FCDSCh0A.FieldByName('CH0ATY05').AsInteger);
-    edtCH0ATY06.Text := IntToStr(FCDSCh0A.FieldByName('CH0ATY06').AsInteger);
-     //患者安全
-    edtCH0AYNA7.Text := FCDSCh0A.FieldByName('CH0AYNA7').AsString;
-    edtCH0AYNA8.Text := FCDSCh0A.FieldByName('CH0AYNA8').AsString;
-    edtCH0AYNA9.Text := FCDSCh0A.FieldByName('CH0AYNA9').AsString;
-    edtCH0AYNB0.Text := FCDSCh0A.FieldByName('CH0AYNB0').AsString;
-    edtCH0AYNB1.Text := FCDSCh0A.FieldByName('CH0AYNB1').AsString;
-    cbbCH0AYNB2.ItemIndex := GetDmIndexOFCombobox(FCDSCh0A.FieldByName('CH0AYNB2').AsString,cbbCH0AYNB2) ;
-    edtCH0ATY15.Text := FCDSCh0A.FieldByName('CH0ATY15').AsString;
-    edtCH0ATY16.Text := FCDSCh0A.FieldByName('CH0ATY16').AsString;
-    edtCH0A57.Text   :=   FCDSCh0A.FieldByName('CH0A57').AsString;
-    edtCH0A58.Text    :=   FCDSCh0A.FieldByName('CH0A58').AsString;
-    edtCH0P11.Text := FCDSCh0A.FieldByName('CH0ATY20').AsString;
-    edtCH0P13.Text :=FCDSCh0A.FieldByName('CH0ATY21').AsString;
 
     //医院感染
-    edtCH0A54.Text    :=   FCDSCh0A.FieldByName('ch0A54').AsString;
     edtCH0AQ1.Text     :=   FCDSCh0A.FieldByName('CH0AQ1').AsString;
-    edtCH0ATY07.Text   := FCDSCh0A.FieldByName('CH0ATY07').AsString;
-    edtCH0ATY17.Text   := FCDSCh0A.FieldByName('CH0ATY17').AsString;
-    edtCH0ATY22.Text    :=   FCDSCh0A.FieldByName('CH0ATY22').AsString;
-    edtCH0ATY08.Text  := FCDSCh0A.FieldByName('CH0ATY08').AsString;
-    edtCH0ATY09.Text := FCDSCh0A.FieldByName('CH0ATY09').AsString;
 
     //临床路径
-    edtCh0ANQ.Text := FCDSCh0A.FieldByName('CH0ANQ').AsString;
-    edtCH0AYN07.Text := FCDSCh0A.FieldByName('CH0AYN07').AsString;
     edtCH0AYN08.Text := FCDSCh0A.FieldByName('CH0AYN08').AsString;
-    edtCH0AYN09.Text := FCDSCh0A.FieldByName('CH0AYN09').AsString;
     edtCH0AYNAA.Text := FCDSCh0A.FieldByName('CH0AYNAA').AsString;
 
     //其他
     if FCDSCh0A.FieldByName('CH0A46').AsInteger =0 then
     begin
-      edtqj.Text := '1';
+       cbbqj.ItemIndex := 0;
       edttCH0A46.Text := '0';
       edttCH0A47.Text :='0';
     end
     else
     begin
-      edtqj.Text := '2';
+      cbbqj.ItemIndex := 1;
       edttCH0A46.Text := FCDSCh0A.FieldByName('CH0A46').AsString;
       edttCH0A47.Text := FCDSCh0A.FieldByName('CH0A47').AsString;
     end;
-    edtCH0A43.Text := FCDSCh0A.FieldByName('CH0A43').AsString;
-    edtCH0A44.Text := FCDSCh0A.FieldByName('CH0A44').AsString;
-    edtCH0ACD.Text := FCDSCh0A.FieldByName('CH0ACD').AsString;
-    edtCH0AC1.Text := FCDSCh0A.FieldByName('CH0AC1').AsString;
-    edtCH0AC2.Text := FCDSCh0A.FieldByName('CH0AC2').AsString;
-    edtCh0AQ6.Text := FCDSCh0A.FieldByName('Ch0AQ6').AsString;
-    edtCH0ATY10.Text := FCDSCh0A.FieldByName('CH0ATY10').AsString;
-    edtCH0ATY11.Text := FCDSCh0A.FieldByName('CH0ATY11').AsString;
     edtCH0ATY12.Text := FCDSCh0A.FieldByName('CH0ATY12').AsString;
-    edtCH0ATY13.Text := FCDSCh0A.FieldByName('CH0ATY13').AsString;
-    edtCH0ATY14.Text := FCDSCh0A.FieldByName('CH0ATY14').AsString;
   end;
 
+  cbbCH0AYN04Change(nil);
+  cbbCH0AYN01Change(nil);
+  cbbCH0AYNA8Change(nil);
+  cbbCH0AYNB0Change(nil);
+  cbbCH0A57Change(nil);
+  cbbCH0A58Change(nil);
+  cbbCH0A54Change(nil);
+  cbbCH0ATY08Change(nil);
+  cbbCh0ANQChange(nil);
+  cbbCH0AYN07Change(nil);
+  cbbCH0AYN09Change(nil);
+  cbbCH0ATY11Change(nil);
 
   //新生儿
-  if not SetXSEState then Exit;
+  OperaXSE := SetXSEState;
+  if not OperaXSE then Exit;
   sqltext := 'select * from %0:s where CHYear=^%1:s^ and WT4701 =^%2:s^';
   FCDSChWT47 :=TDlClientDataset.Create(nil);
   FCDSChWT47.MidClassName :=EuVsWt47;
@@ -844,15 +1009,19 @@ begin
     end;
   end;
   dsXSER.DataSet := clientdtXSER;
-  dbgrdhXSE.DataSource := dsXSER;
+  dbgrdhXSE.DataSource := dsXSER; 
 end;
 
-function TFrmTYFY.Leftstr(const Str: String; Size: Word): string;
+function TFrmTYFY.SetEnable(compent: TAdvOfficeComboBox):Boolean;
+var
+  dm: string;
 begin
-  if Str='' then Exit;
-  if Size > Length(Str) then
-    Size := Length(Str);
-  Result := Copy(Str,0,Size);
+  Result := False;
+  dm := GetDmOFCombobox(compent);
+  if dm <> '' then
+  begin
+    Result := dm ='2';
+  end;
 end;
 
 procedure TFrmTYFY.SaveValue;
@@ -863,131 +1032,80 @@ procedure TFrmTYFY.SaveValue;
     //修改记录时Modified标志没有自动记为true,必须改变状态才能post
     if CDS.state in [DB.dsEdit,DB.dsInsert] then
        CDS.Post;
+    
     if CDS.ChangeCount>0 then
        CDS.ApplyUpdates(CMaxErrors);
   end;
 var
   xh:string;
 begin
-  if FCDSCh0E.Active then
-  begin
-     //更新手术信息
-    FCDSCh0E.Edit;
-    FCDSCh0E.FieldByName('CH0EZ13').AsString  :=   edtCH0EZ13.Text;
-    FCDSCh0E.FieldByName('CH0EZ14').AsString  :=  edtCH0EZ14.Text;
-    FCDSCh0E.FieldByName('CH0ESC00').AsString  :=  edtCH0ESC00.Text;
-    FCDSCh0E.FieldByName('CH0EZ19').AsString   :=  edtCH0EZ19.Text;
-    FCDSCh0E.FieldByName('CH0EZ15').AsString  := edtCH0EZ15.Text;
-    FCDSCh0E.FieldByName('CH0EZ03').AsString  :=  edtCh0EZ03.Text;
-    FCDSCh0E.Post;
-  end;
-
-
-  //病案首页
-   //合理用药
+  BindCmbItemIndex(1);
   FCDSCh0A.Edit;
-  FCDSCh0A.FieldByName('CH0ATY18').AsString :=edtCH0ATY18.Text ;
-  FCDSCh0A.FieldByName('CH0ATY19').AsString :=edtCH0ATY19.Text ;
-  FCDSCh0A.FieldByName('CH0AYN04').AsString :=edtCH0AYN04.Text ;
   FCDSCh0A.FieldByName('CH0AYN05').AsString :=edtCH0AYN05.Text ;
-  FCDSCh0A.FieldByName('CH0AYN06').AsString :=edtCH0AYN06.Text ;
-  FCDSCh0A.FieldByName('CH0AYN01').AsString :=edtCH0AYN01.Text ;
   FCDSCh0A.FieldByName('CH0AYN02').AsString :=edtCH0AYN02.Text ;
-  FCDSCh0A.FieldByName('CH0AYN03').AsString :=edtCH0AYN03.Text ;
-  FCDSCh0A.FieldByName('CH0ATY01').AsString :=edtCH0ATY01.Text ;
-  FCDSCh0A.FieldByName('CH0ATY02').AsString :=edtCH0ATY02.Text ;
-  FCDSCh0A.FieldByName('CH0ATY04').AsString :=edtCH0ATY04.Text ;
-  FCDSCh0A.FieldByName('CH0ATY05').AsString :=edtCH0ATY05.Text ;
-  FCDSCh0A.FieldByName('CH0ATY06').AsString :=edtCH0ATY06.Text ;
-  //患者安全
-
-  FCDSCh0A.FieldByName('CH0AYNA7').AsString:=edtCH0AYNA7.Text ;
-  FCDSCh0A.FieldByName('CH0AYNA8').AsString:=edtCH0AYNA8.Text ;
-  FCDSCh0A.FieldByName('CH0AYNA9').AsString:=edtCH0AYNA9.Text ;
-  FCDSCh0A.FieldByName('CH0AYNB0').AsString:=edtCH0AYNB0.Text ;
-  FCDSCh0A.FieldByName('CH0AYNB1').AsString:=edtCH0AYNB1.Text ;
-  FCDSCh0A.FieldByName('CH0AYNB2').AsString := GetDmOFCombobox(cbbCH0AYNB2);
-  FCDSCh0A.FieldByName('CH0ATY15').AsString :=edtCH0ATY15.Text  ;
-  FCDSCh0A.FieldByName('CH0ATY16').AsString:= edtCH0ATY16.Text ;
-  FCDSCh0A.FieldByName('CH0A57').AsString:=   edtCH0A57.Text  ;
-  FCDSCh0A.FieldByName('CH0A58').AsString:=   edtCH0A58.Text  ;
-  //医院感染
-  FCDSCh0A.FieldByName('ch0A54').AsString :=edtCH0A54.Text;
-  FCDSCh0A.FieldByName('CH0AQ1').AsString :=edtCH0AQ1.Text;   
-  FCDSCh0A.FieldByName('CH0ATY07').AsString :=edtCH0ATY07.Text ;
-  FCDSCh0A.FieldByName('CH0ATY17').AsString :=edtCH0ATY17.Text;
-  FCDSCh0A.FieldByName('CH0ATY22').AsString :=edtCH0ATY22.Text ;
-  FCDSCh0A.FieldByName('CH0ATY08').AsString :=edtCH0ATY08.Text ;
-  FCDSCh0A.FieldByName('CH0ATY09').AsString :=edtCH0ATY09.Text;
-
-  // 临床路径
-  FCDSCh0A.FieldByName('CH0ANQ').AsString :=   edtCh0ANQ.Text;
-  FCDSCh0A.FieldByName('CH0AYN07').AsString:= edtCH0AYN07.Text;
+  FCDSCh0A.FieldByName('CH0AQ1').AsString :=edtCH0AQ1.Text;
   FCDSCh0A.FieldByName('CH0AYN08').AsString:=  edtCH0AYN08.Text;
-  FCDSCh0A.FieldByName('CH0AYN09').AsString:=  edtCH0AYN09.Text;
   FCDSCh0A.FieldByName('CH0AYNAA').AsString:= edtCH0AYNAA.Text;
-
-  //其他
   FCDSCh0A.FieldByName('CH0A46').AsString := edttCH0A46.Text ;
   FCDSCh0A.FieldByName('CH0A47').AsString := edttCH0A47.Text;
-  FCDSCh0A.FieldByName('CH0A43').AsString :=edtCH0A43.Text ;
-  FCDSCh0A.FieldByName('CH0A44').AsString :=edtCH0A44.Text ;
-  FCDSCh0A.FieldByName('CH0ACD').AsString :=edtCH0ACD.Text ;
-  FCDSCh0A.FieldByName('CH0AC1').AsString :=edtCH0AC1.Text ;
-  FCDSCh0A.FieldByName('CH0AC2').AsString :=edtCH0AC2.Text ;
-  FCDSCh0A.FieldByName('Ch0AQ6').AsString :=edtCh0AQ6.Text ;
-  FCDSCh0A.FieldByName('CH0ATY10').AsString :=edtCH0ATY10.Text ;
-  FCDSCh0A.FieldByName('CH0ATY11').AsString :=edtCH0ATY11.Text;
   FCDSCh0A.FieldByName('CH0ATY12').AsString :=edtCH0ATY12.Text ;
-  FCDSCh0A.FieldByName('CH0ATY13').AsString :=edtCH0ATY13.Text ;
-  FCDSCh0A.FieldByName('CH0ATY14').AsString :=edtCH0ATY14.Text ;
-  FCDSCh0A.FieldByName('CH0ATY20').AsString :=  edtCH0P11.Text;
-  FCDSCh0A.FieldByName('CH0ATY21').AsString := edtCH0P13.Text ;
-  
-  FCDSCh0A.Post;
+
+  if not FCDSCh0E.IsEmpty then
+  begin
+    FCDSCh0E.Edit;
+    FCDSCh0E.FieldByName('CHYear').AsString := FChYear;
+    FCDSCh0E.FieldByName('CH0E01').AsString := FCh0A01;
+  end;
+
+  if not FCDSCh0R.IsEmpty then
+  begin
+    FCDSCh0R.Edit;
+    FCDSCh0R.FieldByName('CHYear').AsString := FChYear;
+    FCDSCh0R.FieldByName('CH0R01').AsString := FCh0A01;
+  end;
+
+
 
   //新生儿
-
-  with clientdtXSER do
+  
+  if OperaXSE then
   begin
-    First;
-    while not Eof do
+    with clientdtXSER do
     begin
-      xh := clientdtXSER.FieldByName('xh').AsString;
-      if (FieldByName('XB').AsString <> '') and (FieldByName('CSSJ').AsString<>'') then
+      First;
+      while not Eof do
       begin
-        if FCDSChWT47.RecordCount =0 then
-          FCDSChWT47.Append
-        else
-          FCDSChWT47.Edit;
-        FCDSChWT47.FieldByName('CHYear').AsString := FChYear;
-        FCDSChWT47.FieldByName('WT4701').AsString := FCh0A01;
-        FCDSChWT47.FieldByName('FM_XB'+xh).AsString := FieldByName('XB').AsString;
-        FCDSChWT47.FieldByName('FM_PF'+xh).AsString := FieldByName('PF').AsString;
-        FCDSChWT47.FieldByName('FM_SC'+xh).AsString := FieldByName('SC').AsString;
-        FCDSChWT47.FieldByName('FM_Weight'+xh).AsString := FieldByName('TZ').AsString;
-        FCDSChWT47.FieldByName('FM_RSJJ'+xh).AsString := FieldByName('CCQK').AsString;
-        FCDSChWT47.FieldByName('FM_CYQK'+xh).AsString := FieldByName('CYQK').AsString;
-        FCDSChWT47.FieldByName('FM_CSRQ'+xh).AsString := FieldByName('CSSJ').AsString;
-        FCDSChWT47.FieldByName('FM_SWRQ'+xh).AsString := FieldByName('SWSJ').AsString;
-        FCDSChWT47.FieldByName('FM_SWYY'+xh).AsString := FieldByName('SWYY').AsString;
-        FCDSChWT47.FieldByName('FM_YYGR'+xh).AsString := FieldByName('YYGR').AsString;
-        FCDSChWT47.FieldByName('FM_JB'+xh).AsString := FieldByName('JB').AsString;
+        xh := clientdtXSER.FieldByName('xh').AsString;
+        if (FieldByName('XB').AsString <> '') and (FieldByName('CSSJ').AsString<>'') then
+        begin
+          if FCDSChWT47.RecordCount =0 then
+            FCDSChWT47.Append
+          else
+            FCDSChWT47.Edit;
+          FCDSChWT47.FieldByName('CHYear').AsString := FChYear;
+          FCDSChWT47.FieldByName('WT4701').AsString := FCh0A01;
+          FCDSChWT47.FieldByName('FM_XB'+xh).AsString := FieldByName('XB').AsString;
+          FCDSChWT47.FieldByName('FM_PF'+xh).AsString := FieldByName('PF').AsString;
+          FCDSChWT47.FieldByName('FM_SC'+xh).AsString := FieldByName('SC').AsString;
+          FCDSChWT47.FieldByName('FM_Weight'+xh).AsString := FieldByName('TZ').AsString;
+          FCDSChWT47.FieldByName('FM_RSJJ'+xh).AsString := FieldByName('CCQK').AsString;
+          FCDSChWT47.FieldByName('FM_CYQK'+xh).AsString := FieldByName('CYQK').AsString;
+          FCDSChWT47.FieldByName('FM_CSRQ'+xh).AsString := FieldByName('CSSJ').AsString;
+          FCDSChWT47.FieldByName('FM_SWRQ'+xh).AsString := FieldByName('SWSJ').AsString;
+          FCDSChWT47.FieldByName('FM_SWYY'+xh).AsString := FieldByName('SWYY').AsString;
+          FCDSChWT47.FieldByName('FM_YYGR'+xh).AsString := FieldByName('YYGR').AsString;
+          FCDSChWT47.FieldByName('FM_JB'+xh).AsString := FieldByName('JB').AsString;
+        end;
+        Next;
       end;
-      Next;
     end;
+    aSaveCDS(FCDSChWT47);
   end;
-  FCDSCh0E.Edit;
-  FCDSCh0E.FieldByName('CHYear').AsString := FChYear;
-  FCDSCh0E.FieldByName('CH0E01').AsString := FCh0A01;
-  FCDSCh0R.Edit;
-  FCDSCh0R.FieldByName('CHYear').AsString := FChYear;
-  FCDSCh0R.FieldByName('CH0R01').AsString := FCh0A01;
-
+  
   aSaveCDS(FCDSCh0A);
   aSaveCDS(FCDSCh0E);
   aSaveCDS(FCDSCh0R);
-  aSaveCDS(FCDSChWT47);
+
   FIsAppend := False;
 end;
 
