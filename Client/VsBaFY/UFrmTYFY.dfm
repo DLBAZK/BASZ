@@ -32,7 +32,7 @@ object FrmTYFY: TFrmTYFY
       Left = 0
       Top = 0
       Width = 728
-      Height = 121
+      Height = 89
       BorderStyle = bsNone
       Align = alTop
       TabOrder = 0
@@ -62,116 +62,17 @@ object FrmTYFY: TFrmTYFY
         Font.Style = []
         ParentFont = False
       end
-      object lbl3: TLabel
-        Left = 9
-        Top = 96
-        Width = 36
-        Height = 13
-        Caption = #22995#21517#65306
-      end
-      object bvl1: TBevel
-        Left = 51
-        Top = 110
-        Width = 61
-        Height = 3
-        Shape = bsBottomLine
-      end
-      object lblName: TLabel
-        Left = 58
-        Top = 96
-        Width = 3
-        Height = 13
-      end
-      object bvl2: TBevel
-        Left = 161
-        Top = 110
-        Width = 54
-        Height = 3
-        Shape = bsBottomLine
-      end
-      object lbl4: TLabel
-        Left = 128
-        Top = 96
-        Width = 36
-        Height = 13
-        Caption = #24180#40836#65306
-      end
-      object lblNL: TLabel
-        Left = 176
-        Top = 96
-        Width = 3
-        Height = 13
-      end
-      object bvl3: TBevel
-        Left = 280
-        Top = 110
-        Width = 56
-        Height = 3
-        Shape = bsBottomLine
-      end
-      object lbl6: TLabel
-        Left = 238
-        Top = 96
-        Width = 36
-        Height = 13
-        Caption = #24615#21035#65306
-      end
-      object lblXB: TLabel
-        Left = 301
-        Top = 96
-        Width = 3
-        Height = 13
-      end
-      object bvl4: TBevel
-        Left = 393
-        Top = 110
-        Width = 100
-        Height = 3
-        Shape = bsBottomLine
-      end
-      object lbl5: TLabel
-        Left = 351
-        Top = 96
-        Width = 36
-        Height = 13
-        Caption = #31185#21035#65306
-      end
-      object lblKB: TLabel
-        Left = 400
-        Top = 96
-        Width = 3
-        Height = 13
-      end
-      object lbl7: TLabel
-        Left = 495
-        Top = 96
-        Width = 48
-        Height = 13
-        Caption = #20303#38498#21495#65306
-      end
-      object lblZYH: TLabel
-        Left = 544
-        Top = 96
-        Width = 3
-        Height = 13
-      end
-      object bvl5: TBevel
-        Left = 541
-        Top = 110
-        Width = 100
-        Height = 3
-        Shape = bsBottomLine
-      end
     end
     object AdvGroupBox2: TAdvGroupBox
       Left = 0
-      Top = 121
+      Top = 89
       Width = 728
       Height = 304
       BorderStyle = bsNone
       Align = alTop
       Caption = #19968#12289#25163#26415#20449#24687
       TabOrder = 1
+      ExplicitTop = 121
       object dbgrdhSS: TDBGridEh
         Left = 2
         Top = 16
@@ -358,7 +259,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox3: TAdvGroupBox
       Left = 0
-      Top = 425
+      Top = 393
       Width = 728
       Height = 145
       BorderStyle = bsNone
@@ -371,6 +272,7 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      ExplicitTop = 425
       object lbl8: TLabel
         Left = 3
         Top = 32
@@ -624,7 +526,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox4: TAdvGroupBox
       Left = 0
-      Top = 570
+      Top = 538
       Width = 728
       Height = 299
       BorderStyle = bsNone
@@ -637,6 +539,7 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 3
+      ExplicitTop = 570
       object dbgrdhICU: TDBGridEh
         Left = 2
         Top = 19
@@ -759,7 +662,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox5: TAdvGroupBox
       Left = 0
-      Top = 869
+      Top = 837
       Width = 728
       Height = 184
       BorderStyle = bsNone
@@ -772,6 +675,7 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 4
+      ExplicitTop = 869
       object lbl22: TLabel
         Left = 7
         Top = 36
@@ -1149,7 +1053,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox6: TAdvGroupBox
       Left = 0
-      Top = 1053
+      Top = 1021
       Width = 728
       Height = 239
       BorderStyle = bsNone
@@ -1162,6 +1066,7 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 5
+      ExplicitTop = 1053
       object lbl44: TLabel
         Left = 3
         Top = 28
@@ -1576,7 +1481,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbCH0AYNA9: TAdvOfficeComboBox
-        Tag = 9
         Left = 392
         Top = 54
         Width = 147
@@ -1605,7 +1509,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbCH0AYNB1: TAdvOfficeComboBox
-        Tag = 9
         Left = 392
         Top = 86
         Width = 147
@@ -1636,7 +1539,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox7: TAdvGroupBox
       Left = 0
-      Top = 1292
+      Top = 1260
       Width = 728
       Height = 95
       BorderStyle = bsNone
@@ -1649,6 +1552,7 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 6
+      ExplicitTop = 1292
       object lbl69: TLabel
         Left = 3
         Top = 33
@@ -1893,7 +1797,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox8: TAdvGroupBox
       Left = 0
-      Top = 1387
+      Top = 1355
       Width = 728
       Height = 86
       BorderStyle = bsNone
@@ -1906,6 +1810,7 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 7
+      ExplicitTop = 1387
       object lbl83: TLabel
         Left = 5
         Top = 29
@@ -2052,7 +1957,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox9: TAdvGroupBox
       Left = 0
-      Top = 1473
+      Top = 1441
       Width = 728
       Height = 166
       BorderStyle = bsNone
@@ -2065,6 +1970,7 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 8
+      ExplicitTop = 1473
       object lbl91: TLabel
         Left = 5
         Top = 25
@@ -2326,7 +2232,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbCH0A43: TAdvOfficeComboBox
-        Tag = 9
         Left = 185
         Top = 47
         Width = 109
@@ -2355,7 +2260,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbCH0A44: TAdvOfficeComboBox
-        Tag = 9
         Left = 388
         Top = 47
         Width = 109
@@ -2384,7 +2288,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbCH0ACD: TAdvOfficeComboBox
-        Tag = 9
         Left = 388
         Top = 78
         Width = 109
@@ -2413,7 +2316,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbCH0AC1: TAdvOfficeComboBox
-        Tag = 9
         Left = 586
         Top = 47
         Width = 109
@@ -2442,7 +2344,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbCH0AC2: TAdvOfficeComboBox
-        Tag = 9
         Left = 586
         Top = 78
         Width = 109
@@ -2471,7 +2372,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbCh0AQ6: TAdvOfficeComboBox
-        Tag = 9
         Left = 185
         Top = 78
         Width = 109
@@ -2500,7 +2400,6 @@ object FrmTYFY: TFrmTYFY
         Style = csDropDownList
       end
       object cbbqj: TAdvOfficeComboBox
-        Tag = 9
         Left = 46
         Top = 18
         Width = 60
@@ -2532,7 +2431,7 @@ object FrmTYFY: TFrmTYFY
     end
     object AdvGroupBox10: TAdvGroupBox
       Left = 0
-      Top = 1639
+      Top = 1607
       Width = 728
       Height = 205
       BorderStyle = bsNone
@@ -2545,6 +2444,7 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 9
+      ExplicitTop = 1639
       object dbgrdhXSE: TDBGridEh
         Left = 2
         Top = 19

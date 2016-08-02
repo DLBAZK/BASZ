@@ -14,21 +14,6 @@ type
     AdvGroupBox1: TAdvGroupBox;
     lbl1: TLabel;
     lbl2: TLabel;
-    lbl3: TLabel;
-    bvl1: TBevel;
-    lblName: TLabel;
-    bvl2: TBevel;
-    lbl4: TLabel;
-    lblNL: TLabel;
-    bvl3: TBevel;
-    lbl6: TLabel;
-    lblXB: TLabel;
-    bvl4: TBevel;
-    lbl5: TLabel;
-    lblKB: TLabel;
-    lbl7: TLabel;
-    lblZYH: TLabel;
-    bvl5: TBevel;
     AdvGroupBox2: TAdvGroupBox;
     dbgrdhSS: TDBGridEh;
     ds1: TDataSource;
@@ -207,6 +192,11 @@ type
     function CheckSJ(const SJ:TDateTime):Boolean;
     procedure BindCmbItemIndex(const Flag:Integer=0);
     function SetEnable(compent: TAdvOfficeComboBox):Boolean;
+    /// <summary>
+    /// 获取新生儿信息
+    /// </summary>
+    procedure GetXSEInfo;
+
   public
     { Public declarations }
     Constructor Create(Aowner:TComponent);Override;
@@ -848,7 +838,7 @@ begin
   clientdtTemp :=TClientDataSet.Create(nil);
   autofree(clientdtTemp);
   //查询患者基本信息
-  TMidProxy.SqlOpen(Format('select somc,xb,CH0A02,CH0A06 from VsCH0A a inner join'
+  {TMidProxy.SqlOpen(Format('select somc,xb,CH0A02,CH0A06 from VsCH0A a inner join'
       +' VsSOffice b  on a.CH0A21 = b.SODM inner join VsZhdm_12 c on a.CH0A03=c.id where CH0A01=^%s^ and ChYear=^%s^ ',[Ch0A01,Chyear]),clientdtTemp);
   if not clientdtTemp.IsEmpty then
   begin
@@ -861,7 +851,7 @@ begin
     lblNL.Caption := IntToStr(Age);
     lblKB.Caption := kb;
     lblZYH.Caption :=Ch0A00;
-  end;
+  end;   }
   BindCmbItemIndex;
 
   
@@ -909,23 +899,30 @@ begin
 
   //新生儿
   OperaXSE := SetXSEState;
-  if not OperaXSE then Exit;
+end;
+
+procedure TFrmTYFY.GetXSEInfo;
+var
+  sqltext:string;
+  cdttemp:TClientDataSet;
+  i,j:Integer;
+begin
   sqltext := 'select * from %0:s where CHYear=^%1:s^ and WT4701 =^%2:s^';
   FCDSChWT47 :=TDlClientDataset.Create(nil);
   FCDSChWT47.MidClassName :=EuVsWt47;
-  FCDSChWT47.Mid_Open(Format(sqltext,['VsWt47_1',Chyear,Ch0A01]));
+  FCDSChWT47.Mid_Open(Format(sqltext,['VsWt47_1',FChYear,FCh0A01]));
   if FCDSChWT47.IsEmpty then
   begin
     cdttemp := TClientDataSet.Create(nil);
     AutoFree(cdttemp);
-    TMidProxy.SqlOpen(Format(sqltext,['VsCH_Wt47_1',Chyear,Ch0A01]),cdttemp);
+    TMidProxy.SqlOpen(Format(sqltext,['VsCH_Wt47_1',FChYear,FCh0A01]),cdttemp);
     if not cdttemp.IsEmpty then
     begin
       for I := 0 to FCDSChWT47.Fields.Count - 1 do
       begin
         FCDSChWT47.Edit;
          if FCDSChWT47.FieldDefList[i].Name = 'WT4701' then
-          FCDSChWT47.FieldByName(FCDSChWT47.FieldDefList[i].Name).AsString := Ch0A01
+          FCDSChWT47.FieldByName(FCDSChWT47.FieldDefList[i].Name).AsString := FCh0A01
         else
           FCDSChWT47.FieldByName(FCDSChWT47.FieldDefList[i].Name).AsString := cdttemp.FieldByName(FCDSChWT47.FieldDefList[i].Name).AsString;
         FCDSChWT47.Post;
@@ -1009,7 +1006,7 @@ begin
     end;
   end;
   dsXSER.DataSet := clientdtXSER;
-  dbgrdhXSE.DataSource := dsXSER; 
+  dbgrdhXSE.DataSource := dsXSER;
 end;
 
 function TFrmTYFY.SetEnable(compent: TAdvOfficeComboBox):Boolean;
@@ -1129,6 +1126,7 @@ begin
   Begin
     dbgrdhXSE.Enabled :=True;
     Result := True;
+    GetXSEInfo;
   End
   Else
   begin
