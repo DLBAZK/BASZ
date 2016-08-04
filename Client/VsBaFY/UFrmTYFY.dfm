@@ -72,7 +72,6 @@ object FrmTYFY: TFrmTYFY
       Align = alTop
       Caption = #19968#12289#25163#26415#20449#24687
       TabOrder = 1
-      ExplicitTop = 121
       object dbgrdhSS: TDBGridEh
         Left = 2
         Top = 16
@@ -272,7 +271,6 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 2
-      ExplicitTop = 425
       object lbl8: TLabel
         Left = 3
         Top = 32
@@ -378,7 +376,7 @@ object FrmTYFY: TFrmTYFY
         Font.Style = []
         Style = csDropDownList
       end
-      object cbbCH0EZ13: TAdvOfficeComboBox
+      object cbbCH0ATY23: TAdvOfficeComboBox
         Tag = 9
         Left = 154
         Top = 76
@@ -407,7 +405,7 @@ object FrmTYFY: TFrmTYFY
         Font.Style = []
         Style = csDropDownList
       end
-      object cbbCH0ESC00: TAdvOfficeComboBox
+      object cbbCH0ATY25: TAdvOfficeComboBox
         Tag = 9
         Left = 154
         Top = 107
@@ -436,7 +434,7 @@ object FrmTYFY: TFrmTYFY
         Font.Style = []
         Style = csDropDownList
       end
-      object cbbCH0EZ14: TAdvOfficeComboBox
+      object cbbCH0ATY24: TAdvOfficeComboBox
         Tag = 9
         Left = 358
         Top = 76
@@ -465,7 +463,7 @@ object FrmTYFY: TFrmTYFY
         Font.Style = []
         Style = csDropDownList
       end
-      object cbbCH0EZ19: TAdvOfficeComboBox
+      object cbbCH0ATY26: TAdvOfficeComboBox
         Tag = 10
         Left = 544
         Top = 76
@@ -494,7 +492,7 @@ object FrmTYFY: TFrmTYFY
         Font.Style = []
         Style = csDropDownList
       end
-      object cbbCH0EZ15: TAdvOfficeComboBox
+      object cbbCH0ATY27: TAdvOfficeComboBox
         Tag = 10
         Left = 455
         Top = 107
@@ -539,7 +537,6 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 3
-      ExplicitTop = 570
       object dbgrdhICU: TDBGridEh
         Left = 2
         Top = 19
@@ -675,7 +672,6 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 4
-      ExplicitTop = 869
       object lbl22: TLabel
         Left = 7
         Top = 36
@@ -1066,7 +1062,6 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 5
-      ExplicitTop = 1053
       object lbl44: TLabel
         Left = 3
         Top = 28
@@ -1158,35 +1153,7 @@ object FrmTYFY: TFrmTYFY
         Height = 16
         Caption = #36755#28082#21453#24212':'
       end
-      object cbbCH0AYNB2: TAdvOfficeComboBox
-        Left = 134
-        Top = 116
-        Width = 295
-        Height = 24
-        Button.Color = 16572875
-        Button.ColorTo = 14722429
-        Button.ColorHot = 14483455
-        Button.ColorHotTo = 6013175
-        Button.ColorDown = 557032
-        Button.ColorDownTo = 8182519
-        Button.Width = 12
-        DisplayRecentSelection = False
-        BorderColor = clNone
-        BorderHotColor = clBlack
-        SelectionColor = 14722429
-        SelectionTextColor = clWhite
-        Version = '1.5.2.1'
-        ItemIndex = -1
-        ItemHeight = 14
-        TabOrder = 6
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -15
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        Style = csDropDownList
-      end
-      object cbbCh0EZ03: TAdvOfficeComboBox
+      object cbbCh0ATY28: TAdvOfficeComboBox
         Tag = 9
         Left = 177
         Top = 19
@@ -1325,7 +1292,7 @@ object FrmTYFY: TFrmTYFY
         Version = '1.5.2.1'
         ItemIndex = -1
         ItemHeight = 14
-        TabOrder = 7
+        TabOrder = 6
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -1354,7 +1321,7 @@ object FrmTYFY: TFrmTYFY
         Version = '1.5.2.1'
         ItemIndex = -1
         ItemHeight = 14
-        TabOrder = 8
+        TabOrder = 7
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -1384,7 +1351,7 @@ object FrmTYFY: TFrmTYFY
         OnChange = cbbCH0A57Change
         ItemIndex = -1
         ItemHeight = 14
-        TabOrder = 9
+        TabOrder = 8
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -1413,7 +1380,7 @@ object FrmTYFY: TFrmTYFY
         Version = '1.5.2.1'
         ItemIndex = -1
         ItemHeight = 14
-        TabOrder = 10
+        TabOrder = 9
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -1443,7 +1410,7 @@ object FrmTYFY: TFrmTYFY
         OnChange = cbbCH0A58Change
         ItemIndex = -1
         ItemHeight = 14
-        TabOrder = 11
+        TabOrder = 10
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -1472,7 +1439,7 @@ object FrmTYFY: TFrmTYFY
         Version = '1.5.2.1'
         ItemIndex = -1
         ItemHeight = 14
-        TabOrder = 12
+        TabOrder = 11
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -1536,6 +1503,15 @@ object FrmTYFY: TFrmTYFY
         Font.Style = []
         Style = csDropDownList
       end
+      object edtCH0AYNB2: TEdit
+        Left = 134
+        Top = 115
+        Width = 405
+        Height = 22
+        Enabled = False
+        MaxLength = 50
+        TabOrder = 12
+      end
     end
     object AdvGroupBox7: TAdvGroupBox
       Left = 0
@@ -1552,7 +1528,6 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 6
-      ExplicitTop = 1292
       object lbl69: TLabel
         Left = 3
         Top = 33
@@ -1810,7 +1785,6 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 7
-      ExplicitTop = 1387
       object lbl83: TLabel
         Left = 5
         Top = 29
@@ -1970,7 +1944,6 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 8
-      ExplicitTop = 1473
       object lbl91: TLabel
         Left = 5
         Top = 25
@@ -2444,7 +2417,6 @@ object FrmTYFY: TFrmTYFY
       Font.Style = []
       ParentFont = False
       TabOrder = 9
-      ExplicitTop = 1639
       object dbgrdhXSE: TDBGridEh
         Left = 2
         Top = 19

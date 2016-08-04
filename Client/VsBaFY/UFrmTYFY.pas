@@ -102,7 +102,6 @@ type
     dsss: TDataSource;
     clientdtDLCDS: TClientDataSet;
     dsICU: TDataSource;
-    cbbCH0AYNB2: TAdvOfficeComboBox;
     dldtXSER: TDlClientDataset;
     dsXSER: TDataSource;
     dldtSS: TDlClientDataset;
@@ -110,11 +109,11 @@ type
     clientdtXSER: TClientDataSet;
     cbbCH0ATY18: TAdvOfficeComboBox;
     cbbCH0ATY19: TAdvOfficeComboBox;
-    cbbCH0EZ13: TAdvOfficeComboBox;
-    cbbCH0ESC00: TAdvOfficeComboBox;
-    cbbCH0EZ14: TAdvOfficeComboBox;
-    cbbCH0EZ19: TAdvOfficeComboBox;
-    cbbCH0EZ15: TAdvOfficeComboBox;
+    cbbCH0ATY23: TAdvOfficeComboBox;
+    cbbCH0ATY25: TAdvOfficeComboBox;
+    cbbCH0ATY24: TAdvOfficeComboBox;
+    cbbCH0ATY26: TAdvOfficeComboBox;
+    cbbCH0ATY27: TAdvOfficeComboBox;
     cbbCH0ATY01: TAdvOfficeComboBox;
     cbbCH0AYN01: TAdvOfficeComboBox;
     cbbCH0AYN04: TAdvOfficeComboBox;
@@ -124,7 +123,7 @@ type
     cbbCH0AYN03: TAdvOfficeComboBox;
     cbbCH0ATY02: TAdvOfficeComboBox;
     cbbCH0ATY06: TAdvOfficeComboBox;
-    cbbCh0EZ03: TAdvOfficeComboBox;
+    cbbCh0ATY28: TAdvOfficeComboBox;
     cbbCH0AYNA8: TAdvOfficeComboBox;
     cbbCH0AYNA7: TAdvOfficeComboBox;
     cbbCH0AYNB0: TAdvOfficeComboBox;
@@ -156,6 +155,7 @@ type
     cbbCH0AC2: TAdvOfficeComboBox;
     cbbCh0AQ6: TAdvOfficeComboBox;
     cbbqj: TAdvOfficeComboBox;
+    edtCH0AYNB2: TEdit;
     procedure dbgrdhICUKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgrdhSSKeyDown(Sender: TObject; var Key: Word;
@@ -238,7 +238,7 @@ procedure TFrmTYFY.BindCmbItemIndex(const Flag:Integer=0);
          begin
            if dlclient.FieldByName(FieldName).AsString <>'' then
            begin
-              if dlclient.FieldByName(FieldName).AsString='2' then
+              if (dlclient.FieldByName(FieldName).AsString='2') or (dlclient.FieldByName(FieldName).AsString='0') then
                 FieldDM := '1'
               else
                 FieldDM := '2';
@@ -472,13 +472,13 @@ begin
   begin
     cbbCH0AYNB1.ItemIndex := -1;
     cbbCH0AYNB1.Enabled := False;
-    cbbCH0AYNB2.Text := '';
-    cbbCH0AYNB2.Enabled := False;
+    edtCH0AYNB2.Text := '';
+    edtCH0AYNB2.Enabled := False;
   end
   else
   begin
     cbbCH0AYNB1.Enabled := True;
-    cbbCH0AYNB2.Enabled := True;
+    edtCH0AYNB2.Enabled := True;
   end;
 
 end;
@@ -540,7 +540,6 @@ end;
 constructor TFrmTYFY.Create(Aowner: TComponent);
 begin
   inherited;
-  FillCombobox('Select id,FallBedReason From VsZhdm_12 Where ISNULL(FallBedReason,^^)<>^^','ID','FallBedReason',cbbCH0AYNB2);
   FillCombobox('Select id,Jsyczbysj From VsZhdm_12 Where ISNULL(Jsyczbysj,^^)<>^^','ID','Jsyczbysj',cbbCH0ATY18);
   FillCombobox('Select id,zysftyjb From VsZhdm_12 Where ISNULL(zysftyjb,^^)<>^^','ID','zysftyjb',cbbCH0ATY19);
   FillCombobox('select id,ycfq from VsZhdm_12 Where ISNULL(ycfq,^^)<>^^','ID','ycfq',cbbCH0AYNA9);     //压疮分期
@@ -551,7 +550,7 @@ begin
   FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCh0AQ6);
   FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCH0ACD);
   FillCombobox('select dm,fhmc from VsZhdm Where ISNULL(fhmc,^^)<>^^','dm','fhmc',cbbCH0AC2);
-  cbbCH0AYNB2.ItemIndex :=-1;
+
   cbbCH0ATY18.ItemIndex := -1;
   cbbCH0ATY19.ItemIndex := -1;
   cbbCH0AYNA9.ItemIndex := -1;
@@ -562,8 +561,8 @@ begin
   cbbCh0AQ6.ItemIndex := -1;
   cbbCH0ACD.ItemIndex := -1;
   cbbCH0AC2.ItemIndex := -1;
-  FillSFCombobox(cbbCH0ESC00);
-  FillSFCombobox(cbbCH0EZ14);
+  FillSFCombobox(cbbCH0ATY25);
+  FillSFCombobox(cbbCH0ATY24);
   FillSFCombobox(cbbCH0ATY01);
   FillSFCombobox(cbbCH0AYN01);
   FillSFCombobox(cbbCH0ATY04);
@@ -572,7 +571,7 @@ begin
   FillSFCombobox(cbbCH0AYN03);
   FillSFCombobox(cbbCH0ATY02);
   FillSFCombobox(cbbCH0ATY06);
-  FillSFCombobox(cbbCh0EZ03);
+  FillSFCombobox(cbbCh0ATY28);
   FillSFCombobox(cbbCH0AYNA8);
   FillSFCombobox(cbbCH0AYNA7);
   FillSFCombobox(cbbCH0AYNB0);
@@ -586,9 +585,9 @@ begin
   FillSFCombobox(cbbCH0ATY11);
   FillSFCombobox(cbbCH0ATY13);
   FillSFCombobox(cbbCH0ATY14);
-  FillSFCombobox(cbbCH0EZ13);
-  FillSFCombobox(cbbCH0EZ19,1);
-  FillSFCombobox(cbbCH0EZ15,1);
+  FillSFCombobox(cbbCH0ATY23);
+  FillSFCombobox(cbbCH0ATY26,1);
+  FillSFCombobox(cbbCH0ATY27,1);
   FillSFCombobox(cbbCH0A57,1);
   FillSFCombobox(cbbCH0ATY15,1);
   FillSFCombobox(cbbCH0A58,1);
@@ -628,6 +627,7 @@ begin
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhICU,'CH0R15','id','sf');      //是否发生与中心静脉置管相关血液感染
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhICU,'CH0R17','id','sf');      //是否发生与呼吸机相关肺炎感染
   FillDBGridEHCombobox('Select id,sf From VsZhdm_12 Where IsNull(sf,^^)<>^^',dbgrdhICU,'CH0R19','id','sf');      //是否发生与留置导尿管相关泌尿系统感染
+  FillDBGridEHCombobox('SELECT id ,CFJGSJ  FROM dbo.VsZhdm_12 WHERE ISNULL(CFJGSJ,^^)<>^^',dbgrdhICU,'CH0R12','id','CFJGSJ'); //重返间隔时间
 
   FillDBGridEHCombobox('Select dm,xbmc From VsZhdm where IsNull(xbmc,^^)<>^^',dbgrdhXSE,'XB','dm','xbmc');     //新生儿性别
   FillDBGridEHCombobox('Select dm,ckmc From VsZhdm where IsNull(ckmc,^^)<>^^',dbgrdhXSE,'CCQK','dm','ckmc');     //产出情况
@@ -1046,7 +1046,7 @@ begin
   FCDSCh0A.FieldByName('CH0A46').AsString := edttCH0A46.Text ;
   FCDSCh0A.FieldByName('CH0A47').AsString := edttCH0A47.Text;
   FCDSCh0A.FieldByName('CH0ATY12').AsString :=edtCH0ATY12.Text ;
-
+  FCDSCh0A.FieldByName('CH0AYNB2').AsString := edtCH0AYNB2.Text;
   if not FCDSCh0E.IsEmpty then
   begin
     FCDSCh0E.Edit;
