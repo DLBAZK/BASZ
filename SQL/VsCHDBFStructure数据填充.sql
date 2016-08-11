@@ -3,7 +3,8 @@ IF EXISTS(SELECT 1 FROM sys.objects WHERE name='VsCHDBFTable' AND type='U')
 
 CREATE TABLE VsCHDBFTable 
 (
-	xh INT IDENTITY PRIMARY KEY,          ----------序号 
+	BID VARCHAR(36) DEFAULT NEWID() PRIMARY KEY ,
+	xh INT IDENTITY ,          ----------序号 
 	TableName VARCHAR(50),      ---------表名称
 	TableCus   VARCHAR(50),     --------表名称别名
 	TableDesc VARCHAR(50),       ---------表说明描述
@@ -37,7 +38,11 @@ else
 	
 if not exists(select * from VsMenu where MenuCode ='10313')
    insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible) 
- Values('10313','13','103','&9.DBF上报设置',1,'TFrmExportDBF','100028',1,1)
+ Values('10313','13','103','&9.DBF上报设置',0,'','',1,1)
+ 
+ if not exists(select * from VsMenu where MenuCode ='1031301')
+   insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible) 
+ Values('1031301','01','10313','&1.DBF上报源表设置',1,'TfrmDBFTable','100028',1,1)
  
  
   if not exists(select * from VsMidOper where MidOperCode ='410')
