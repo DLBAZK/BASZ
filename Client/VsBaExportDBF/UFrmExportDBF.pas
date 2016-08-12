@@ -14,7 +14,8 @@ uses
   AdvToolBarStylers, AdvOfficeStatusBar, AdvOfficeStatusBarStylers, GridsEh,
   DBGridEh, ExtCtrls, AdvGlowButton,UVsMidClassList, TFlatPanelUnit, AdvSplitter,
   StdCtrls, AdvEdit, AdvEdBtn, ComCtrls, AdvDateTimePicker, ExtDlgs, QExport3,
-  QExport3DBF,ShellAPI, MemTableDataEh, DataDriverEh, MemTableEh, DBTables,Contnrs;
+  QExport3DBF,ShellAPI, MemTableDataEh, DataDriverEh, MemTableEh, DBTables,Contnrs,
+  DBCtrls, SUIDBCtrls;
 
 type
   TFrmExportDBF = class(TFrmSuiDBListForm)
@@ -41,6 +42,10 @@ type
     dtstdrvrhDBFTable: TDataSetDriverEh;
     tbl1: TTable;
     dtstdrvrhDBF: TDataSetDriverEh;
+    suiLkcbbDBFType: TsuiDBLookupComboBox;
+    clientdtDBFType: TClientDataSet;
+    dsDBFType: TDataSource;
+    lbl4: TLabel;
     procedure dbgrdhDBFDblClick(Sender: TObject);
     procedure edtbtnPathClickBtn(Sender: TObject);
     procedure btnSQLClick(Sender: TObject);
@@ -49,13 +54,32 @@ type
       MemTableData: TMemTableDataEh; MemRec: TMemoryRecordEh);
     procedure dbgrdh_DLCDSColumns1UpdateData(Sender: TObject; var Text: string;
       var Value: Variant; var UseText, Handled: Boolean);
+    procedure FormShow(Sender: TObject);
+    procedure suiLkcbbDBFTypeCloseUp(Sender: TObject);
+    procedure acInsExecute(Sender: TObject);
+    procedure acEditExecute(Sender: TObject);
+    procedure acCancelExecute(Sender: TObject);
+    procedure acFirstExecute(Sender: TObject);
+    procedure acPriorExecute(Sender: TObject);
+    procedure acNextExecute(Sender: TObject);
+    procedure acLastExecute(Sender: TObject);
+    procedure acSaveExecute(Sender: TObject);
   private
     { Private declarations }
     procedure SelSourceField;
-    function GenerateSQL:string;
+    function  GenerateSQL:string;
+    /// <summary>
+    /// 加载显示DBF字段
+    /// </summary>
+    procedure ReloadDBFField;
+    /// <summary>
+    /// 保存DBF字段
+    /// </summary>
+    procedure SaveDBFField;
   public
     { Public declarations }
-    Constructor Create(Aowner:TComponent);Override;
+    TypeID:string;//DBF类型ID
+    //Constructor Create(Aowner:TComponent);Override;
     Procedure CheckData;override;
   end;
 
@@ -67,6 +91,64 @@ implementation
 {$R *.dfm}
 
 { TFrmExportDBF }
+
+procedure TFrmExportDBF.acCancelExecute(Sender: TObject);
+begin
+  inherited;
+  mtblhDBF.CancelUpdates;
+  AcSave.Enabled:=False;
+  AcCancel.Enabled:=False;
+end;
+
+procedure TFrmExportDBF.acEditExecute(Sender: TObject);
+begin
+ // inherited;
+  mtblhDBF.Edit;
+end;
+
+procedure TFrmExportDBF.acFirstExecute(Sender: TObject);
+begin
+ // inherited;
+  mtblhDBF.First;
+end;
+
+procedure TFrmExportDBF.acInsExecute(Sender: TObject);
+begin
+  //inherited;
+  mtblhDBF.Append;
+end;
+
+procedure TFrmExportDBF.acLastExecute(Sender: TObject);
+begin
+ // inherited;
+  mtblhDBF.Last;
+end;
+
+procedure TFrmExportDBF.acNextExecute(Sender: TObject);
+begin
+ // inherited;
+  if not mtblhDBF.Eof then
+   mtblhDBF.Next;
+end;
+
+procedure TFrmExportDBF.acPriorExecute(Sender: TObject);
+begin
+ // inherited;
+  if not mtblhDBF.Bof then
+     mtblhDBF.Prior;
+end;
+
+procedure TFrmExportDBF.acSaveExecute(Sender: TObject);
+begin
+  //inherited;
+  if mtblhDBF.Active and (not mtblhDBF.IsEmpty) then
+  begin
+    SaveDBFField;
+    if mtblhDBF.State in [dsInsert,dsEdit] then
+     mtblhDBF.Post;
+     mtblhDBF.ApplyUpdates(-1);
+  end;
+end;
 
 procedure TFrmExportDBF.btnExportClick(Sender: TObject);
 var
@@ -86,7 +168,7 @@ begin
     Exit;
   end;
   DBFFileName := edtbtnPath.Text;
-  
+
   StartWaitWindow('正在导出相关数据,请稍候......');
   try
     SqlText := GenerateSQL;
@@ -139,18 +221,19 @@ begin
   
 end;
 
-constructor TFrmExportDBF.Create(Aowner: TComponent);
- const
-    DBFSQL ='SELECT * FROM VsCHDBFStructure  ORDER BY xh';
-begin
-  inherited Create(Aowner,EuVsDBF,'SELECT * FROM VsCHDBFTable order by xh');
-  mtblhDBFTable.Active := True;
-  //获取DBF上报字段
-//  TMidProxy.SqlOpen(DBFSQL,clientdtDBF);
-  dlclntdtstDBF.MidClassName := EuVsDBF;
-  dlclntdtstDBF.Mid_Open(DBFSQL);
-  mtblhDBF.Active := True;
-end;
+//constructor TFrmExportDBF.Create(Aowner: TComponent);
+// const
+//    DBFSQL ='SELECT * FROM VsCHDBFStructure  ORDER BY xh';
+//begin
+//  inherited Create(Aowner,EuVsDBF,'SELECT * FROM VsCHDBFTable order by xh');
+//  mtblhDBFTable.Active := True;
+//  //获取DBF上报字段
+////  TMidProxy.SqlOpen(DBFSQL,clientdtDBF);
+//  dlclntdtstDBF.MidClassName := EuVsDBF;
+//  dlclntdtstDBF.Mid_Open(DBFSQL);
+//  mtblhDBF.Active := True;
+//  TMidProxy.SqlOpen('select * from VsCHDBFType',clientdtDBFType);
+//end;
 
 procedure TFrmExportDBF.dbgrdhDBFDblClick(Sender: TObject);
 begin
@@ -177,28 +260,40 @@ end;
 procedure TFrmExportDBF.dtstdrvrhddmtblh1UpdateRecord(DataDriver: TDataDriverEh;
   MemTableData: TMemTableDataEh; MemRec: TMemoryRecordEh);
   procedure UpdateDBF(const Flag:Integer);
+   const
+     SQL ='UPDATE dbo.VsCHDBFStructure SET FieldName=^%s^,FieldSQL=^%s^,FieldTable=^%s^,'
+          +'FieldTableCus=^%s^ WHERE fid=^%s^ AND tid=^%s^';
+   var
+    FName,FSQL,FTable,FTableCus,Fid,Tid:string;
   begin
-
     case Flag of
       0: //更新
       begin
-        dlclntdtstDBF.Locate('xh',MemRec.DataValues['xh',dvvCurValueEh],[]);
-        dlclntdtstDBF.Edit;
-      end;
-      1:begin    //添加
+        if MemRec.DataValues['FieldName',dvvCurValueEh]=null then
+          FName :=''
+        else
+         FName := MemRec.DataValues['FieldName',dvvCurValueEh];
+         
+        if MemRec.DataValues['FieldSQL',dvvCurValueEh]=null then
+          FSQL :=''
+        else
+         FSQL := MemRec.DataValues['FieldSQL',dvvCurValueEh];
+         
+        if MemRec.DataValues['FieldTable',dvvCurValueEh]=null then
+          FTable :=''
+        else
+         FTable := MemRec.DataValues['FieldTable',dvvCurValueEh];
 
-        dlclntdtstDBF.Append;
+        if MemRec.DataValues['FieldTableCus',dvvCurValueEh]=null then
+          FTableCus :=''
+        else
+         FTableCus := MemRec.DataValues['FieldTableCus',dvvCurValueEh];
+        Fid:=MemRec.DataValues['FID',dvvCurValueEh];
+        Tid:=MemRec.DataValues['TID',dvvCurValueEh];
+
+        TMidProxy.SqlExecute(Format(SQL,[FName,FSQL,FTable,FTableCus,Fid,Tid]));
       end;
     end;
-    dlclntdtstDBF.FieldByName('DBFName').AsString := MemRec.DataValues['DBFName',dvvCurValueEh];
-    dlclntdtstDBF.FieldByName('DBFMC').AsString := MemRec.DataValues['DBFMC',dvvCurValueEh];
-    dlclntdtstDBF.FieldByName('FieldName').AsString := MemRec.DataValues['FieldName',dvvCurValueEh];
-    dlclntdtstDBF.FieldByName('FieldSQL').AsString := MemRec.DataValues['FieldSQL',dvvCurValueEh];
-    dlclntdtstDBF.FieldByName('FieldTable').AsString := MemRec.DataValues['FieldTable',dvvCurValueEh];
-    dlclntdtstDBF.FieldByName('FieldTableCus').AsString := MemRec.DataValues['FieldTableCus',dvvCurValueEh];
-    dlclntdtstDBF.FieldByName('DBFBZ').AsString := MemRec.DataValues['DBFBZ',dvvCurValueEh];
-    dlclntdtstDBF.Post;
-    dlclntdtstDBF.ApplyUpdates(-1);
   end;
 begin
   inherited;
@@ -206,12 +301,12 @@ begin
   if MemRec.UpdateStatus =usModified then
   begin
     UpdateDBF(0);
-  end
+  end ;
   //添加
-  else if MemRec.UpdateStatus = usInserted then
-  begin
-    UpdateDBF(1);
-  end;
+//  else if MemRec.UpdateStatus = usInserted then
+//  begin
+//    UpdateDBF(1);
+//  end;
 end;
 
 procedure TFrmExportDBF.edtbtnPathClickBtn(Sender: TObject);
@@ -230,6 +325,22 @@ begin
     edtbtnPath.Text := filename;
   end;
 
+end;
+
+procedure TFrmExportDBF.FormShow(Sender: TObject);
+begin
+  inherited;
+  TMidProxy.SqlOpen('select * from VsCHDBFType',clientdtDBFType);
+  //赋值显示DBF类型
+  if TypeID <> '' then
+  begin
+    if clientdtDBFType.Active and (not clientdtDBFType.IsEmpty) then
+    begin
+      suiLkcbbDBFType.KeyValue := TypeID;
+      ReloadDBFField;
+    end;
+  end;
+  
 end;
 
 /// <summary>
@@ -254,7 +365,7 @@ var
   strLeft1,strLeft2:string;
 begin
   Result :='';
-  
+
   if mtblhDBF.Active and (not mtblhDBF.IsEmpty) then
   begin
     if mtblhDBF.State in [dsInsert,dsEdit] then
@@ -342,6 +453,51 @@ begin
   Result := Format('Select %s from %s where Ch0A27 >=^%s^ and Ch0A27 <=^%s^',[SQLField,SQLCondition,StrDateStart,StrDateEnd]);
 end;
 
+procedure TFrmExportDBF.ReloadDBFField;
+const
+   SQL ='SELECT a.FID,a.TID,a.FieldName DBFFieldName,a.FieldDes,b.FieldName,'
+       +' b.FieldSQL,b.FieldTable,b.FieldTableCus FROM VsCHDBFField a LEFT JOIN '
+       +' VsCHDBFStructure b ON a.TID=b.tid  WHERE a.BZ =1 and a.TID=^%s^ AND a.FID=b.fid  ORDER BY a.xh';
+begin
+  if mtblhDBF.Active and (not mtblhDBF.IsEmpty) then
+    mtblhDBF.Close;
+    
+  dlclntdtstDBF.MidClassName := EuVsDBF;
+  dlclntdtstDBF.Mid_Open(Format(SQL,[TypeID]));
+  mtblhDBF.Active := True;
+  mtblhDBF.Open;
+end;
+
+procedure TFrmExportDBF.SaveDBFField;
+const
+  SQL ='INSERT INTO VsCHDBFStructure(TID,FID) VALUES(^%s^,^%s^)';
+var
+ tid,fid:string;
+ num:Integer;
+begin
+  if mtblhDBF.Active and (not mtblhDBF.IsEmpty) then
+  begin
+    num := mtblhDBF.RecNo;
+    with mtblhDBF do
+    begin
+      DisableControls;
+      First;
+      while not Eof do
+      begin
+        tid := FieldByName('TID').AsString;
+        fid:=FieldByName('FID').AsString;
+        if not ExistsRecord(Format('SELECT * FROM VsCHDBFStructure where TID=^%s^ and FID=^%s^',[tid,fid])) then
+        begin
+          TMidProxy.SqlExecute(Format(SQL,[tid,fid]));
+        end;
+        Next;
+      end;
+      EnableControls;
+    end;
+    mtblhDBF.RecNo := num;
+  end;
+end;
+
 procedure TFrmExportDBF.SelSourceField;
 var
   frmSource:TFrmSource;
@@ -363,10 +519,25 @@ begin
         frmSource.TableCus :=frmSource.TableName;
 
       FieldByName('FieldName').AsString :=frmSource.TableCus+'.'+frmSource.FieldName;
-      Post;
     end;
   end;
 
+end;
+
+procedure TFrmExportDBF.suiLkcbbDBFTypeCloseUp(Sender: TObject);
+var
+ tmpID:string;
+begin
+  inherited;
+  if suiLkcbbDBFType.KeyValue=null then
+    Exit;
+  tmpID := suiLkcbbDBFType.KeyValue;
+  if TypeID<> tmpID then
+  begin
+    TypeID := tmpID;
+    //加载选择类型的字段
+    ReloadDBFField;
+  end;
 end;
 
 initialization

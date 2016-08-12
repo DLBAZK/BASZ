@@ -44,12 +44,22 @@ if not exists(select * from VsMenu where MenuCode ='10313')
    insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible) 
  Values('1031301','01','10313','&1.DBF上报源表设置',1,'TfrmDBFTable','100028',1,1)
  
+ if not exists(select * from VsMenu where MenuCode ='1031303')
+   insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible) 
+ Values('1031303','03','10313','&3.DBF上报方案',1,'TfrmDBFTheme','100028',1,1)
  
   if not exists(select * from VsMidOper where MidOperCode ='410')
    insert into VSMIDOPER (MidOperCode, MidOperName, MidOperLib, MidOperEnu, MidOperDes) 
 values(410, 'TVsCHDBF', '200004', 'EuVsDBF', 'DBF上报设置')
 
+ if not exists(select * from VsMidOper where MidOperCode ='412')
+   insert into VSMIDOPER (MidOperCode, MidOperName, MidOperLib, MidOperEnu, MidOperDes) 
+values(412, 'TVsCHDBFRel', '200028', 'EuVsDBFRel', 'DBF上报设置')
 
+
+ if not exists(select * from VsMidOper where MidOperCode ='413')
+   insert into VSMIDOPER (MidOperCode, MidOperName, MidOperLib, MidOperEnu, MidOperDes) 
+values(413, 'TVsCHDBFTheme', '200028', 'EuVsDBFThem', 'DBF上报方案设置')
  
 if  exists (select * from VsLib where LibCode ='200028')
 begin

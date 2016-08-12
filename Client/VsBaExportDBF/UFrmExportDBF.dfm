@@ -1,16 +1,19 @@
 inherited FrmExportDBF: TFrmExportDBF
+  BorderStyle = bsSingle
   Caption = #21355#32479#19978#25253#37197#32622
-  ClientHeight = 613
-  ClientWidth = 1221
+  ClientHeight = 623
+  ClientWidth = 1231
+  Position = poScreenCenter
   ExplicitWidth = 1237
   ExplicitHeight = 652
   PixelsPerInch = 96
   TextHeight = 13
   object advspltr1: TAdvSplitter [0]
-    Left = 545
+    Left = 1
     Top = 92
-    Height = 502
+    Height = 512
     ResizeStyle = rsLine
+    Visible = False
     Appearance.BorderColor = clNone
     Appearance.BorderColorHot = clNone
     Appearance.Color = clWhite
@@ -23,19 +26,25 @@ inherited FrmExportDBF: TFrmExportDBF
     ExplicitHeight = 100
   end
   inherited advfcstsbr: TAdvOfficeStatusBar
-    Top = 594
-    Width = 1221
-    ExplicitTop = 594
-    ExplicitWidth = 1221
+    Top = 604
+    Width = 1231
+    ExplicitTop = 604
+    ExplicitWidth = 1231
   end
   inherited advtlbrpgr1: TAdvToolBarPager
-    Width = 1221
+    Width = 1231
     TabOrder = 1
-    ExplicitWidth = 1221
+    ExplicitWidth = 1231
     inherited AdvPage1: TAdvPage
-      Width = 1213
-      ExplicitWidth = 1213
+      Width = 1223
+      ExplicitWidth = 1223
       inherited advtlbr1: TAdvToolBar
+        inherited btnacIns: TAdvGlowButton
+          Visible = False
+        end
+        inherited btnacIns1: TAdvGlowButton
+          Visible = False
+        end
         inherited btnActLocate: TAdvGlowButton
           Visible = False
         end
@@ -46,15 +55,16 @@ inherited FrmExportDBF: TFrmExportDBF
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Width = 545
-    Height = 502
+    Width = 1
+    Height = 512
     Align = alLeft
-    ExplicitWidth = 545
-    ExplicitHeight = 502
+    Visible = False
+    ExplicitWidth = 1
+    ExplicitHeight = 512
     FullHeight = 200
     inherited dbgrdh_DLCDS: TDBGridEh
-      Width = 545
-      Height = 502
+      Width = 1
+      Height = 512
       AutoFitColWidths = True
       OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghEnterAsTab, dghRowHighlight, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghAutoFitRowHeight]
       UseMultiTitle = True
@@ -103,19 +113,19 @@ inherited FrmExportDBF: TFrmExportDBF
     end
   end
   object fltpnl1: TFlatPanel [4]
-    Left = 548
+    Left = 4
     Top = 92
-    Width = 673
-    Height = 502
+    Width = 1227
+    Height = 512
     Transparent = True
     ParentColor = True
     Align = alClient
     TabOrder = 6
     object dbgrdhDBF: TDBGridEh
       Left = 1
-      Top = 67
-      Width = 671
-      Height = 434
+      Top = 41
+      Width = 1225
+      Height = 470
       Align = alClient
       AutoFitColWidths = True
       DataGrouping.GroupLevels = <>
@@ -143,8 +153,9 @@ inherited FrmExportDBF: TFrmExportDBF
         item
           AutoFitColWidth = False
           EditButtons = <>
-          FieldName = 'DBFName'
+          FieldName = 'DBFFieldName'
           Footers = <>
+          TextEditing = False
           Title.Alignment = taCenter
           Title.Caption = #19978#25253#23383#27573
           Width = 84
@@ -152,8 +163,9 @@ inherited FrmExportDBF: TFrmExportDBF
         item
           AutoFitColWidth = False
           EditButtons = <>
-          FieldName = 'DBFMC'
+          FieldName = 'FieldDes'
           Footers = <>
+          TextEditing = False
           Title.Alignment = taCenter
           Title.Caption = #23383#27573#35828#26126
           Width = 121
@@ -166,6 +178,7 @@ inherited FrmExportDBF: TFrmExportDBF
           Footers = <>
           Title.Alignment = taCenter
           Title.Caption = #21551#29992
+          Visible = False
           Width = 30
         end
         item
@@ -173,6 +186,7 @@ inherited FrmExportDBF: TFrmExportDBF
           EditButtons = <>
           FieldName = 'FieldName'
           Footers = <>
+          TextEditing = False
           Title.Alignment = taCenter
           Title.Caption = #28304#23383#27573
           Width = 108
@@ -192,42 +206,53 @@ inherited FrmExportDBF: TFrmExportDBF
     object fltpnl2: TFlatPanel
       Left = 1
       Top = 1
-      Width = 671
-      Height = 66
+      Width = 1225
+      Height = 40
       Transparent = True
       ParentColor = True
       Align = alTop
       TabOrder = 1
       object lbl1: TLabel
-        Left = 5
-        Top = 16
+        Left = 941
+        Top = 9
         Width = 48
         Height = 13
         Caption = #20986#38498#26085#26399
+        Visible = False
       end
       object lbl2: TLabel
-        Left = 144
-        Top = 16
+        Left = 1080
+        Top = 9
         Width = 12
         Height = 13
         Caption = #33267
+        Visible = False
       end
       object lbl3: TLabel
-        Left = 5
-        Top = 39
+        Left = 941
+        Top = 32
         Width = 48
         Height = 13
         Caption = #23548#20986#36335#24452
+        Visible = False
+      end
+      object lbl4: TLabel
+        Left = 29
+        Top = 17
+        Width = 43
+        Height = 13
+        Caption = 'DBF'#27169#26495
       end
       object advdtmpckrStart: TAdvDateTimePicker
-        Left = 58
-        Top = 12
+        Left = 994
+        Top = 5
         Width = 81
         Height = 21
         Date = 42310.721793981480000000
         Time = 42310.721793981480000000
         Kind = dkDate
         TabOrder = 0
+        Visible = False
         BorderStyle = bsSingle
         Ctl3D = True
         DateTime = 42310.721793981480000000
@@ -239,14 +264,15 @@ inherited FrmExportDBF: TFrmExportDBF
         LabelFont.Style = []
       end
       object advdtmpckrEnd: TAdvDateTimePicker
-        Left = 171
-        Top = 12
+        Left = 1107
+        Top = 5
         Width = 81
         Height = 21
         Date = 42346.721793981480000000
         Time = 42346.721793981480000000
         Kind = dkDate
         TabOrder = 1
+        Visible = False
         BorderStyle = bsSingle
         Ctl3D = True
         DateTime = 42346.721793981480000000
@@ -258,10 +284,10 @@ inherited FrmExportDBF: TFrmExportDBF
         LabelFont.Style = []
       end
       object btnExport: TAdvGlowButton
-        Left = 272
-        Top = 16
+        Left = 276
+        Top = 5
         Width = 81
-        Height = 44
+        Height = 30
         Caption = #23548#20986'&P'
         ImageIndex = 14
         Images = DM_Img.ilButton
@@ -290,8 +316,8 @@ inherited FrmExportDBF: TFrmExportDBF
         Appearance.ColorMirrorDisabledTo = 15921906
       end
       object edtbtnPath: TAdvEditBtn
-        Left = 59
-        Top = 34
+        Left = 995
+        Top = 27
         Width = 190
         Height = 21
         EmptyText = #23548#20986'DBF'#25991#20214#21517
@@ -308,7 +334,7 @@ inherited FrmExportDBF: TFrmExportDBF
         Color = clWindow
         ReadOnly = False
         TabOrder = 3
-        Visible = True
+        Visible = False
         Version = '1.3.3.4'
         ButtonStyle = bsButton
         ButtonWidth = 16
@@ -318,9 +344,9 @@ inherited FrmExportDBF: TFrmExportDBF
       end
       object btnSQL: TAdvGlowButton
         Left = 384
-        Top = 16
+        Top = 5
         Width = 81
-        Height = 44
+        Height = 30
         Caption = #39044#35272'&P'
         ImageIndex = 3
         Images = DM_Img.ilButton
@@ -348,7 +374,39 @@ inherited FrmExportDBF: TFrmExportDBF
         Appearance.ColorMirrorDisabled = 11974326
         Appearance.ColorMirrorDisabledTo = 15921906
       end
+      object suiLkcbbDBFType: TsuiDBLookupComboBox
+        Left = 83
+        Top = 11
+        Width = 158
+        Height = 21
+        BevelInner = bvNone
+        KeyField = 'TID'
+        ListField = 'DBFTypeMC'
+        ListSource = dsDBFType
+        TabOrder = 5
+        OnCloseUp = suiLkcbbDBFTypeCloseUp
+        UIStyle = WinXP
+        BorderColor = 6842472
+        ArrowColor = clBlack
+        ButtonColor = 14609391
+      end
     end
+  end
+  inherited DLCDS: TDlClientDataset
+    Left = 32
+    Top = 245
+  end
+  inherited al1: TActionList
+    Left = 96
+    Top = 245
+  end
+  inherited ds1: TDataSource
+    Left = 64
+    Top = 245
+  end
+  inherited prntdbgrdh: TPrintDBGridEh
+    Left = 136
+    Top = 248
   end
   object dsDBF: TDataSource
     DataSet = mtblhDBF
@@ -412,5 +470,16 @@ inherited FrmExportDBF: TFrmExportDBF
     ProviderDataSet = tbl1
     Left = 776
     Top = 296
+  end
+  object clientdtDBFType: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 304
+    Top = 176
+  end
+  object dsDBFType: TDataSource
+    DataSet = clientdtDBFType
+    Left = 256
+    Top = 192
   end
 end

@@ -232,6 +232,7 @@ Type
     EuVsXmLx=409,           //项目类型
     EuVsDBF=410,            //DBF导出配置
     EuVsDBFRel=412,         //DBF源表设置
+    EuVsDBFThem=413,         //DBF方案
     EuVsWebService=411,     //平台数据交换
     EuVSGenPym=999         //生成拼音码功能[此功能不发布]
     );

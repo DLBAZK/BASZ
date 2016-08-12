@@ -46,8 +46,8 @@ inherited frmTableRel: TfrmTableRel
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Left = 205
-    Width = 369
+    Left = 275
+    Width = 365
     Height = 306
     ExplicitLeft = 205
     ExplicitWidth = 369
@@ -55,7 +55,7 @@ inherited frmTableRel: TfrmTableRel
     FullHeight = 200
     inherited dbgrdh_DLCDS: TDBGridEh
       Top = 33
-      Width = 369
+      Width = 365
       Height = 273
       OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghAutoFitRowHeight]
       Columns = <
@@ -107,7 +107,7 @@ inherited frmTableRel: TfrmTableRel
     object advpnl2: TAdvPanel
       Left = 0
       Top = 0
-      Width = 369
+      Width = 365
       Height = 33
       Align = alTop
       Color = 16640730
@@ -133,6 +133,7 @@ inherited frmTableRel: TfrmTableRel
       StatusBar.Font.Height = -11
       StatusBar.Font.Name = 'Tahoma'
       StatusBar.Font.Style = []
+      ExplicitWidth = 369
       FullHeight = 200
       object cbbTableRel: TAdvOfficeComboBox
         Left = 32
@@ -163,7 +164,7 @@ inherited frmTableRel: TfrmTableRel
   object advpnl1: TAdvPanel [3]
     Left = 0
     Top = 92
-    Width = 205
+    Width = 275
     Height = 306
     Align = alLeft
     Color = 16640730
@@ -193,7 +194,7 @@ inherited frmTableRel: TfrmTableRel
     object dbgrdh1: TDBGridEh
       Left = 1
       Top = 1
-      Width = 203
+      Width = 273
       Height = 304
       Align = alClient
       DataGrouping.GroupLevels = <>
@@ -226,6 +227,15 @@ inherited frmTableRel: TfrmTableRel
           Width = 80
         end
         item
+          AutoFitColWidth = False
+          EditButtons = <>
+          FieldName = 'tablecus'
+          Footers = <>
+          Title.Alignment = taCenter
+          Title.Caption = #21035#21517
+          Width = 51
+        end
+        item
           EditButtons = <>
           FieldName = 'TableDesc'
           Footers = <>
@@ -238,9 +248,9 @@ inherited frmTableRel: TfrmTableRel
     end
   end
   object AdvPanel2: TAdvPanel [4]
-    Left = 574
+    Left = 640
     Top = 92
-    Width = 205
+    Width = 139
     Height = 306
     Align = alRight
     Color = 16640730
@@ -277,7 +287,7 @@ inherited frmTableRel: TfrmTableRel
     object DBGridEh1: TDBGridEh
       Left = 1
       Top = 33
-      Width = 203
+      Width = 137
       Height = 272
       Align = alBottom
       DataGrouping.GroupLevels = <>
@@ -321,7 +331,7 @@ inherited frmTableRel: TfrmTableRel
     object edtRField: TsuiEdit
       Left = 61
       Top = 8
-      Width = 121
+      Width = 68
       Height = 19
       UIStyle = DeepBlue
       BorderColor = clBlack

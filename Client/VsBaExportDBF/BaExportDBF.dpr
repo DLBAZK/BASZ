@@ -21,7 +21,8 @@ uses
   UFrmExportPre in 'UFrmExportPre.pas' {frmExportPre},
   UFrmDBFTable in 'UFrmDBFTable.pas' {frmDBFTable},
   UFrmTableRel in 'UFrmTableRel.pas' {frmTableRel},
-  UFrmTableSql in 'UFrmTableSql.pas' {frmTableSQL};
+  UFrmTableSql in 'UFrmTableSql.pas' {frmTableSQL},
+  UFrmDBFTheme in 'UFrmDBFTheme.pas' {frmDBFTheme};
 
 exports
   DllGetClassObject,
