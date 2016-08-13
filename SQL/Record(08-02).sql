@@ -11,7 +11,7 @@ CREATE TABLE VsCHDBFTable
 	TableDesc VARCHAR(50),       ---------表说明描述
 	TableSQL VARCHAR(1000),     -----------表SQL
 	TableRel  varchar(300),      -----------表关联
-	LinkTableCus VARCHAR(10)     -----------关联表别名
+	LinkTableCus VARCHAR(36)     -----------关联表别名
 )
 ----------------表关联记录
 IF EXISTS(SELECT 1 FROM sys.objects WHERE name='VsCHDBFTableRel' AND type='U')
@@ -673,3 +673,12 @@ values(413, 'TVsCHDBFTheme', '200028', 'EuVsDBFThem', 'DBF上报方案设置')
 if not exists(select * from VsMenu where MenuCode ='1031303')
    insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible) 
  Values('1031303','03','10313','&3.DBF上报方案',1,'TfrmDBFTheme','100028',1,1)
+ 
+ 
+ SELECT d.FieldName DBFName,d.FieldDes DBFFieldDes,a.TID,a.FieldName,a.FieldSQL,b.TableName,b.TableCus,b.TableSQL,b.TableRel,
+b.RelKind,b.LTableName,b.LtableCus,b.LTableRel,b.bRelKind,b.LTableSQL,b.bRelKind FROM dbo.VsCHDBFStructure a
+LEFT JOIN (SELECT c.*,d.TableName LTableName,d.TableCus LtableCus,d.TableSQL LTableSQL,d.TableRel LTableRel,
+(SELECT DISTINCT BRelKind  FROM dbo.VsCHDBFTableRel WHERE LBID=c.LinkTableCus AND RBID= c.bid ) RelKind, 
+(SELECT DISTINCT BRelKind  FROM dbo.VsCHDBFTableRel WHERE LBID=d.LinkTableCus AND RBID= d.bid ) bRelKind FROM dbo.VsCHDBFTable c
+LEFT JOIN dbo.VsCHDBFTable d ON c.linktablecus =d.Bid)b ON a.FieldTable =b.Bid AND a.FieldTableCus = b.TableCus
+LEFT JOIN dbo.VsCHDBFField d ON a.FID=d.FID ORDER BY a.xh 
