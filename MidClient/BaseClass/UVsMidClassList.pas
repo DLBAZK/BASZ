@@ -233,7 +233,13 @@ Type
     EuVsDBF=410,            //DBF导出配置
     EuVsDBFRel=412,         //DBF源表设置
     EuVsDBFThem=413,         //DBF方案
+    EuVsDBFMB=414,          //DBF上报规范模板
+    EuVsDBFField=415,       //DBF上报字段
     EuVsWebService=411,     //平台数据交换
+
+
+
+    EuSZActionCon=501,    //病案示踪流转动作自定义模块
     EuVSGenPym=999         //生成拼音码功能[此功能不发布]
     );
 
