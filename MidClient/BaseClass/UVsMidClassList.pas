@@ -240,6 +240,8 @@ Type
 
 
     EuSZActionCon=501,    //病案示踪流转动作自定义模块
+    EuSZRevokeReason=502,  //动作撤销原因
+    EuSZReclaim=503,       //病案回收
     EuVSGenPym=999         //生成拼音码功能[此功能不发布]
     );
 

@@ -78,6 +78,7 @@ begin
       DisableControls;
       CurrentNum := FieldByName('prioritynum').AsInteger;
       DM :=  FieldByName('DM').AsString;
+      
       case flag of
         0:  //иорф
         begin

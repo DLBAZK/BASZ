@@ -28,7 +28,9 @@ uses
   UFrmSuiDBListForm in '..\BaseForm\UFrmSuiDBListForm.pas' {FrmSuiDBListForm},
   UGFun in '..\..\Public\UGFun.pas',
   UGVar in '..\..\Public\UGVar.pas',
-  UFrmActionCon in 'UFrmActionCon.pas' {frmActionCon};
+  UFrmActionCon in 'UFrmActionCon.pas' {frmActionCon},
+  UFrmReason in 'UFrmReason.pas' {frmRevokeReason},
+  UFrmReclaim in 'UFrmReclaim.pas' {frmReclaim};
 
 {$R *.res}
  Function DllObjFactory(MainInfo:TMainInfo;FormClass:String):TFormClass;
