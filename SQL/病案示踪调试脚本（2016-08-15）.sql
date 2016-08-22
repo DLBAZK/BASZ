@@ -37,14 +37,144 @@ else
 		
 if  exists (select * from VsMenu where MenuCode = '50003')
 begin
-	delete from VsMenu where MenuCode = '50001'
+	delete from VsMenu where MenuCode = '50003'
 	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
 	values('50003','03','500','&3.病案回收','1','TfrmReclaim','100029','1','1',null)
 end
 else
 	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
-	values('50003','03','500','&3.病案回收','1','TfrmReclaim','100029','1','1',null)		
+	values('50003','03','500','&3.病案回收','1','TfrmReclaim','100029','1','1',null)	
+	
+	
+if  exists (select * from VsMenu where MenuCode = '50004')
+begin
+	delete from VsMenu where MenuCode = '50004'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50004','04','500','&4.病案质控','0','','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50004','04','500','&4.病案质控','0','','100029','1','1',null)
+
+if  exists (select * from VsMenu where MenuCode = '5000401')
+begin
+	delete from VsMenu where MenuCode = '5000401'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000401','01','50004','&1.签入','1','TfrmzkCheckIn','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000401','01','50004','&1.签入','1','TfrmzkCheckIn','100029','1','1',null)
+	
+if  exists (select * from VsMenu where MenuCode = '5000402')
+begin
+	delete from VsMenu where MenuCode = '5000402'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000402','02','50004','&2.签出','1','TfrmZKCheckOut','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000402','02','50004','&2.签出','1','TfrmZKCheckOut','100029','1','1',null)	
+
+if  exists (select * from VsMenu where MenuCode = '5000403')
+begin
+	delete from VsMenu where MenuCode = '5000403'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000403','03','50004','&3.撤销','1','TfrmZKRevoke','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000403','03','50004','&3.撤销','1','TfrmZKRevoke','100029','1','1',null)	
+
+
+
+
 		
+		
+if  exists (select * from VsMenu where MenuCode = '50005')
+begin
+	delete from VsMenu where MenuCode = '50005'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50005','05','500','&5.病案编目','0','','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50005','05','500','&5.病案编目','0','','100029','1','1',null)
+
+if  exists (select * from VsMenu where MenuCode = '5000501')
+begin
+	delete from VsMenu where MenuCode = '5000501'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000501','01','50005','&1.签入','1','TfrmFrmCatalogue','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000501','01','50005','&1.签入','1','TfrmFrmCatalogue','100029','1','1',null)
+	
+if  exists (select * from VsMenu where MenuCode = '5000502')
+begin
+	delete from VsMenu where MenuCode = '5000502'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000502','02','50005','&2.签出','1','TfrmCatalOut','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000502','02','50005','&2.签出','1','TfrmCatalOut','100029','1','1',null)	
+	
+	
+if  exists (select * from VsMenu where MenuCode = '5000503')
+begin
+	delete from VsMenu where MenuCode = '5000503'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000503','03','50005','&3.撤销','1','TfrmCataloRevoke','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000503','03','50005','&3.撤销','1','TfrmCataloRevoke','100029','1','1',null)	
+	
+
+if  exists (select * from VsMenu where MenuCode = '50006')
+begin
+	delete from VsMenu where MenuCode = '50006'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50006','06','500','&6.病案装订','0','','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50006','06','500','&6.病案装订','0','','100029','1','1',null)
+
+if  exists (select * from VsMenu where MenuCode = '5000601')
+begin
+	delete from VsMenu where MenuCode = '5000601'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000601','01','50006','&1.签入','1','TfrmBoundIn','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000601','01','50006','&1.签入','1','TfrmBoundIn','100029','1','1',null)
+	
+if  exists (select * from VsMenu where MenuCode = '5000602')
+begin
+	delete from VsMenu where MenuCode = '5000602'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000602','02','50006','&2.签出','1','TfrmBoundOut','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000602','02','50006','&2.签出','1','TfrmBoundOut','100029','1','1',null)	
+	
+	
+	
+if  exists (select * from VsMenu where MenuCode = '5000603')
+begin
+	delete from VsMenu where MenuCode = '5000603'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000603','03','50006','&3.撤销','1','TfrmBoundRevoke','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('5000603','03','50006','&3.撤销','1','TfrmBoundRevoke','100029','1','1',null)		
+			
 if  exists(select * from VsMidOper where MidOperCode ='501')
 begin
 	delete from VsMidOper where MidOperCode = '501'

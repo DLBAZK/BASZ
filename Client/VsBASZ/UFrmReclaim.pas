@@ -57,17 +57,17 @@ type
     btnRight: TAdvGlowButton;
     btnLeft: TAdvGlowButton;
     btnAllLeft: TAdvGlowButton;
+    btnacClose: TAdvGlowButton;
     procedure btnSelClick(Sender: TObject);
     procedure btnAllRightClick(Sender: TObject);
     procedure btnAddListClick(Sender: TObject);
     procedure btnSaveListClick(Sender: TObject);
+    procedure btnPrintClick(Sender: TObject);
+    procedure edtBarcodeKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     ReclaimListID:string;//回收单号
-    /// <summary>
-    /// 加载显示科室
-    /// </summary>
-    procedure LoadOffice;
     /// <summary>
     /// 保存病案动作信息
     /// </summary>
@@ -83,13 +83,13 @@ var
   frmReclaim: TfrmReclaim;
 
 implementation
-   uses UGFun,UGVar,UCommon,UMidProxy;
+   uses UGFun,UGVar,UCommon,UMidProxy,URptReclaim,UFrmPrint,UQickRepPreview,UPublic;
 {$R *.dfm}
 { TfrmReclaim }
 
 procedure TfrmReclaim.btnAddListClick(Sender: TObject);
 const
-  sql ='SELECT TOP 1 Right(ListID,3) ListNum FROM SZActionList WHERE listtype=1 ORDER BY listtime DESC';
+  sql ='SELECT TOP 1 Right(ListID,3) ListNum FROM SZActionList WHERE listtype=^1^ ORDER BY listtime DESC';
 var
  clientdttmp:TClientDataSet;
  num,i:Integer;
@@ -129,39 +129,6 @@ begin
 end;
 
 procedure TfrmReclaim.btnAllRightClick(Sender: TObject);
-
-  procedure MoveData(source,Dest:TClientDataSet);
-  var
-    patientID:string;//病人唯一标识
-    i:Integer;
-  begin
-    //病人唯一标识 索引
-    Dest.IndexFieldNames := 'patientid';
-
-    with source do
-    begin
-      patientID :=FieldByName('patientID').AsString;
-      //不存在则添加
-      if not Dest.FindKey([patientid]) then
-      begin
-        Dest.Append;
-        for I := 0 to source.FieldCount-1 do
-        begin
-          Dest.FieldByName(source.Fields[i].FieldName).AsString :=source.Fields[i].AsString;
-        end;
-        Dest.Post;
-        Delete;
-      end;
-    end;
-  end;
-   procedure LeftOrRight(source,dest:TClientDataSet);
-  begin
-    if not source.Active  then Exit;
-    if source.IsEmpty then Exit;
-    if not dest.Active then Exit;
-
-    MoveData(source,dest);
-  end;
 var
   tag:Integer;
   mark:Pointer;
@@ -171,67 +138,56 @@ begin
   case tag of
     0://全部右移
     begin
-      if not DLCDS.Active then Exit;
-      if DLCDS.IsEmpty then Exit;
-      with DLCDS do
-      begin
-        StartWaitWindow('正在移动数据...');
-        try
-          DisableControls;
-          First;
-          while not Eof do
-          begin
-           //移动数据
-           MoveData(TClientDataSet(DLCDS),clientdtRight);
-           First;
-          end;
-          EnableControls;
-        finally
-          EndWaitWindow;
-          dbgrdhleft.DataSource := nil;
-          if not clientdtRight.IsEmpty then
-           clientdtRight.First;
-        end;
-      end;
+      ChangeData(TClientDataSet(DLCDS),clientdtRight,otAllRight);
+      dbgrdhleft.DataSource := nil;
+      if not clientdtRight.IsEmpty then
+       clientdtRight.First;
     end;
     1: //右移
     begin
-      LeftOrRight(TClientDataSet(DLCDS),clientdtRight);
+      ChangeData(TClientDataSet(DLCDS),clientdtRight,otRight);
       if dbgrdhright.DataSource = nil then
         dbgrdhright.DataSource := dsRight;
     end;
     2: //左移
     begin
-      LeftOrRight(clientdtRight,TClientDataSet(DLCDS));
+      ChangeData(clientdtRight,TClientDataSet(DLCDS),otLeft);
       if dbgrdhleft.DataSource=nil then
         dbgrdhleft.DataSource := ds1;
     end;
     3://全部左移
     begin
-      if not clientdtRight.Active then Exit;
-      if clientdtRight.IsEmpty then Exit;
-      with clientdtRight do
-      begin
-        StartWaitWindow('正在移动数据...');
-        try
-          DisableControls;
-          First;
-          while not Eof do
-          begin
-           //移动数据
-           MoveData(clientdtRight,TClientDataSet(DLCDS));
-           First;
-          end;
-          EnableControls;
-        finally
-          EndWaitWindow;
-           dbgrdhright.DataSource := nil;
-          if not DLCDS.IsEmpty then
-           DLCDS.First;
-        end;
-      end;
+      ChangeData(clientdtRight,TClientDataSet(DLCDS),otAllLeft);
+      dbgrdhright.DataSource := nil;
+        if not DLCDS.IsEmpty then
+         DLCDS.First;
     end;
   end;
+end;
+
+procedure QuickRepPreview(Sender: TObject);
+begin
+
+end;
+procedure TfrmReclaim.btnPrintClick(Sender: TObject);
+const
+  SQL='select *,(SELECT xbmc FROM VsZhdm WHERE ISNULL(xbmc,^^)<> ^^ AND dm=b.sex)xbmc '
+     +' from SZActionListDeatil a left join SZBADetail b on a.patientid=b.patientid'
+     +' where a.listid=^%s^ ';
+begin
+  inherited;
+  
+  if ReclaimListID ='' then Exit;
+  frmPrint := TfrmPrint.Create(nil);
+  AutoFree(frmPrint);
+  RptReclaim := TRptYSGZYLB.Create(nil);
+  TMidProxy.SqlOpen(Format(SQL,[ReclaimListID]),RptReclaim.Cds1);
+  RptReclaim.yymc.Caption :='医院名称：'+ G_MainInfo.MainSysInfo.HospitalName;
+  RptReclaim.qrlblzbr.Caption :=RptReclaim.qrlblzbr.Caption + G_MainInfo.MainSysInfo.LogonUserName;
+  //frmPrint.qrprvwprint.QRPrinter :=   RptReclaim.Printer;
+  RptReclaim.Preview;
+  //TQuickRepPreview(frmPrint.qrprvwprint).Preview(RptReclaim.QRPrinter);
+  //frmprint.ShowModal;
 end;
 
 procedure TfrmReclaim.btnSaveListClick(Sender: TObject);
@@ -324,7 +280,7 @@ end;
 
 procedure TfrmReclaim.btnSelClick(Sender: TObject);
  const
-  sql ='SELECT * FROM dbo.SZBADetail where IsCancel=0 and  ISNULL(State,^^)=^^';
+  sql ='SELECT * FROM SZBADetail where IsCancel=0 and  ISNULL(State,^^)=^^';
 var
   StartDate,EndDate:string;//出院日期
   SODM,chiefDoc,zynum,name:string;//科室代码、主管医师、住院号、姓名
@@ -383,37 +339,42 @@ const
   SQL ='select * from SZBADetail WHERE 1<>1';
 begin
   inherited Create(Aowner,EuSZReclaim,SQL);
-  LoadOffice;
- // advdtmpckrStart.Date := DateOf(StartOfTheMonth(Now));
+  LoadOffice(cbbOffice);
   TMidProxy.SqlOpen(SQL,clientdtRight);
 end;
 
-procedure TfrmReclaim.LoadOffice;
-const
-  sql='Select Isnull(UserKS,^^)UserKS from VsUser where usercode = ^%s^';
-  officeSql='Select SoDm,SoMC,SoPy From VsSOffice Where SoTy<>1 AND   SODM=^%s^';
-var
- clienttmp:TClientDataSet;
- ks:string;  //用户科室
+procedure TfrmReclaim.edtBarcodeKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+  var
+   barcode:string;
+   clienttmp:TClientDataSet;
 begin
-  //当前用户是否设置科室
-  try
-    clienttmp := TClientDataSet.Create(nil);
-    AutoFree(clienttmp);
-    TMidProxy.SqlOpen(Format(sql,[G_MainInfo.MainSysInfo.LogonUserCode]),clienttmp);
-    if not clienttmp.IsEmpty then
+  inherited;
+  barcode := edtBarcode.Text;
+  if Key=VK_RETURN then
+  begin
+    clientdtright.IndexFieldNames :='BarCode';
+    if  clientdtright.FindKey([barcode]) then
     begin
-      ks :=clienttmp.FieldByName('UserKS').AsString;
-      if ks<>'' then
-      begin
-        FillCombobox(Format(officeSql,[ks]),'SoDm','SoMC',cbbOffice);
-        cbbOffice.ItemIndex :=0;
-        Exit;
-      end;
-
+      ShowMsgSure('该病案已添加到列表');
+      Exit;
     end;
-  finally
-   FillCombobox_ZyKS(cbbOffice);
+    clienttmp :=TClientDataSet.Create(nil);
+    AutoFree(clienttmp);
+    TMidProxy.SqlOpen(Format('SELECT * FROM SZBADetail where ISNULL(State,^^)=^^ and barcode=^%s^',
+       [barcode]),clienttmp);
+    if clienttmp.IsEmpty then
+    begin
+      ShowMsgSure('病案库中不存在该病案信息!');
+      Exit;
+    end;
+    if clienttmp.FieldByName('IsCancel').AsBoolean then
+    begin
+      ShowMsgSure('该病案已被注销');
+      Exit;
+    end;
+    ChangeData(clienttmp,clientdtRight,otRight);
+    
   end;
 end;
 

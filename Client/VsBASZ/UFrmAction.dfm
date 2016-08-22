@@ -1,37 +1,37 @@
-inherited frmReclaim: TfrmReclaim
-  Caption = #30149#26696#22238#25910
-  ClientHeight = 586
-  ClientWidth = 1029
-  ExplicitWidth = 1045
-  ExplicitHeight = 625
+inherited frmActionCheckB: TfrmActionCheckB
+  Caption = #27969#36716#31614#20837#31614#20986
+  ClientHeight = 729
+  ClientWidth = 1063
+  ExplicitWidth = 1079
+  ExplicitHeight = 768
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
-    Top = 567
-    Width = 1029
-    ExplicitTop = 567
-    ExplicitWidth = 1029
+    Top = 710
+    Width = 1063
+    ExplicitTop = 710
+    ExplicitWidth = 1063
   end
   inherited advtlbrpgr1: TAdvToolBarPager
-    Width = 1029
-    ExplicitWidth = 1029
+    Width = 1063
+    ExplicitWidth = 1063
     inherited AdvPage1: TAdvPage
-      Width = 1021
+      Width = 1055
       Height = 0
-      ExplicitWidth = 1021
+      ExplicitWidth = 1055
       ExplicitHeight = 0
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Width = 1029
-    Height = 542
-    ExplicitWidth = 1029
-    ExplicitHeight = 542
+    Width = 1063
+    Height = 685
+    ExplicitWidth = 1063
+    ExplicitHeight = 685
     FullHeight = 200
     object advspltr1: TAdvSplitter
       Left = 518
       Top = 0
-      Height = 542
+      Height = 685
       Visible = False
       Appearance.BorderColor = clNone
       Appearance.BorderColorHot = clNone
@@ -48,7 +48,7 @@ inherited frmReclaim: TfrmReclaim
       Left = 0
       Top = 0
       Width = 518
-      Height = 542
+      Height = 685
       Align = alLeft
       BevelOuter = bvNone
       Color = 16640730
@@ -278,8 +278,8 @@ inherited frmReclaim: TfrmReclaim
           TabOrder = 5
         end
         object btnSel: TAdvGlowButton
-          Left = 79
-          Top = 96
+          Left = 86
+          Top = 94
           Width = 100
           Height = 33
           Caption = #26126#32454#26597#35810
@@ -396,11 +396,11 @@ inherited frmReclaim: TfrmReclaim
           Appearance.ColorMirrorDisabledTo = 15921906
         end
       end
-      object advgrp1: TAdvGroupBox
+      object advgrpLeft: TAdvGroupBox
         Left = 0
         Top = 137
         Width = 518
-        Height = 405
+        Height = 548
         Align = alClient
         Caption = #24453#22238#25910#21015#34920
         TabOrder = 1
@@ -408,7 +408,7 @@ inherited frmReclaim: TfrmReclaim
           Left = 2
           Top = 16
           Width = 514
-          Height = 387
+          Height = 530
           Align = alClient
           DataGrouping.GroupLevels = <>
           DataSource = ds1
@@ -480,7 +480,7 @@ inherited frmReclaim: TfrmReclaim
       Left = 521
       Top = 0
       Width = 53
-      Height = 542
+      Height = 685
       Align = alLeft
       BevelOuter = bvNone
       Color = 16640730
@@ -937,8 +937,8 @@ inherited frmReclaim: TfrmReclaim
     object advpnl5: TAdvPanel
       Left = 574
       Top = 0
-      Width = 455
-      Height = 542
+      Width = 489
+      Height = 685
       Align = alClient
       BevelOuter = bvNone
       Color = 16640730
@@ -982,7 +982,7 @@ inherited frmReclaim: TfrmReclaim
       object advpnl6: TAdvPanel
         Left = 0
         Top = 0
-        Width = 455
+        Width = 489
         Height = 137
         Align = alTop
         BevelOuter = bvNone
@@ -1024,26 +1024,8 @@ inherited frmReclaim: TfrmReclaim
         StatusBar.GradientDirection = gdVertical
         Styler = AdvPanelStyler1
         FullHeight = 200
-        object lbl1: TLabel
-          Left = 3
-          Top = 16
-          Width = 36
-          Height = 13
-          Caption = #36816#36865#20154
-          Color = 16640730
-          ParentColor = False
-        end
-        object lbl8: TLabel
-          Left = 188
-          Top = 16
-          Width = 36
-          Height = 13
-          Caption = #25509#25910#20154
-          Color = 16640730
-          ParentColor = False
-        end
         object lbl10: TLabel
-          Left = 3
+          Left = 27
           Top = 47
           Width = 24
           Height = 13
@@ -1051,38 +1033,20 @@ inherited frmReclaim: TfrmReclaim
           Color = 16640730
           ParentColor = False
         end
-        object edtcarrier: TsuiEdit
-          Left = 54
-          Top = 10
+        object edtBarcode: TsuiEdit
+          Left = 78
+          Top = 39
           Width = 121
           Height = 19
           UIStyle = WinXP
           BorderColor = 6842472
           TabOrder = 0
-        end
-        object edtsendee: TsuiEdit
-          Left = 242
-          Top = 10
-          Width = 121
-          Height = 19
-          UIStyle = WinXP
-          BorderColor = 6842472
-          TabOrder = 1
-        end
-        object edtBarcode: TsuiEdit
-          Left = 54
-          Top = 41
-          Width = 121
-          Height = 19
-          UIStyle = WinXP
-          BorderColor = 6842472
-          TabOrder = 2
           OnKeyDown = edtBarcodeKeyDown
         end
         object btnAddList: TAdvGlowButton
-          Left = 15
+          Left = 19
           Top = 96
-          Width = 96
+          Width = 100
           Height = 33
           Caption = #26032#24314#22238#25910#21333
           NotesFont.Charset = DEFAULT_CHARSET
@@ -1135,7 +1099,7 @@ inherited frmReclaim: TfrmReclaim
             4F5E761E6AE99A02E8415D0C8D0E813FE00F8EE8237F44A3D1AF49F067304343
             F887E6D9EBB1058F064DBA6D37D1672DC56309C520C7AAFC22406EBF4DC36B54
             54BE8FAF9D49CEDF1DACD8A82350C4F80000000049454E44AE426082}
-          TabOrder = 3
+          TabOrder = 1
           OnClick = btnAddListClick
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
@@ -1155,9 +1119,9 @@ inherited frmReclaim: TfrmReclaim
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object btnSaveList: TAdvGlowButton
-          Left = 125
+          Left = 136
           Top = 96
-          Width = 96
+          Width = 100
           Height = 33
           Caption = #20445#23384#22238#25910#21333
           NotesFont.Charset = DEFAULT_CHARSET
@@ -1205,7 +1169,7 @@ inherited frmReclaim: TfrmReclaim
             5AB700C30B70D9B0D6E6F1C874FBF6231C1F3736FD651E5B94F8ECB104F9D87D
             53E78BBEF3FDFF46A98F2DFF02CC35B337F85CF3C80000000049454E44AE4260
             82}
-          TabOrder = 4
+          TabOrder = 2
           OnClick = btnSaveListClick
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
@@ -1225,9 +1189,9 @@ inherited frmReclaim: TfrmReclaim
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object btnPrint: TAdvGlowButton
-          Left = 235
+          Left = 253
           Top = 96
-          Width = 96
+          Width = 100
           Height = 33
           Caption = #25171#21360#22238#25910#21333
           NotesFont.Charset = DEFAULT_CHARSET
@@ -1270,7 +1234,7 @@ inherited frmReclaim: TfrmReclaim
             7AB442E0AD4826A2DBF744B8309B7D45A27ABC432A4E51ABA9A3D03E1E1BFBEA
             8BB7DAB533A837FD442061D149692864C4F93633A7A15AEF824277144A149567
             E11FEA3DE1639BDDBB1CFF03733B73FD693545860000000049454E44AE426082}
-          TabOrder = 5
+          TabOrder = 3
           OnClick = btnPrintClick
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
@@ -1290,9 +1254,9 @@ inherited frmReclaim: TfrmReclaim
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object btnacClose: TAdvGlowButton
-          Left = 345
+          Left = 376
           Top = 96
-          Width = 96
+          Width = 100
           Height = 33
           Action = acClose
           ImageIndex = 1
@@ -1301,7 +1265,7 @@ inherited frmReclaim: TfrmReclaim
           NotesFont.Height = -11
           NotesFont.Name = 'Tahoma'
           NotesFont.Style = []
-          TabOrder = 6
+          TabOrder = 4
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
           Appearance.ColorDisabled = 15921906
@@ -1320,22 +1284,22 @@ inherited frmReclaim: TfrmReclaim
           Appearance.ColorMirrorDisabledTo = 15921906
         end
       end
-      object advgrp3: TAdvGroupBox
+      object advgrpright: TAdvGroupBox
         Left = 0
         Top = 137
-        Width = 455
-        Height = 405
+        Width = 489
+        Height = 548
         Align = alClient
         Caption = #22238#25910#21015#34920
         TabOrder = 1
         object dbgrdhright: TDBGridEh
           Left = 2
           Top = 16
-          Width = 451
-          Height = 387
+          Width = 485
+          Height = 530
           Align = alClient
           DataGrouping.GroupLevels = <>
-          DataSource = dsRight
+          DataSource = dsright
           Flat = True
           FooterColor = clWindow
           FooterFont.Charset = DEFAULT_CHARSET
@@ -1401,26 +1365,23 @@ inherited frmReclaim: TfrmReclaim
     end
   end
   inherited DLCDS: TDlClientDataset
-    Left = 32
-    Top = 261
+    Top = 277
   end
   inherited al1: TActionList
-    Left = 104
-    Top = 269
+    Top = 277
   end
   inherited ds1: TDataSource
-    Left = 72
-    Top = 269
+    Top = 277
   end
-  object clientdtRight: TClientDataSet
+  object clientdtright: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 672
-    Top = 352
+    Left = 776
+    Top = 272
   end
-  object dsRight: TDataSource
-    DataSet = clientdtRight
-    Left = 696
+  object dsright: TDataSource
+    DataSet = clientdtright
+    Left = 808
     Top = 320
   end
 end

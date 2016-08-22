@@ -30,7 +30,22 @@ uses
   UGVar in '..\..\Public\UGVar.pas',
   UFrmActionCon in 'UFrmActionCon.pas' {frmActionCon},
   UFrmReason in 'UFrmReason.pas' {frmRevokeReason},
-  UFrmReclaim in 'UFrmReclaim.pas' {frmReclaim};
+  UFrmReclaim in 'UFrmReclaim.pas' {frmReclaim},
+  UFrmPrint in 'UFrmPrint.pas' {frmPrint},
+  URptReclaim in 'URptReclaim.pas' {RptYSGZYLB: TQuickRep},
+  UFrmAction in 'UFrmAction.pas' {frmActionCheckB},
+  UPublic in 'UPublic.pas',
+  UFrmZKCheckIn in 'UFrmZKCheckIn.pas' {frmzkCheckIn},
+  UFrmZKCheckOut in 'UFrmZKCheckOut.pas' {frmZKCheckOut},
+  UFrmCatalogue in 'UFrmCatalogue.pas' {frmFrmCatalogue},
+  UFrmCatalOut in 'UFrmCatalOut.pas' {frmCatalOut},
+  UFrmBoundIn in 'UFrmBoundIn.pas' {frmBoundIn},
+  UFrmBoundOut in 'UFrmBoundOut.pas' {frmBoundOut},
+  UFrmRevokeB in 'UFrmRevokeB.pas' {frmRevokeB},
+  USZVar in 'USZVar.pas',
+  UFrmZKRevoke in 'UFrmZKRevoke.pas' {frmZKRevoke},
+  UFrmCataloRevoke in 'UFrmCataloRevoke.pas' {frmCataloRevoke},
+  UFrmBoundRevoke in 'UFrmBoundRevoke.pas' {frmBoundRevoke};
 
 {$R *.res}
  Function DllObjFactory(MainInfo:TMainInfo;FormClass:String):TFormClass;

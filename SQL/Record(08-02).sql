@@ -53,8 +53,9 @@ CREATE TABLE VsCHDBFType
 	DBFTypeMC VARCHAR(20)						--------------------类型名称
 )
 
-INSERT INTO VsCHDBFType(DBFTypeMC) VALUES('卫计统4-2')
+INSERT INTO VsCHDBFType(DBFTypeMC) VALUES('卫计统4-1')
 
+	
 
 -------------------DBF字段源表
 IF EXISTS(SELECT 1 FROM sys.objects WHERE name='VsCHDBFField' AND type='U')
@@ -668,8 +669,18 @@ values(412, 'TVsCHDBFRel', '200028', 'EuVsDBFRel', 'DBF上报设置')
    insert into VSMIDOPER (MidOperCode, MidOperName, MidOperLib, MidOperEnu, MidOperDes) 
 values(413, 'TVsCHDBFTheme', '200028', 'EuVsDBFThem', 'DBF上报方案设置')
 
+ if not exists(select * from VsMidOper where MidOperCode ='414')
+   insert into VSMIDOPER (MidOperCode, MidOperName, MidOperLib, MidOperEnu, MidOperDes) 
+values(414, 'TVsCHDBFMB', '200028', 'EuVsDBFMB', 'DBF上报方案设置')
 
+ if not exists(select * from VsMidOper where MidOperCode ='415')
+   insert into VSMIDOPER (MidOperCode, MidOperName, MidOperLib, MidOperEnu, MidOperDes) 
+values(415, 'TVsCHDBFField', '200028', 'EuVsDBFField', 'DBF上报方案设置')
 
+if not exists(select * from VsMenu where MenuCode ='1031302')
+   insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible) 
+ Values('1031302','02','10313','&2.DBF上报规范',1,'TfrmDBFMB','100028',1,1)
+ 
 if not exists(select * from VsMenu where MenuCode ='1031303')
    insert into VsMenu(MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible) 
  Values('1031303','03','10313','&3.DBF上报方案',1,'TfrmDBFTheme','100028',1,1)
