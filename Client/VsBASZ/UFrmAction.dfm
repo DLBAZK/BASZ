@@ -2,6 +2,7 @@ inherited frmActionCheckB: TfrmActionCheckB
   Caption = #27969#36716#31614#20837#31614#20986
   ClientHeight = 729
   ClientWidth = 1063
+  OnCreate = FormCreate
   ExplicitWidth = 1079
   ExplicitHeight = 768
   PixelsPerInch = 96

@@ -2,6 +2,7 @@ inherited frmRevokeB: TfrmRevokeB
   Caption = #27969#36716#25764#38144#22522#31867
   ClientHeight = 590
   ClientWidth = 916
+  OnCreate = FormCreate
   ExplicitWidth = 932
   ExplicitHeight = 629
   PixelsPerInch = 96
@@ -582,6 +583,14 @@ inherited frmRevokeB: TfrmRevokeB
             Title.Alignment = taCenter
             Title.Caption = #20027#31649#21307#24072
             Width = 82
+          end
+          item
+            EditButtons = <>
+            FieldName = 'StateDesc'
+            Footers = <>
+            TextEditing = False
+            Title.Alignment = taCenter
+            Title.Caption = #29366#24577
           end>
         object RowDetailData: TRowDetailPanelControlEh
         end

@@ -1,5 +1,5 @@
 inherited frmzkCheckIn: TfrmzkCheckIn
-  Caption = #36136#25511#31614#20837
+  Caption = ''
   PixelsPerInch = 96
   TextHeight = 13
   inherited AdvPanel1: TAdvPanel

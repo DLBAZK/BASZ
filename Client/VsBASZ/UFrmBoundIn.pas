@@ -17,11 +17,11 @@ uses
 
 type
   TfrmBoundIn = class(TfrmActionCheckB)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    constructor Create(Aowner:TComponent);override;
     procedure PrintActionList;override;
   end;
 
@@ -34,7 +34,8 @@ implementation
 
 { TfrmBoundIn }
 
-constructor TfrmBoundIn.Create(Aowner: TComponent);
+
+procedure TfrmBoundIn.FormCreate(Sender: TObject);
 begin
   ActionDicDM := '103' ;
   ActionOperation := aoCheckIn;

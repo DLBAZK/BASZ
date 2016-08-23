@@ -18,11 +18,11 @@ uses
 
 type
   TfrmZKRevoke = class(TfrmRevokeB)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-   constructor Create(Aowner:TComponent);override;
   end;
 
 var
@@ -34,7 +34,8 @@ implementation
 
 { TfrmZKRevoke }
 
-constructor TfrmZKRevoke.Create(Aowner: TComponent);
+
+procedure TfrmZKRevoke.FormCreate(Sender: TObject);
 begin
   ActionDicDM :='102';
   inherited;

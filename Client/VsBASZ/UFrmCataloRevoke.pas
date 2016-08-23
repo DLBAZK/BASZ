@@ -17,11 +17,11 @@ uses
 
 type
   TfrmCataloRevoke = class(TfrmRevokeB)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    constructor Create(Aowner:TComponent);override;
   end;
 
 var
@@ -33,7 +33,8 @@ implementation
 
 { TfrmCataloRevoke }
 
-constructor TfrmCataloRevoke.Create(Aowner: TComponent);
+
+procedure TfrmCataloRevoke.FormCreate(Sender: TObject);
 begin
   ActionDicDM :='104';
   inherited;

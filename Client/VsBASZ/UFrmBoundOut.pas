@@ -17,11 +17,11 @@ uses
 
 type
   TfrmBoundOut = class(TfrmActionCheckB)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    constructor Create(Aowner:TComponent);override;
     procedure PrintActionList;override;
   end;
 
@@ -34,11 +34,12 @@ implementation
 
 { TfrmBoundOut }
 
-constructor TfrmBoundOut.Create(Aowner: TComponent);
+
+procedure TfrmBoundOut.FormCreate(Sender: TObject);
 begin
   ActionDicDM := '103';
   ActionOperation:=aoCheckOut;
-  inherited Create(Aowner);
+  inherited;
 
 end;
 

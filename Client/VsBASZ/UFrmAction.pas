@@ -63,6 +63,7 @@ type
     procedure btnPrintClick(Sender: TObject);
     procedure edtBarcodeKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     //字典库的动作代码
@@ -82,7 +83,7 @@ type
     PriorityNum:Integer;
     //动作签入（签出）单号
     ActionListNum:string;
-    //动作签入签出描述 
+    //动作签入签出描述
     CheckDesc:string;
 
     procedure SetActionOperation(const value:TActionOperation);
@@ -92,7 +93,7 @@ type
     procedure GetPriorActionDM;
   public
     { Public declarations }
-    Constructor Create(Aowner:TComponent);Override;
+//    Constructor Create(Aowner:TComponent);Override;
     /// <summary>
     /// 动作代码
     /// </summary>
@@ -179,7 +180,6 @@ const
   //保存回收病历信息
   sqlListDeatil='insert into SZActionListDeatil(ListID,patientID) values(^%s^,^%s^)';
 var
-  book:Pointer;
   patientid:string;
   sql:string;
   ReclaimTime:string;
@@ -198,7 +198,6 @@ begin
   StartWaitWindow(Format('正在%s数据',[CheckDesc]));
   try
     try
-      book := clientdtright.GetBookmark;
       ReclaimTime := FormatDateTime('yyyy-mm-dd hh:mm:ss',Now);
       with clientdtRight do
       begin
@@ -222,17 +221,16 @@ begin
         EnableControls;
       end;
       EndWaitWindow;
+      clientdtright.EmptyDataSet;
       ShowMsgSure(CheckDesc+'成功!');
     except
       on ex:Exception do
       begin
-        clientdtright.GotoBookmark(book);
         EndWaitWindow;
         WriteErrorLog(ex.Message);
       end;
     end;
   finally
-    clientdtright.GotoBookmark(book);
     EndWaitWindow;
   end;
 end;
@@ -309,37 +307,37 @@ begin
 
 end;
 
-constructor TfrmActionCheckB.Create(Aowner: TComponent);
-const
-  SQL ='select * from SZBADetail WHERE 1<>1';
-begin
-  inherited;
-  //加载显示科室
-  LoadOffice(cbbOffice);
-  //查询上一步动作代码
-  GetPriorActionDM;
-  //签入
-  if ActionOperation=aoCheckIn then
-  begin
-    advgrpLeft.Caption := '待签入列表';
-    advgrpright.Caption := '签入列表';
-
-    btnAddList.Caption :='新建签入单';
-    btnSaveList.Caption := '保存签入单';
-    btnPrint.Caption :='打印签入单';
-    ActionTypeDesc :=FActionDM+'_1';
-  end
-  else if ActionOperation=aoCheckOut then //签出
-  begin
-    advgrpLeft.Caption := '待签出列表';
-    advgrpright.Caption := '签出列表';
-    btnAddList.Caption :='新建签出单';
-    btnSaveList.Caption := '保存签出单';
-    btnPrint.Caption :='打印签出单';
-    ActionTypeDesc :=FActionDM+'_2';
-  end;
-  TMidProxy.SqlOpen(SQL,clientdtRight);
-end;
+//constructor TfrmActionCheckB.Create(Aowner: TComponent);
+//const
+//  SQL ='select * from SZBADetail WHERE 1<>1';
+//begin
+//  inherited;
+//  //加载显示科室
+//  LoadOffice(cbbOffice);
+//  //查询上一步动作代码
+//  GetPriorActionDM;
+//  //签入
+//  if ActionOperation=aoCheckIn then
+//  begin
+//    advgrpLeft.Caption := '待签入列表';
+//    advgrpright.Caption := '签入列表';
+//
+//    btnAddList.Caption :='新建签入单';
+//    btnSaveList.Caption := '保存签入单';
+//    btnPrint.Caption :='打印签入单';
+//    ActionTypeDesc :=FActionDM+'_1';
+//  end
+//  else if ActionOperation=aoCheckOut then //签出
+//  begin
+//    advgrpLeft.Caption := '待签出列表';
+//    advgrpright.Caption := '签出列表';
+//    btnAddList.Caption :='新建签出单';
+//    btnSaveList.Caption := '保存签出单';
+//    btnPrint.Caption :='打印签出单';
+//    ActionTypeDesc :=FActionDM+'_2';
+//  end;
+//  TMidProxy.SqlOpen(SQL,clientdtRight);
+//end;
 
 procedure TfrmActionCheckB.edtBarcodeKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -400,6 +398,39 @@ begin
       
     end;
   end;
+end;
+
+procedure TfrmActionCheckB.FormCreate(Sender: TObject);
+const
+  SQL ='select * from SZBADetail WHERE 1<>1';
+begin
+  inherited;
+  //加载显示科室
+  LoadOffice(cbbOffice);
+  //查询上一步动作代码
+  GetPriorActionDM;
+  //签入
+  if ActionOperation=aoCheckIn then
+  begin
+    advgrpLeft.Caption := '待签入列表';
+    advgrpright.Caption := '签入列表';
+
+    btnAddList.Caption :='新建签入单';
+    btnSaveList.Caption := '保存签入单';
+    btnPrint.Caption :='打印签入单';
+    ActionTypeDesc :=FActionDM+'_1';
+  end
+  else if ActionOperation=aoCheckOut then //签出
+  begin
+    advgrpLeft.Caption := '待签出列表';
+    advgrpright.Caption := '签出列表';
+    btnAddList.Caption :='新建签出单';
+    btnSaveList.Caption := '保存签出单';
+    btnPrint.Caption :='打印签出单';
+    ActionTypeDesc :=FActionDM+'_2';
+  end;
+  TMidProxy.SqlOpen(SQL,clientdtRight);
+  Self.Caption := ActionMC + CheckDesc;
 end;
 
 procedure TfrmActionCheckB.GetPriorActionDM;

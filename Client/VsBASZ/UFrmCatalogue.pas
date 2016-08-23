@@ -17,11 +17,11 @@ uses
 
 type
   TfrmFrmCatalogue = class(TfrmActionCheckB)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    constructor Create(Aowner:TComponent);override;
     procedure PrintActionList;override;
   end;
 
@@ -33,11 +33,11 @@ implementation
 {$R *.dfm}
 { TfrmFrmCatalogue }
 
-constructor TfrmFrmCatalogue.Create(Aowner: TComponent);
+procedure TfrmFrmCatalogue.FormCreate(Sender: TObject);
 begin
   ActionDicDM := '104';
   ActionOperation:=aoCheckIn;
-  inherited Create(Aowner);;
+  inherited;
 
 end;
 

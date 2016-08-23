@@ -18,11 +18,11 @@ uses
 
 type
   TfrmzkCheckIn = class(TfrmActionCheckB)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    constructor Create(Aowner:TComponent);override;
     procedure PrintActionList;override;
   end;
 
@@ -34,11 +34,13 @@ implementation
 {$R *.dfm}
 { TfrmzkCheckIn }
 
-constructor TfrmzkCheckIn.Create(Aowner: TComponent);
+
+procedure TfrmzkCheckIn.FormCreate(Sender: TObject);
 begin
   ActionOperation := aoCheckIn;
   ActionDicDM := '102';
-  inherited Create(Aowner);
+  inherited;
+
 end;
 
 procedure TfrmzkCheckIn.PrintActionList;

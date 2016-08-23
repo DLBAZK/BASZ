@@ -17,7 +17,10 @@ uses
 
   const
   //查询语句
-  sql ='SELECT * FROM SZBADetail where IsCancel=0 and  LEFT(ISNULL(State,^^),%d)=^%s^ %s';
+  sql ='SELECT (CASE WHEN RIGHT(a.State,1)=^1^ THEN ^已签入^ WHEN RIGHT(a.State,1)='
+      +' ^2^ THEN ^已签出^ END) StateDesc,* FROM SZBADetail a LEFT JOIN SZActionCon b'
+      +' ON LEFT(a.State,CHARINDEX(^_^,State)-1)=b.DM where IsCancel=0 and '
+      +' LEFT(ISNULL(State,^^),%d)=^%s^ %s';
   
 type
   TfrmRevokeB = class(TFrmSuiDBForm)
@@ -48,6 +51,7 @@ type
     procedure btnRevokeClick(Sender: TObject);
     procedure edtBarcodeKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
       //字典库的动作代码
@@ -58,6 +62,7 @@ type
     ActionMC:string;
      //上一步动作代码
     PriorActionDM:string;
+    PriorActionMC:string;
      //上一步动作状态
     priorActionState:string;
      //上一步步骤序号
@@ -69,7 +74,7 @@ type
     /// 动作代码
     /// </summary>
     property  ActionDicDM:string read FActionDicDM write FActionDicDM;
-    constructor Create(Aowner:TComponent);override;
+   // constructor Create(Aowner:TComponent);override;
   end;
 
 var
@@ -85,9 +90,9 @@ procedure TfrmRevokeB.btnRevokeClick(Sender: TObject);
 var
   ReasonDM:string;//撤销原因代码
   ActionState:string;//当前记录的动作状态
-  book:Pointer;
   patientid:string;//病人唯一标识
   ReclaimTime:string;//动作操作时间
+  RevokeActionMC:string;//撤销后的动作名称
 begin
   inherited;
   if not dlcds.Active then Exit;
@@ -103,13 +108,12 @@ begin
   try
     with DLCDS do
     begin
-      book := GetBookmark;
       DisableControls;
       First;
       while not Eof do
       begin
         ActionState :=FieldByName('state').AsString;
-        patientid := FieldByName('state').AsString;
+        patientid := FieldByName('patientid').AsString;
         //撤销签入
         if RightStr(ActionState,1)='1' then
         begin
@@ -117,33 +121,37 @@ begin
           if PriorActionDM='' then
           begin
             ActionState :='';
+            RevokeActionMC := '回收';
           end
           else
           begin
             //上一步步骤 的签出
-            ActionState := PriorActionDM+'_2';
+            ActionState := priorActionState;
+            RevokeActionMC := PriorActionMC;
           end;
         end
         else //撤销签出
         begin
           //当前动作的签入
           ActionState := FActionDM+'_1';
+          RevokeActionMC :=ActionMC;
         end;
         ReclaimTime := FormatDateTime('yyyy-mm-dd hh:mm:ss',Now);
         //更新病案库状态
         TMidProxy.SqlExecute(Format('update SZBADetail set state =^%s^ where patientid=^%s^ and iscancel=0',[ActionState,patientid]));
         //添加撤销动作记录
         TMidProxy.SqlExecute(Format('insert into SZActionRecord(patientID,ActionDM,ActionMC,ActionState,IsRevoke,ActionTime,ActionPerson) '
-                +'values(^%s^,^%s^,^%s^,^%s^,^1^,^%s^,^%s^)',[patientid,FActionDicDM,
-                ActionMC,RightStr(ActionState,1),ReclaimTime,G_MainInfo.MainSysInfo.LogonUserName]));
+                +'values(^%s^,^%s^,^%s^,^%s^,^1^,^%s^,^%s^)',[patientid,LeftStr(ActionState,Pos('_',ActionState)-1),
+                RevokeActionMC,RightStr(ActionState,1),ReclaimTime,G_MainInfo.MainSysInfo.LogonUserName]));
         //添加撤销原因记录
         TMidProxy.SqlExecute(Format('insert into SZActionRevoke(PatientID,RevokeReason,RevokePerson,RevokeTime) '
                +'values(^%s^,^%s^,^%s^,^%s^)',[patientid,ReasonDM,G_MainInfo.MainSysInfo.LogonUserName,ReclaimTime]));
         Next;
       end;
       EnableControls;
-      GotoBookmark(book);
     end;
+    EndWaitWindow;
+    DLCDS.EmptyDataSet;
     ShowMsgSure('撤销完成');
   except
     on ex:Exception do
@@ -153,7 +161,6 @@ begin
     end;
 
   end;
-  EndWaitWindow;
 end;
 
 procedure TfrmRevokeB.btnSelClick(Sender: TObject);
@@ -216,15 +223,17 @@ begin
   end;
 
 end;
-constructor TfrmRevokeB.Create(Aowner: TComponent);
-begin
-  GetPriorActionDM;
-  inherited;
-   //加载科室
-  LoadOffice(cbbOffice);
-  //加载撤销原因
-  FillCombobox('SELECT DM,Reason FROM SZRevokeReason ORDER BY DM','DM','Reason',cbbReason);
-end;
+//constructor TfrmRevokeB.Create(Aowner: TComponent);
+//begin
+//  inherited;
+////   advtlbrpgr1.Caption.Caption := ActionMC+'撤销';
+//  //查询上一步动作代码
+//  GetPriorActionDM;
+//   //加载科室
+//  LoadOffice(cbbOffice);
+//  //加载撤销原因
+//  FillCombobox('SELECT DM,Reason FROM SZRevokeReason ORDER BY DM','DM','Reason',cbbReason);
+//end;
 
 procedure TfrmRevokeB.edtBarcodeKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -281,6 +290,20 @@ begin
 
 end;
 
+procedure TfrmRevokeB.FormCreate(Sender: TObject);
+begin
+   inherited;
+  //查询上一步动作代码
+  GetPriorActionDM;
+  self.Caption := ActionMC+'撤销';
+//  advtlbrpgr1.Caption.Caption := ActionMC+'撤销';
+
+   //加载科室
+  LoadOffice(cbbOffice);
+  //加载撤销原因
+  FillCombobox('SELECT DM,Reason FROM SZRevokeReason ORDER BY DM','DM','Reason',cbbReason);
+end;
+
 procedure TfrmRevokeB.GetPriorActionDM;
 const
   SQLPrior='SELECT * FROM SZActionCon WHERE PriorityNum =(SELECT PriorityNum-1'
@@ -297,6 +320,7 @@ begin
     begin
       PriorActionDM := clienttmp.FieldByName('DM').AsString;
       PriorityNum  :=clienttmp.FieldByName('prioritynum').AsInteger;
+      PriorActionMC := clienttmp.FieldByName('mc').AsString;
       if PriorityNum> 1 then
         priorActionState := PriorActionDM+'_2'
       else

@@ -1,5 +1,5 @@
 inherited frmBoundOut: TfrmBoundOut
-  Caption = #35013#35746#31614#20986
+  Caption = ''
   PixelsPerInch = 96
   TextHeight = 13
   inherited AdvPanel1: TAdvPanel

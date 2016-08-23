@@ -17,11 +17,11 @@ uses
 
 type
   TfrmCatalOut = class(TfrmActionCheckB)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    constructor Create(Aowner:TComponent);override;
     procedure PrintActionList;override;
   end;
 
@@ -34,11 +34,11 @@ implementation
 
 { TfrmCatalOut }
 
-constructor TfrmCatalOut.Create(Aowner: TComponent);
+procedure TfrmCatalOut.FormCreate(Sender: TObject);
 begin
   ActionDicDM :='104';
   ActionOperation :=aoCheckOut;
-  inherited Create(Aowner);
+  inherited;
 
 end;
 

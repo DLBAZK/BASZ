@@ -1,5 +1,5 @@
 inherited frmZKRevoke: TfrmZKRevoke
-  Caption = #36136#25511#25764#38144
+  Caption = ''
   PixelsPerInch = 96
   TextHeight = 13
   inherited AdvPanel1: TAdvPanel

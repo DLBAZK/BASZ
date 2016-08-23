@@ -45,7 +45,8 @@ uses
   USZVar in 'USZVar.pas',
   UFrmZKRevoke in 'UFrmZKRevoke.pas' {frmZKRevoke},
   UFrmCataloRevoke in 'UFrmCataloRevoke.pas' {frmCataloRevoke},
-  UFrmBoundRevoke in 'UFrmBoundRevoke.pas' {frmBoundRevoke};
+  UFrmBoundRevoke in 'UFrmBoundRevoke.pas' {frmBoundRevoke},
+  UFrmMoreTJ in 'UFrmMoreTJ.pas' {frmMoreTJ};
 
 {$R *.res}
  Function DllObjFactory(MainInfo:TMainInfo;FormClass:String):TFormClass;
