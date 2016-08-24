@@ -3,7 +3,6 @@ inherited frmRevokeReason: TfrmRevokeReason
   PixelsPerInch = 96
   TextHeight = 13
   inherited advtlbrpgr1: TAdvToolBarPager
-    TabOrder = 1
     inherited AdvPage1: TAdvPage
       inherited advtlbr1: TAdvToolBar
         inherited btnActLocate: TAdvGlowButton
@@ -18,6 +17,7 @@ inherited frmRevokeReason: TfrmRevokeReason
   inherited AdvPanel1: TAdvPanel
     FullHeight = 200
     inherited dbgrdh_DLCDS: TDBGridEh
+      DataSource = nil
       Columns = <
         item
           AutoFitColWidth = False
@@ -29,7 +29,6 @@ inherited frmRevokeReason: TfrmRevokeReason
         end
         item
           EditButtons = <>
-          FieldName = 'Reason'
           Footers = <>
           Title.Alignment = taCenter
           Title.Caption = #21407#22240

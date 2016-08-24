@@ -28,7 +28,7 @@ implementation
 
 constructor TfrmRevokeReason.Create(Aowner: TComponent);
 const
- SQL ='select * from SZRevokeReason';
+ SQL ='SELECT * FROM szsjzd WHERE dmkind=0';
 begin
   inherited Create(Aowner,EuSZRevokeReason,SQL);
 

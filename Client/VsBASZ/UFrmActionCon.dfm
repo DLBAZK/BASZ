@@ -11,7 +11,6 @@ inherited frmActionCon: TfrmActionCon
   end
   inherited advtlbrpgr1: TAdvToolBarPager
     Width = 959
-    TabOrder = 1
     ExplicitWidth = 959
     inherited AdvPage1: TAdvPage
       Width = 951
@@ -165,12 +164,23 @@ inherited frmActionCon: TfrmActionCon
           Width = 132
         end
         item
+          Alignment = taCenter
           EditButtons = <>
           FieldName = 'ActionDicDM'
           Footers = <>
+          TextEditing = False
           Title.Alignment = taCenter
-          Title.Caption = #23545#24212#21160#20316
+          Title.Caption = ' '#25351#23450#21160#20316
           Width = 119
+        end
+        item
+          Alignment = taCenter
+          Checkboxes = True
+          EditButtons = <>
+          FieldName = 'BZ'
+          Footers = <>
+          Title.Alignment = taCenter
+          Title.Caption = #20572#29992
         end>
     end
   end

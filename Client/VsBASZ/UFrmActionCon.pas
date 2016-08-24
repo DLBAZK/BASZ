@@ -23,8 +23,10 @@ type
     procedure DLCDSAfterInsert(DataSet: TDataSet);
     procedure actUpExecute(Sender: TObject);
     procedure actDownExecute(Sender: TObject);
+    procedure acInsExecute(Sender: TObject);
   private
     { Private declarations }
+
     /// <summary>
     /// 设置动作的执行顺序
     /// </summary>
@@ -39,13 +41,55 @@ var
   frmActionCon: TfrmActionCon;
 
 implementation
-  uses UGFun,UMidProxy,UCommon;
+  uses UGFun,UMidProxy,UCommon,UFrmActionDic;
 {$R *.dfm}
 
 { TfrmActionCon }
 
 
 { TfrmActionCon }
+
+procedure TfrmActionCon.acInsExecute(Sender: TObject);
+var
+  frmAction:TfrmActionDic;
+  clienttmp:TClientDataSet;
+begin
+  SetSbSimpleText('');
+  inherited;
+  frmAction := TfrmActionDic.Create(nil);
+  AutoFree(frmAction);
+  try
+    if frmAction.ShowModal=mrOk then
+    begin
+      if (frmAction.actionDM='101') or (frmAction.actionDM='105' ) then
+      begin
+        clienttmp :=TClientDataSet.Create(nil);
+        AutoFree(clienttmp);
+        clienttmp.CloneCursor(TCustomClientDataSet(DLCDS),True);
+        clienttmp.IndexFieldNames := 'ActionDicDM';
+        if clienttmp.FindKey([frmAction.actionDM]) then
+        begin
+          SetSbSimpleText('动作已经配置，无需再配置');
+          dlcds.Delete;
+          Exit;
+        end;
+      end;
+      dlcds.Edit;
+      dlcds.FieldByName('ActionDicDM').AsString := frmAction.actionDM;
+    end
+    else
+    begin
+      //未选择动作，不能添加新行
+      DLCDS.Delete;
+    end;
+  except
+    on ex:Exception do
+    begin
+      WriteErrorLog('添加指定动作出现异常；'+ex.Message);
+    end;
+  end;
+
+end;
 
 procedure TfrmActionCon.actDownExecute(Sender: TObject);
 begin
@@ -69,7 +113,7 @@ begin
   begin
    //获取当前标记
     book := dlcds.GetBookmark;
-    
+
     if dlcds.State in [dsInsert,dsEdit] then
       dlcds.Post;
 
@@ -113,7 +157,7 @@ const
   SQL = 'SELECT  * FROM SZActionCon ORDER BY PriorityNum ';
 begin
   inherited Create(Aowner,EuSZActionCon,SQL);
-  
+
   //加载动作默认字典库
   FillDBGridEHCombobox('select * from SZActionDic',dbgrdh_DLCDS,'ActionDicDM','dm','mc');
 end;
@@ -137,6 +181,7 @@ begin
     num := 1;
   dlcds.Edit;
   DLCDS.FieldByName('prioritynum').AsInteger := num+1;
+  DLCDS.FieldByName('BZ').AsInteger := 0;
 end;
 
 initialization
