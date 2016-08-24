@@ -1,29 +1,29 @@
 inherited frmReclaim: TfrmReclaim
   Caption = #30149#26696#22238#25910
   ClientHeight = 586
-  ClientWidth = 1029
-  ExplicitWidth = 1045
+  ClientWidth = 1008
+  ExplicitWidth = 1024
   ExplicitHeight = 625
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
     Top = 567
-    Width = 1029
+    Width = 1008
     ExplicitTop = 567
     ExplicitWidth = 1029
   end
   inherited advtlbrpgr1: TAdvToolBarPager
-    Width = 1029
+    Width = 1008
     ExplicitWidth = 1029
     inherited AdvPage1: TAdvPage
-      Width = 1021
+      Width = 1000
       Height = 0
-      ExplicitWidth = 1021
+      ExplicitWidth = 1000
       ExplicitHeight = 0
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Width = 1029
+    Width = 1008
     Height = 542
     ExplicitWidth = 1029
     ExplicitHeight = 542
@@ -133,6 +133,8 @@ inherited frmReclaim: TfrmReclaim
         StatusBar.ColorTo = 16374724
         StatusBar.GradientDirection = gdVertical
         Styler = AdvPanelStyler1
+        ExplicitLeft = -3
+        ExplicitTop = 6
         FullHeight = 137
         object lbl2: TLabel
           Left = 4
@@ -378,6 +380,7 @@ inherited frmReclaim: TfrmReclaim
             CC3E1B66B989D734076FE93AD26263BE04F0475EAC36F95C9B571D93F44DAF16
             FFC51FCE16C1C6F20B75FEDB8928A197AF0000000049454E44AE426082}
           TabOrder = 7
+          OnClick = btnMoreClick
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
           Appearance.ColorDisabled = 15921906
@@ -937,7 +940,7 @@ inherited frmReclaim: TfrmReclaim
     object advpnl5: TAdvPanel
       Left = 574
       Top = 0
-      Width = 455
+      Width = 434
       Height = 542
       Align = alClient
       BevelOuter = bvNone
@@ -978,11 +981,12 @@ inherited frmReclaim: TfrmReclaim
       StatusBar.ColorTo = 16374724
       StatusBar.GradientDirection = gdVertical
       Styler = AdvPanelStyler1
+      ExplicitWidth = 455
       FullHeight = 200
       object advpnl6: TAdvPanel
         Left = 0
         Top = 0
-        Width = 455
+        Width = 434
         Height = 137
         Align = alTop
         BevelOuter = bvNone
@@ -1023,6 +1027,7 @@ inherited frmReclaim: TfrmReclaim
         StatusBar.ColorTo = 16374724
         StatusBar.GradientDirection = gdVertical
         Styler = AdvPanelStyler1
+        ExplicitWidth = 455
         FullHeight = 200
         object lbl1: TLabel
           Left = 3
@@ -1079,83 +1084,8 @@ inherited frmReclaim: TfrmReclaim
           TabOrder = 2
           OnKeyDown = edtBarcodeKeyDown
         end
-        object btnAddList: TAdvGlowButton
-          Left = 15
-          Top = 96
-          Width = 96
-          Height = 33
-          Caption = #26032#24314#22238#25910#21333
-          NotesFont.Charset = DEFAULT_CHARSET
-          NotesFont.Color = clWindowText
-          NotesFont.Height = -11
-          NotesFont.Name = 'Tahoma'
-          NotesFont.Style = []
-          Picture.Data = {
-            89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
-            F8000005434944415478DA9D955B4C54471880FF7F7697DD65F108848B220852
-            15C45049456C4AAD6913911AB53EB5317DE2C1AE9A6A4CA8356A245163AC21BC
-            98A62DDAC43469631F5B6F457C68B5DA0B48245214AF485DBAC2462E0797DDB3
-            EC99E93F7376975DA569DA49CE9C397366FEEFBFCDFC08CFB70F00E1040835F6
-            C29B34DA4833AF831D1622A226A78510E360C203E07095FE9D8156F8F185BDB1
-            86330AF7C2ABF4B583B9D81A9B66CBB66B76864E5A6A8BED3141F030075337B9
-            39613EA5F14504FC54B48A8EE7213883702F73B03DEE7C779133D789CCC9D0ED
-            70A30D957411DB234C6162682A24B8C185316C88D07068804FF16364CDC96408
-            3E27BC312D3D6D6F5669D66C67A6933164E0B2B9B0A9BA0916698B6811CA4D4C
-            9001F7F47B78E8FA21089B61E0827363D410A3FDA3E391C9C85182B4C4654E5B
-            E0850697C7D53CA76CCE6CF76C3793700288747B3AB6BED10A95D99571007542
-            F48CF4A0F78A1726A39312A0B40D8D87F8933B4FC6C2C1F04704F94A59E0DAE5
-            42236C54D91DF66F4B2A4A4AB55C2D2E5C0974DBDDEC78ED71589AB5547EF3B8
-            05BDA3BD6CE7B59D108A8684041244B94E0FE8BCBFB7FF811935DF73BA9C3795
-            05E8C5D6C205850D2565254C363587180760F3CA6628CF2A971110348F9445A2
-            6FAC0F77FFBE5B02E4B46C0AC03917FD7DFD7CF0D1E09714F4EDC8B6B2E544FA
-            AE7A65F5DC59DA2CB4645B5CA9B1CBEE6287AB0FC3E2CCC52916DC1DBBCB0E5C
-            3F00E1685802B8721D35B951D775D1F55BD7A061189B90B4DF575454747045F5
-            0A96E3CEC14C67A622A0157FEEA4346A286B80C28CC21480EF998F9DBA730A0C
-            6E580061CD8F196318980C88CEEB9DA6CFE7DB2701E76B5EA9A92F5F540E1B8B
-            37625D519DE51CEA49214EB16069B63460A03C9700D0C32266440A57EBE2F3ED
-            8FDBF1CCC01971FBEE6DECBCD17916D936766BD56BABCA2A8A2B6043F106AC2B
-            AC83780C9463A7AD497C27DEB1F314738D8A41BBAF1DCF0E9C15BD03BD78F597
-            ABB710B6815FABD0F296CD5F068D958D8C20C9004E6F9674D6139A1234311FB7
-            40FE27E1ACA5A785773FEA66137D13FD12F018176201CB6070A4E60836BEDCA8
-            36C934FD2F1608EB4C89969B2DB8BF63BFE0131CC57D41002F74632956422600
-            650BEEA9DA83490065014EDF2829162401544CE4FF63DDC790B24BC01865D543
-            7103E9489F86027817E600AC295C83ABE7AEC6B88B683FA700B3CD0B3743417A
-            410AC03FE967A7EF9F86088FA4B8E8B2FF325EF25D12E027ADFCF08D046C010D
-            8EC30248A3DBD272474C6579D0321C197871DD45A8C9AB4939681D810E5C7B61
-            2D3C9B7AA6F2883AE5226515DDB6F0102230011F5AB66F871E28812504928084
-            47FE3740A7EE11DC227BDF41D845A5641276530C9AA0181C2AE1A7AF400960ED
-            EBDA1520F9A0750C77B0BA0B750AA05C170328ED07600AC6E120DDA69FC82C42
-            F89C26B7C24F30176A2157012C4F9131D282B6B7DBE280C46D4A00ACFFA15E02
-            624944BF651F20849F2ADD17F0566AC1F1C26A8AC1090A7829642B0093DEF038
-            3C78AEFE1C2ECF5D9E624157A08BAD6F5B2F8253418801048CD0F31779DFA4B8
-            B6C295994AE606725833E6E34B54D1D0E6B0C94A86553955A039B4E495428FE8
-            D8FDB41BA8B289E85454849F84B91816F7210A1F939AE75E2C995B687C5255B5
-            5A1A3579B23CABE6CD9F97969F9B8F6E9755325530635782BCFF43E190180A0C
-            89C13F078DE068F0675A709034FFF5DF8BBEE5B21D769BFDFDECCCEC8A829C02
-            4F5E761E6AE99A02E8415D0C8D0E813FE00F8EE8237F44A3D1AF49F067304343
-            F887E6D9EBB1058F064DBA6D37D1672DC56309C520C7AAFC22406EBF4DC36B54
-            54BE8FAF9D49CEDF1DACD8A82350C4F80000000049454E44AE426082}
-          TabOrder = 3
-          OnClick = btnAddListClick
-          Appearance.ColorChecked = 16111818
-          Appearance.ColorCheckedTo = 16367008
-          Appearance.ColorDisabled = 15921906
-          Appearance.ColorDisabledTo = 15921906
-          Appearance.ColorDown = 16111818
-          Appearance.ColorDownTo = 16367008
-          Appearance.ColorHot = 16117985
-          Appearance.ColorHotTo = 16372402
-          Appearance.ColorMirrorHot = 16107693
-          Appearance.ColorMirrorHotTo = 16775412
-          Appearance.ColorMirrorDown = 16102556
-          Appearance.ColorMirrorDownTo = 16768988
-          Appearance.ColorMirrorChecked = 16102556
-          Appearance.ColorMirrorCheckedTo = 16768988
-          Appearance.ColorMirrorDisabled = 11974326
-          Appearance.ColorMirrorDisabledTo = 15921906
-        end
         object btnSaveList: TAdvGlowButton
-          Left = 125
+          Left = 70
           Top = 96
           Width = 96
           Height = 33
@@ -1205,7 +1135,7 @@ inherited frmReclaim: TfrmReclaim
             5AB700C30B70D9B0D6E6F1C874FBF6231C1F3736FD651E5B94F8ECB104F9D87D
             53E78BBEF3FDFF46A98F2DFF02CC35B337F85CF3C80000000049454E44AE4260
             82}
-          TabOrder = 4
+          TabOrder = 3
           OnClick = btnSaveListClick
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
@@ -1225,7 +1155,7 @@ inherited frmReclaim: TfrmReclaim
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object btnPrint: TAdvGlowButton
-          Left = 235
+          Left = 180
           Top = 96
           Width = 96
           Height = 33
@@ -1270,7 +1200,7 @@ inherited frmReclaim: TfrmReclaim
             7AB442E0AD4826A2DBF744B8309B7D45A27ABC432A4E51ABA9A3D03E1E1BFBEA
             8BB7DAB533A837FD442061D149692864C4F93633A7A15AEF824277144A149567
             E11FEA3DE1639BDDBB1CFF03733B73FD693545860000000049454E44AE426082}
-          TabOrder = 5
+          TabOrder = 4
           OnClick = btnPrintClick
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
@@ -1290,7 +1220,7 @@ inherited frmReclaim: TfrmReclaim
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object btnacClose: TAdvGlowButton
-          Left = 345
+          Left = 290
           Top = 96
           Width = 96
           Height = 33
@@ -1301,7 +1231,7 @@ inherited frmReclaim: TfrmReclaim
           NotesFont.Height = -11
           NotesFont.Name = 'Tahoma'
           NotesFont.Style = []
-          TabOrder = 6
+          TabOrder = 5
           Appearance.ColorChecked = 16111818
           Appearance.ColorCheckedTo = 16367008
           Appearance.ColorDisabled = 15921906
@@ -1323,15 +1253,16 @@ inherited frmReclaim: TfrmReclaim
       object advgrp3: TAdvGroupBox
         Left = 0
         Top = 137
-        Width = 455
+        Width = 434
         Height = 405
         Align = alClient
         Caption = #22238#25910#21015#34920
         TabOrder = 1
+        ExplicitWidth = 455
         object dbgrdhright: TDBGridEh
           Left = 2
           Top = 16
-          Width = 451
+          Width = 430
           Height = 387
           Align = alClient
           DataGrouping.GroupLevels = <>

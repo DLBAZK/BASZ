@@ -181,6 +181,7 @@ inherited frmActionCon: TfrmActionCon
           Footers = <>
           Title.Alignment = taCenter
           Title.Caption = #20572#29992
+          OnUpdateData = dbgrdh_DLCDSColumns4UpdateData
         end>
     end
   end

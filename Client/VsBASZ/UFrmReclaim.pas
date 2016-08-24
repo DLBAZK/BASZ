@@ -15,6 +15,9 @@ uses
   AdvDateTimePicker, StdCtrls, SUIEdit, AdvFontCombo, AdvGlowButton,
   DBGridEhGrouping, GridsEh, DBGridEh, AdvGroupBox, AdvSplitter, TFlatButtonUnit,DateUtils;
 
+  const
+  sql ='SELECT * FROM SZBADetail where IsCancel=0 and  ISNULL(State,^^)=^^';
+
 type
   TfrmReclaim = class(TFrmSuiDBForm)
     advpnlLeft: TAdvPanel;
@@ -46,7 +49,6 @@ type
     edtcarrier: TsuiEdit;
     edtsendee: TsuiEdit;
     edtBarcode: TsuiEdit;
-    btnAddList: TAdvGlowButton;
     btnSaveList: TAdvGlowButton;
     btnPrint: TAdvGlowButton;
     advgrp3: TAdvGroupBox;
@@ -60,11 +62,11 @@ type
     btnacClose: TAdvGlowButton;
     procedure btnSelClick(Sender: TObject);
     procedure btnAllRightClick(Sender: TObject);
-    procedure btnAddListClick(Sender: TObject);
     procedure btnSaveListClick(Sender: TObject);
     procedure btnPrintClick(Sender: TObject);
     procedure edtBarcodeKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnMoreClick(Sender: TObject);
   private
     { Private declarations }
     ReclaimListID:string;//回收单号
@@ -83,50 +85,10 @@ var
   frmReclaim: TfrmReclaim;
 
 implementation
-   uses UGFun,UGVar,UCommon,UMidProxy,URptReclaim,UFrmPrint,UQickRepPreview,UPublic;
+   uses UGFun,UGVar,UCommon,UMidProxy,URptReclaim,UFrmPrint,
+   UQickRepPreview,UPublic,UFrmMoreTJ;
 {$R *.dfm}
 { TfrmReclaim }
-
-procedure TfrmReclaim.btnAddListClick(Sender: TObject);
-const
-  sql ='SELECT TOP 1 Right(ListID,3) ListNum FROM SZActionList WHERE listtype=^1^ ORDER BY listtime DESC';
-var
- clientdttmp:TClientDataSet;
- num,i:Integer;
-begin
-  inherited;
-  if ReclaimListID<>'' then
-  begin
-    ShowMsgSure('上一步操作的回收单未保存!');
-    Exit;
-  end;
-  clientdttmp := TClientDataSet.Create(nil);
-  AutoFree(clientdttmp);
-  TMidProxy.SqlOpen(sql,clientdttmp);
-  ReclaimListID := Format('H%s',[FormatDateTime('yyyymmdd',Now)]);
-  if clientdttmp.IsEmpty then
-  begin
-    ReclaimListID :=ReclaimListID+'001';
-  end
-  else
-  begin
-    num := clientdttmp.FieldByName('ListNum').AsInteger +1;
-    for I := 0 to 3-length(IntToStr(num))-1 do
-    begin
-      ReclaimListID := ReclaimListID+'0';
-    end;
-    ReclaimListID := ReclaimListID +inttostr(num);
-  end;
-  try
-    TMidProxy.SqlExecute(Format('insert into SZActionList values(^%s^,1,GETDATE(),^%s^)',[ReclaimListID,G_MainInfo.MainSysInfo.LogonUserName]));
-    ShowMsgSure('新建完成!');
-  except
-    on ex:Exception do
-    begin
-      WriteErrorLog(ex.Message);
-    end;
-  end;
-end;
 
 procedure TfrmReclaim.btnAllRightClick(Sender: TObject);
 var
@@ -165,13 +127,34 @@ begin
   end;
 end;
 
+procedure TfrmReclaim.btnMoreClick(Sender: TObject);
+var
+ frmtj:TfrmMoreTJ;
+begin
+  inherited;
+  frmtj := TfrmMoreTJ.Create(nil);
+  AutoFree(frmtj);
+  if frmtj.ShowModal=mrOk then
+  begin
+    if frmtj.Condition<>'' then
+    begin
+      TMidProxy.SqlOpen(Format(sql,[frmtj.Condition]),tclientdataset(dlcds));
+      if dlcds.IsEmpty then
+      begin
+        ShowMsgSure('未查询到符合的数据');
+        Exit;
+      end;
+    end;
+  end;
+end;
+
 procedure QuickRepPreview(Sender: TObject);
 begin
 
 end;
 procedure TfrmReclaim.btnPrintClick(Sender: TObject);
 const
-  SQL='select *,(SELECT xbmc FROM VsZhdm WHERE ISNULL(xbmc,^^)<> ^^ AND dm=b.sex)xbmc '
+  SQLtext='select *,(SELECT xbmc FROM VsZhdm WHERE ISNULL(xbmc,^^)<> ^^ AND dm=b.sex)xbmc '
      +' from SZActionListDeatil a left join SZBADetail b on a.patientid=b.patientid'
      +' where a.listid=^%s^ ';
 begin
@@ -181,7 +164,7 @@ begin
   frmPrint := TfrmPrint.Create(nil);
   AutoFree(frmPrint);
   RptReclaim := TRptYSGZYLB.Create(nil);
-  TMidProxy.SqlOpen(Format(SQL,[ReclaimListID]),RptReclaim.Cds1);
+  TMidProxy.SqlOpen(Format(SQLtext,[ReclaimListID]),RptReclaim.Cds1);
   RptReclaim.yymc.Caption :='医院名称：'+ G_MainInfo.MainSysInfo.HospitalName;
   RptReclaim.qrlblzbr.Caption :=RptReclaim.qrlblzbr.Caption + G_MainInfo.MainSysInfo.LogonUserName;
   //frmPrint.qrprvwprint.QRPrinter :=   RptReclaim.Printer;
@@ -206,11 +189,7 @@ var
   ReclaimTime:string;
 begin
   inherited;
-  if ReclaimListID='' then
-  begin
-    ShowMsgSure('请先新建回收单!');
-    Exit;
-  end;
+
   if edtcarrier.Text ='' then
   begin
     ShowMsgSure('运送人不能为空!');
@@ -227,6 +206,8 @@ begin
   end;
   try
     StartWaitWindow('正在回收病案...');
+     //生成单号
+    ReclaimListID:=GenerateActionListNum('1');
     //修改状态为已回收
     clienttmp := TClientDataSet.Create(nil);
     AutoFree(clienttmp);
@@ -234,7 +215,7 @@ begin
     TMidProxy.SqlOpen('select dm,mc from SZActionCon where prioritynum =1',clienttmp);
     if clienttmp.IsEmpty then
     begin
-      ShowMsgSure('回收动作代码为空，需要配置!');
+      ShowMsgSure('接收动作代码为空，需要配置!');
       Exit;
     end;
     ActionDM := clienttmp.FieldByName('dm').AsString;
@@ -267,8 +248,8 @@ begin
     //保存回收单信息
     TMidProxy.SqlExecute(Format(SQL1,[ReclaimListID,carrier,sendee,ReclaimTime]));
     EndWaitWindow;
-    ReclaimListID := '';
-    ShowMsgSure('回收完成!');
+    clientdtRight.EmptyDataSet;
+    ShowMsgSure('接收完成!');
   except
     on ex:Exception do
     begin
@@ -279,8 +260,6 @@ begin
 end;
 
 procedure TfrmReclaim.btnSelClick(Sender: TObject);
- const
-  sql ='SELECT * FROM SZBADetail where IsCancel=0 and  ISNULL(State,^^)=^^';
 var
   StartDate,EndDate:string;//出院日期
   SODM,chiefDoc,zynum,name:string;//科室代码、主管医师、住院号、姓名
@@ -336,11 +315,13 @@ end;
 
 constructor TfrmReclaim.Create(Aowner: TComponent);
 const
-  SQL ='select * from SZBADetail WHERE 1<>1';
+  SQLtext ='select * from SZBADetail WHERE 1<>1';
 begin
-  inherited Create(Aowner,EuSZReclaim,SQL);
+  inherited Create(Aowner,EuSZReclaim,SQLtext);
   LoadOffice(cbbOffice);
-  TMidProxy.SqlOpen(SQL,clientdtRight);
+  TMidProxy.SqlOpen(SQLtext,clientdtRight);
+  //接收人
+  edtsendee.Text :=G_MainInfo.MainSysInfo.LogonUserName;
 end;
 
 procedure TfrmReclaim.edtBarcodeKeyDown(Sender: TObject; var Key: Word;

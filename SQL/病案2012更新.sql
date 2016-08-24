@@ -1533,7 +1533,11 @@ IF Col_Length('VsCH0E','CH0EZ16') Is Null Alter Table VsCH0E Add [CH0EZ16] [int]
 IF Col_Length('VsCH0E','CH0EZ17') Is Null Alter Table VsCH0E Add [CH0EZ17] [int] NULL              --术后肺部感染
 IF Col_Length('VsCH0E','CH0EZ18') Is Null Alter Table VsCH0E Add [CH0EZ18] [int] NULL              --术后人工气道脱出
 IF Col_Length('VsCH0E','CH0EZ19') Is Null Alter Table VsCH0E Add [CH0EZ19] [int] NULL              --进行PCI
-
+----------------手术持续时间修改为保留小数点后两位
+if Col_Length('VsCH0E','Ch0EE3')=4
+  Alter Table VsCH0E Alter Column Ch0EE3 numeric(10,2) Null
+if Col_Length('VsCH_CH0E','Ch0EE3')=4
+  Alter Table VsCH_CH0E Alter Column Ch0EE3 numeric(10,2) Null  
 ----中间表                                                                                       
 IF Col_Length('VsCH_CH0E','CH0EZ13') Is Null Alter Table VsCH_CH0E Add CH0EZ13 int NULL			   --是否为重返手术室再手术
 IF Col_Length('VsCH_CH0E','CH0EZ14') Is Null Alter Table VsCH_CH0E Add CH0EZ14 int NULL			   --再手术死亡

@@ -175,33 +175,59 @@ else
 	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
 	values('5000603','03','50006','&3.撤销','1','TfrmBoundRevoke','100029','1','1',null)		
 			
-if  exists(select * from VsMidOper where MidOperCode ='501')
+if  exists(select * from VsMidOper where MidOperCode ='5001')
 begin
-	delete from VsMidOper where MidOperCode = '501'
+	delete from VsMidOper where MidOperCode = '5001'
 	insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
-     VALUES  (501,'TSZActionCon','200029','EuSZActionCon','示踪流转动作配置中间层')	
+     VALUES  (5001,'TSZActionCon','200029','EuSZActionCon','示踪流转动作配置中间层')	
 end
 else
   insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
-     VALUES  (501,'TSZActionCon','200029','EuSZActionCon','示踪流转动作配置中间层')	
+     VALUES  (5001,'TSZActionCon','200029','EuSZActionCon','示踪流转动作配置中间层')	
  	
- if  exists(select * from VsMidOper where MidOperCode ='502')
+ if  exists(select * from VsMidOper where MidOperCode ='5002')
 begin
-	delete from VsMidOper where MidOperCode = '502'
+	delete from VsMidOper where MidOperCode = '5002'
 	insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
-     VALUES  (502,'TSZRevokeReason','200029','EuSZRevokeReason','示踪流转动作撤销原因配置中间层')	
+     VALUES  (5002,'TSZRevokeReason','200029','EuSZRevokeReason','示踪流转动作撤销原因配置中间层')	
 end
 else
   insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
-     VALUES  (502,'TSZRevokeReason','200029','EuSZRevokeReason','示踪流转动作撤销原因配置中间层')	
+     VALUES  (5002,'TSZRevokeReason','200029','EuSZRevokeReason','示踪流转动作撤销原因配置中间层')	
      
      
- if  exists(select * from VsMidOper where MidOperCode ='503')
+ if  exists(select * from VsMidOper where MidOperCode ='5003')
 begin
-	delete from VsMidOper where MidOperCode = '503'
+	delete from VsMidOper where MidOperCode = '5003'
 	insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
-     VALUES  (503,'TSZReclaim','200029','EuSZReclaim','病案回收中间层')	
+     VALUES  (5003,'TSZReclaim','200029','EuSZReclaim','病案回收中间层')	
 end
 else
   insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
-     VALUES  (503,'TSZReclaim','200029','EuSZReclaim','病案回收中间层')	
+     VALUES  (5003,'TSZReclaim','200029','EuSZReclaim','病案回收中间层')	
+     
+     
+     
+     
+ INSERT INTO SZActionState values('1','签入')
+ INSERT INTO SZActionState values('2','处理中')
+ INSERT INTO SZActionState values('3','签出')
+ INSERT INTO SZActionState values('-1','撤销签入')
+ INSERT INTO SZActionState values('-2','撤销处理中')
+ INSERT INTO SZActionState values('-3','撤销签出')
+ 
+  INSERT INTO dbo.SZActionDic VALUES('101','接收')
+  INSERT INTO dbo.SZActionDic VALUES('102','编目')
+  INSERT INTO dbo.SZActionDic VALUES('103','质控')
+  INSERT INTO dbo.SZActionDic VALUES('104','装订')
+  INSERT INTO dbo.SZActionDic VALUES('105','上架')
+  
+  
+ SELECT * FROM dbo.SZActionCon
+ SELECT * FROM dbo.SZActionDic
+
+ 
+
+
+ 
+ 

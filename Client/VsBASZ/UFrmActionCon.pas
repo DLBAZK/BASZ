@@ -12,7 +12,7 @@ uses
   Dialogs, UFrmSuiDBListForm, DBGridEhGrouping, PrnDbgeh, DB, ActnList,
   DBClient, UDlClientDataset, DosMove, AdvPanel, AdvAppStyler, AdvToolBar,
   AdvToolBarStylers, AdvOfficeStatusBar, AdvOfficeStatusBarStylers, GridsEh,
-  DBGridEh, ExtCtrls, AdvGlowButton,UVsMidClassList;
+  DBGridEh, ExtCtrls, AdvGlowButton,UVsMidClassList,StrUtils;
 
 type
   TfrmActionCon = class(TFrmSuiDBListForm)
@@ -24,6 +24,8 @@ type
     procedure actUpExecute(Sender: TObject);
     procedure actDownExecute(Sender: TObject);
     procedure acInsExecute(Sender: TObject);
+    procedure dbgrdh_DLCDSColumns4UpdateData(Sender: TObject; var Text: string;
+      var Value: Variant; var UseText, Handled: Boolean);
   private
     { Private declarations }
 
@@ -35,6 +37,10 @@ type
   public
     { Public declarations }
     constructor Create(Aowner:TComponent); override;
+    /// <summary>
+    /// 数据校验
+    /// </summary>
+    Procedure CheckData;override;
   end;
 
 var
@@ -103,11 +109,31 @@ begin
   ConfigPriority(0);
 end;
 
+procedure TfrmActionCon.CheckData;
+begin
+  if dlcds.FieldByName('DM').AsString ='' then
+  begin
+    raise Exception.Create('动作代码不能为空');
+  end;
+  if dlcds.FieldByName('mc').AsString ='' then
+  begin
+    raise Exception.Create('动作名称不能为空');
+  end;
+  //动作代码必须以1开头
+  if LeftStr(dlcds.FieldByName('DM').AsString,1)<>'1' then
+  begin
+    raise Exception.Create('动作代码必须以1开头');
+  end;
+
+end;
+
 procedure TfrmActionCon.ConfigPriority(const Flag: Integer);
+const
+  SQL='select * from SZActionRecord WHERE ActionDM= ^%s^';
 var
   book:Pointer;
   CurrentNum,PriorityNum:Integer;  //当前行的顺序号、前一行记录的顺序号、
-  DM:string;
+  DM,Dicdm:string;
 begin
   if DLCDS.Active and (not dlcds.IsEmpty) then
   begin
@@ -119,10 +145,28 @@ begin
 
     with dlcds do
     begin
-      DisableControls;
+      if FieldByName('bz').AsInteger=1 then
+      begin
+        ShowMsgSure('动作已被停用，不能移动!');
+        Exit;
+      end;
+      //当前优先级
       CurrentNum := FieldByName('prioritynum').AsInteger;
+      //当前动作代码
       DM :=  FieldByName('DM').AsString;
-      
+      Dicdm :=FieldByName('ActionDicdm').AsString;
+      if (Dicdm ='101') or (Dicdm ='105')  then
+      begin
+        ShowMsgSure('当前动作不能移动');
+        Exit;
+      end;
+      //已使用的动作不能修改
+      if ExistsRecord(Format(sql,[dm])) then
+      begin
+        ShowMsgSure('动作已被使用不能修改');
+        Exit;
+      end;    
+      DisableControls;
       case flag of
         0:  //上移
         begin
@@ -137,17 +181,27 @@ begin
           Locate('prioritynum',CurrentNum+1,[loCaseInsensitive,loPartialKey]) ;
         end;
       end;
-      PriorityNum := FieldByName('prioritynum').AsInteger ;
-      Edit;
-      FieldByName('prioritynum').AsInteger := CurrentNum;
+      //保证第一个动作和最后一个动作必须是接收和上架
+      Dicdm := FieldByName('ActionDicdm').AsString;
+      if (Dicdm <>'101') and (Dicdm <>'105') then
+      begin
+         //上一步或下一步的优先级
+        PriorityNum := FieldByName('prioritynum').AsInteger ;
+        Edit;
+        FieldByName('prioritynum').AsInteger := CurrentNum;
 
-
-      Locate('prioritynum;DM',VarArrayOf([CurrentNum,DM]),[loCaseInsensitive,loPartialKey]) ;
-      Edit;
-      FieldByName('prioritynum').AsInteger := PriorityNum;
-
+        //定位
+        Locate('prioritynum;DM',VarArrayOf([CurrentNum,DM]),[loCaseInsensitive,loPartialKey]) ;
+        Edit;
+        FieldByName('prioritynum').AsInteger := PriorityNum;
+      end
+      else
+      //鼠标定位到需移动的数据行
+        Locate('prioritynum;DM',VarArrayOf([CurrentNum,DM]),[loCaseInsensitive,loPartialKey]) ;
+      
       EnableControls;
       SetDBGridEhSort(dbgrdh_DLCDS);
+
     end;
   end;
 end;
@@ -160,6 +214,22 @@ begin
 
   //加载动作默认字典库
   FillDBGridEHCombobox('select * from SZActionDic',dbgrdh_DLCDS,'ActionDicDM','dm','mc');
+end;
+
+procedure TfrmActionCon.dbgrdh_DLCDSColumns4UpdateData(Sender: TObject;
+  var Text: string; var Value: Variant; var UseText, Handled: Boolean);
+begin
+  inherited;
+  if Value =1  then
+  begin
+    //接收和上架动作不能停用
+    if (dlcds.FieldByName('actiondicdm').AsString='101') or
+     (dlcds.FieldByName('actiondicdm').AsString='105') then
+    begin
+      Value:=0;
+      ShowMsgSure('该动作不能停用!');
+    end;
+  end;
 end;
 
 procedure TfrmActionCon.DLCDSAfterInsert(DataSet: TDataSet);

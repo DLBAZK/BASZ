@@ -132,7 +132,7 @@
 			<Directories Name="UnitOutputDir">..\..\DCU</Directories>
 			<Directories Name="PackageDLLOutputDir"></Directories>
 			<Directories Name="PackageDCPOutputDir"></Directories>
-			<Directories Name="SearchPath"></Directories>
+			<Directories Name="SearchPath">..\..\BatjInterface;..\..\Public;..\..\Client\BaseForm;..\..\Share;..\..\MidClient\BaseClass</Directories>
 			<Directories Name="Packages"></Directories>
 			<Directories Name="Conditionals"></Directories>
 			<Directories Name="DebugSourceDirs"></Directories>
@@ -140,7 +140,7 @@
 		</Directories>
 		<Parameters>
 			<Parameters Name="RunParams"></Parameters>
-			<Parameters Name="HostApplication"></Parameters>
+			<Parameters Name="HostApplication">C:\Batj2005\AppServer\PBaTjServer.exe</Parameters>
 			<Parameters Name="Launcher"></Parameters>
 			<Parameters Name="UseLauncher">False</Parameters>
 			<Parameters Name="DebugCWD"></Parameters>
