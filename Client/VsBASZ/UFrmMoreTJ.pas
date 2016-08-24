@@ -89,7 +89,7 @@ begin
   end;
   StartDate := FormatDateTime('yyyy-mm-dd',advdtmpckrStart.Date);
   EndDate := FormatDateTime('yyyy-mm-dd',advdtmpckrEnd.Date);
-  Condition := Format(' and RYRQ >= ^%s^ AND RYRQ <= ^%s^ ',[StartDate,EndDate]);
+  Condition := Format(' RYRQ >= ^%s^ AND RYRQ <= ^%s^ ',[StartDate,EndDate]);
   //ÈëÔº¿ÆÊÒ
   if ksdm <>'' then
   begin

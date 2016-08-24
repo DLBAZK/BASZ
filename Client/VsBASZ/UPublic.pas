@@ -7,7 +7,7 @@
 unit UPublic;
 
 interface
-   uses Classes,StrUtils,SysUtils,Windows,AdvFontCombo,DB,DBClient;
+   uses Classes,StrUtils,SysUtils,Windows,AdvFontCombo,DB,DBClient,Controls;
 
    type
    //数据集移动方向 全部右移、右移、左移、全部左移
@@ -31,8 +31,13 @@ interface
    /// <param name="ActionType">动作类型 比如：质控签入（10001_1）</param>
    /// <returns>单号 HYYYYMMDD000 000:流水号</returns>
    function GenerateActionListNum(ActionType:string):string;
+   /// <summary>
+   /// 获取更多条件
+   /// </summary>
+   /// <returns>where语句</returns>
+   function GetCondition:string;
 implementation
- uses UCommon,UMidProxy,UGFun,UGVar;
+ uses UCommon,UMidProxy,UGFun,UGVar,UFrmMoreTJ;
 
 procedure LoadOffice(OfficeComboBox:TAdvOfficeComboBox);
 const
@@ -159,5 +164,15 @@ begin
       WriteErrorLog(ex.Message);
     end;
   end;
+end;
+
+function GetCondition:string;
+var
+ frmtj:TfrmMoreTJ;
+begin
+  frmtj := TfrmMoreTJ.Create(nil);
+  AutoFree(frmtj);
+  frmtj.ShowModal;
+  Result :=frmtj.Condition;
 end;
 end.

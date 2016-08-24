@@ -10,11 +10,11 @@ inherited frmReclaim: TfrmReclaim
     Top = 567
     Width = 1008
     ExplicitTop = 567
-    ExplicitWidth = 1029
+    ExplicitWidth = 1008
   end
   inherited advtlbrpgr1: TAdvToolBarPager
     Width = 1008
-    ExplicitWidth = 1029
+    ExplicitWidth = 1008
     inherited AdvPage1: TAdvPage
       Width = 1000
       Height = 0
@@ -25,7 +25,7 @@ inherited frmReclaim: TfrmReclaim
   inherited AdvPanel1: TAdvPanel
     Width = 1008
     Height = 542
-    ExplicitWidth = 1029
+    ExplicitWidth = 1008
     ExplicitHeight = 542
     FullHeight = 200
     object advspltr1: TAdvSplitter
@@ -133,8 +133,6 @@ inherited frmReclaim: TfrmReclaim
         StatusBar.ColorTo = 16374724
         StatusBar.GradientDirection = gdVertical
         Styler = AdvPanelStyler1
-        ExplicitLeft = -3
-        ExplicitTop = 6
         FullHeight = 137
         object lbl2: TLabel
           Left = 4
@@ -981,7 +979,6 @@ inherited frmReclaim: TfrmReclaim
       StatusBar.ColorTo = 16374724
       StatusBar.GradientDirection = gdVertical
       Styler = AdvPanelStyler1
-      ExplicitWidth = 455
       FullHeight = 200
       object advpnl6: TAdvPanel
         Left = 0
@@ -1027,7 +1024,6 @@ inherited frmReclaim: TfrmReclaim
         StatusBar.ColorTo = 16374724
         StatusBar.GradientDirection = gdVertical
         Styler = AdvPanelStyler1
-        ExplicitWidth = 455
         FullHeight = 200
         object lbl1: TLabel
           Left = 3
@@ -1258,7 +1254,6 @@ inherited frmReclaim: TfrmReclaim
         Align = alClient
         Caption = #22238#25910#21015#34920
         TabOrder = 1
-        ExplicitWidth = 455
         object dbgrdhright: TDBGridEh
           Left = 2
           Top = 16

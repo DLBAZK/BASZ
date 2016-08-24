@@ -129,23 +129,22 @@ end;
 
 procedure TfrmReclaim.btnMoreClick(Sender: TObject);
 var
- frmtj:TfrmMoreTJ;
+  SQLCondition:string;
 begin
   inherited;
-  frmtj := TfrmMoreTJ.Create(nil);
-  AutoFree(frmtj);
-  if frmtj.ShowModal=mrOk then
+  //更多条件
+  SQLCondition := GetCondition;
+  if SQLCondition<> '' then
   begin
-    if frmtj.Condition<>'' then
+    TMidProxy.SqlOpen(Format(sql+' and %s',[SQLCondition]),tclientdataset(dlcds));
+    if dlcds.IsEmpty then
     begin
-      TMidProxy.SqlOpen(Format(sql,[frmtj.Condition]),tclientdataset(dlcds));
-      if dlcds.IsEmpty then
-      begin
-        ShowMsgSure('未查询到符合的数据');
-        Exit;
-      end;
+      ShowMsgSure('未查询到符合的数据');
+      Exit;
     end;
+    SetSbSimpleText(Format('共%d条记录',[dlcds.RecordCount]));
   end;
+
 end;
 
 procedure QuickRepPreview(Sender: TObject);
@@ -230,11 +229,11 @@ begin
       while not EOf do
       begin
         patientid:=FieldByName('patientid').AsString;
-        TMidProxy.SqlExecute(Format('update SZBADetail set State=^%s^ where patientid=^%s^',
-        [Format('%s_1',[ActionDM]),patientid]));
+        TMidProxy.SqlExecute(Format('update SZBADetail set State=^3^ ,ActionDM=^%s^ where patientid=^%s^',
+        [ActionDM,patientid]));
         //保存动作信息
-        sql := Format('insert into SZActionRecord(patientID,ActionDM,ActionMC,ActionState,IsRevoke,ActionTime,ActionPerson) '
-            +'values(^%s^,^%s^,^%s^,^1^,^0^,^%s^,^%s^)',
+        sql := Format('insert into SZActionRecord(patientID,ActionDM,ActionMC,ActionState,ActionTime,ActionPerson) '
+            +'values(^%s^,^%s^,^%s^,^3^,^%s^,^%s^)',
          [patientid,actionDM,actionMC,ReclaimTime,G_MainInfo.MainSysInfo.LogonUserName]);
         TMidProxy.SqlExecute(sql);
         //保存回收单记录的病人信息
