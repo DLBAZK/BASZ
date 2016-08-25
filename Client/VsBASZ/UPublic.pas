@@ -28,14 +28,30 @@ interface
    /// <summary>
    /// 根据动作类型生成单号
    /// </summary>
+   /// <param name="Actionprefix">动作类型前缀（拼音缩写），比如：接收 JS </param>
    /// <param name="ActionType">动作类型 比如：质控签入（10001_1）</param>
    /// <returns>单号 HYYYYMMDD000 000:流水号</returns>
-   function GenerateActionListNum(ActionType:string):string;
+   function GenerateActionListNum(Actionprefix,ActionType:string):string;
    /// <summary>
    /// 获取更多条件
    /// </summary>
    /// <returns>where语句</returns>
    function GetCondition:string;
+   /// <summary>
+   /// 根据单号查询病案数据
+   /// </summary>
+   /// <param name="ListNum">单号</param>
+   /// <param name="ActionDM">动作代码</param>
+   /// <param name="State">状态</param>
+   /// <param name="DataSet">数据集</param>
+   procedure GetBAByListNum(const ListNum,ActionDM,State:string;var DataSet:TClientDataSet); overload;
+   /// <summary>
+   /// 撤销模块根据单号查询数据
+   /// </summary>
+   /// <param name="ListNum">单号</param>
+   /// <param name="ActionDM">动作代码</param>
+   /// <param name="DataSet"></param>
+   procedure GetBAByListNum(const ListNum,ActionDM:string;var DataSet:TClientDataSet); overload;
 implementation
  uses UCommon,UMidProxy,UGFun,UGVar,UFrmMoreTJ;
 
@@ -128,7 +144,7 @@ begin
   end;
 end;
 
-function GenerateActionListNum(ActionType:string):string;
+function GenerateActionListNum(Actionprefix,ActionType:string):string;
 const
  SQL='SELECT TOP 1 Right(ListID,3) ListNum FROM SZActionList ORDER BY listtime DESC';
 var
@@ -140,7 +156,7 @@ begin
   clientdttmp := TClientDataSet.Create(nil);
   AutoFree(clientdttmp);
   TMidProxy.SqlOpen(SQL,clientdttmp);
-  ReclaimListID := Format('H%s',[FormatDateTime('yyyymmdd',Now)]);
+  ReclaimListID := Format('%0:s%1:s',[Actionprefix,FormatDateTime('yyyymmdd',Now)]);
   if clientdttmp.IsEmpty then
   begin
     ReclaimListID :=ReclaimListID+'001';
@@ -174,5 +190,36 @@ begin
   AutoFree(frmtj);
   frmtj.ShowModal;
   Result :=frmtj.Condition;
+end;
+
+procedure GetBAByListNum(const ListNum,ActionDM,State:string;var DataSet:TClientDataSet);
+ const
+    Sqltext = 'SELECT * FROM SZActionListDeatil a LEFT JOIN SZBADetail b '
+        +'ON a.patientID=b.patientID WHERE  a.listid=^%0:s^ AND b.ActionDM=^%1:s^'
+        +' AND b.STATE=^%2:s^';
+
+begin
+  if (ListNum<>'') and (ActionDM<>'')  and (State<>'') then
+  begin
+    if Assigned(DataSet) then
+    begin
+      TMidProxy.SqlOpen(Format(Sqltext,[ListNum,ActionDM,State]),DataSet);
+    end;
+  end;
+end;
+
+procedure GetBAByListNum(const ListNum,ActionDM:string;var DataSet:TClientDataSet);
+const
+  Sqltext = 'SELECT (CASE WHEN a.State=^1^ THEN ^已签入^ WHEN a.State='
+         +' ^3^ THEN ^已签出^ END) StateDesc,* FROM SZActionListDeatil a LEFT JOIN SZBADetail b '
+         +'ON a.patientID=b.patientID WHERE  a.listid=^%0:s^ AND b.ActionDM=^%1:s^';
+begin
+  if (ListNum<>'') and (ActionDM<>'') then
+  begin
+    if Assigned(DataSet) then
+    begin
+      TMidProxy.SqlOpen(Format(Sqltext,[ListNum,ActionDM]),DataSet);
+    end;
+  end;
 end;
 end.

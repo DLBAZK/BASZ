@@ -39,6 +39,7 @@ procedure TfrmBoundOut.FormCreate(Sender: TObject);
 begin
   ActionDicDM := '103';
   ActionOperation:=aoCheckOut;
+  ListPrefix :='ZD';
   inherited;
 
 end;

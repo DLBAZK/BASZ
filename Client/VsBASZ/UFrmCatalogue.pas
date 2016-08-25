@@ -37,6 +37,7 @@ procedure TfrmFrmCatalogue.FormCreate(Sender: TObject);
 begin
   ActionDicDM := '104';
   ActionOperation:=aoCheckIn;
+  ListPrefix :='BM';
   inherited;
 
 end;

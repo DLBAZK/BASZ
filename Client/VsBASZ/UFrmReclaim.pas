@@ -206,7 +206,7 @@ begin
   try
     StartWaitWindow('正在回收病案...');
      //生成单号
-    ReclaimListID:=GenerateActionListNum('1');
+    ReclaimListID:=GenerateActionListNum('HS','1');
     //修改状态为已回收
     clienttmp := TClientDataSet.Create(nil);
     AutoFree(clienttmp);

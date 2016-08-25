@@ -39,6 +39,7 @@ procedure TfrmzkCheckIn.FormCreate(Sender: TObject);
 begin
   ActionOperation := aoCheckIn;
   ActionDicDM := '102';
+  ListPrefix :='ZK';
   inherited;
 
 end;

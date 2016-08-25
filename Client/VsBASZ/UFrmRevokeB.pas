@@ -13,45 +13,52 @@ uses
   AdvPanel, AdvAppStyler, AdvToolBar, AdvToolBarStylers, AdvOfficeStatusBar,
   AdvOfficeStatusBarStylers, ExtCtrls, DBGridEhGrouping, GridsEh, DBGridEh,
   StdCtrls, AdvGroupBox, AdvGlowButton, AdvFontCombo, SUIEdit, ComCtrls,
-  AdvDateTimePicker,StrUtils;
+  AdvDateTimePicker,StrUtils, AdvEdit;
 
   const
   //查询语句
-  sql ='SELECT (CASE WHEN RIGHT(a.State,1)=^1^ THEN ^已签入^ WHEN RIGHT(a.State,1)='
-      +' ^2^ THEN ^已签出^ END) StateDesc,* FROM SZBADetail a LEFT JOIN SZActionCon b'
-      +' ON LEFT(a.State,CHARINDEX(^_^,State)-1)=b.DM where IsCancel=0 and '
-      +' LEFT(ISNULL(State,^^),%d)=^%s^ %s';
-  
+  sql ='SELECT (CASE WHEN a.State=^1^ THEN ^已签入^ WHEN a.State='
+         +' ^3^ THEN ^已签出^ END) StateDesc,* FROM SZBADetail a LEFT JOIN SZActionCon b'
+      +' ON a.ActionDM=b.DM where IsCancel=0 and '
+      +' a.ActionDM=^%0:s^ %1:s';
+
 type
   TfrmRevokeB = class(TFrmSuiDBForm)
     advpnl1: TAdvPanel;
-    lbl2: TLabel;
-    lbl3: TLabel;
-    lbl4: TLabel;
-    lbl5: TLabel;
-    lbl6: TLabel;
-    lbl7: TLabel;
-    advdtmpckrStart: TAdvDateTimePicker;
-    advdtmpckrEnd: TAdvDateTimePicker;
-    edtChiefDoctor: TsuiEdit;
-    cbbOffice: TAdvOfficeComboBox;
-    edtzynumber: TsuiEdit;
-    edtName: TsuiEdit;
-    btnSel: TAdvGlowButton;
-    btnMore: TAdvGlowButton;
     advgrpLeft: TAdvGroupBox;
     dbgrdhleft: TDBGridEh;
+    advgrp1: TAdvGroupBox;
+    lbl2: TLabel;
+    lbl5: TLabel;
+    lbl6: TLabel;
+    lbl9: TLabel;
+    edtListNum: TsuiEdit;
+    edtzynumber: TsuiEdit;
+    cbbOffice: TAdvOfficeComboBox;
+    advdtmpckrStart: TAdvDateTimePicker;
+    advdtmpckrEnd: TAdvDateTimePicker;
+    lbl4: TLabel;
+    lbl7: TLabel;
+    edtName: TsuiEdit;
+    edtChiefDoctor: TsuiEdit;
+    btnSel: TAdvGlowButton;
+    btnMore: TAdvGlowButton;
+    lbl3: TLabel;
+    advgrp2: TAdvGroupBox;
     lbl1: TLabel;
-    lbl8: TLabel;
     cbbReason: TAdvOfficeComboBox;
-    edtBarcode: TsuiEdit;
     btnRevoke: TAdvGlowButton;
     btnacClose: TAdvGlowButton;
+    pnl1: TPanel;
+    lbl8: TLabel;
+    advedtBarCode: TAdvEdit;
     procedure btnSelClick(Sender: TObject);
     procedure btnRevokeClick(Sender: TObject);
-    procedure edtBarcodeKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
+    procedure advedtBarCodeKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edtListNumKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
       //字典库的动作代码
@@ -68,6 +75,7 @@ type
      //上一步步骤序号
     PriorityNum:Integer;
     procedure GetPriorActionDM;
+    procedure GetRevokeBA(condition:string);
   public
     { Public declarations }
     /// <summary>
@@ -86,13 +94,70 @@ implementation
 
 { TfrmRevokeB }
 
+procedure TfrmRevokeB.advedtBarCodeKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+    barcode:string;
+    clienttmp:TClientDataSet;
+    SQLText:string;
+begin
+  inherited;
+  barcode := advedtBarCode.Text;
+  if Key=VK_RETURN then
+  begin
+    if barcode <>'' then
+    begin
+      if not DLCDS.Active then
+      begin
+        TMidProxy.SqlOpen('select * from SZBADetail where 1<>1',TClientDataSet(DLCDS));
+      end;
+      DLCDS.IndexFieldNames :='BarCode';
+      if not DLCDS.FindKey([barcode]) then
+      begin
+        clienttmp :=TClientDataSet.Create(nil);
+        AutoFree(clienttmp);
+        //是否存在病案库
+        TMidProxy.SqlOpen(Format('SELECT * FROM SZBADetail where barcode=^%s^',[barcode]),clienttmp);
+        if clienttmp.IsEmpty then
+        begin
+          ShowMsgSure('病案库不存在此记录');
+          Exit;
+        end;
+        //注销
+        if clienttmp.FieldByName('IsCancel').AsBoolean then
+        begin
+          ShowMsgSure('该病案已被注销!');
+          Exit;
+        end;
+
+        //判断上一步动作状态
+        if clienttmp.FieldByName('ActionDM').AsString<>FActionDM then
+        begin
+          ShowMsgSure('该病案不属于此流转范围，不能撤销!');
+          Exit;
+        end;
+        //添加病案信息
+        ChangeData(clienttmp,DLCDS,otRight);
+      end
+      else
+      begin
+        ShowMsgSure('已经添加到列表!');
+      end;
+      
+    end;
+  end;
+
+
+end;
+
 procedure TfrmRevokeB.btnRevokeClick(Sender: TObject);
 var
   ReasonDM:string;//撤销原因代码
   ActionState:string;//当前记录的动作状态
+  NewActionState:string;
+  NewActionDM:string;
   patientid:string;//病人唯一标识
   ReclaimTime:string;//动作操作时间
-  RevokeActionMC:string;//撤销后的动作名称
 begin
   inherited;
   if not dlcds.Active then Exit;
@@ -115,34 +180,26 @@ begin
         ActionState :=FieldByName('state').AsString;
         patientid := FieldByName('patientid').AsString;
         //撤销签入
-        if RightStr(ActionState,1)='1' then
+        if ActionState='1' then
         begin
-           //回收
-          if PriorActionDM='' then
-          begin
-            ActionState :='';
-            RevokeActionMC := '回收';
-          end
-          else
-          begin
-            //上一步步骤 的签出
-            ActionState := priorActionState;
-            RevokeActionMC := PriorActionMC;
-          end;
+          NewActionState :='3';
+          NewActionDM := PriorActionDM;
         end
-        else //撤销签出
+        else if ActionState='3' then //撤销签出
         begin
           //当前动作的签入
-          ActionState := FActionDM+'_1';
-          RevokeActionMC :=ActionMC;
+          NewActionState := '1';
+          NewActionDM := FActionDM;
         end;
         ReclaimTime := FormatDateTime('yyyy-mm-dd hh:mm:ss',Now);
         //更新病案库状态
-        TMidProxy.SqlExecute(Format('update SZBADetail set state =^%s^ where patientid=^%s^ and iscancel=0',[ActionState,patientid]));
+        TMidProxy.SqlExecute(Format('update SZBADetail set ActionDM=^%0:s^ ,'
+           + 'state =^%1:s^ where patientid=^%s^ and iscancel=0',
+            [NewActionDM,ActionState,patientid]));
         //添加撤销动作记录
-        TMidProxy.SqlExecute(Format('insert into SZActionRecord(patientID,ActionDM,ActionMC,ActionState,IsRevoke,ActionTime,ActionPerson) '
-                +'values(^%s^,^%s^,^%s^,^%s^,^1^,^%s^,^%s^)',[patientid,LeftStr(ActionState,Pos('_',ActionState)-1),
-                RevokeActionMC,RightStr(ActionState,1),ReclaimTime,G_MainInfo.MainSysInfo.LogonUserName]));
+        TMidProxy.SqlExecute(Format('insert into SZActionRecord(patientID,ActionDM,ActionMC,ActionState,ActionTime,ActionPerson) '
+                +'values(^%s^,^%s^,^%s^,^-%s^,^%s^,^%s^)',[patientid,FActionDM,
+                ActionMC,NewActionState,ReclaimTime,G_MainInfo.MainSysInfo.LogonUserName]));
         //添加撤销原因记录
         TMidProxy.SqlExecute(Format('insert into SZActionRevoke(PatientID,RevokeReason,RevokePerson,RevokeTime) '
                +'values(^%s^,^%s^,^%s^,^%s^)',[patientid,ReasonDM,G_MainInfo.MainSysInfo.LogonUserName,ReclaimTime]));
@@ -171,6 +228,11 @@ var
   SQLText:string;
 begin
   inherited;
+  if edtListNum.Text <>'' then
+  begin
+    SendMessage(edtListNum.Handle,WM_KEYDOWN,VK_RETURN,0);
+    Exit;
+  end;
   if advdtmpckrStart.Date > advdtmpckrEnd.Date then
   begin
     ShowMsgSure('开始日期不能大于结束日期');
@@ -204,90 +266,25 @@ begin
     name := edtName.Text;
     condition := condition +format(' and name = ^%s^',[name]);
   end;
+
   //查询
-  try
-     //可撤销列表
-    StartWaitWindow('正在查询数据...');
-    TMidProxy.SqlOpen(Format(sql,[Length(FActionDM),FActionDM,condition]),TClientDataSet(DLCDS));
-   
-    if DLCDS.IsEmpty then
-    begin
-      dbgrdhleft.DataSource := nil;
-      EndWaitWindow;
-      ShowMsgSure('未查询到符合的数据!');
-      exit;
-    end;
-    dbgrdhleft.DataSource := ds1;
-  finally
-    EndWaitWindow;
-  end;
-
+  GetRevokeBA(condition);
 end;
-//constructor TfrmRevokeB.Create(Aowner: TComponent);
-//begin
-//  inherited;
-////   advtlbrpgr1.Caption.Caption := ActionMC+'撤销';
-//  //查询上一步动作代码
-//  GetPriorActionDM;
-//   //加载科室
-//  LoadOffice(cbbOffice);
-//  //加载撤销原因
-//  FillCombobox('SELECT DM,Reason FROM SZRevokeReason ORDER BY DM','DM','Reason',cbbReason);
-//end;
 
-procedure TfrmRevokeB.edtBarcodeKeyDown(Sender: TObject; var Key: Word;
+
+procedure TfrmRevokeB.edtListNumKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
-    barcode:string;
-    clienttmp:TClientDataSet;
-    SQLText:string;
+  listnum:string;
 begin
   inherited;
-  barcode := edtBarcode.Text;
   if Key=VK_RETURN then
   begin
-    if barcode <>'' then
-    begin
-      if not DLCDS.Active then
-      begin
-        TMidProxy.SqlOpen('select * from SZBADetail where 1<>1',TClientDataSet(DLCDS));
-      end;
-      DLCDS.IndexFieldNames :='BarCode';
-      if not DLCDS.FindKey([barcode]) then
-      begin
-        clienttmp :=TClientDataSet.Create(nil);
-        AutoFree(clienttmp);
-        //是否存在病案库
-        TMidProxy.SqlOpen(Format('SELECT * FROM SZBADetail where barcode=^%s^',[barcode]),clienttmp);
-        if clienttmp.IsEmpty then
-        begin
-          ShowMsgSure('病案库不存在此记录');
-          Exit;
-        end;
-        //注销
-        if clienttmp.FieldByName('IsCancel').AsBoolean then
-        begin
-          ShowMsgSure('该病案已被注销!');
-          Exit;
-        end;
-
-        //判断上一步动作状态
-        if LeftStr(clienttmp.FieldByName('state').AsString,Length(FActionDM))<>FActionDM then
-        begin
-          ShowMsgSure('该病案不属于此流转范围，不能撤销!');
-          Exit;
-        end;
-        //添加病案信息
-        ChangeData(clienttmp,DLCDS,otRight);
-      end
-      else
-      begin
-        ShowMsgSure('已经添加到列表!');
-      end;
-      
-    end;
+    listnum := edtListNum.Text;
+    if listnum='' then Exit;
+    GetBAByListNum(listnum,FActionDM,TClientDataSet(DLCDS));
+    SetSbSimpleText(Format('共%d条数据',[dlcds.RecordCount]));
   end;
-
 end;
 
 procedure TfrmRevokeB.FormCreate(Sender: TObject);
@@ -321,11 +318,7 @@ begin
       PriorActionDM := clienttmp.FieldByName('DM').AsString;
       PriorityNum  :=clienttmp.FieldByName('prioritynum').AsInteger;
       PriorActionMC := clienttmp.FieldByName('mc').AsString;
-      if PriorityNum> 1 then
-        priorActionState := PriorActionDM+'_2'
-      else
-       priorActionState :=PriorActionDM+'_1'; //回收状态
-      
+
     end;
     TMidProxy.SqlOpen(Format('SELECT * FROM SZActionCon WHERE ActionDicDM=^%s^',[FActionDicDM]),clienttmp);
     if not clienttmp.IsEmpty then
@@ -337,5 +330,30 @@ begin
   end;
 end;
 
+
+procedure TfrmRevokeB.GetRevokeBA(condition: string);
+begin
+   //查询
+  try
+    if UpperCase(LeftStr(Trim(Condition),3)) <> 'AND' then
+    begin
+      Condition := ' and '+Condition;
+    end;
+     //可撤销列表
+    StartWaitWindow('正在查询数据...');
+    TMidProxy.SqlOpen(Format(sql,[FActionDM,condition]),TClientDataSet(DLCDS));
+
+    if DLCDS.IsEmpty then
+    begin
+      dbgrdhleft.DataSource := nil;
+      EndWaitWindow;
+      ShowMsgSure('未查询到符合的数据!');
+      exit;
+    end;
+    dbgrdhleft.DataSource := ds1;
+  finally
+    EndWaitWindow;
+  end;
+end;
 
 end.

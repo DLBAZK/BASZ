@@ -14,7 +14,7 @@ uses
   UDlClientDataset, DosMove, AdvPanel, AdvAppStyler, AdvToolBar,
   AdvToolBarStylers, AdvOfficeStatusBar, AdvOfficeStatusBarStylers, GridsEh,
   DBGridEh, StdCtrls, AdvGroupBox, AdvGlowButton, AdvFontCombo, SUIEdit,
-  ComCtrls, AdvDateTimePicker, ExtCtrls;
+  ComCtrls, AdvDateTimePicker, ExtCtrls, AdvEdit;
 
 type
   TfrmZKRevoke = class(TfrmRevokeB)

@@ -38,6 +38,7 @@ procedure TfrmZKCheckOut.FormCreate(Sender: TObject);
 begin
   ActionOperation := aoCheckOut;
   ActionDicDM := '102';
+  ListPrefix :='ZK';
   inherited;
 
 end;

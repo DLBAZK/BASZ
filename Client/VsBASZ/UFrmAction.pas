@@ -15,9 +15,13 @@ uses
   DBGridEh, StdCtrls, AdvGroupBox, AdvGlowButton, AdvFontCombo, SUIEdit,
   ComCtrls, AdvDateTimePicker,StrUtils,USZVar;
 
+
+  const
+  sql ='SELECT * FROM SZBADetail where IsCancel=0 and  ISNULL(State,^^)=^%0:s^ and ActionDM=^%1:s^ %2:s';
+  
 type
    //动作操作类型    aoCheckIn 签入   aoCheckOut 签出    aoRevoke 撤销
-  TActionOperation=(aoCheckIn,aoCheckOut,aoRevoke);
+  TActionOperation=(aoCheckIn,aoCheckOpe,aoCheckOut);
   TfrmActionCheckB = class(TFrmSuiDBForm)
     advpnlLeft: TAdvPanel;
     advpnl1: TAdvPanel;
@@ -48,7 +52,6 @@ type
     advpnl6: TAdvPanel;
     lbl10: TLabel;
     edtBarcode: TsuiEdit;
-    btnAddList: TAdvGlowButton;
     btnSaveList: TAdvGlowButton;
     btnPrint: TAdvGlowButton;
     advgrpright: TAdvGroupBox;
@@ -56,14 +59,18 @@ type
     clientdtright: TClientDataSet;
     dsright: TDataSource;
     btnacClose: TAdvGlowButton;
+    lbl1: TLabel;
+    edtListNum: TsuiEdit;
     procedure btnSelClick(Sender: TObject);
     procedure btnAllRightClick(Sender: TObject);
-    procedure btnAddListClick(Sender: TObject);
     procedure btnSaveListClick(Sender: TObject);
     procedure btnPrintClick(Sender: TObject);
     procedure edtBarcodeKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
+    procedure btnMoreClick(Sender: TObject);
+    procedure edtListNumKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     //字典库的动作代码
@@ -77,20 +84,24 @@ type
     priorActionState:string;
     //动作名称
     ActionMC:string;
-    //动作类型描述 签入 签出  10001_1
-    ActionTypeDesc:string;
     //上一步步骤序号
     PriorityNum:Integer;
     //动作签入（签出）单号
     ActionListNum:string;
     //动作签入签出描述
     CheckDesc:string;
-
+    //动作单号前缀
+    FListPrefix:string;
     procedure SetActionOperation(const value:TActionOperation);
     /// <summary>
     /// 获取上一步动作代码
     /// </summary>
     procedure GetPriorActionDM;
+    /// <summary>
+    /// 查询病案数据
+    /// </summary>
+    /// <param name="Condition">查询条件</param>
+    procedure GetBAData(Condition:string;var DataSet:TClientDataSet);
   public
     { Public declarations }
 //    Constructor Create(Aowner:TComponent);Override;
@@ -102,6 +113,10 @@ type
   /// 动作操作类型
   /// </summary>
     property ActionOperation:TActionOperation read FActionOperation write SetActionOperation;
+    /// <summary>
+    /// 动作单号前缀
+    /// </summary>
+    property ListPrefix:string read FListPrefix write FListPrefix;
   /// <summary>
   /// 打印单子
   /// </summary>
@@ -116,22 +131,6 @@ implementation
 {$R *.dfm}
 
 { TFrmSuiDBForm1 }
-
-procedure TfrmActionCheckB.btnAddListClick(Sender: TObject);
-begin
-  inherited;
-  if ActionListNum<>'' then
-  begin
-    ShowMsgSure(Format('存在尚未保存的%s单',[CheckDesc]));
-    Exit;
-  end;
-  //生成新的单号 并保存到数据表
-  ActionListNum := GenerateActionListNum(ActionTypeDesc);
-  if ActionListNum <>'' then
-  begin
-    ShowMsgSure('新建成功!');
-  end;
-end;
 
 procedure TfrmActionCheckB.btnAllRightClick(Sender: TObject);
 var
@@ -169,6 +168,19 @@ begin
   end;
 end;
 
+procedure TfrmActionCheckB.btnMoreClick(Sender: TObject);
+var
+  SQLCondition:string;
+begin
+  inherited;
+  SQLCondition := GetCondition;
+  if SQLCondition<> '' then
+  begin
+    //查询数据
+    GetBAData(SQLCondition,tclientdataset(DLCDS));
+  end;
+end;
+
 procedure TfrmActionCheckB.btnPrintClick(Sender: TObject);
 begin
   inherited;
@@ -190,14 +202,12 @@ begin
     ShowMsgSure('尚未签入数据！');
     Exit;
   end;
-  if ActionListNum='' then
-  begin
-    ShowMsgSure('请先新建单号!');
-    Exit;
-  end;
+
   StartWaitWindow(Format('正在%s数据',[CheckDesc]));
   try
-    try
+    try      
+      //生成新的单号 并保存到数据表
+      ActionListNum := GenerateActionListNum(FListPrefix,FActionDM);
       ReclaimTime := FormatDateTime('yyyy-mm-dd hh:mm:ss',Now);
       with clientdtRight do
       begin
@@ -206,13 +216,13 @@ begin
         while not EOf do
         begin
           patientid:=FieldByName('patientid').AsString;
-          TMidProxy.SqlExecute(Format('update SZBADetail set State=^%s^ where patientid=^%s^',
-          [ActionTypeDesc,patientid]));
+          //更新状态
+          TMidProxy.SqlExecute(Format('update SZBADetail set ActionDM=^%0:s^ , State=^%1:s^ where patientid=^%s^',
+          [FActionDM,IntToStr(Ord(ActionOperation)+1),patientid]));
           //保存动作信息
-          sql := Format('insert into SZActionRecord(patientID,ActionDM,ActionMC,ActionState,IsRevoke,ActionTime,ActionPerson) '
-              +'values(^%s^,^%s^,^%s^,^%s^,^%s^,^%s^,^%s^)',
-           [patientid,FActionDM,ActionMC,RightStr(ActionTypeDesc,1),BoolToStr(ActionOperation=aoRevoke),
-              ReclaimTime,G_MainInfo.MainSysInfo.LogonUserName]);
+          sql := Format('insert into SZActionRecord(patientID,ActionDM,ActionMC,ActionState,ActionTime,ActionPerson) '
+              +'values(^%s^,^%s^,^%s^,^%s^,^%s^,^%s^)',[patientid,FActionDM,ActionMC,
+              IntToStr(Ord(ActionOperation)+1),ReclaimTime,G_MainInfo.MainSysInfo.LogonUserName]);
           TMidProxy.SqlExecute(sql);
           //保存回收单记录的病人信息
           TMidProxy.SqlExecute(Format(sqlListDeatil,[ActionListNum,FieldByName('patientid').AsString]));
@@ -236,15 +246,17 @@ begin
 end;
 
 procedure TfrmActionCheckB.btnSelClick(Sender: TObject);
-const
-  sql ='SELECT * FROM SZBADetail where IsCancel=0 and  ISNULL(State,^^)=^%s^ %s';
 var
   StartDate,EndDate:string;//出院日期
   SODM,chiefDoc,zynum,name:string;//科室代码、主管医师、住院号、姓名
   condition :string;//where条件
-  SQLText:string;
 begin
   inherited;
+  if edtListNum.Text<>'' then
+  begin
+    SendMessage(edtListNum.Handle,WM_KEYDOWN,VK_RETURN,0);
+    Exit;
+  end;
   if advdtmpckrStart.Date > advdtmpckrEnd.Date then
   begin
     ShowMsgSure('开始日期不能大于结束日期');
@@ -278,66 +290,10 @@ begin
     name := edtName.Text;
     condition := condition +format(' and name = ^%s^',[name]);
   end;
-  //查询
-  try
-     //签入
-    if ActionOperation=aoCheckIn then
-    begin
-      SQLText := priorActionState;
-    end
-    //签出
-    else if ActionOperation=aoCheckOut then
-    begin
-      SQLText := FActionDM+'_1';  //当前动作的签入状态
-    end;
-    StartWaitWindow('正在查询数据...');
-    TMidProxy.SqlOpen(Format(sql,[SQLText,condition]),TClientDataSet(DLCDS));
-   
-    if DLCDS.IsEmpty then
-    begin
-      dbgrdhleft.DataSource := nil;
-      EndWaitWindow;
-      ShowMsgSure('未查询到符合的数据!');
-      exit;
-    end;
-    dbgrdhleft.DataSource := ds1;
-  finally
-    EndWaitWindow;
-  end;
-
+   //查询
+  GetBAData(condition,tclientdataset(dlcds));
+  
 end;
-
-//constructor TfrmActionCheckB.Create(Aowner: TComponent);
-//const
-//  SQL ='select * from SZBADetail WHERE 1<>1';
-//begin
-//  inherited;
-//  //加载显示科室
-//  LoadOffice(cbbOffice);
-//  //查询上一步动作代码
-//  GetPriorActionDM;
-//  //签入
-//  if ActionOperation=aoCheckIn then
-//  begin
-//    advgrpLeft.Caption := '待签入列表';
-//    advgrpright.Caption := '签入列表';
-//
-//    btnAddList.Caption :='新建签入单';
-//    btnSaveList.Caption := '保存签入单';
-//    btnPrint.Caption :='打印签入单';
-//    ActionTypeDesc :=FActionDM+'_1';
-//  end
-//  else if ActionOperation=aoCheckOut then //签出
-//  begin
-//    advgrpLeft.Caption := '待签出列表';
-//    advgrpright.Caption := '签出列表';
-//    btnAddList.Caption :='新建签出单';
-//    btnSaveList.Caption := '保存签出单';
-//    btnPrint.Caption :='打印签出单';
-//    ActionTypeDesc :=FActionDM+'_2';
-//  end;
-//  TMidProxy.SqlOpen(SQL,clientdtRight);
-//end;
 
 procedure TfrmActionCheckB.edtBarcodeKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -364,30 +320,10 @@ begin
           ShowMsgSure('病案库不存在此记录');
           Exit;
         end;
-        //检查状态
-        if ActionOperation=aoCheckIn then
-        begin
-          SQLText := priorActionState;
-        end
-        //签出
-        else if ActionOperation=aoCheckOut then
-        begin
-          SQLText := FActionDM+'_1';  //当前动作的签入状态
-        end;
-        TMidProxy.SqlOpen(Format('SELECT * FROM SZBADetail where   ISNULL(State,^^)=^%s^ and  barcode=^%s^',
-             [SQLText,barcode]),clienttmp);
+        //查询
+        GetBAData(Format(' barcode=^%s^',[barcode]),clienttmp);
         //判断上一步动作状态
-        if clienttmp.IsEmpty then
-        begin
-          ShowMsgSure(Format('该病案未达到%s条件',[CheckDesc]));
-          Exit;
-        end;
-        //是否注销
-        if clienttmp.FieldByName('IsCancel').AsBoolean then
-        begin
-          ShowMsgSure('该条病案信息已注销!');
-          Exit;
-        end;
+        if clienttmp.IsEmpty then Exit;
         //添加病案信息
         ChangeData(clienttmp,clientdtright,otRight);
       end
@@ -400,9 +336,30 @@ begin
   end;
 end;
 
+procedure TfrmActionCheckB.edtListNumKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  ActionListNum:string; //单号
+
+begin
+  inherited;
+   //回车查询单号的病案数据
+  if Key=VK_RETURN then
+  begin
+    ActionListNum :=Trim(edtListNum.Text);
+    if ActionListNum='' then Exit;
+    //按照单号查询病案
+    if FActionOperation=aoCheckIn then
+      GetBAByListNum(ActionListNum,PriorActionDM,'3',tclientdataset(DLCDS))
+    else
+      GetBAByListNum(ActionListNum,FActionDM,'1',tclientdataset(DLCDS));
+    SetSbSimpleText(Format('共%d条数据',[dlcds.RecordCount]));
+  end;
+end;
+
 procedure TfrmActionCheckB.FormCreate(Sender: TObject);
 const
-  SQL ='select * from SZBADetail WHERE 1<>1';
+  SQLtext ='select * from SZBADetail WHERE 1<>1';
 begin
   inherited;
   //加载显示科室
@@ -414,28 +371,56 @@ begin
   begin
     advgrpLeft.Caption := '待签入列表';
     advgrpright.Caption := '签入列表';
-
-    btnAddList.Caption :='新建签入单';
     btnSaveList.Caption := '保存签入单';
     btnPrint.Caption :='打印签入单';
-    ActionTypeDesc :=FActionDM+'_1';
   end
   else if ActionOperation=aoCheckOut then //签出
   begin
     advgrpLeft.Caption := '待签出列表';
     advgrpright.Caption := '签出列表';
-    btnAddList.Caption :='新建签出单';
     btnSaveList.Caption := '保存签出单';
     btnPrint.Caption :='打印签出单';
-    ActionTypeDesc :=FActionDM+'_2';
   end;
-  TMidProxy.SqlOpen(SQL,clientdtRight);
+  TMidProxy.SqlOpen(SQLtext,clientdtRight);
   Self.Caption := ActionMC + CheckDesc;
+end;
+
+procedure TfrmActionCheckB.GetBAData(Condition: string;var DataSet:TClientDataSet);
+var
+  SQLText:string;
+begin
+  //查询
+  try
+    if UpperCase(LeftStr(Trim(Condition),3)) <> 'AND' then
+    begin
+      Condition := ' and '+Condition;
+    end;
+     //签入
+    if ActionOperation=aoCheckIn then
+    begin
+      SQLText :=Format(sql,['3',PriorActionDM,condition]);
+    end
+    //签出
+    else if ActionOperation=aoCheckOut then
+    begin
+      SQLText :=Format(sql,['1',FActionDM,condition]);  //当前动作的签入状态
+    end;
+    StartWaitWindow('正在查询数据...');
+    TMidProxy.SqlOpen(SQLText,DataSet);
+    if DataSet.IsEmpty then
+    begin
+      EndWaitWindow;
+      ShowMsgSure('未查询到符合的数据');
+    end;
+  finally
+    EndWaitWindow;
+    SetSbSimpleText(Format('共%d条数据',[DataSet.RecordCount]));
+  end;
 end;
 
 procedure TfrmActionCheckB.GetPriorActionDM;
 const
-  SQL='SELECT * FROM SZActionCon WHERE PriorityNum =(SELECT PriorityNum-1'
+  SQLtext='SELECT * FROM SZActionCon WHERE PriorityNum =(SELECT PriorityNum-1'
      +' FROM dbo.SZActionCon WHERE ActionDicDM=^%s^)';
 var
  clienttmp:TClientDataSet;
@@ -444,16 +429,13 @@ begin
   begin
     clienttmp := TClientDataSet.Create(nil);
     AutoFree(clienttmp);
-    TMidProxy.SqlOpen(Format(SQL,[FActionDicDM]),clienttmp);
+    TMidProxy.SqlOpen(Format(SQLtext,[FActionDicDM]),clienttmp);
     if not clienttmp.IsEmpty then
     begin
       PriorActionDM := clienttmp.FieldByName('DM').AsString;
       PriorityNum  :=clienttmp.FieldByName('prioritynum').AsInteger;
-      if PriorityNum> 1 then
-        priorActionState := PriorActionDM+'_2'
-      else
-       priorActionState :=PriorActionDM+'_1'; //回收状态
-      
+      priorActionState := PriorActionDM+'_3';
+
     end;
     TMidProxy.SqlOpen(Format('SELECT * FROM SZActionCon WHERE ActionDicDM=^%s^',[FActionDicDM]),clienttmp);
     if not clienttmp.IsEmpty then

@@ -39,6 +39,7 @@ procedure TfrmBoundIn.FormCreate(Sender: TObject);
 begin
   ActionDicDM := '103' ;
   ActionOperation := aoCheckIn;
+  ListPrefix :='ZD';
   inherited;
 
 end;

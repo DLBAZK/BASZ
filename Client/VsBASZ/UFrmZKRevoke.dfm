@@ -2,6 +2,9 @@ inherited frmZKRevoke: TfrmZKRevoke
   Caption = ''
   PixelsPerInch = 96
   TextHeight = 13
+  inherited advtlbrpgr1: TAdvToolBarPager
+    ExplicitWidth = 945
+  end
   inherited AdvPanel1: TAdvPanel
     FullHeight = 200
     inherited advpnl1: TAdvPanel

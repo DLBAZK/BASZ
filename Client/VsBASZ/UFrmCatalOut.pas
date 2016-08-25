@@ -38,6 +38,7 @@ procedure TfrmCatalOut.FormCreate(Sender: TObject);
 begin
   ActionDicDM :='104';
   ActionOperation :=aoCheckOut;
+  ListPrefix :='BM';
   inherited;
 
 end;
