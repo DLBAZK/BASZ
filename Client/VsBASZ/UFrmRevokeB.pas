@@ -293,7 +293,6 @@ begin
   //查询上一步动作代码
   GetPriorActionDM;
   self.Caption := ActionMC+'撤销';
-//  advtlbrpgr1.Caption.Caption := ActionMC+'撤销';
 
    //加载科室
   LoadOffice(cbbOffice);

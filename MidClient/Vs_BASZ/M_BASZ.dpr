@@ -19,7 +19,8 @@ uses
   UVsMidStand in '..\BaseClass\UVsMidStand.pas',
   USZActionCon in 'USZActionCon.pas',
   USZRevokeReason in 'USZRevokeReason.pas',
-  USZReclaim in 'USZReclaim.pas';
+  USZReclaim in 'USZReclaim.pas',
+  USZBACancel in 'USZBACancel.pas';
 
 {$R *.res}
   /// <summary>

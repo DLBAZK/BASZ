@@ -173,7 +173,29 @@ begin
 end
 else
 	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
-	values('5000603','03','50006','&3.撤销','1','TfrmBoundRevoke','100029','1','1',null)		
+	values('5000603','03','50006','&3.撤销','1','TfrmBoundRevoke','100029','1','1',null)
+	
+	
+	if  exists (select * from VsMenu where MenuCode = '50007')
+begin
+	delete from VsMenu where MenuCode = '50007'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50007','07','500','&7.病案注销','1','TfrmBACancel','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50007','07','500','&7.病案注销','1','TfrmBACancel','100029','1','1',null)
+	
+	if  exists (select * from VsMenu where MenuCode = '50008')
+begin
+	delete from VsMenu where MenuCode = '50008'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50008','08','500','&8.病案流转','1','TfrmActionMap','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50008','08','500','&8.病案流转','1','TfrmActionMap','100029','1','1',null)	
+			
 			
 if  exists(select * from VsMidOper where MidOperCode ='5001')
 begin
@@ -206,7 +228,7 @@ else
   insert into VsMidOper(MidOperCode,MidOperName,MidOperLib,MidOperEnu,MidOperDes) 
      VALUES  (5003,'TSZReclaim','200029','EuSZReclaim','病案回收中间层')	
      
-     
+         
      
      
  INSERT INTO SZActionState values('1','签入')

@@ -11,11 +11,11 @@ inherited frmRevokeB: TfrmRevokeB
     Top = 571
     Width = 945
     ExplicitTop = 571
-    ExplicitWidth = 916
+    ExplicitWidth = 945
   end
   inherited advtlbrpgr1: TAdvToolBarPager
     Width = 945
-    ExplicitWidth = 916
+    ExplicitWidth = 945
     inherited AdvPage1: TAdvPage
       Width = 937
       Height = 0
@@ -26,7 +26,7 @@ inherited frmRevokeB: TfrmRevokeB
   inherited AdvPanel1: TAdvPanel
     Width = 945
     Height = 546
-    ExplicitWidth = 916
+    ExplicitWidth = 945
     ExplicitHeight = 546
     FullHeight = 200
     object advpnl1: TAdvPanel
@@ -73,7 +73,6 @@ inherited frmRevokeB: TfrmRevokeB
       StatusBar.ColorTo = 16374724
       StatusBar.GradientDirection = gdVertical
       Styler = AdvPanelStyler1
-      ExplicitWidth = 916
       FullHeight = 137
       object advgrp1: TAdvGroupBox
         Left = 0
@@ -378,9 +377,6 @@ inherited frmRevokeB: TfrmRevokeB
         Caption = #25764#38144
         ParentBiDiMode = False
         TabOrder = 1
-        ExplicitLeft = 535
-        ExplicitTop = -6
-        ExplicitWidth = 387
         object lbl1: TLabel
           Left = 167
           Top = 34
@@ -596,7 +592,6 @@ inherited frmRevokeB: TfrmRevokeB
       Align = alClient
       Caption = #24453#25764#38144#21015#34920
       TabOrder = 1
-      ExplicitWidth = 916
       object dbgrdhleft: TDBGridEh
         Left = 2
         Top = 16
