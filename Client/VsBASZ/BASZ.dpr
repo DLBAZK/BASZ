@@ -49,7 +49,11 @@ uses
   UFrmMoreTJ in 'UFrmMoreTJ.pas' {frmMoreTJ},
   UFrmActionDic in 'UFrmActionDic.pas' {frmActionDic},
   UFrmBACancel in 'UFrmBACancel.pas' {frmBACancel},
-  UFrmActionMap in 'UFrmActionMap.pas' {frmActionMap};
+  UFrmActionMap in 'UFrmActionMap.pas' {frmActionMap},
+  URptCheck in 'URptCheck.pas' {RptCheck: TQuickRep},
+  UFrmRep in 'UFrmRep.pas' {FrmRep},
+  UFrmRptReclaim in 'UFrmRptReclaim.pas' {frmRptReclaim},
+  UFrmRptCheck in 'UFrmRptCheck.pas' {frmRptCheck};
 
 {$R *.res}
  Function DllObjFactory(MainInfo:TMainInfo;FormClass:String):TFormClass;

@@ -26,7 +26,6 @@ type
     ilAction: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure btnCloseClick(Sender: TObject);
   private
     { Private declarations }
     //动作集合
@@ -34,6 +33,10 @@ type
     controllist:TStringList;
     //方向箭头图片
     direcImg:string;
+    /// <summary>
+    /// 默认布局分栏数
+    /// </summary>
+    LayoutCol:Integer;
     /// <summary>
     /// 获取配置的动作
     /// </summary>
@@ -52,7 +55,7 @@ var
   frmActionMap: TfrmActionMap;
 
 implementation
-  uses UGFun,UGVar,UMidProxy,UCommon;
+  uses UGFun,UGVar,UMidProxy,UCommon,UFrmAction;
 {$R *.dfm}
 
 { TfrmActionMap }
@@ -62,6 +65,7 @@ var
  btntmp:TAdvGlowButton;
  i :Integer;
  Obj:PActionObj;
+ frmAct:TfrmActionCheckB;
 begin
   btntmp :=TAdvGlowButton(Sender);
   if btntmp.Tag=99 then
@@ -73,19 +77,17 @@ begin
   begin
     Obj :=PActionObj(ActionList[i]);
 
-    if btntmp.Tag=Obj.PriorityNum then
+    if btntmp.Tag=Obj^.PriorityNum then
     begin
       //打开病案流转窗体
+      frmAct :=TfrmActionCheckB.Create(nil);
+      frmAct.BorderStyle :=bsSingle;
+      frmAct.ActionDM :=Obj^.ActionDM;
+      frmAct.ShowModal;
       Break;
     end;
   end;
 
-end;
-
-procedure TfrmActionMap.btnCloseClick(Sender: TObject);
-begin
-  inherited;
-  Close();
 end;
 
 procedure TfrmActionMap.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -98,12 +100,15 @@ end;
 procedure TfrmActionMap.FormCreate(Sender: TObject);
 begin
   inherited;
+  //默认分3栏显示
+  LayoutCol :=3;
   ActionList := TList.Create;
   controllist := TStringList.Create;
   //读取方向箭头图片
   direcImg :=ReadIniFileSit(G_MainInfo.MainDir+CClientCfgFileName,'BASZ','direcImg');
   if direcImg='' then
     direcImg :='direcImg.gif';
+  //获取配置的工作
   GetAction;
   GenerateActionMap;
 end;
