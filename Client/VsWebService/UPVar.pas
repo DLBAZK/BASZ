@@ -25,10 +25,10 @@ const
            '    soap:encodingStyle="http:schemas.xmlsoap.orgsoapencoding">'+
            '    <soap:Header>'+
            '        <in:system xmlns:in="http:www.tyswjw.gov.cn">'+
-           '            <para user="%s" />'+
-           '            <para pswd="%s" />'+
-           '            <para serviceid="admMedPhMainYLFWService" />'+
-           '            <para mehtodname="%s" />'+
+           '            <user>%s</user>'+
+           '            <pswd>%s</pswd>'+
+           '            <serviceid>admMedPhMainYLFWService</serviceid>'+
+           '            <mehtodname>%s</mehtodname>'+
            '        </in:system>'+
            '    </soap:Header>'+
            '    <soap:Body>'+

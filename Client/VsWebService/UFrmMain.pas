@@ -305,7 +305,7 @@ end;
 
 procedure TFrmYinHaiMain.GetUploadCount;
 const
-   SQL ='SELECT OperationLB ,COUNT(*) Result  FROM dbo.VsWebDTState GROUP BY OperationLB  ';
+   SQL ='SELECT OperationLB ,COUNT(*) Result  FROM VsWebDTState GROUP BY OperationLB  ';
 var
    clientResult:TClientDataSet;
    strResult:string;
@@ -327,20 +327,30 @@ end;
 
 function TFrmYinHaiMain.GetXMLFieldStr(AData: TClientDataSet): string;
 const
-  sStdField='           <para %s="%s" />';
+  sStdField='  <%0:s>%1:s</%0:s>';   //<name>XXX</name>
 var
   i: Integer;
+  FieldValue:string;
 begin
   Result:='';
   for i:=0 to AData.FieldCount - 1 do begin
-    Result:=Result+Format(sStdField, [AData.Fields[i].FieldName, AData.Fields[i].AsString]);
+    FieldValue := AData.Fields[i].AsString;
+    //转换实体
+    FieldValue := StringReplace(FieldValue,#38,'&amp;',[rfReplaceAll,rfIgnoreCase]);//&
+    FieldValue := StringReplace(FieldValue,#60,'&lt;',[rfReplaceAll,rfIgnoreCase]);  //<
+    FieldValue := StringReplace(FieldValue,#62,'&gt;',[rfReplaceAll,rfIgnoreCase]);//>
+    FieldValue := StringReplace(FieldValue,#39,'&apos;',[rfReplaceAll,rfIgnoreCase]); //'
+    FieldValue := StringReplace(FieldValue,#34,'&quot;',[rfReplaceAll,rfIgnoreCase]); //"
+    Result:=Result+Format(sStdField, [AData.Fields[i].FieldName,FieldValue ]);
+
   end;
 
 end;
 
 function TFrmYinHaiMain.UploadData(sCaption,sMethod:string;clienttmp:TClientDataSet):Boolean;
  const
-    InsertSQL='INSERT INTO VsWebDTState(CHYear,CH0A01,Operationtime,OperationState,OperationStateDesc,OperationLB) VALUES(^^,^%s^,^%s^,^%s^,^%s^,^%s^)';
+    InsertSQL='INSERT INTO VsWebDTState(CHYear,CH0A01,Operationtime,OperationState,'
+       +'OperationStateDesc,OperationLB) VALUES(^^,^%s^,^%s^,^%s^,^%s^,^%s^)';
 var
   SendMsg,RecMsg:string;  //发送消息，反馈消息
   opearationtime:TDateTime;
@@ -358,7 +368,7 @@ begin
     First;
     while not Eof do
     begin
-      SendMsg := Format(sSendMsg,[WebUid,WebPwd,sMethod,GetXMLFieldStr(clienttmp)]);
+      SendMsg := Format(sSendMsg,[Trim(WebUid),Trim(WebPwd),sMethod,GetXMLFieldStr(clienttmp)]);
       try
         Application.ProcessMessages;
         WriteLog('发送消息：'+SendMsg);

@@ -9,7 +9,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
   inherited advfcstsbr: TAdvOfficeStatusBar
     Top = 604
     Width = 1085
-    ExplicitTop = 577
+    ExplicitTop = 604
     ExplicitWidth = 1085
   end
   inherited advtlbrpgr1: TAdvToolBarPager
@@ -26,7 +26,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
     Width = 1085
     Height = 579
     ExplicitWidth = 1085
-    ExplicitHeight = 552
+    ExplicitHeight = 579
     FullHeight = 200
     object fltpnl1: TFlatPanel
       Left = 0
@@ -382,9 +382,9 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
       Align = alBottom
       TabOrder = 2
       object lbl1: TLabel
-        Left = 537
+        Left = 511
         Top = 1
-        Width = 547
+        Width = 573
         Height = 97
         Align = alClient
         Caption = 
@@ -398,13 +398,14 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         Font.Style = []
         ParentFont = False
         WordWrap = True
-        ExplicitLeft = 512
-        ExplicitWidth = 572
+        ExplicitLeft = 537
+        ExplicitWidth = 298
+        ExplicitHeight = 95
       end
       object lbl2: TLabel
         Left = 1
         Top = 1
-        Width = 536
+        Width = 510
         Height = 97
         Align = alLeft
         Caption = 
@@ -418,6 +419,7 @@ inherited FrmYinHaiMain: TFrmYinHaiMain
         Font.Style = []
         ParentFont = False
         WordWrap = True
+        ExplicitHeight = 95
       end
     end
   end
