@@ -195,7 +195,19 @@ end
 else
 	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
 	values('50008','08','500','&8.病案流转','1','TfrmActionMap','100029','1','1',null)	
-			
+
+
+	if  exists (select * from VsMenu where MenuCode = '50009')
+begin
+	delete from VsMenu where MenuCode = '50009'
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50009','09','500','&9.病案示踪','1','TfrmTracer','100029','1','1',null)
+end
+else
+	insert into VsMenu (MenuCode,MenuICode,MenuPCode,MenuName,MenuEnd,MenuFormName,MenuLib,MenuSysCenter,MenuVisible,MenuImgIndex)
+	values('50009','09','500','&9.病案示踪','1','TfrmTracer','100029','1','1',null)	
+	
+				
 			
 if  exists(select * from VsMidOper where MidOperCode ='5001')
 begin
