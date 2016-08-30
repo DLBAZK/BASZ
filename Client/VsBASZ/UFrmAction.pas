@@ -13,12 +13,10 @@ uses
   AdvPanel, AdvAppStyler, AdvToolBar, AdvToolBarStylers, AdvOfficeStatusBar,
   AdvOfficeStatusBarStylers, ExtCtrls, DBGridEhGrouping, AdvSplitter, GridsEh,
   DBGridEh, StdCtrls, AdvGroupBox, AdvGlowButton, AdvFontCombo, SUIEdit,
-  ComCtrls, AdvDateTimePicker,StrUtils,USZVar, AdvEdit, AdvPageControl,TypInfo;
+  ComCtrls, AdvDateTimePicker,StrUtils,USZVar, AdvEdit, AdvPageControl,TypInfo,UGVar;
 
 
-  type
-    //动作操作类型    aoCheckIn 签入   aoCheckOut 签出    aoRevoke 撤销
-    TActionOperation=(aoCheckIn,aoCheckOut,aoRevoke);
+
 
  const
   //接收病案
@@ -28,8 +26,7 @@ uses
          +' ^3^ THEN ^已签出^ END) StateDesc,* FROM SZBADetail a LEFT JOIN SZActionCon b'
       +' ON a.ActionDM=b.DM where IsCancel=0 and '
       +' a.ActionDM=^%0:s^ %1:s';
-  //流转动作状态描述
-  OperationDesc :array [TActionOperation] of string =('签入','签出','撤销');
+
 type
 
 
@@ -193,7 +190,7 @@ var
   frmActionCheckB: TfrmActionCheckB;
 
 implementation
-  uses UGFun,UGVar,UCommon,UGShare,UMidProxy,UPublic,UFrmRptReclaim,UFrmRptCheck;
+  uses UGFun,UCommon,UGShare,UMidProxy,UPublic,UFrmRptReclaim,UFrmRptCheck;
 {$R *.dfm}
 
 { TFrmSuiDBForm1 }
@@ -311,6 +308,7 @@ begin
     end;
   end;
   SetGridDataSource;
+
 end;
 
 procedure TfrmActionCheckB.btnMoreClick(Sender: TObject);
@@ -581,6 +579,7 @@ begin
   else if FActionOperation = aoRevoke then
    GetBAData(condition,clientdtRevoke);
   SetGridDataSource;
+
 end;
 
 procedure TfrmActionCheckB.edtChiefDoctorKeyPress(Sender: TObject;
@@ -714,7 +713,7 @@ end;
 procedure TfrmActionCheckB.GetPriorActionDM;
 const
   SQLtext='SELECT * FROM SZActionCon WHERE PriorityNum =(SELECT PriorityNum-1'
-     +' FROM dbo.SZActionCon WHERE ActionDicDM=^%s^)';
+     +' FROM SZActionCon WHERE DM=^%s^)';
 var
  clienttmp:TClientDataSet;
 begin
@@ -722,7 +721,7 @@ begin
   begin
     clienttmp := TClientDataSet.Create(nil);
     AutoFree(clienttmp);
-    TMidProxy.SqlOpen(Format(SQLtext,[FActionDicDM]),clienttmp);
+    TMidProxy.SqlOpen(Format(SQLtext,[FActionDM]),clienttmp);
     if not clienttmp.IsEmpty then
     begin
       PriorActionDM := clienttmp.FieldByName('DM').AsString;
@@ -737,6 +736,8 @@ var
  rptCheck:TfrmRptCheck;
  headerCaption:string;
 begin
+  if ActionListNum ='' then Exit;
+  
   if FActionDicDM='101' then
     headerCaption := '病 案 接 收 单'
   else if FActionDicDM='105' then

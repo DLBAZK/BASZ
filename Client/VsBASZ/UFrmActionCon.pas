@@ -59,6 +59,7 @@ procedure TfrmActionCon.acInsExecute(Sender: TObject);
 var
   frmAction:TfrmActionDic;
   clienttmp:TClientDataSet;
+  dicDM:string;
 begin
   SetSbSimpleText('');
   inherited;
@@ -80,8 +81,16 @@ begin
           Exit;
         end;
       end;
+      dicDM := frmAction.actionDM;
+
       dlcds.Edit;
-      dlcds.FieldByName('ActionDicDM').AsString := frmAction.actionDM;
+      dlcds.FieldByName('ActionDicDM').AsString :=dicDM;
+      //控制接收和上架的代码
+      if dicDM ='101' then
+        DLCDS.FieldByName('dm').AsString := '1111'
+      else if dicDM ='105' then
+        DLCDS.FieldByName('dm').AsString := '9999';
+      
     end
     else
     begin

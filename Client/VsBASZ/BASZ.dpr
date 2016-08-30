@@ -35,12 +35,6 @@ uses
   URptReclaim in 'URptReclaim.pas' {RptYSGZYLB: TQuickRep},
   UFrmAction in 'UFrmAction.pas' {frmActionCheckB},
   UPublic in 'UPublic.pas',
-  UFrmZKCheckIn in 'UFrmZKCheckIn.pas' {frmzkCheckIn},
-  UFrmZKCheckOut in 'UFrmZKCheckOut.pas' {frmZKCheckOut},
-  UFrmCatalogue in 'UFrmCatalogue.pas' {frmFrmCatalogue},
-  UFrmCatalOut in 'UFrmCatalOut.pas' {frmCatalOut},
-  UFrmBoundIn in 'UFrmBoundIn.pas' {frmBoundIn},
-  UFrmBoundOut in 'UFrmBoundOut.pas' {frmBoundOut},
   UFrmRevokeB in 'UFrmRevokeB.pas' {frmRevokeB},
   USZVar in 'USZVar.pas',
   UFrmZKRevoke in 'UFrmZKRevoke.pas' {frmZKRevoke},
@@ -53,7 +47,8 @@ uses
   URptCheck in 'URptCheck.pas' {RptCheck: TQuickRep},
   UFrmRep in 'UFrmRep.pas' {FrmRep},
   UFrmRptReclaim in 'UFrmRptReclaim.pas' {frmRptReclaim},
-  UFrmRptCheck in 'UFrmRptCheck.pas' {frmRptCheck};
+  UFrmRptCheck in 'UFrmRptCheck.pas' {frmRptCheck},
+  UFrmTracer in 'UFrmTracer.pas' {frmTracer};
 
 {$R *.res}
  Function DllObjFactory(MainInfo:TMainInfo;FormClass:String):TFormClass;

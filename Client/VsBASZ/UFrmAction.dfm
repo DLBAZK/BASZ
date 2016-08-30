@@ -1,18 +1,18 @@
 inherited frmActionCheckB: TfrmActionCheckB
   BorderStyle = bsSingle
   Caption = #27969#36716#31614#20837#31614#20986
-  ClientHeight = 739
+  ClientHeight = 651
   ClientWidth = 1018
   Position = poScreenCenter
   OnCreate = FormCreate
   ExplicitWidth = 1024
-  ExplicitHeight = 768
+  ExplicitHeight = 680
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
-    Top = 720
+    Top = 632
     Width = 1018
-    ExplicitTop = 720
+    ExplicitTop = 632
     ExplicitWidth = 1018
   end
   inherited advtlbrpgr1: TAdvToolBarPager
@@ -27,9 +27,9 @@ inherited frmActionCheckB: TfrmActionCheckB
   end
   inherited AdvPanel1: TAdvPanel
     Width = 1018
-    Height = 695
+    Height = 607
     ExplicitWidth = 1018
-    ExplicitHeight = 695
+    ExplicitHeight = 607
     FullHeight = 200
     object advpnlTop: TAdvPanel
       Left = 0
@@ -375,7 +375,7 @@ inherited frmActionCheckB: TfrmActionCheckB
         Top = 0
         Width = 503
         Height = 147
-        ActivePage = advtbsht1
+        ActivePage = advtbsht2
         ActiveFont.Charset = DEFAULT_CHARSET
         ActiveFont.Color = clWindowText
         ActiveFont.Height = -11
@@ -395,6 +395,10 @@ inherited frmActionCheckB: TfrmActionCheckB
           ColorTo = 14986888
           TabColor = clBtnFace
           TabColorTo = clNone
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object advgrpcheck: TAdvGroupBox
             Left = 0
             Top = 0
@@ -759,6 +763,10 @@ inherited frmActionCheckB: TfrmActionCheckB
           ColorTo = 14986888
           TabColor = clBtnFace
           TabColorTo = clNone
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object advgrp2: TAdvGroupBox
             Left = 0
             Top = 0
@@ -804,9 +812,9 @@ inherited frmActionCheckB: TfrmActionCheckB
               Style = csDropDownList
             end
             object btnRevoke: TAdvGlowButton
-              Left = 178
+              Left = 221
               Top = 85
-              Width = 100
+              Width = 80
               Height = 33
               Caption = #25764#38144
               NotesFont.Charset = DEFAULT_CHARSET
@@ -896,9 +904,9 @@ inherited frmActionCheckB: TfrmActionCheckB
               Appearance.ColorMirrorDisabledTo = 15921906
             end
             object btnacClose1: TAdvGlowButton
-              Left = 300
+              Left = 343
               Top = 85
-              Width = 100
+              Width = 80
               Height = 33
               Hint = #36864#20986
               Caption = #36864#20986
@@ -1049,7 +1057,7 @@ inherited frmActionCheckB: TfrmActionCheckB
       Left = 0
       Top = 147
       Width = 1018
-      Height = 548
+      Height = 460
       Align = alClient
       BevelOuter = bvNone
       Color = 16640730
@@ -1094,7 +1102,7 @@ inherited frmActionCheckB: TfrmActionCheckB
         Left = 0
         Top = 0
         Width = 1018
-        Height = 548
+        Height = 460
         ActivePage = advtbshtCheckIn
         ActiveFont.Charset = DEFAULT_CHARSET
         ActiveFont.Color = clWindowText
@@ -1124,7 +1132,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             Left = 0
             Top = 0
             Width = 518
-            Height = 520
+            Height = 432
             Align = alLeft
             BevelOuter = bvNone
             Color = 16640730
@@ -1169,7 +1177,7 @@ inherited frmActionCheckB: TfrmActionCheckB
               Left = 0
               Top = 0
               Width = 518
-              Height = 520
+              Height = 432
               BorderStyle = bsNone
               Align = alClient
               TabOrder = 0
@@ -1177,8 +1185,9 @@ inherited frmActionCheckB: TfrmActionCheckB
                 Left = 2
                 Top = 3
                 Width = 514
-                Height = 515
+                Height = 427
                 Align = alClient
+                AutoFitColWidths = True
                 DataGrouping.GroupLevels = <>
                 DataSource = ds1
                 Flat = True
@@ -1189,7 +1198,7 @@ inherited frmActionCheckB: TfrmActionCheckB
                 FooterFont.Name = 'Tahoma'
                 FooterFont.Style = []
                 Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-                OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghAutoFitRowHeight]
+                OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghDblClickOptimizeColWidth, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove, dghAutoFitRowHeight]
                 RowDetailPanel.Color = clBtnFace
                 TabOrder = 0
                 TitleFont.Charset = DEFAULT_CHARSET
@@ -1199,22 +1208,30 @@ inherited frmActionCheckB: TfrmActionCheckB
                 TitleFont.Style = []
                 Columns = <
                   item
-                    AutoFitColWidth = False
                     EditButtons = <>
                     FieldName = 'ZYNumber'
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #20303#38498#21495
+                    Title.Font.Charset = ANSI_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                     Width = 79
                   end
                   item
-                    AutoFitColWidth = False
                     BiDiMode = bdLeftToRight
                     EditButtons = <>
                     FieldName = 'Name'
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #22995#21517
+                    Title.Font.Charset = GB2312_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                   end
                   item
                     EditButtons = <>
@@ -1222,6 +1239,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #20986#38498#26085#26399
+                    Title.Font.Charset = GB2312_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                     Width = 80
                   end
                   item
@@ -1230,6 +1252,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #20986#38498#31185#21035
+                    Title.Font.Charset = GB2312_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                     Width = 73
                   end
                   item
@@ -1238,6 +1265,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #20027#31649#21307#24072
+                    Title.Font.Charset = GB2312_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                     Width = 82
                   end>
                 object RowDetailData: TRowDetailPanelControlEh
@@ -1249,7 +1281,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             Left = 518
             Top = 0
             Width = 53
-            Height = 520
+            Height = 432
             Align = alLeft
             BevelOuter = bvNone
             Color = 16640730
@@ -1661,7 +1693,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             Left = 571
             Top = 0
             Width = 439
-            Height = 520
+            Height = 432
             BorderStyle = bsNone
             Align = alClient
             TabOrder = 2
@@ -1669,8 +1701,9 @@ inherited frmActionCheckB: TfrmActionCheckB
               Left = 2
               Top = 3
               Width = 435
-              Height = 515
+              Height = 427
               Align = alClient
+              AutoFitColWidths = True
               DataGrouping.GroupLevels = <>
               DataSource = dsright
               Flat = True
@@ -1682,6 +1715,7 @@ inherited frmActionCheckB: TfrmActionCheckB
               FooterFont.Style = []
               Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
               OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove]
+              ReadOnly = True
               RowDetailPanel.Color = clBtnFace
               TabOrder = 0
               TitleFont.Charset = DEFAULT_CHARSET
@@ -1691,29 +1725,41 @@ inherited frmActionCheckB: TfrmActionCheckB
               TitleFont.Style = []
               Columns = <
                 item
-                  AutoFitColWidth = False
                   EditButtons = <>
                   FieldName = 'ZYNumber'
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20303#38498#21495
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                   Width = 88
                 end
                 item
-                  AutoFitColWidth = False
                   EditButtons = <>
                   FieldName = 'Name'
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #22995#21517
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                 end
                 item
-                  AutoFitColWidth = False
                   EditButtons = <>
                   FieldName = 'CYRQ'
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20986#38498#26085#26399
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                   Width = 75
                 end
                 item
@@ -1723,15 +1769,24 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20986#38498#31185#21035
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                   Width = 94
                 end
                 item
-                  AutoFitColWidth = False
                   EditButtons = <>
                   FieldName = 'ChiefDoctor'
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20027#31649#21307#24072
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                 end>
               object RowDetailData: TRowDetailPanelControlEh
               end
@@ -1748,7 +1803,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             Left = 0
             Top = 0
             Width = 518
-            Height = 520
+            Height = 432
             Align = alLeft
             BevelOuter = bvNone
             Color = 16640730
@@ -1793,7 +1848,7 @@ inherited frmActionCheckB: TfrmActionCheckB
               Left = 0
               Top = 0
               Width = 518
-              Height = 520
+              Height = 432
               BorderStyle = bsNone
               Align = alClient
               TabOrder = 0
@@ -1801,8 +1856,9 @@ inherited frmActionCheckB: TfrmActionCheckB
                 Left = 2
                 Top = 3
                 Width = 514
-                Height = 515
+                Height = 427
                 Align = alClient
+                AutoFitColWidths = True
                 DataGrouping.GroupLevels = <>
                 DataSource = dsOutLeft
                 Flat = True
@@ -1829,6 +1885,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #20303#38498#21495
+                    Title.Font.Charset = ANSI_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                     Width = 79
                   end
                   item
@@ -1839,6 +1900,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #22995#21517
+                    Title.Font.Charset = ANSI_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                   end
                   item
                     EditButtons = <>
@@ -1846,6 +1912,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #20986#38498#26085#26399
+                    Title.Font.Charset = ANSI_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                     Width = 80
                   end
                   item
@@ -1854,6 +1925,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #20986#38498#31185#21035
+                    Title.Font.Charset = ANSI_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                     Width = 73
                   end
                   item
@@ -1862,6 +1938,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                     Footers = <>
                     Title.Alignment = taCenter
                     Title.Caption = #20027#31649#21307#24072
+                    Title.Font.Charset = ANSI_CHARSET
+                    Title.Font.Color = clWindowText
+                    Title.Font.Height = -13
+                    Title.Font.Name = #24494#36719#38597#40657
+                    Title.Font.Style = []
                     Width = 82
                   end>
                 object RowDetailData: TRowDetailPanelControlEh
@@ -1873,7 +1954,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             Left = 518
             Top = 0
             Width = 53
-            Height = 520
+            Height = 432
             Align = alLeft
             BevelOuter = bvNone
             Color = 16640730
@@ -2285,7 +2366,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             Left = 571
             Top = 0
             Width = 439
-            Height = 520
+            Height = 432
             BorderStyle = bsNone
             Align = alClient
             TabOrder = 2
@@ -2293,8 +2374,9 @@ inherited frmActionCheckB: TfrmActionCheckB
               Left = 2
               Top = 3
               Width = 435
-              Height = 515
+              Height = 427
               Align = alClient
+              AutoFitColWidths = True
               DataGrouping.GroupLevels = <>
               DataSource = dsOutRight
               Flat = True
@@ -2321,6 +2403,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20303#38498#21495
+                  Title.Font.Charset = ANSI_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                   Width = 57
                 end
                 item
@@ -2330,6 +2417,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #22995#21517
+                  Title.Font.Charset = ANSI_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                 end
                 item
                   AutoFitColWidth = False
@@ -2338,6 +2430,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20986#38498#26085#26399
+                  Title.Font.Charset = ANSI_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                 end
                 item
                   AutoFitColWidth = False
@@ -2346,6 +2443,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20986#38498#31185#21035
+                  Title.Font.Charset = ANSI_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                 end
                 item
                   AutoFitColWidth = False
@@ -2354,6 +2456,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20027#31649#21307#24072
+                  Title.Font.Charset = ANSI_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                 end>
               object RowDetailData: TRowDetailPanelControlEh
               end
@@ -2366,11 +2473,15 @@ inherited frmActionCheckB: TfrmActionCheckB
           ColorTo = clNone
           TabColor = 16640730
           TabColorTo = 14986888
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object advgrp3: TAdvGroupBox
             Left = 0
             Top = 0
             Width = 1010
-            Height = 520
+            Height = 432
             Align = alClient
             Caption = #24453#25764#38144#21015#34920
             TabOrder = 0
@@ -2378,7 +2489,7 @@ inherited frmActionCheckB: TfrmActionCheckB
               Left = 2
               Top = 16
               Width = 1006
-              Height = 502
+              Height = 414
               Align = alClient
               DataGrouping.GroupLevels = <>
               DataSource = dsRevoke
@@ -2406,6 +2517,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20303#38498#21495
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                   Width = 79
                 end
                 item
@@ -2416,6 +2532,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #22995#21517
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                 end
                 item
                   EditButtons = <>
@@ -2423,6 +2544,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20986#38498#26085#26399
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                   Width = 80
                 end
                 item
@@ -2431,6 +2557,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20986#38498#31185#21035
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                   Width = 73
                 end
                 item
@@ -2439,6 +2570,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   Footers = <>
                   Title.Alignment = taCenter
                   Title.Caption = #20027#31649#21307#24072
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                   Width = 82
                 end
                 item
@@ -2448,6 +2584,11 @@ inherited frmActionCheckB: TfrmActionCheckB
                   TextEditing = False
                   Title.Alignment = taCenter
                   Title.Caption = #29366#24577
+                  Title.Font.Charset = GB2312_CHARSET
+                  Title.Font.Color = clWindowText
+                  Title.Font.Height = -13
+                  Title.Font.Name = #24494#36719#38597#40657
+                  Title.Font.Style = []
                 end>
               object RowDetailData: TRowDetailPanelControlEh
               end

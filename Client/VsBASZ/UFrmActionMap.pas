@@ -21,6 +21,10 @@ type
     PriorityNum:Integer;//优先级
     ActionMC:string;//名称
     ActionDicDM:string;//指定的动作代码
+    ActionBtn:TAdvGlowButton; //按钮
+    ActionPic:TAdvPicture;  /// 方向箭头图片
+    PositionX:Integer; //X坐标
+    PositionY:Integer; //Y坐标
   end;
   TfrmActionMap = class(TFrmSuiDBForm)
     ilAction: TImageList;
@@ -98,14 +102,20 @@ begin
 end;
 
 procedure TfrmActionMap.FormCreate(Sender: TObject);
+var
+ col:string;
 begin
   inherited;
-  //默认分3栏显示
-  LayoutCol :=3;
   ActionList := TList.Create;
   controllist := TStringList.Create;
   //读取方向箭头图片
   direcImg :=ReadIniFileSit(G_MainInfo.MainDir+CClientCfgFileName,'BASZ','direcImg');
+  //读取动作按钮每行的数量
+  col :=ReadIniFileSit(G_MainInfo.MainDir+CClientCfgFileName,'BASZ','Col');
+  if col='' then
+    LayoutCol :=3
+  else
+    LayoutCol :=StrToInt(col);
   if direcImg='' then
     direcImg :='direcImg.gif';
   //获取配置的工作
@@ -118,11 +128,22 @@ var
   i:Integer;
   actionObj:PActionObj;
   strleft:string;
-  procedure Repaint(const obj:PActionObj;isend:Boolean=False);
+  /// <summary>
+  /// 创建动作按钮
+  /// </summary>
+  /// <param name="obj">动作记录体</param>
+  /// <param name="num">动作序号</param>
+  /// <param name="isend">是否显示最后一个箭头</param>
+  procedure Repaint(var obj:PActionObj;num:Integer;isend:Boolean=False);
+   const
+     Space=30; //按钮和箭头的间距
   var
     btnAction:TAdvGlowButton;
     PicAction:TAdvPicture;
     controlLeft:string;
+    i:Integer;
+    LX,LY:Integer;  // X、Y图标
+    ObjTemp:PActionObj;
   begin
    //动作按钮
     btnAction := TAdvGlowButton.Create(AdvPanel1);
@@ -131,48 +152,136 @@ var
     btnAction.ParentFont :=False;
     btnAction.Height := 80;
     btnAction.Width :=80;
-    btnAction.Top :=  100;
     btnAction.Layout := AdvGlowButton.blGlyphTop;
     btnAction.Font.Name := '微软雅黑';
     btnAction.Font.Size := 18;
     btnAction.Images := ilAction;
     btnAction.OnClick := BtnOnClick;
     btnAction.Visible :=True;
-    if Assigned(obj) then
+    if not isend then
     begin
-      btnAction.Caption := obj^.ActionMC;
-      btnAction.Hint := obj^.ActionMC;
-      btnAction.Name := Format('btn%d',[obj^.PriorityNum]);
-      btnAction.Tag := obj^.PriorityNum;
-      btnAction.ImageIndex :=StrToInt(rightstr(obj^.ActionDicDM,1))-1;
-      controlLeft := controllist.Values[Format('pic%d',[obj^.PriorityNum-1])];
-      if controlLeft<>'' then
+      if Assigned(obj) then
       begin
-        btnAction.Left := StrToInt(controlLeft)+62;
-      end
-      else
-      begin
-        btnAction.Left := 30;
-      end;
-      controllist.Add(Format('%s=%d',[btnAction.Name,btnAction.Left]));
-//      if not isend then
-//      begin
-        //方向箭头
+        btnAction.Caption := obj^.ActionMC;
+        btnAction.Hint := obj^.ActionMC;
+        btnAction.Name := Format('btn%d',[obj^.PriorityNum]);
+        btnAction.Tag := obj^.PriorityNum;
+        btnAction.ImageIndex :=StrToInt(rightstr(obj^.ActionDicDM,1))-1;
+
+        //创建方向
         PicAction:=TAdvPicture.Create(AdvPanel1);
         PicAction.Parent :=AdvPanel1;
         PicAction.Picture.LoadFromFile(G_MainInfo.MainDir+direcImg);
         PicAction.AutoSize :=True;
         PicAction.PicturePosition :=AdvPicture.bpTopLeft;
         PicAction.Name := Format('pic%d',[obj^.PriorityNum]);
-        PicAction.Top :=btnAction.Top+btnaction.Height div 4;
-        controlLeft := controllist.Values[Format('btn%d',[obj^.PriorityNum])];
-        if controlLeft<>'' then
-        begin
-          PicAction.Left :=StrToInt(controlLeft)+130;
-        end;
-        controllist.Add(Format('%s=%d',[PicAction.Name,PicAction.Left]));
         PicAction.Visible :=true;
-//      end;
+        //X坐标
+        LX :=num div LayoutCol;
+        //Y坐标
+        LY := num mod LayoutCol;
+        //第一个按钮
+        if (LX=0) and (LY=0) then
+        begin
+          btnAction.Left := 100;
+          btnAction.Top := 100;
+          PicAction.Left := btnAction.Left+btnaction.Width+Space;
+          PicAction.Top :=btnAction.Top+btnaction.Height div 4;
+        end
+        //其他按钮
+        else
+        begin
+          for I := 0 to ActionList.Count - 1 do
+          begin
+            ObjTemp := PActionObj(ActionList[i]);
+            if ObjTemp^.ActionDM<> Obj^.ActionDM then
+            begin
+              ///奇偶行 按钮布局方向
+
+              if LX mod 2 = 0 then //偶行
+              begin
+                if LY <>0 then
+                begin
+                  //前一个按钮
+                  if (ObjTemp^.PositionX = LX) and (ObjTemp^.PositionY = LY-1) then
+                  begin
+                    btnAction.Left := ObjTemp^.ActionPic.Left + ObjTemp^.ActionPic.Width+Space;
+                    btnAction.Top := ObjTemp^.ActionBtn.Top ;
+                  end
+                  else
+                    Continue;
+                end
+                else
+                begin
+                  //上一个按钮
+                  if  (ObjTemp^.PositionX = LX-1) and (ObjTemp^.PositionY =LayoutCol-1 ) then
+                  begin
+                    btnAction.Left := ObjTemp^.ActionBtn.Left;
+                    btnAction.Top := objtemp^.ActionPic.Top +objtemp^.ActionPic.Height+10;
+                  end
+                  else
+                    Continue;
+                end;
+                if LY<> LayoutCol-1 then
+                begin
+                  PicAction.Top := btnAction.Top+btnaction.Height div 4;
+                  PicAction.Left := btnAction.Left +btnAction.Width +30;
+
+                end
+                else
+                begin
+                  PicAction.Left := btnAction.Left+btnaction.Width div 4;
+                  PicAction.Top := btnAction.Height +btnAction.Top +Space;
+                  PicAction.Picture.LoadFromFile(G_MainInfo.MainDir+'arrow_down.gif');                  
+                end;
+
+              end
+              else  //奇行
+              begin
+                 //放到最后一个
+                if LY=0 then
+                begin
+                  if (ObjTemp^.PositionX = LX-1) and (ObjTemp^.PositionY =LY+LayoutCol-1) then
+                  begin
+                    btnAction.Left := ObjTemp^.ActionBtn.Left;
+                    btnAction.Top := objtemp^.ActionPic.Top +objtemp^.ActionPic.Height+10;
+                  end
+                  else
+                    Continue;
+                end
+                else
+                begin
+                  if (ObjTemp^.PositionX=LX) and (ObjTemp^.PositionY=LY-1) then
+                  begin
+                    btnAction.Left := ObjTemp^.ActionPic.Left - btnAction.Width-Space;
+                    btnAction.Top := ObjTemp^.ActionBtn.Top ;
+                  end
+                  else
+                    Continue;
+                end;
+                if LY<> LayoutCol-1 then
+                begin
+                  PicAction.Top := btnAction.Top+btnaction.Height div 4;
+                  PicAction.Left := btnAction.Left - PicAction.Width -Space;
+                  PicAction.Picture.LoadFromFile(G_MainInfo.MainDir+'arrow_left.gif');
+                end
+                else
+                begin
+                  PicAction.Left := btnAction.Left+btnaction.Width div 4;
+                  PicAction.Top := btnAction.Height +btnAction.Top +Space;
+                  PicAction.Picture.LoadFromFile(G_MainInfo.MainDir+'arrow_down.gif');
+                end;
+              end;
+              Break;
+            end;
+          end;
+        end;
+        obj^.PositionX :=LX;
+        obj^.PositionY := LY;
+        //保存按钮
+        obj^.ActionBtn := btnAction;
+        obj^.ActionPic := PicAction;
+      end
     end
     else //退出按钮
     begin
@@ -181,11 +290,33 @@ var
       btnAction.Name :='btnClose';
       btnAction.Tag := 99;
       btnAction.ImageIndex :=ilAction.Count-1;
-      controlLeft := controllist.Values[Format('pic%d',[ActionList.Count])];
-      if controlLeft<>'' then
+      ObjTemp:=PActionObj(ActionList.Last);
+      if ObjTemp^.PositionX mod 2= 0 then
       begin
-        btnAction.Left := StrToInt(controlLeft)+62;
+        if ObjTemp^.PositionY <> LayoutCol -1 then
+        begin
+          btnAction.Top := objtemp^.ActionBtn.Top;
+          btnAction.Left := objtemp^.ActionPic.Left+objtemp^.ActionPic.Width+Space;
+        end
+        else
+        begin
+          btnAction.Top := objtemp^.ActionPic.Top+objtemp^.ActionPic.Height+Space;
+          btnAction.Left := objtemp^.ActionBtn.Left;
+        end;
       end
+      else
+      begin
+        if ObjTemp^.PositionY <> LayoutCol -1 then
+        begin
+          btnAction.Top := objtemp^.ActionBtn.Top;
+          btnAction.Left := objtemp^.ActionPic.Left-btnaction.Width-Space;
+        end
+        else
+        begin
+          btnAction.Top := objtemp^.ActionPic.Top+objtemp^.ActionPic.Height+Space;
+          btnAction.Left := objtemp^.ActionBtn.Left;
+        end;
+      end;
     end;
   end;
 
@@ -193,12 +324,9 @@ begin
   for I := 0 to ActionList.Count - 1 do
   begin
     actionObj := PActionObj(ActionList[i]);
-    if i+1 < ActionList.Count then
-      Repaint(actionObj)
-    else
-      Repaint(actionObj,True);
+    Repaint(actionObj,I);
   end;
-  Repaint(nil,true)  
+  Repaint(actionObj,0,True);
 end;
 
 procedure TfrmActionMap.GetAction;
