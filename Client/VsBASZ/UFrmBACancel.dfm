@@ -1,24 +1,24 @@
 inherited frmBACancel: TfrmBACancel
   Caption = #30149#26696#27880#38144
   ClientHeight = 596
-  ClientWidth = 869
+  ClientWidth = 1020
   OnCreate = FormCreate
-  ExplicitWidth = 885
+  ExplicitWidth = 1036
   ExplicitHeight = 635
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
     Top = 577
-    Width = 869
+    Width = 1020
     ExplicitTop = 577
     ExplicitWidth = 869
   end
   inherited advtlbrpgr1: TAdvToolBarPager
-    Width = 869
+    Width = 1020
     ExplicitWidth = 869
     inherited AdvPage1: TAdvPage
-      Width = 861
-      ExplicitWidth = 861
+      Width = 1012
+      ExplicitWidth = 1012
       inherited advtlbr1: TAdvToolBar
         inherited btnacIns: TAdvGlowButton
           Visible = False
@@ -39,14 +39,14 @@ inherited frmBACancel: TfrmBACancel
     end
   end
   inherited AdvPanel1: TAdvPanel
-    Width = 869
+    Width = 1020
     Height = 485
     ExplicitWidth = 869
     ExplicitHeight = 485
     FullHeight = 200
     inherited dbgrdh_DLCDS: TDBGridEh
       Top = 121
-      Width = 869
+      Width = 1020
       Height = 364
       OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghEnterAsTab, dghRowHighlight, dghDialogFind, dghShowRecNo, dghColumnResize, dghColumnMove]
       Columns = <
@@ -150,13 +150,14 @@ inherited frmBACancel: TfrmBACancel
     object advgrp1: TAdvGroupBox
       Left = 0
       Top = 0
-      Width = 869
+      Width = 1020
       Height = 121
       BorderColor = clBlue
       CaptionPosition = cpTopCenter
       Align = alTop
       Caption = #31579#36873#26465#20214
       TabOrder = 1
+      ExplicitWidth = 869
       object lbl2: TLabel
         Left = 173
         Top = 32
@@ -279,7 +280,7 @@ inherited frmBACancel: TfrmBACancel
       end
       object btnSel: TAdvGlowButton
         Left = 750
-        Top = 26
+        Top = 73
         Width = 100
         Height = 33
         Caption = #26126#32454#26597#35810
@@ -346,7 +347,7 @@ inherited frmBACancel: TfrmBACancel
       end
       object btnMore: TAdvGlowButton
         Left = 750
-        Top = 78
+        Top = 27
         Width = 100
         Height = 33
         Caption = #26356#22810#26465#20214

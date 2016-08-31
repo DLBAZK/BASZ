@@ -187,8 +187,8 @@ inherited frmActionCheckB: TfrmActionCheckB
           LabelFont.Style = []
         end
         object btnMore: TAdvGlowButton
-          Left = 405
-          Top = 98
+          Left = 397
+          Top = 55
           Width = 100
           Height = 33
           Caption = #26356#22810#26465#20214
@@ -239,8 +239,8 @@ inherited frmActionCheckB: TfrmActionCheckB
           Appearance.ColorMirrorDisabledTo = 15921906
         end
         object btnSel: TAdvGlowButton
-          Left = 405
-          Top = 34
+          Left = 397
+          Top = 108
           Width = 100
           Height = 33
           Caption = #26126#32454#26597#35810
@@ -395,10 +395,6 @@ inherited frmActionCheckB: TfrmActionCheckB
           ColorTo = 14986888
           TabColor = clBtnFace
           TabColorTo = clNone
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object advgrpcheck: TAdvGroupBox
             Left = 0
             Top = 0
@@ -412,8 +408,8 @@ inherited frmActionCheckB: TfrmActionCheckB
             ParentBiDiMode = False
             TabOrder = 0
             object lblCarraier: TLabel
-              Left = 181
-              Top = 2
+              Left = 193
+              Top = 24
               Width = 36
               Height = 13
               Caption = #36816#36865#20154
@@ -422,8 +418,8 @@ inherited frmActionCheckB: TfrmActionCheckB
               Visible = False
             end
             object lblSendee: TLabel
-              Left = 181
-              Top = 32
+              Left = 341
+              Top = 24
               Width = 36
               Height = 13
               Caption = #25509#25910#20154
@@ -432,8 +428,8 @@ inherited frmActionCheckB: TfrmActionCheckB
               Visible = False
             end
             object lblSJNumber: TLabel
-              Left = 181
-              Top = 57
+              Left = 193
+              Top = 53
               Width = 36
               Height = 13
               Caption = #19978#26550#21495
@@ -443,7 +439,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             end
             object btnSaveList: TAdvGlowButton
               Left = 193
-              Top = 74
+              Top = 88
               Width = 80
               Height = 33
               Caption = #31614#20837
@@ -513,7 +509,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             end
             object btnPrint: TAdvGlowButton
               Left = 299
-              Top = 74
+              Top = 88
               Width = 80
               Height = 33
               Caption = #25171#21360
@@ -578,7 +574,7 @@ inherited frmActionCheckB: TfrmActionCheckB
             end
             object btnacClose: TAdvGlowButton
               Left = 405
-              Top = 74
+              Top = 88
               Width = 80
               Height = 33
               Hint = #36864#20986
@@ -723,9 +719,9 @@ inherited frmActionCheckB: TfrmActionCheckB
               end
             end
             object edtcarrier: TsuiEdit
-              Left = 232
-              Top = 0
-              Width = 121
+              Left = 239
+              Top = 22
+              Width = 80
               Height = 19
               UIStyle = WinXP
               BorderColor = 6842472
@@ -734,9 +730,9 @@ inherited frmActionCheckB: TfrmActionCheckB
               OnKeyPress = edtChiefDoctorKeyPress
             end
             object edtsendee: TsuiEdit
-              Left = 232
-              Top = 26
-              Width = 121
+              Left = 392
+              Top = 22
+              Width = 80
               Height = 19
               UIStyle = WinXP
               BorderColor = 6842472
@@ -745,9 +741,9 @@ inherited frmActionCheckB: TfrmActionCheckB
               OnKeyPress = edtChiefDoctorKeyPress
             end
             object edtSJNumber: TsuiEdit
-              Left = 232
-              Top = 51
-              Width = 121
+              Left = 239
+              Top = 47
+              Width = 138
               Height = 19
               UIStyle = WinXP
               BorderColor = 6842472
@@ -763,10 +759,6 @@ inherited frmActionCheckB: TfrmActionCheckB
           ColorTo = 14986888
           TabColor = clBtnFace
           TabColorTo = clNone
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object advgrp2: TAdvGroupBox
             Left = 0
             Top = 0
@@ -2473,10 +2465,6 @@ inherited frmActionCheckB: TfrmActionCheckB
           ColorTo = clNone
           TabColor = 16640730
           TabColorTo = 14986888
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object advgrp3: TAdvGroupBox
             Left = 0
             Top = 0

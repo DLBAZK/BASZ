@@ -26,6 +26,7 @@ type
     procedure acInsExecute(Sender: TObject);
     procedure dbgrdh_DLCDSColumns4UpdateData(Sender: TObject; var Text: string;
       var Value: Variant; var UseText, Handled: Boolean);
+    procedure acSaveExecute(Sender: TObject);
   private
     { Private declarations }
 
@@ -106,6 +107,39 @@ begin
 
 end;
 
+procedure TfrmActionCon.acSaveExecute(Sender: TObject);
+var
+  recNum:Integer;
+begin
+  //确保接收和上架动作是第一个和最后一个
+  with DLCDS do
+  begin
+    DisableControls;
+    try
+      if Locate('ActionDicDM','101',[loCaseInsensitive,loPartialKey]) then
+      begin
+        if RecNo <>1 then
+        begin
+          ShowMsgSure('第一个动作应该是接收');
+          Exit;
+        end;
+      end;
+      if Locate('ActionDicDM','105',[loCaseInsensitive,loPartialKey]) then
+      begin
+        if RecNo <>RecordCount then
+        begin
+          ShowMsgSure('最后一个动作应该是上架');
+          Exit;
+        end;
+      end;
+    finally
+      EnableControls;
+    end;
+  end;
+  inherited;
+
+end;
+
 procedure TfrmActionCon.actDownExecute(Sender: TObject);
 begin
   inherited;
@@ -164,11 +198,13 @@ begin
       //当前动作代码
       DM :=  FieldByName('DM').AsString;
       Dicdm :=FieldByName('ActionDicdm').AsString;
-      if (Dicdm ='101') or (Dicdm ='105')  then
+      if ((Dicdm ='101') and (RecNo=1)) or
+         ((Dicdm ='105') and (RecNo=RecordCount))  then
       begin
         ShowMsgSure('当前动作不能移动');
         Exit;
       end;
+
       //已使用的动作不能修改
       if ExistsRecord(Format(sql,[dm])) then
       begin
@@ -192,7 +228,9 @@ begin
       end;
       //保证第一个动作和最后一个动作必须是接收和上架
       Dicdm := FieldByName('ActionDicdm').AsString;
-      if (Dicdm <>'101') and (Dicdm <>'105') then
+      if ((Dicdm <>'101') and (Dicdm <>'105'))
+         or ((Dicdm ='101') and (RecNo<>1))
+         or ((Dicdm ='105') and (RecNo<>RecordCount)) then
       begin
          //上一步或下一步的优先级
         PriorityNum := FieldByName('prioritynum').AsInteger ;
@@ -217,7 +255,7 @@ end;
 
 constructor TfrmActionCon.Create(Aowner: TComponent);
 const
-  SQL = 'SELECT  * FROM SZActionCon ORDER BY PriorityNum ';
+  SQL = 'SELECT * FROM SZActionCon ORDER BY PriorityNum';
 begin
   inherited Create(Aowner,EuSZActionCon,SQL);
 

@@ -2,7 +2,6 @@ inherited frmActionCon: TfrmActionCon
   Caption = #27969#36716#21160#20316#33258#23450#20041#37197#32622
   ClientWidth = 959
   ExplicitWidth = 975
-  ExplicitHeight = 434
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar

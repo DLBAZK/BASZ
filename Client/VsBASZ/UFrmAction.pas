@@ -124,6 +124,7 @@ type
     procedure btnacCloseClick(Sender: TObject);
     procedure btnacClose1Click(Sender: TObject);
     procedure edtChiefDoctorKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     //字典库的动作代码
@@ -242,6 +243,8 @@ begin
     begin
       if not clientdtright.Active then
         GetBAData('1<>1',clientdtright,False);
+
+      btnSaveList.Caption := '签入';
     end
     else
     begin
@@ -252,8 +255,8 @@ begin
       begin
         lblSJNumber.Visible :=true;
         edtSJNumber.Visible :=true;
-        lblSJNumber.Top := lblSendee.Top;
-        edtSJNumber.Top := edtsendee.Top;
+//        lblSJNumber.Top := lbl7.Top;
+//        edtSJNumber.Top := edtName.Top;
         btnSaveList.Caption :='上架';
       end;
     end;
@@ -628,6 +631,17 @@ begin
   
   TMidProxy.SqlOpen(SQLtext,clientdtRight);
   SetGridDataSource;
+  //加载撤销原因
+  FillCombobox('select * from szsjzd where TYBZ=0 and dm<>0 and dmkind =^CXYY^',cbbReason);
+end;
+
+procedure TfrmActionCheckB.FormShow(Sender: TObject);
+begin
+  inherited;
+  btnSaveList.Top := btnSel.Top-advpgcntrl1.TabHeight;
+  btnPrint.Top := btnSel.Top-advpgcntrl1.TabHeight;
+  btnacClose.Top := btnSel.Top-advpgcntrl1.TabHeight;
+  
 end;
 
 procedure TfrmActionCheckB.GetBAByBarcode(const barcode: string;

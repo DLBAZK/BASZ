@@ -7,6 +7,17 @@ inherited frmActionMap: TfrmActionMap
   ExplicitHeight = 671
   PixelsPerInch = 96
   TextHeight = 13
+  object advpctr1: TAdvPicture [0]
+    Left = 472
+    Top = 288
+    Width = 100
+    Height = 100
+    Animate = False
+    Picture.Stretch = False
+    Picture.Frame = 0
+    PicturePosition = bpTopLeft
+    Version = '1.4.2.1'
+  end
   inherited advfcstsbr: TAdvOfficeStatusBar
     Top = 613
     Width = 1025
@@ -26,6 +37,7 @@ inherited frmActionMap: TfrmActionMap
   inherited AdvPanel1: TAdvPanel
     Width = 1025
     Height = 588
+    PopupMenu = advpmn1
     ExplicitWidth = 1025
     ExplicitHeight = 588
     FullHeight = 200
@@ -37,6 +49,10 @@ inherited frmActionMap: TfrmActionMap
   inherited al1: TActionList
     Left = 112
     Top = 349
+    object actDesign: TAction
+      Caption = #35774#35745
+      ShortCut = 113
+    end
   end
   inherited ds1: TDataSource
     Left = 80
@@ -48,7 +64,7 @@ inherited frmActionMap: TfrmActionMap
     Left = 152
     Top = 352
     Bitmap = {
-      494C0101060008001C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101060008002C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1110,5 +1126,63 @@ inherited frmActionMap: TfrmActionMap
       FFFFFFFFFFFFFFFFFFFFFFFFFFE007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  object advpmnbtn: TAdvPopupMenu
+    Version = '2.5.4.0'
+    Left = 224
+    Top = 312
+    object mniFont: TMenuItem
+      Caption = #23383#20307'&F'
+      OnClick = mniFontClick
+    end
+    object mniN3: TMenuItem
+      Caption = #26356#25442#22270#26631'&O'
+      OnClick = mniN3Click
+    end
+  end
+  object dlgFont1: TFontDialog
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Left = 192
+    Top = 344
+  end
+  object advpmn1: TAdvPopupMenu
+    Version = '2.5.4.0'
+    Left = 240
+    Top = 344
+    object mniN1: TMenuItem
+      Caption = #35774#35745'&D'
+      OnClick = mniN1Click
+    end
+    object mniN2: TMenuItem
+      Caption = #36816#34892'&R'
+      OnClick = mniN2Click
+    end
+  end
+  object dlgOpenPicbtn: TOpenPictureDialog
+    Left = 288
+    Top = 296
+  end
+  object advpmndirec: TAdvPopupMenu
+    Version = '2.5.4.0'
+    Left = 192
+    Top = 376
+    object mnidirecLeft: TMenuItem
+      Caption = #24038
+      OnClick = mnidirecdownClick
+    end
+    object mnidirecright: TMenuItem
+      Tag = 1
+      Caption = #21491
+      OnClick = mnidirecdownClick
+    end
+    object mnidirecdown: TMenuItem
+      Tag = 2
+      Caption = #19979
+      OnClick = mnidirecdownClick
+    end
   end
 end

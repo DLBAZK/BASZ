@@ -79,7 +79,7 @@ inherited frmTracer: TfrmTracer
         Width = 36
         Height = 13
         Caption = #20303#38498#21495
-        Color = 14986888
+        Color = 16640730
         ParentColor = False
       end
       object lbl7: TLabel
@@ -88,7 +88,7 @@ inherited frmTracer: TfrmTracer
         Width = 48
         Height = 13
         Caption = #30149#20154#22995#21517
-        Color = 14986888
+        Color = 16640730
         ParentColor = False
       end
       object lbl1: TLabel
