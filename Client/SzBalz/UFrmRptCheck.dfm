@@ -1,10 +1,12 @@
-inherited frmRptReclaim: TfrmRptReclaim
+inherited frmRptCheck: TfrmRptCheck
   BorderStyle = bsSingle
   Caption = #25253#34920#39044#35272
   ClientHeight = 568
   ClientWidth = 935
   Position = poScreenCenter
   WindowState = wsMaximized
+  ExplicitWidth = 320
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
@@ -18,7 +20,9 @@ inherited frmRptReclaim: TfrmRptReclaim
     ExplicitWidth = 935
     inherited AdvPage1: TAdvPage
       Width = 927
+      Height = -33
       ExplicitWidth = 927
+      ExplicitHeight = -33
     end
   end
   inherited AdvPanel1: TAdvPanel
