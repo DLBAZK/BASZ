@@ -375,7 +375,7 @@ inherited frmActionCheckB: TfrmActionCheckB
         Top = 0
         Width = 503
         Height = 147
-        ActivePage = advtbsht2
+        ActivePage = advtbsht1
         ActiveFont.Charset = DEFAULT_CHARSET
         ActiveFont.Color = clWindowText
         ActiveFont.Height = -11

@@ -5,25 +5,35 @@ inherited frmRptCheck: TfrmRptCheck
   ClientWidth = 935
   Position = poScreenCenter
   WindowState = wsMaximized
+  ExplicitWidth = 320
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   inherited advfcstsbr: TAdvOfficeStatusBar
     Top = 549
     Width = 935
+    ExplicitTop = 549
+    ExplicitWidth = 935
   end
   inherited advtlbrpgr1: TAdvToolBarPager
     Width = 935
+    ExplicitWidth = 935
     inherited AdvPage1: TAdvPage
       Width = 927
+      Height = -33
       ExplicitWidth = 927
+      ExplicitHeight = -33
     end
   end
   inherited AdvPanel1: TAdvPanel
     Width = 935
     Height = 524
+    ExplicitWidth = 935
+    ExplicitHeight = 524
     FullHeight = 200
     inherited AdvPanel2: TAdvPanel
       Width = 935
+      ExplicitWidth = 935
       FullHeight = 38
       inherited advtlbr1: TAdvToolBar
         inherited btnPreview: TAdvGlowButton
@@ -34,6 +44,8 @@ inherited frmRptCheck: TfrmRptCheck
     inherited aopRep: TAdvOfficePager
       Width = 935
       Height = 486
+      ExplicitWidth = 935
+      ExplicitHeight = 486
       NextPictureChanged = False
       PrevPictureChanged = False
     end
