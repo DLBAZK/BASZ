@@ -27,9 +27,10 @@ type
     procedure dbgrdh_DLCDSColumns4UpdateData(Sender: TObject; var Text: string;
       var Value: Variant; var UseText, Handled: Boolean);
     procedure acSaveExecute(Sender: TObject);
+    procedure acDelExecute(Sender: TObject);
   private
     { Private declarations }
-
+    IsDelete:Boolean;
     /// <summary>
     /// 设置动作的执行顺序
     /// </summary>
@@ -43,6 +44,7 @@ type
     /// </summary>
     Procedure CheckData;override;
   end;
+  
 
 var
   frmActionCon: TfrmActionCon;
@@ -53,8 +55,29 @@ implementation
 
 { TfrmActionCon }
 
+  const
+   SQL = 'SELECT * FROM SZActionCon ORDER BY PriorityNum';
 
-{ TfrmActionCon }
+procedure TfrmActionCon.acDelExecute(Sender: TObject);
+const
+ sql ='SELECT * FROM SZActionRecord WHERE ActionDM=^%s^ ';
+ updateSql ='UPDATE SZActionCon SET PriorityNum = PriorityNum-1 WHERE PriorityNum > %d';
+ var
+   dm:string;
+   clienttmp:TClientDataSet;
+begin
+  clienttmp := TClientDataSet.Create(nil);
+  AutoFree(clienttmp);
+  dm := DLCDS.FieldByName('dm').AsString;
+  TMidProxy.SqlOpen(Format(sql,[dm]),clienttmp);
+  if clienttmp.RecordCount >0 then
+  begin
+    ShowMsgSure('动作已投入使用，不能删除,可以停用!');
+    Exit;
+  end;
+  inherited;
+  IsDelete := True;
+end;
 
 procedure TfrmActionCon.acInsExecute(Sender: TObject);
 var
@@ -137,7 +160,12 @@ begin
     end;
   end;
   inherited;
-
+  if  IsDelete and (DLCDS.ReconcileErrorCount=0) then
+  begin
+    //重新查询
+   DLCDS.Mid_Open(sql); 
+  end;
+  
 end;
 
 procedure TfrmActionCon.actDownExecute(Sender: TObject);
@@ -254,8 +282,6 @@ begin
 end;
 
 constructor TfrmActionCon.Create(Aowner: TComponent);
-const
-  SQL = 'SELECT * FROM SZActionCon ORDER BY PriorityNum';
 begin
   inherited Create(Aowner,EuSZActionCon,SQL);
 

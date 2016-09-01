@@ -17,7 +17,7 @@ uses
   StdCtrls, ExtDlgs,XMLIntf,XMLDoc,UGVar;
 
   const
-    SelSql='SELECT * FROM SZActionCon WHERE bz =0';
+    SelSql='SELECT * FROM SZActionCon WHERE bz =0 ORDER BY PriorityNum';
     layoutXML='Layout.xml';  //布局xml
     ReSizeSpace= 5;         //动作按钮设计大小边界
 type
@@ -324,7 +324,8 @@ var
         //创建方向
         PicAction:=TAdvPicture.Create(AdvPanel1);
         PicAction.Parent :=AdvPanel1;
-        PicAction.Picture.LoadFromFile(G_MainInfo.MainDir+direcImg);
+        obj^.DirecImgFile:=G_MainInfo.MainDir+direcImg;
+        PicAction.Picture.LoadFromFile(obj^.DirecImgFile);
         PicAction.AutoSize :=True;
         PicAction.PicturePosition :=AdvPicture.bpTopLeft;
         PicAction.Name := Format('pic%d',[obj^.PriorityNum]);
@@ -386,8 +387,8 @@ var
                 begin
                   PicAction.Left := btnAction.Left+btnaction.Width div 4;
                   PicAction.Top := btnAction.Height +btnAction.Top +Space;
-                  ObjTemp^.DirecImgFile := G_MainInfo.MainDir+'arrow_down.gif';
-                  PicAction.Picture.LoadFromFile(ObjTemp^.DirecImgFile );
+                  obj^.DirecImgFile := G_MainInfo.MainDir+'arrow_down.gif';
+                  PicAction.Picture.LoadFromFile(obj^.DirecImgFile );
                 end;
 
               end
@@ -418,15 +419,15 @@ var
                 begin
                   PicAction.Top := btnAction.Top+btnaction.Height div 4;
                   PicAction.Left := btnAction.Left - PicAction.Width -Space;
-                  ObjTemp^.DirecImgFile  :=G_MainInfo.MainDir+'arrow_left.gif';
-                  PicAction.Picture.LoadFromFile(ObjTemp^.DirecImgFile);
+                  obj^.DirecImgFile  :=G_MainInfo.MainDir+'arrow_left.gif';
+                  PicAction.Picture.LoadFromFile(obj^.DirecImgFile);
                 end
                 else
                 begin
                   PicAction.Left := btnAction.Left+btnaction.Width div 4;
                   PicAction.Top := btnAction.Height +btnAction.Top +Space;
-                  ObjTemp^.DirecImgFile :=G_MainInfo.MainDir+'arrow_down.gif';
-                  PicAction.Picture.LoadFromFile(ObjTemp^.DirecImgFile);
+                  obj^.DirecImgFile :=G_MainInfo.MainDir+'arrow_down.gif';
+                  PicAction.Picture.LoadFromFile(obj^.DirecImgFile);
                 end;
               end;
               Break;
@@ -525,12 +526,18 @@ end;
 
 
 procedure TfrmActionMap.mniFontClick(Sender: TObject);
+var
+  tmpbtn:TAdvGlowButton;
 begin
   inherited;
+  tmpbtn := (advpmnbtn.PopupComponent as TAdvGlowButton);
+  dlgFont1.Font.Name := tmpbtn.Font.Name;
+  dlgFont1.Font.Size := tmpbtn.Font.Size;
+  dlgFont1.Font.Color := tmpbtn.Font.Color;
   if dlgFont1.Execute then
   begin
-    (advpmnbtn.PopupComponent as TAdvGlowButton).Font := dlgFont1.Font;
-    (advpmnbtn.PopupComponent as TAdvGlowButton).Font.Size := dlgFont1.Font.Size;
+    tmpbtn.Font := dlgFont1.Font;
+    tmpbtn.Font.Size := dlgFont1.Font.Size;
   end;
 end;
 
@@ -666,6 +673,7 @@ begin
     tmpbtn.Top := btnnode.Attributes['Top'];
     tmpbtn.Height := btnnode.Attributes['Height'];
     tmpbtn.Width := btnnode.Attributes['Width'];
+    tmpbtn.Font.Color :=btnnode.Attributes['Color'];
     if btnnode.Attributes['ImageFile']<>'' then
       tmpbtn.Picture.LoadFromFile(btnnode.Attributes['ImageFile'])
     else
@@ -767,7 +775,7 @@ begin
     node.Attributes['ImageIndex'] := tmpbtn.ImageIndex;
     node.Attributes['ImageFile'] := obj^.BtnImgFile;
     node.Attributes['Tag'] := tmpbtn.Tag;
-
+    node.Attributes['Color'] := tmpbtn.Font.Color;
     //保存图片信息
     tmpImg := TAdvPicture(obj^.ActionPic);
     node := rootNode.ChildNodes[1].AddChild('Image') ;
@@ -795,6 +803,7 @@ begin
     node.Attributes['ImageIndex'] := tmpbtn.ImageIndex;
     node.Attributes['ImageFile'] := closeImg;
     node.Attributes['Tag'] := tmpbtn.Tag;
+    node.Attributes['Color'] := tmpbtn.Font.Color;
   end;
   xmlFile.SaveToFile(G_MainInfo.MainDir+layoutXML);
   xmlFile.Free;

@@ -15,6 +15,9 @@ interface
      constructor Create;override;
      Procedure MyBefoUpdate(Sender: TObject; SourceDS: TDataSet;
                            DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind; var Applied: Boolean);override;
+     procedure MyAfterUpdate(Sender: TObject; SourceDS: TDataSet;
+                            DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);override;
+     Procedure MyAfterApplyUpdates(Sender: TObject; var OwnerData: OleVariant); override;
    end;
 implementation
   uses UMidProxy;
@@ -27,16 +30,41 @@ begin
   TableName:='SZActionCon';
 end;
 
+procedure TSZActionCon.MyAfterApplyUpdates(Sender: TObject;
+  var OwnerData: OleVariant);
+begin
+  inherited;
+end;
+
+procedure TSZActionCon.MyAfterUpdate(Sender: TObject; SourceDS: TDataSet;
+  DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+const
+   updateSql ='UPDATE SZActionCon SET PriorityNum = PriorityNum-1 WHERE PriorityNum > %s';
+var
+ prioritynum:string;
+begin
+  inherited;
+  if UpdateKind= ukDelete then
+  begin
+    prioritynum :=  VarToStr(GetFieldValue(DeltaDS.FieldByName('PriorityNum'))) ;
+    self.ExecuteBy(Format(updateSql,[prioritynum]));
+  end;
+
+end;
+
 procedure TSZActionCon.MyBefoUpdate(Sender: TObject; SourceDS: TDataSet;
   DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind; var Applied: Boolean);
 const
  sql ='SELECT * FROM SZActionRecord WHERE ActionDM=^%s^ ';
+
 var
  olddm:string;
  dicDM:string;
+
 begin
   inherited;
   //判断动作代码和标准动作是否可以修改
+  olddm :=  DeltaDS.FieldByName('dm').OldValue;
   if UpdateKind = ukModify then
   begin
     if DeltaDS.FieldByName('dm').NewValue <> Unassigned then
@@ -51,9 +79,8 @@ begin
         raise Exception.Create('该动作已被使用，不能修改代码');
       end;
     end;
-
   end;
-  
+
 end;
 
 initialization
